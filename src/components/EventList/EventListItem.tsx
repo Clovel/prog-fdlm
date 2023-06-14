@@ -113,6 +113,7 @@ const EventListItem: React.FC<EventListItemProps> = (
             undefined
         }
         disablePadding
+        divider={divider && !open}
       >
         <ListItemButton
           {...listItemButtonProps}
