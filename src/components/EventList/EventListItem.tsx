@@ -50,32 +50,32 @@ const EventListItem: React.FC<EventListItemProps> = (
 ) => {
   const [ open, setOpen ] = useState<boolean>(false);
 
-  const listItemButtonProps = useMemo<React.ComponentProps<typeof ListItemButton>>(
-    () => {
-      if(
-        event.links !== undefined &&
-        event.links.length > 0
-      ) {
-        return {
-          LinkComponent: MuiLink,
-          href: event.links[0],
-          underline: 'never',
-          target: '_blank',
-          rel: 'noopener noreferrer',
-        };
-      } else {
-        return {
-          // disabled: true,
-          // style: {
-          //   opacity: 1, /* Don't change the style of disabled events just because they don't have links */
-          // },
-        };
-      }
-    },
-    [
-      event.links,
-    ],
-  );
+  // const listItemButtonProps = useMemo<React.ComponentProps<typeof ListItemButton>>(
+  //   () => {
+  //     if(
+  //       event.links !== undefined &&
+  //       event.links.length > 0
+  //     ) {
+  //       return {
+  //         LinkComponent: MuiLink,
+  //         href: event.links[0],
+  //         underline: 'never',
+  //         target: '_blank',
+  //         rel: 'noopener noreferrer',
+  //       };
+  //     } else {
+  //       return {
+  //         // disabled: true,
+  //         // style: {
+  //         //   opacity: 1, /* Don't change the style of disabled events just because they don't have links */
+  //         // },
+  //       };
+  //     }
+  //   },
+  //   [
+  //     event.links,
+  //   ],
+  // );
 
   const collapsiblePresent: boolean = useMemo<boolean>(
     () => {
@@ -86,7 +86,7 @@ const EventListItem: React.FC<EventListItemProps> = (
     ]
   );
 
-  const onExpandClicked: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+  const onExpandClicked: React.MouseEventHandler<HTMLElement> = (event) => {
     event.stopPropagation();
 
     setOpen(!open);
@@ -116,7 +116,12 @@ const EventListItem: React.FC<EventListItemProps> = (
         divider={divider && !open}
       >
         <ListItemButton
-          {...listItemButtonProps}
+          // {...listItemButtonProps}
+          onClick={
+            collapsiblePresent ?
+              onExpandClicked :
+              undefined
+          }
         >
           <ListItemText
             primary={
@@ -193,26 +198,57 @@ const EventListItem: React.FC<EventListItemProps> = (
             unmountOnExit
           >
             <ListItem divider={divider}>
-              {
-                event.description !== undefined &&
-                  <article>
-                    <Typography
-                      variant="h6"
-                      color="text.secondary"
-                    >
-                      Description de l'événement :
-                    </Typography>
-                    <br />
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                    >
-                      <span className={descriptionSpan}>
+              <div className={`flex flex-col ${descriptionSpan}`}>
+                {
+                  event.description !== undefined &&
+                    <article>
+                      <Typography
+                        variant="h6"
+                        color="text.secondary"
+                      >
+                        Description de l'événement :
+                      </Typography>
+                      <br />
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                      >
                         {event.description}
-                      </span>
-                    </Typography>
-                  </article>
-              }
+                      </Typography>
+                    </article>
+                }
+                {
+                  event.links !== undefined &&
+                  event.links.length > 0 &&
+                    <p>
+
+                      <Typography
+                        variant="h6"
+                        color="text.secondary"
+                      >
+                        Liens :
+                      </Typography>
+                      <ul>
+                        {
+                          event.links.map(
+                            (link, index) => (
+                              <li key={`${link}-${index}`}>
+                                <MuiLink
+                                  href={link}
+                                  underline="none"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {link}
+                                </MuiLink>
+                              </li>
+                            ),
+                          )
+                        }
+                      </ul>
+                    </p>
+                }
+              </div>
             </ListItem>
           </Collapse>
       }
