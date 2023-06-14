@@ -191,10 +191,10 @@ module.exports = {
       'error',
       'unix',
     ],
-    'init-declarations': [
-      'error',
-      'always',
-    ],
+    // 'init-declarations': [
+    //   'warn',
+    //   'always',
+    // ],
     'prefer-template': [
       'error',
     ],
