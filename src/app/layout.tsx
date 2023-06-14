@@ -51,7 +51,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
       </head>
       <ThemeRegistry>
         <body className="flex flex-col min-h-screen">
-          <header className="flex-0 z-10 w-screen items-center justify-between font-mono text-sm flex flex-col lg:flex-row lg:px-24 lg:py-8">
+          <header className="flex-0 z-10 w-full items-center justify-between font-mono text-sm flex flex-col lg:flex-row lg:px-24 lg:py-8">
             <p className="left-0 top-0 w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 p-2 lg:dark:bg-zinc-800/30">
               Liste des événements de la fête de la musique à Bordeaux
             </p>
