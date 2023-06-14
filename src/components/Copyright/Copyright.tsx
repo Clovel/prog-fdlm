@@ -22,7 +22,7 @@ const Copyright: React.FC = () => {
       >
         Clovis Durand
       </MuiLink>
-      {' '}
+      {', Copyright '}
       {new Date().getFullYear()}
       .
     </Typography>
