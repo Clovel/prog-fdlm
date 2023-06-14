@@ -126,7 +126,7 @@ export const events: Event[] = [
   {
     id: '4',
     name: 'Concert Ricochet Sonore',
-    category: 'Chartons',
+    category: 'Chartrons',
     location: {
       name: 'Le Jardin de ta Soeur',
       addressStr: 'Rue de la Motte Picquet, Bordeaux',
