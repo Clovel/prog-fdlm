@@ -5,7 +5,7 @@ import type { Location } from './Location';
 /* Event interface declaration ------------------------- */
 export interface Event {
   id: string;
-  name: string;
+  name?: string;
   description?: React.ReactNode;
   category?: string;
   genres?: string[];

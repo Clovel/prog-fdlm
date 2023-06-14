@@ -123,7 +123,7 @@ const EventListItem: React.FC<EventListItemProps> = (
                 variant="subtitle1"
               >
                 <span className="font-bold">
-                  {event.name}
+                  {event.name ?? event.location.name}
                 </span>
               </Typography>
             }
@@ -135,9 +135,12 @@ const EventListItem: React.FC<EventListItemProps> = (
                   variant="body2"
                   color="text.primary"
                 >
-                  <span className="font-semibold">
-                    {event.location.name}
-                  </span>
+                  {
+                    event.name !== undefined &&
+                      <span className="font-semibold">
+                        {event.location.name}
+                      </span>
+                  }
                   {
                     event.location.addressStr !== undefined &&
                       <>
