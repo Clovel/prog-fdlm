@@ -5,6 +5,7 @@ import React, {
 } from 'react';
 
 /* Module imports -------------------------------------- */
+import { css } from '@emotion/css';
 import { formatPrice } from 'helpers/formatPrice';
 
 /* Component imports ----------------------------------- */
@@ -23,6 +24,16 @@ import EventTime from './EventTime';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
+
+/* Styling --------------------------------------------- */
+const descriptionSpan = css`
+  & ul {
+    list-style: inside;
+  };
+  & p {
+    padding-bottom: 0.5rem;
+  };
+`;
 
 /* EventListItem component prop types ------------------ */
 interface EventListItemProps {
@@ -190,7 +201,9 @@ const EventListItem: React.FC<EventListItemProps> = (
                       variant="body2"
                       color="text.secondary"
                     >
-                      {event.description}
+                      <span className={descriptionSpan}>
+                        {event.description}
+                      </span>
                     </Typography>
                   </article>
               }
