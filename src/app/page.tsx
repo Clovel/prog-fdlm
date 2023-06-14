@@ -7,6 +7,7 @@ import React from 'react';
 import { events } from 'fixtures/events';
 
 /* Component imports ----------------------------------- */
+import Image from 'next/image';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import EventList from '../components/EventList/EventList';
@@ -42,7 +43,10 @@ const HomePage: React.FC<HomePageProps> = () => {
                     key={`${categoryTitle}-${index}`}
                     className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0"
                   >
-                    <Typography variant="h3">
+                    <Typography
+                      variant="h4"
+                      className="py-4"
+                    >
                       {categoryTitle}
                     </Typography>
                     <EventList events={categoryEntry[1]} />
@@ -56,6 +60,21 @@ const HomePage: React.FC<HomePageProps> = () => {
             },
           )
       }
+      <section className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0">
+        <Typography
+          variant="h4"
+          className="pb-4"
+        >
+          Cartes des événements
+        </Typography>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="inline"
+          src="https://agendaculturel.emstorage.fr/fete-de-la-musique-a-bordeaux-2023-20230608161506.jpg"
+          alt="Carte de l'agenda culturel de Bordeaux"
+          // width={800}
+        />
+      </section>
     </div>
   );
 };
