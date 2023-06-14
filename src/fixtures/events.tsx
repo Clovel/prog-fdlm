@@ -7,26 +7,20 @@ export const events: Event[] = [
     id: '1',
     name: 'Concert Open air Souyetek',
     category: 'St. Michel',
-    genres: [
-      'Techno',
-      'House',
-    ],
     location: {
       name: 'Quai Des Sports (face À La Porte De La Monnaie)',
       // addressStr: 'Quai Des Sports, Bordeaux, France',
     },
     startTime: new Date('2021-06-21T18:00:00+02:00'),
     endTime: new Date('2021-06-22T02:00:00+02:00'),
+    genres: [
+      'Techno',
+      'House',
+    ],
   },
   {
     id: '2',
     name: 'Concert au Garage Moderne',
-    genres: [
-      'Afro',
-      'Oriental',
-      'Asiatique',
-      'Electro',
-    ],
     startTime: new Date('2021-06-21T17:00:00+02:00'),
     location: {
       name: 'Le Garage Moderne',
@@ -34,6 +28,12 @@ export const events: Event[] = [
     },
     links: [
       'https://33.agendaculturel.fr/concert/bordeaux/la-fete-de-la-musique-au-garage-moderne.html',
+    ],
+    genres: [
+      'Afro',
+      'Oriental',
+      'Asiatique',
+      'Electro',
     ],
     description: (
       <p>
@@ -67,6 +67,58 @@ export const events: Event[] = [
           </li>
         </ul>
       </p>
+    ),
+  },
+  {
+    id: '3',
+    name: 'Bulle musicale au Musée des Beaux-Arts à Bordeaux',
+    location: {
+      name: 'Musée des Beaux-Arts',
+      addressStr: '20 Cours d\'Albret, Bordeaux',
+    },
+    startTime: new Date('2021-06-21T10:00:00+02:00'),
+    price: `5€ par enfant + entrée du musée pour les parents`,
+    genres: [
+      'Enfants',
+      'Découverte',
+    ],
+    description: (
+      <>
+        <p>
+          Spectacle à partir de 1 an.
+        </p>
+        <p>
+          Visite en musique pour les tout-petits !
+        </p>
+        <p>
+          Le musée et l'association Le Labo des cultures en partenariat avec la Krakatoa vous invite à une bulle musicale dans les collections.
+        </p>
+        <p>
+          Cette découverte des œuvres en musique et en douceur s'adresse aux bébés de 0 à 3 ans accompagnés de leurs parents.
+        </p>
+        <p>
+          Une autre session vous est proposée au Musée d'Aquitaine autour de leurs collections ce même jour à 16h, sur réservation : contacter le musée d'Aquitaine.
+        </p>
+        <p>
+          Site web :
+          <a
+            href="https://www.musba-bordeaux.fr/fr/evenement/bulle-musicale-visite-en-musique-pour-les-tout-petits"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            https://www.musba-bordeaux.fr/fr/evenement/bulle-musicale-visite-en-musique-pour-les-tout-petits
+          </a>
+        </p>
+        <p>
+          Infos réservation :
+        </p>
+        <p>
+          5€ par enfant + entrée du musée pour les parents.
+          <br />
+          Gratuit avec la Carte Jeune Bordeaux Métropole pour un enfant et un accompagnant.
+
+        </p>
+      </>
     ),
   },
 ];

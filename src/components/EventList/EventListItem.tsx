@@ -5,6 +5,7 @@ import React, {
 } from 'react';
 
 /* Module imports -------------------------------------- */
+import { formatPrice } from 'helpers/formatPrice';
 
 /* Component imports ----------------------------------- */
 import Typography from '@mui/material/Typography';
@@ -16,6 +17,7 @@ import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import EventTime from './EventTime';
 
 /* Style imports --------------------------------------- */
 
@@ -99,8 +101,11 @@ const EventListItem: React.FC<EventListItemProps> = (
             </IconButton> :
             undefined
         }
+        disablePadding
       >
-        <ListItemButton {...listItemButtonProps}>
+        <ListItemButton
+          {...listItemButtonProps}
+        >
           <ListItemText
             primary={
               <Typography
@@ -132,61 +137,35 @@ const EventListItem: React.FC<EventListItemProps> = (
                 </Typography>
                 {
                   event.genres !== undefined &&
-                event.genres.length > 0 &&
-                  <Typography>
-                    Genres :
-                    {' '}
-                    {event.genres.join(', ')}
-                  </Typography>
+                  event.genres.length > 0 &&
+                    <Typography>
+                      Genres :
+                      {' '}
+                      {event.genres.join(', ')}
+                    </Typography>
                 }
                 {
                   event.artists !== undefined &&
-                event.artists.length > 0 &&
-                  <Typography>
-                    Artistes :
-                    {' '}
-                    {event.artists.join(', ')}
-                  </Typography>
+                  event.artists.length > 0 &&
+                    <Typography>
+                      Artistes :
+                      {' '}
+                      {event.artists.join(', ')}
+                    </Typography>
+                }
+                {
+                  event.price !== undefined &&
+                    <Typography>
+                      {formatPrice(event.price)}
+                    </Typography>
                 }
               </React.Fragment>
             }
           />
-          <Typography
-            sx={{ display: 'inline' }}
-            component="span"
-            variant="body2"
-            color="text.primary"
-          >
-            {
-              event.endTime !== undefined ?
-                'De ' :
-                'À '
-            }
-            {
-              event.startTime.toLocaleTimeString(
-                'fr-FR',
-                {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                }
-              )
-            }
-            {
-              event.endTime !== undefined &&
-                <>
-                  {' à '}
-                  {
-                    event.endTime.toLocaleTimeString(
-                      'fr-FR',
-                      {
-                        hour: 'numeric',
-                        minute: '2-digit',
-                      }
-                    )
-                  }
-                </>
-            }
-          </Typography>
+          <EventTime
+            startTime={event.startTime}
+            endTime={event.endTime}
+          />
         </ListItemButton>
       </ListItem>
       {

@@ -13,7 +13,7 @@ export interface Event {
   location: Location;
   startTime: Date;
   endTime?: Date; /* Might be unknown, might be an all-nighter */
-  price?: number; /* Might be free */
+  price?: number | string; /* Might be free */
   artists?: string[];
 }
 
