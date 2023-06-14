@@ -22,6 +22,7 @@ export const events: Event[] = [
     id: '2',
     name: 'Concert au Garage Moderne',
     startTime: new Date('2021-06-21T17:00:00+02:00'),
+    category: 'Bassins à flot',
     location: {
       name: 'Le Garage Moderne',
       addressStr: '1 Rue Des Étrangers, Bordeaux',
@@ -72,6 +73,7 @@ export const events: Event[] = [
   {
     id: '3',
     name: 'Bulle musicale au Musée des Beaux-Arts à Bordeaux',
+    category: 'Centre ville',
     location: {
       name: 'Musée des Beaux-Arts',
       addressStr: '20 Cours d\'Albret, Bordeaux',
@@ -117,6 +119,380 @@ export const events: Event[] = [
           <br />
           Gratuit avec la Carte Jeune Bordeaux Métropole pour un enfant et un accompagnant.
 
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '4',
+    name: 'Concert Ricochet Sonore',
+    category: 'Chartons',
+    location: {
+      name: 'Le Jardin de ta Soeur',
+      addressStr: 'Rue de la Motte Picquet, Bordeaux',
+    },
+    startTime: new Date('2021-06-21T15:00:00+02:00'),
+    genres: [
+      'Enfants',
+      'Découverte',
+      'Ludique',
+    ],
+    description: (
+      <>
+        <p>
+          Cet après-midi divertissant et convivial rassemble une scène ouverte, une restitution d'ateliers musicaux, des animations ludiques dont l'équipe de Ricochet Sonore a le secret, et se clôture avec un concert du duo Kayola !
+        </p>
+        <p>
+          Rendez-vous est pris au Jardin de ta Soeur, du côté des Bassins à Flot, avec la dynamique association Ricochet Sonore.
+          {' '}
+        </p>
+        <p>
+          Au programme :
+          <ul>
+            <li>
+              15h : accueil en musique
+            </li>
+            <li>
+              15h30 : Spectacle Jeune Public : Yakuba
+            </li>
+            <li>
+              16h30 : Restitution + Scène ouverte
+            </li>
+            <li>
+              18h : Concert Duo Kayola
+            </li>
+          </ul>
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '5',
+    name: 'La saison des plaisirs',
+    category: 'Centre ville',
+    location: {
+      name: "Musée d'Aquitaine",
+      addressStr: '20 Cours Pasteur, Bordeaux',
+    },
+    startTime: new Date('2021-06-21T18:00:00+02:00'),
+    genres: [
+      'Historique',
+      'Théâtre musical',
+    ],
+    artists: [
+      'Nadine Gabard',
+      'Anne-Laure Menard',
+    ],
+    description: (
+      <>
+        <p>
+          Nadine Gabard, mezzo-soprano et Anne-Laure Menard, claveciniste, proposent un théâtre musical décalé, à l'occasion du tricentenaire de la naissance de Jean-François Marmontel (1723-1799), un auteur proche de Diderot et quelque peu oublié du siècle des Lumières. Les deuc artistes dépoussièrent les classiques et les font résonner avec notre actualité.
+        </p>
+
+        <p>
+          Avec la complicité de Magali Fourgnaud, maître de conférences en littérature.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '6',
+    name: 'La Sueur et la Maison Ô Fantasme',
+    category: 'Centre ville',
+    location: {
+      name: 'Musée des arts décoratifs et du design',
+      addressStr: '39 Rue Bouffard, Bordeaux',
+    },
+    startTime: new Date('2021-06-21T19:00:00+02:00'),
+    genres: [
+      'DJs sets',
+      'Drag',
+      'Danse',
+    ],
+    artists: [
+      'Meryl Street',
+      'Sevenbeatz',
+      'Marge',
+    ],
+    description: (
+      <>
+        <p>
+          La Sueur et la Maison Ô Fantasme reviennent plus bouillants que jamais pour embraser la cour de l'Hôtel de Lalande
+        </p>
+        <p>
+          Une nouvelle occasion de se rassembler pour lâcher prise, transpirer et resplendir ensemble. Mélangeons follement les genres, les corps, les identités, les inspirations musicales et entremêlons toutes les danses avec une seule envie : créer collectivement un espace de fête respectueuse et joyeuse où nous pouvons parader et briller sans complexes ni préjugés, danser à cœur ouvert et revendiquer avec fierté la liberté d'être qui nous voulons être.
+        </p>
+        <p>
+          <ul>
+            <li>
+              DJs : Meryl Street, Sevenbeatz, Marge
+            </li>
+            <li>
+              Shows Drag par la Maison Ô Fantasme
+            </li>
+            <li>
+              Shows de danse inédits par la Sueur
+            </li>
+            <li>
+              Dansons libres, soyons bienveillants et prenons soin les uns des autres
+            </li>
+          </ul>
+        </p>
+        <p>
+          A chaque édition, l'équipe de la Sueur travaillent pour nous améliorer encore et rendre ses rendez-vous toujours plus safe et bienveillants. L'équipe de sécurité sera sensibilisée, la team et les bénévoles seront visibles et à votre écoute à tout moment. N'hésitez pas à vous adresser à eux si vous ne vous sentez pas en sécurité ou si vous assistez à tout acte malveillant.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '7',
+    category: 'Centre ville',
+    location: {
+      name: 'Cours Mably',
+      addressStr: 'Cours Mably, Bordeaux',
+    },
+    startTime: new Date('2021-06-21T19:00:00+02:00'),
+    genres: [
+      'DJs sets',
+      'Electro',
+      'Techno',
+    ],
+    artists: [
+      'SUPER Daronne',
+      'tplt',
+    ],
+  },
+  {
+    id: '8',
+    name: 'Chantons et dansons comme les marins !',
+    category: 'Bassins à flots',
+    location: {
+      name: 'Musée Mer Marine',
+      addressStr: '89 Rue des Étrangers, Bordeaux',
+    },
+    startTime: new Date('2021-06-21T19:00:00+02:00'),
+    genres: [
+      'Chant',
+      'Danse',
+      'Folk',
+    ],
+    artists: [
+      'LNelly Quette',
+      'Collectif Le PAGE',
+    ],
+    description: "Sous l'impulsion de Nelly Quette, encyclopédie vivante des chants et des danses populaires, venez en famille chanter et danser comme des marins ! Aucune compétence requise : vous avez entre 7 et 77 ans, laissez-vous guider, évitez les talons aiguille et profitez-en : épaulée par les musiciens et danseurs du collectif le Page, Nelly Quette aura l'art de faire danser en rondes toutes les générations...",
+  },
+  {
+    id: '9',
+    category: 'Chartrons',
+    location: {
+      name: 'Salle Gouffrand',
+      addressStr: '23 rue Gouffrand, Bordeaux',
+    },
+    startTime: new Date('2021-06-21T19:00:00+02:00'),
+    endTime: new Date('2021-06-21T22:00:00+02:00'),
+    price: '6€ + chapeau',
+    genres: [
+      'Jazz caribéen',
+      'Biguine',
+      'Mazouk',
+      'Calses créoles',
+      'zouk',
+      'soul',
+      'pop',
+      'rock',
+      "R'nb",
+    ],
+    description: (
+      <>
+        <p>
+          Concert spécial fête de la musique 2023
+        </p>
+        <p>
+          <ul>
+            <li>
+              Sista et Mikka (soul, pop, rock et R'nb)
+            </li>
+            <li>
+              TDI, Twadisyons des iles (Jazz caraibeen, Biguine, Mazouk, calses créoles, zouk)
+            </li>
+          </ul>
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '10',
+    category: 'Bordeaux Sud',
+    location: {
+      name: 'Square Dom Bedos',
+      addressStr: 'Place Dorm Bedos, Bordeaux',
+    },
+    name: 'Allez les Filles et Bordeaux Rock',
+    startTime: new Date('2021-06-21T19:00:00+02:00'),
+    endTime: new Date('2021-06-22T01:00:00+02:00'),
+    genres: [
+      'Rock',
+      'Indie rock',
+      'Rock Psyché',
+      'Blues Stoner Rock',
+      'Indie Pop',
+    ],
+    artists: [
+      'The Damn Truth',
+      'Th Da Freak',
+      'Bilbao Kung-Fu',
+      'Blackbird Hill',
+      'Jach Ernest',
+    ],
+    description: (
+      <>
+        <p>
+          Cette année, Allez les Filles et Bordeaux Rock unissent leurs forces de nouveau afin de fêter la musique de façon très rock. La fête de la musique se tiendra comme l’année dernière au Square Dom Bedos et fera jouer 4 groupes locaux et un groupe Canadien.
+        </p>
+        <p>
+          Rendez-vous mercredi 21 juin dès 18h au Square Dom Bedos.
+          <ul>
+            <li>
+              Ouverture des portes à 18h.
+            </li>
+            <li>
+              Début des concerts à 19h.
+            </li>
+          </ul>
+        </p>
+        <p>
+          La programmation :
+          <ul>
+            <li>
+              The Damn Truth (Rock n Roll - Canada)
+            </li>
+            <li>
+              Th Da Freak (Indie rock - Bordeaux)
+            </li>
+            <li>
+              Bilbao Kung-Fu (Rock Psyché Français)
+            </li>
+            <li>
+              Blackbird Hill (Blues Stoner Rock - Angoulême)
+            </li>
+            <li>
+              Jach Ernest (Indie Pop - Bordeaux)
+            </li>
+          </ul>
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '11',
+    name: 'Wandem Sound System and Friends',
+    category: 'Rive droite',
+    location: {
+      name: 'Quai Deschamps',
+      // addressStr: 'Quai Deschamps, Bordeaux',
+    },
+    startTime: new Date('2021-06-21T19:00:00+02:00'),
+    genres: [
+      'Dub',
+      'Afro',
+    ],
+    description: (
+      <>
+        <p>
+          Wandem Sound System, organisateur des réjouissantes soirées Bordeaux Dub School, installe sa sono artisanale sur les bords de Garonne pour une chaude soirée musicale aux accents jamaïcains.
+        </p>
+
+        <p>
+          Avec leurs meilleurs vinyles, mais aussi des musiciens live, Wandem Sound System and Friends vous accueillent dans la meilleure ambiance pour une soirée hautement dansante.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '12',
+    name: 'Collectif Munera et Le Chaudron',
+    category: 'Rive droite',
+    location: {
+      name: 'Square Toussaint Louverture',
+    },
+    startTime: new Date('2021-06-21T19:00:00+02:00'),
+    genres: [
+      'Electro',
+      'DJs sets',
+    ],
+    artists: [
+      'Collectif Munera',
+      'Le Chaudron',
+    ],
+    description: (
+      <>
+        <p>
+          Venez fêter les musiques électroniques en bord de Garonne !
+        </p>
+        <p>
+          Le Collectif Munera et Le Chaudron mettent en scène la vaste palette sonore des musiques électroniques avec une programmation généreuse ouverte à un large public.
+        </p>
+        <p>
+          Le temps d'une soirée, le Square Toussaint l'Ouverture est transformé en lieu majeur de la fête éco-responsable avec des actions culturelles et solidaires accompagnées de DJ sets d'artistes locaux, ambiance festive assurée !
+        </p>
+        <p>
+          Buvette à petits prix (brasserie locale l'Effet Papillon)
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '13',
+    location: {
+      name: 'Place Saint Projet',
+    },
+    startTime: new Date('2021-06-21T19:30:00+02:00'),
+    endTime: new Date('2021-06-22T00:45:00+02:00'),
+    genres: [
+      'Rock',
+      'Punk',
+      'DJs sets',
+    ],
+    artists: [
+      'The Pleasure Dome',
+      'The Big Idea',
+      'Pretty Inside',
+      'WHYNOT',
+    ],
+    links: [
+      'https://33.agendaculturel.fr/concert/bordeaux/the-pleasure-dome-the-big-idea-et-pretty-inside.html',
+    ],
+    description: (
+      <>
+        <p>
+          WHYNOT présente
+        </p>
+        <p>
+          FÊTE DE LA MUSIQUE - PLACE SAINT-PROJET
+        </p>
+        <p>
+          Rendez-vous en plein centre-ville pour fêter le ROCK et nos 2 ans (déjà) ! Sensations fortes garanties avec une programmation LIVE des plus copieuses
+        </p>
+        <p>
+          Programme :
+          <ul>
+            <li>
+              20:00 : Pretty Inside (Garage Pop) [Bordeaux]
+            </li>
+            <li>
+              21:15 : The Big Idea (Garage Rock) [La Rochelle]
+            </li>
+            <li>
+              20:00 : The Pleasure Dome (Post Punk) [Bristol, UK]
+            </li>
+            <li>
+              23:30 : DJ SET Whynot
+            </li>
+          </ul>
+        </p>
+        <p>
+          AU BAR Bières fraîches + softs + food cooked by Deus Ex Machina
         </p>
       </>
     ),
