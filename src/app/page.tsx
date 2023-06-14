@@ -4,9 +4,13 @@
 import React from 'react';
 
 /* Module imports -------------------------------------- */
+import { events } from 'fixtures/events';
 
 /* Component imports ----------------------------------- */
-import Image from 'next/image';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import EventList from '../components/EventList/EventList';
+import { reduceEventsByCategory } from 'helpers/reduceEventsByCategory';
 
 /* Style imports --------------------------------------- */
 
@@ -26,7 +30,7 @@ const HomePage: React.FC<HomePageProps> = () => {
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
           <a
             className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+            href="https://github.com/Clovel"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -35,82 +39,35 @@ const HomePage: React.FC<HomePageProps> = () => {
         </div>
       </div>
 
-      <div className="relative flex place-items-center">
-        TOTO
-      </div>
+      <div className="relative flex flex-col place-items-center min-w-full">
+        {
+          Object.entries(
+            reduceEventsByCategory(events)
+          )
+            .map(
+              (categoryEntry, index, array) => {
+                const categoryTitle = categoryEntry[0];
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs
-            {' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn
-            {' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates
-            {' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy
-            {' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+                return (
+                  <>
+                    <section
+                      key={`${categoryTitle}-${index}`}
+                      className="w-full max-w-5xl px-4 py-8 mx-auto lg:px-0"
+                    >
+                      <Typography variant="h3">
+                        {categoryTitle}
+                      </Typography>
+                      <EventList events={categoryEntry[1]} />
+                    </section>
+                    {
+                      array.length - 1 !== index &&
+                        <Divider className="w-full" />
+                    }
+                  </>
+                );
+              },
+            )
+        }
       </div>
     </>
   );

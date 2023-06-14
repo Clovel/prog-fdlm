@@ -14,8 +14,11 @@ const defaultTheme = createTheme(
   {
     typography: {
       fontFamily: GoogleInterFont.style.fontFamily,
-      body1: { fontFamily: GoogleInterFont.style.fontFamily },
-      body2: { fontFamily: GoogleInterFont.style.fontFamily },
+      subtitle1: {
+        fontSize: '1.2rem',
+      },
+      // body1: { fontFamily: GoogleInterFont.style.fontFamily },
+      // body2: { fontFamily: GoogleInterFont.style.fontFamily },
     },
   },
   {} satisfies ThemeOptions,

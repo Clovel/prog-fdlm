@@ -17,6 +17,8 @@ const Copyright: React.FC = () => {
       <MuiLink
         color="inherit"
         href="https://github.com/Clovel"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         Clovis Durand
       </MuiLink>
