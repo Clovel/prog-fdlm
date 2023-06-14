@@ -444,6 +444,7 @@ export const events: Event[] = [
   },
   {
     id: '13',
+    category: 'Centre ville',
     location: {
       name: 'Place Saint Projet',
     },
@@ -495,6 +496,50 @@ export const events: Event[] = [
           AU BAR Bières fraîches + softs + food cooked by Deus Ex Machina
         </p>
       </>
+    ),
+  },
+  {
+    id: '14',
+    name: 'L\'Astrodøme et Musique d\'Apéritif',
+    category: 'Centre ville',
+    location: {
+      name: 'Place du Palais',
+    },
+    startTime: new Date('2021-06-21T19:30:00+02:00'),
+    endTime: new Date('2021-06-22T01:00:00+02:00'),
+    genres: [
+      'Indie Rock',
+      '80s',
+      'Pop',
+      'Rock Indie Garage',
+      'Electro',
+      'Electro New Beat',
+      'DJs sets',
+    ],
+    artists: [
+      'Sam Fleisch',
+      'Michelle et Les Garçons',
+      'Blvck Hippie',
+      'Musique d\'Apéritif',
+    ],
+    description: (
+      <p>
+        Programme :
+        <ul>
+          <li>
+            20:00 : Sam Fleisch (Indie Rock) [Bordeaux]
+          </li>
+          <li>
+            21:15 : Michelle et Les Garçons (80s Pop) [Angers]
+          </li>
+          <li>
+            22:15 : Blvck Hippie (Rock Indie Garage) [Memphis, USA]
+          </li>
+          <li>
+            23:30 : Musique d'Apéritif (Electro New Beat) [Biarritz]
+          </li>
+        </ul>
+      </p>
     ),
   },
 ];
