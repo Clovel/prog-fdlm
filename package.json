@@ -6,20 +6,45 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint-fix": "eslint . --fix --ext .js,.jsx,.ts,.tsx",
+    "tsc": "tsc",
+    "tsc:ci": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=18.0.0 <19.0.0",
+    "npm": "Use yarn instead"
   },
   "dependencies": {
-    "@types/node": "20.3.1",
-    "@types/react": "18.2.12",
-    "@types/react-dom": "18.2.5",
+    "@emotion/css": "^11.10.5",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.8",
     "autoprefixer": "10.4.14",
-    "eslint": "8.42.0",
-    "eslint-config-next": "13.4.5",
+    "formik": "^2.2.9",
+    "formik-mui": "^5.0.0-alpha.0",
     "next": "13.4.5",
     "postcss": "8.4.24",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tailwindcss": "3.3.2",
+    "tailwindcss": "3.3.2"
+  },
+  "devDependencies": {
+    "@spence1115/eslint-plugin-modules-newlines": "^1.0.1",
+    "@types/node": "20.3.1",
+    "@types/react": "18.2.12",
+    "@types/react-dom": "18.2.5",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "eslint": "8.42.0",
+    "eslint-config-next": "13.4.5",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^16.0.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "typescript": "5.1.3"
   }
 }
