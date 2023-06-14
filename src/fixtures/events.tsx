@@ -542,4 +542,102 @@ export const events: Event[] = [
       </p>
     ),
   },
+  {
+    id: '15',
+    name: 'BACO MUSIC',
+    category: 'Centre ville',
+    location: {
+      name: 'Place Fernand Lafargue',
+    },
+    startTime: new Date('2021-06-21T20:00:00+02:00'),
+    endTime: new Date('2021-06-22T00:45:00+02:00'),
+    genres: [
+      'Reggae',
+      'DJs sets',
+      'Hip Hop',
+    ],
+    // artists: [
+    //   'CLINTON FEARON',
+    //   'VOLODIA',
+    //   'PEET',
+    //   'ALMÄ MANGO',
+    //   'YARD',
+    //   'OSHI DI ORIGINAL',
+    //   'DJ Nels',
+    //   'DJ KASH',
+    // ],
+    description: (
+      <>
+        <p>
+          Depuis 12 ans, BACO MUSIC développe ses activités dans le monde de la musique. Label, organisateur de tournées internationales, studio, distributeur, éditeur...
+        </p>
+        <p>
+          De notoriété internationale aujourd’hui, la structure bordelaise travaille à 360° avec ses artistes, défendant des projets forts et indépendants. Pour la seconde fois, la programmation de la scène installée Place Fernand Lafargue sera gérée par BACO MUSIC, qui a vu les choses en grand avec du reggae et du hip-hop au menu !
+        </p>
+        <p>
+          Côté reggae, la soirée débutera avec le mythique CLINTON FEARON pour un concert guitare-voix intimiste et chaleureux, suivi de VOLODIA, représentant incontournable du reggae français.
+        </p>
+        <p>
+          Se succéderont ensuite sur scène plusieurs artistes hip-hop qui feront grimper la température ! PEET, nouveau rappeur de la scène belge dans la lignée de Roméo Elvis avec son DJ Morgan, la rappeuse ALMÄ MANGO et ses tout nouveaux freestyles brûlants, le projet YARD propulsé par le duo de feu CHEEKO & VOLODIA et enfin l'artiste bordelais YOSHI DI ORIGINAL avec DJ Nels pour achever de faire exploser le thermomètre !
+        </p>
+        <p>
+          Le tout backé par DJ KASH qui ne laissera aucun répit à la soirée avec ses mixs de dernières pépites et de big tunes reggae/hip-hop.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '16',
+    name: 'Musique de chambre avec Molto Assaï',
+    category: 'Rive droite',
+    location: {
+      name: 'Archive de Bordeaux Métrpole',
+      addressStr: 'Parvis des Archives, 33100 Bordeaux',
+    },
+    startTime: new Date('2021-06-21T20:00:00+02:00'),
+    endTime: new Date('2021-06-21T20:45:00+02:00'),
+    artists: [
+      'Molto Assaï',
+    ],
+    description: (
+      <>
+        <p>
+          C'est dans le cadre paysager de leur parvis que les Archives de Bordeaux Métropole vous invitent à célébrer la musique. À l'ombre de la canopée, les musiciens de l'orchestre Molto Assaï en petite formation offrent un concert de musique de chambre, une musique vivante perpétuant la pratique d'un répertoire et d'instruments de plusieurs siècles.
+        </p>
+        <p>
+          Fondé en 1983, Molto Assaï est composé en majorité de musiciens amateurs, de tous âges et de tous niveaux. L'association en plein essor depuis 2006 est passée d'un ensemble orchestral à un orchestre symphonique en 2011. Elle propose un large répertoire, de la musique baroque à la musique contemporaine.
+        </p>
+        <p>
+          <a
+            href="https://www.moltoassai.fr/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            www.moltoassai.fr
+          </a>
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '17',
+    name: 'Pool party à la Piscine Judaïque',
+    category: 'Centre ville',
+    location: {
+      name: 'Piscine Judaïque',
+      addressStr: '164 Rue Judaïque, 33000 Bordeaux',
+    },
+    price: 'Tarif d\'une entrée piscine',
+    startTime: new Date('2021-06-21T16:30:00+02:00'),
+    description: (
+      <>
+        <p>
+          La piscine Piscine Judaïque - Jean Boiteux fête la musique lors de sa nocturne le jeudi 22 juin et organise une pool party.
+        </p>
+        <p>
+          Le bassin de 50m sera divisé en 2, une partie pour les nageurs (25m) et une partie pour de l'animation aquagym, jeux avec présence d'un DJ toute la soirée.
+        </p>
+      </>
+    ),
+  },
 ];
