@@ -142,11 +142,13 @@ const EventListItem: React.FC<EventListItemProps> = (
                       </span>
                   }
                   {
+                    event.name !== undefined &&
                     event.location.addressStr !== undefined &&
-                      <>
-                        {', '}
-                        {event.location.addressStr}
-                      </>
+                      ', '
+                  }
+                  {
+                    event.location.addressStr !== undefined &&
+                      event.location.addressStr
                   }
                 </Typography>
                 {
