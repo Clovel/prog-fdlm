@@ -161,7 +161,7 @@ const EventListItem: React.FC<EventListItemProps> = (
                   event.genres !== undefined &&
                   event.genres.length > 0 &&
                     <Typography>
-                      Genres :
+                      - Genres :
                       {' '}
                       {event.genres.join(', ')}
                     </Typography>
@@ -170,7 +170,7 @@ const EventListItem: React.FC<EventListItemProps> = (
                   event.artists !== undefined &&
                   event.artists.length > 0 &&
                     <Typography>
-                      Artistes :
+                      - Artistes :
                       {' '}
                       {event.artists.join(', ')}
                     </Typography>
@@ -178,6 +178,8 @@ const EventListItem: React.FC<EventListItemProps> = (
                 {
                   event.price !== undefined &&
                     <Typography>
+                      -
+                      {' '}
                       {formatPrice(event.price)}
                     </Typography>
                 }
