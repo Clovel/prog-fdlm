@@ -40,7 +40,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
       </head>
       <body className="flex flex-col min-h-screen">
         <ThemeRegistry>
-          <main className="flex-1 min-h-full flex flex-col items-center p-24">
+          <main className="flex-1 min-h-full flex flex-col items-center lg:p-24">
             {children}
           </main>
           <footer

@@ -1,11 +1,12 @@
 /* Type imports ---------------------------------------- */
+import type React from 'react';
 import type { Location } from './Location';
 
 /* Event interface declaration ------------------------- */
 export interface Event {
   id: string;
   name: string;
-  description?: string;
+  description?: React.ReactNode;
   category?: string;
   genres?: string[];
   links?: string[];
