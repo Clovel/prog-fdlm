@@ -9,10 +9,10 @@ import type {
 } from 'types/Event';
 
 /* reduceEventsByCategory helper function -------------- */
-export const reduceEventsByCategory = (events: Event[] = []): EventsByCategories => {
-  return events.reduce<EventsByCategories>(
+export const reduceEventsByCategory = (events: Event[] = []): Partial<EventsByCategories> => {
+  return events.reduce<Partial<EventsByCategories>>(
     (acc, event) => {
-      const category = event.category ?? 'Autres';
+      const category: keyof EventsByCategories = event.category ?? 'Autres';
 
       return {
         ...acc,
@@ -23,6 +23,6 @@ export const reduceEventsByCategory = (events: Event[] = []): EventsByCategories
         ],
       };
     },
-    {}
+    {},
   );
 };

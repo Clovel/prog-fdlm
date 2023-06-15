@@ -265,7 +265,7 @@ export const events: Event[] = [
   {
     id: '8',
     name: 'Chantons et dansons comme les marins !',
-    category: 'Bassins à flots',
+    category: 'Bassins à flot',
     location: {
       name: 'Musée Mer Marine',
       addressStr: '89 Rue des Étrangers, Bordeaux',
@@ -323,7 +323,7 @@ export const events: Event[] = [
   },
   {
     id: '10',
-    category: 'Bordeaux Sud',
+    category: 'St. Michel',
     location: {
       name: 'Square Dom Bedos',
       addressStr: 'Place Dorm Bedos, Bordeaux',

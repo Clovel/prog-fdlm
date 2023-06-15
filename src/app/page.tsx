@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import EventList from '../components/EventList/EventList';
 import { reduceEventsByCategory } from 'helpers/reduceEventsByCategory';
+import { sortEventsByCategoryEntries } from 'helpers/orderEventsByCategory';
 
 /* Style imports --------------------------------------- */
 
@@ -33,6 +34,7 @@ const HomePage: React.FC<HomePageProps> = () => {
         Object.entries(
           reduceEventsByCategory(events)
         )
+          .sort(sortEventsByCategoryEntries)
           .map(
             (categoryEntry, index, array) => {
               const categoryTitle = categoryEntry[0];

@@ -1,13 +1,14 @@
 /* Type imports ---------------------------------------- */
 import type React from 'react';
 import type { Location } from './Location';
+import type { eventCategories } from 'fixtures/eventCategories';
 
 /* Event interface declaration ------------------------- */
 export interface Event {
   id: string;
   name?: string;
   description?: React.ReactNode;
-  category?: string;
+  category?: typeof eventCategories[number];
   genres?: string[];
   links?: string[];
   location: Location;
@@ -17,6 +18,8 @@ export interface Event {
   artists?: string[];
 }
 
-export interface EventsByCategories {
-  [category: string]: Event[];
-}
+export type EventsByCategoriesKey = Exclude<Event['category'], undefined> | 'Autres';
+
+export type EventsByCategories = {
+  [category in EventsByCategoriesKey]: Event[];
+};
