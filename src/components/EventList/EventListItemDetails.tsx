@@ -68,34 +68,34 @@ const EventListItemDetails: React.FC<EventListItemDetailsProps> = (
           }
           {
             event.links !== undefined &&
-                  event.links.length > 0 &&
-                    <p>
+            event.links.length > 0 &&
+              <p>
 
-                      <Typography
-                        variant="h6"
-                        color="text.secondary"
-                      >
-                        Liens :
-                      </Typography>
-                      <ul>
-                        {
-                          event.links.map(
-                            (link, index) => (
-                              <li key={`${link}-${index}`}>
-                                <MuiLink
-                                  href={link}
-                                  underline="none"
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {link}
-                                </MuiLink>
-                              </li>
-                            ),
-                          )
-                        }
-                      </ul>
-                    </p>
+                <Typography
+                  variant="h6"
+                  color="text.secondary"
+                >
+                  Liens :
+                </Typography>
+                <ul>
+                  {
+                    event.links.map(
+                      (link, index) => (
+                        <li key={`${link}-${index}`}>
+                          <MuiLink
+                            href={link}
+                            underline="none"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {link}
+                          </MuiLink>
+                        </li>
+                      ),
+                    )
+                  }
+                </ul>
+              </p>
           }
         </div>
       </ListItem>
