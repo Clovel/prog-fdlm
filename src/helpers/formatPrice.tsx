@@ -1,5 +1,4 @@
 /* Framework imports ----------------------------------- */
-import React from 'react';
 
 /* Module imports -------------------------------------- */
 
@@ -31,18 +30,12 @@ const formatPriceInt = (price: number): string => {
 
 export const formatPrice = (price?: number | string | React.ReactNode): string | React.ReactNode => {
   if(price === undefined) {
-    return 'Prix : Gratuit';
+    return 'Gratuit';
   }
 
   if(typeof price === 'number') {
-    return `Prix : ${formatPriceInt(price)}`;
+    return formatPriceInt(price);
   }
 
-  return (
-    <div>
-      Prix :
-      {' '}
-      {price}
-    </div>
-  );
+  return price;
 };

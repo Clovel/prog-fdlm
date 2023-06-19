@@ -12,9 +12,7 @@ import Typography from '@mui/material/Typography';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import MuiLink from '@mui/material/Link';
 import IconButton from '@mui/material/IconButton';
-import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import EventTime from './EventTime';
@@ -39,33 +37,6 @@ const EventListItem: React.FC<EventListItemProps> = (
   },
 ) => {
   const [ open, setOpen ] = useState<boolean>(false);
-
-  // const listItemButtonProps = useMemo<React.ComponentProps<typeof ListItemButton>>(
-  //   () => {
-  //     if(
-  //       event.links !== undefined &&
-  //       event.links.length > 0
-  //     ) {
-  //       return {
-  //         LinkComponent: MuiLink,
-  //         href: event.links[0],
-  //         underline: 'never',
-  //         target: '_blank',
-  //         rel: 'noopener noreferrer',
-  //       };
-  //     } else {
-  //       return {
-  //         // disabled: true,
-  //         // style: {
-  //         //   opacity: 1, /* Don't change the style of disabled events just because they don't have links */
-  //         // },
-  //       };
-  //     }
-  //   },
-  //   [
-  //     event.links,
-  //   ],
-  // );
 
   const collapsiblePresent: boolean = useMemo<boolean>(
     () => {
@@ -106,7 +77,6 @@ const EventListItem: React.FC<EventListItemProps> = (
         divider={divider && !open}
       >
         <ListItemButton
-          // {...listItemButtonProps}
           onClick={
             collapsiblePresent ?
               onExpandClicked :
@@ -125,28 +95,34 @@ const EventListItem: React.FC<EventListItemProps> = (
             }
             secondary={
               <React.Fragment>
-                <Typography
-                  sx={{ display: 'inline' }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  {
-                    event.name !== undefined &&
-                      <span className="font-semibold">
-                        {event.location.name}
-                      </span>
-                  }
-                  {
-                    event.name !== undefined &&
-                    event.location.addressStr !== undefined &&
-                      ', '
-                  }
-                  {
-                    event.location.addressStr !== undefined &&
-                      event.location.addressStr
-                  }
-                </Typography>
+                <div className="inline">
+                  <Typography
+                    className="!font-semibold"
+                    variant="body2"
+                    color="text.primary"
+                    component="span"
+                  >
+                    {
+                      event.name !== undefined &&
+                          event.location.name
+                    }
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.primary"
+                    component="span"
+                  >
+                    {
+                      event.name !== undefined &&
+                        event.location.addressStr !== undefined &&
+                          ', '
+                    }
+                    {
+                      event.location.addressStr !== undefined &&
+                        event.location.addressStr
+                    }
+                  </Typography>
+                </div>
                 {
                   event.genres !== undefined &&
                   event.genres.length > 0 &&
@@ -168,12 +144,17 @@ const EventListItem: React.FC<EventListItemProps> = (
                 {
                   event.price !== undefined &&
                     <Typography>
-                      -
+                      - Prix :
                       {' '}
                       {formatPrice(event.price)}
                     </Typography>
                 }
               </React.Fragment>
+            }
+            secondaryTypographyProps={
+              {
+                component: 'div',
+              }
             }
           />
           <EventTime
