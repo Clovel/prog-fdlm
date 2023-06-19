@@ -84,6 +84,9 @@ export const events: Event[] = [
       'Enfants',
       'Découverte',
     ],
+    links: [
+      'https://www.musba-bordeaux.fr/fr/evenement/bulle-musicale-visite-en-musique-pour-les-tout-petits',
+    ],
     description: (
       <>
         <p>
