@@ -11,6 +11,7 @@ import ThemeRegistry from 'components/Theme/ThemeRegistry/ThemeRegistry';
 /* Style imports --------------------------------------- */
 import './globals.css';
 import Copyright from 'components/Copyright/Copyright';
+import GoogleAnalytics from 'components/GoogleAnalytics/GoogleAnalytics';
 
 /* Type imports ---------------------------------------- */
 
@@ -48,6 +49,11 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
           name="viewport"
           content="width=device-width, initial-scale=1"
         />
+        {
+          process.env.GA_TRACKING_ID !== undefined &&
+          process.env.GA_TRACKING_ID.length > 0 &&
+            <GoogleAnalytics GA_TRACKING_ID={process.env.GA_TRACKING_ID} />
+        }
       </head>
       <ThemeRegistry>
         <body className="flex flex-col min-h-screen">
