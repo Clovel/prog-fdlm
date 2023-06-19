@@ -256,11 +256,13 @@ export const events: Event[] = [
   {
     id: '7',
     category: 'Centre ville',
+    name: 'TPLT x SUPER Daronne',
     location: {
       name: 'Cours Mably',
       addressStr: 'Cours Mably, Bordeaux',
     },
     startTime: new Date('2021-06-21T19:00:00+02:00'),
+    endTime: new Date('2021-06-22T0:00:00+02:00'),
     genres: [
       'DJs sets',
       'Electro',
@@ -337,7 +339,7 @@ export const events: Event[] = [
       name: 'Square Dom Bedos',
       addressStr: 'Place Dorm Bedos, Bordeaux',
     },
-    name: 'Allez les Filles et Bordeaux Rock',
+    name: 'La Relâche : Allez les Filles et Bordeaux Rock',
     startTime: new Date('2021-06-21T19:00:00+02:00'),
     endTime: new Date('2021-06-22T01:00:00+02:00'),
     genres: [
@@ -648,6 +650,213 @@ export const events: Event[] = [
         </p>
         <p>
           Le bassin de 50m sera divisé en 2, une partie pour les nageurs (25m) et une partie pour de l'animation aquagym, jeux avec présence d'un DJ toute la soirée.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '18',
+    name: "fanfare + La Tencha dj's",
+    category: 'St. Michel',
+    location: {
+      name: 'La Tencha',
+      addressStr: '22 Quai de la Monnaie, 33800 Bordeaux',
+    },
+    startTime: new Date('2021-06-21T18:00:00+02:00'),
+    genres: [
+      'Brass band',
+      'Latino',
+      'Afro-beat',
+      'R&B',
+      'Fanfare',
+      'DJs sets',
+    ],
+    artists: [
+      'Brigitte Bordo',
+    ],
+    links: [
+      {
+        url: 'https://www.facebook.com/events/641824917525846',
+        label: 'Évènement Facebook',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          La tencha propose pour fêter la musique, deux ambiance :
+        </p>
+        <p>
+          A l'extérieur et à l'intérieur avec une fanfare et des Djs qui vous pour vous faire transpirer sur le dancefloor !
+        </p>
+        <p>
+          Brigitte Bordo est une jeune fanfare aux mille facettes et aux mille paillettes, née en 2021 sur les bords de Garonne. Le répertoire, c'est un mélange de styles avec du brass band, latino, afro-beat, r&b, mais aussi des sons plus lourds pour finir les sets en beauté.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '19',
+    category: 'Centre ville',
+    name: "Amplitudes, Cmd+O & L'Orangeade",
+    location: {
+      name: 'Place Pey-Berland',
+      addressStr: 'Place Pey-Berland, 33000 Bordeaux',
+    },
+    startTime: new Date('2021-06-21T20:00:00+02:00'),
+    endTime: new Date('2021-06-21T00:45:00+02:00'),
+    artists: [
+      'Amplitudes',
+      'Cmd+O',
+      "L'Orangeade",
+    ],
+    links: [
+      {
+        url: 'https://www.facebook.com/events/289565500165487',
+        label: 'Évènement Facebook',
+      },
+      {
+        url: 'https://www.instagram.com/__amplitudes__/',
+        label: 'Instagram d\'Amplitudes',
+      },
+      {
+        url: 'https://www.instagram.com/collectif_cmdo/',
+        label: 'Instagram de Cmd+O',
+      },
+      {
+        url: 'https://www.instagram.com/lorangeademusic/',
+        label: "Instagram de l'Orangeade",
+      },
+    ],
+    description: (
+      <>
+        <p>
+          On prends les mêmes et on recommence !
+          <br />
+          <b>
+            Cette année, pas de frustration
+          </b>
+          , nous comptons bien faire vibrer la place Pey Berland une bonne partie de la nuit.
+          <br />
+          Le trio infernal, Amplitudes, Cmd+O et L’Orangeade, se reforme pour semer joie et BPM et ainsi fêter comme il se doit l’arrivée de l’été !
+        </p>
+        <br />
+        <p>
+          <b>
+            ☀︎ AMPLITUDES ☀︎
+          </b>
+          <br />
+          Véritable acteur de la scène culturelle bordelaise, Amplitudes multiplie les apparitions à travers des projets toujours plus ambitieux.Ses 3 DJs, issus d'univers musicaux différents proposent des sets éclectiques, pointus et avant-gardistes.
+        </p>
+        <p>
+          <b>
+            ☀︎ Cmd+O ☀︎
+          </b>
+          {' '}
+          (à prononcer « Commando ») :
+          <br />
+          Architectes et scénographes le jour, ambianceurs de dancefloor la nuit, Cmd+O est un collectif plymophorme qui oeuvre pour le bien commun et la culture pour tous. Ici, ils réuniront la foule autour de sonorités afro, break, electronica !
+        </p>
+        <p>
+          <b>
+            ☀︎ L’Orangeade ☀︎
+          </b>
+          <br />
+          Créateur d’événements pluriartistiques et collectif de DJs, les membres de L’Orangeade partagent leur amour de la musique et de la fête au travers de projets toujours différents et uniques, mais qui gardent un ADN commun : celui de créer un moment hors du temps où le collectif fait loi et l’union, la force.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '20',
+    name: 'Avinavita',
+    category: 'Rive droite',
+    location: {
+      name: 'La Guinguette chez Alriq',
+      addressStr: 'Quai des Queyries, 33100 Bordeaux',
+    },
+    startTime: new Date('2021-06-21T20:0:00+02:00'),
+    price: 'libre',
+    genres: [
+      'Italien',
+      'Folk',
+      'Traditionnel',
+    ],
+    artists: [
+      'Avinavita',
+    ],
+    links: [
+      {
+        url: 'https://www.facebook.com/events/817708463169668',
+        label: 'Évènement Facebook',
+      },
+      {
+        url: 'mailto:resto@laguinguettechezalriq.com',
+        label: 'Réservations par mail',
+      },
+    ],
+    description: (
+      <p>
+        Naturellement inspiré par les chants et les musiques traditionnelles d’Italie du Sud, depuis 2019 Avinavita transmet à son tour et avec cœur cet héritage précieux qu’ils ont reçu. Des Tarentelles Calabraises au Pizzica Pizzica des Pouilles ou autre Tammurriata Napolitaine, Avinavita nous entraîne dans une fête colorée, populaire et chaleureuse qui nous rappelle que la danse fait totalement partie des traditions. Les chants, le tamburello, la guitare battente, l’accordéon et la mandoline donnent au répertoire d’Avinavita ses harmonies originales, portées par une généreuse rythmique au souffle rock et au groove chaloupé qui transcendent les mélodies.
+        Le groupe continue sa route pour les terres chaudes du Sud
+      </p>
+    ),
+  },
+  {
+    id: '21',
+    category: 'Centre ville',
+    location: {
+      name: 'The Grizzly Pub',
+      addressStr: '12 place de la Victoire, 33000 Bordeaux',
+    },
+    startTime: new Date('2021-06-21T22:00:00+02:00'),
+    endTime: new Date('2021-06-22T02:00:00+02:00'),
+    links: [
+      {
+        url: 'https://www.facebook.com/events/289565500165487',
+        label: 'Évènement Facebook',
+      },
+      {
+        url: 'https://www.instagram.com/thegrizzlypubbordeaux/',
+        label: 'Instagram du Grizzly Pub',
+      },
+      {
+        url: 'https://www.facebook.com/Cannonbardelique',
+        label: 'Page Facebook de Cannonbar',
+      },
+      {
+        url: 'https://www.facebook.com/pg/Medusyne/',
+        label: 'Page Facebook de Medusyne',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          <b>
+            ❌ FÊTE DE LA MUSIQUE - DJ SET CANNONBARDELIQUE ! ❌
+          </b>
+        </p>
+        <p>
+          A l'initiative de l'association Anti Hype Orchestra et des soirées People Are Strange à Paris,
+          {' '}
+          <b>
+            Cannonbar
+          </b>
+          {' '}
+          propose des sélections riches en influences. Anarchiste sonore, elle refuse de se plier aux règles et se lance des défis, tentant à chaque fois de briser les codes et frontières de la musique.
+        </p>
+        <p>
+          Affiliée à l'association bordelaise Medusyne, productrice des soirées qui font parler d'Elles pour faire la promotion de la scène féminine internationale, Cannonbar était déjà venue pendant l'hiver mettre le feu au Grizzly.
+          Elle revient le 21 juin pour « bardéliser » ton bar préféré, avant un crocher par
+          {' '}
+          <b>
+            <a
+              href="https://www.facebook.com/events/435984173835336/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Les Vivres de l'Art • Under the Skurt #2 Afro
+            </a>
+          </b>
         </p>
       </>
     ),
