@@ -861,4 +861,54 @@ export const events: Event[] = [
       </>
     ),
   },
+  {
+    id: '22',
+    name: "L'After de la Fête de la Musique - IBOAT",
+    category: 'Bassins à flot',
+    location: {
+      name: 'IBOAT',
+      addressStr: 'Bassin à Flot n°, 1 Cr Henri Brunet, 33300 Bordeaux',
+    },
+    startTime: new Date('2021-06-21T00:00:00+02:00'),
+    endTime: new Date('2021-06-21T06:00:00+02:00'),
+    price: '🚨 ENTRÉE GRATUITE TOUTE LA NUIT 🚨',
+    artists: [
+      'Distill',
+      'Les Viatiques',
+      'Amour Social Club',
+      'BRUIT ROSE',
+      'Godsoul Records',
+      'MATES',
+      'Club Nuggets',
+      'SUPER Daronne',
+      '③⑥①⑤𝘽𝙀𝘽𝙊𝙋',
+      'Gimme Sound',
+      'IBOAT Soundsystem',
+    ],
+    links: [
+      {
+        url: 'https://www.instagram.com/p/CtqgK7vg20P/?igshid=MzRlODBiNWFlZA==',
+        label: 'Post Instagram',
+      },
+      {
+        url: 'https://www.facebook.com/events/997546514918479',
+        label: 'Évènement Facebook',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          <b>
+            AFTER FÊTE DE LA MUSIQUE 🌈
+          </b>
+        </p>
+        <p>
+          Festivités terminées sur tous les spots de la ville ne signe pas la fin de la fête : on vous donne rendez-vous au club pour un after fête de la musique que vous n’êtes pas prêt·es d’oublier !
+        </p>
+        <p>
+          On prend parmis les collectifs les plus bouillants de la régions et on célèbre ensemble la musique jusqu’au petit matin.
+        </p>
+      </>
+    ),
+  },
 ];
