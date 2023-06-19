@@ -28,7 +28,10 @@ export const events: Event[] = [
       addressStr: '1 Rue Des Étrangers, Bordeaux',
     },
     links: [
-      'https://33.agendaculturel.fr/concert/bordeaux/la-fete-de-la-musique-au-garage-moderne.html',
+      {
+        url: 'https://33.agendaculturel.fr/concert/bordeaux/la-fete-de-la-musique-au-garage-moderne.html',
+        label: "Page de l'Agenda Culturel",
+      },
     ],
     genres: [
       'Afro',
@@ -85,7 +88,10 @@ export const events: Event[] = [
       'Découverte',
     ],
     links: [
-      'https://www.musba-bordeaux.fr/fr/evenement/bulle-musicale-visite-en-musique-pour-les-tout-petits',
+      {
+        url: 'https://www.musba-bordeaux.fr/fr/evenement/bulle-musicale-visite-en-musique-pour-les-tout-petits',
+        label: "Site de l'évènement du Musée des Beaux-Arts",
+      },
     ],
     description: (
       <>
@@ -465,7 +471,10 @@ export const events: Event[] = [
       'WHYNOT',
     ],
     links: [
-      'https://33.agendaculturel.fr/concert/bordeaux/the-pleasure-dome-the-big-idea-et-pretty-inside.html',
+      {
+        url: 'https://33.agendaculturel.fr/concert/bordeaux/the-pleasure-dome-the-big-idea-et-pretty-inside.html',
+        label: "Page de l'Agenda Culturel",
+      },
     ],
     description: (
       <>

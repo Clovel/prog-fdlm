@@ -69,7 +69,7 @@ const EventListItemDetails: React.FC<EventListItemDetailsProps> = (
           {
             event.links !== undefined &&
             event.links.length > 0 &&
-              <p>
+              <article>
 
                 <Typography
                   variant="h6"
@@ -81,21 +81,24 @@ const EventListItemDetails: React.FC<EventListItemDetailsProps> = (
                   {
                     event.links.map(
                       (link, index) => (
-                        <li key={`${link}-${index}`}>
+                        <li
+                          key={`${link.label}-${index}`}
+                        >
                           <MuiLink
-                            href={link}
+                            href={link.url}
                             underline="none"
                             target="_blank"
                             rel="noopener noreferrer"
+                            className="inline-block ellipsis"
                           >
-                            {link}
+                            {link.label}
                           </MuiLink>
                         </li>
                       ),
                     )
                   }
                 </ul>
-              </p>
+              </article>
           }
         </div>
       </ListItem>

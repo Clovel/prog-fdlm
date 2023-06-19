@@ -4,13 +4,18 @@ import type { Location } from './Location';
 import type { eventCategories } from 'fixtures/eventCategories';
 
 /* Event interface declaration ------------------------- */
+export interface EventLink {
+  url: string;
+  label: string;
+}
+
 export interface Event {
   id: string;
   name?: string;
   description?: React.ReactNode;
   category?: typeof eventCategories[number];
   genres?: string[];
-  links?: string[];
+  links?: EventLink[];
   location: Location;
   startTime: Date;
   endTime?: Date; /* Might be unknown, might be an all-nighter */
