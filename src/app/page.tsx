@@ -23,7 +23,7 @@ interface HomePageProps {}
 /* HomePage component ------------------------------- */
 const HomePage: React.FC<HomePageProps> = () => {
   return (
-    <div className="flex flex-col place-items-center min-w-full">
+    <div className="flex flex-col place-items-center min-w-full py-4 lg:py-0">
       <p>
         Nombre d'events:
         {' '}
