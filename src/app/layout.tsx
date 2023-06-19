@@ -6,6 +6,7 @@ import React from 'react';
 /* Module imports -------------------------------------- */
 
 /* Component imports ----------------------------------- */
+import { Analytics } from '@vercel/analytics/react';
 import ThemeRegistry from 'components/Theme/ThemeRegistry/ThemeRegistry';
 
 /* Style imports --------------------------------------- */
@@ -49,6 +50,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
           content="width=device-width, initial-scale=1"
         />
       </head>
+      <Analytics />
       <ThemeRegistry>
         <body className="flex flex-col min-h-screen">
           <header className="flex-0 z-10 w-full items-center justify-between font-mono text-sm flex flex-col lg:flex-row lg:px-24 lg:py-8">
