@@ -5,7 +5,6 @@ import React, {
 } from 'react';
 
 /* Module imports -------------------------------------- */
-import { css } from '@emotion/css';
 import { formatPrice } from 'helpers/formatPrice';
 
 /* Component imports ----------------------------------- */
@@ -19,21 +18,12 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import EventTime from './EventTime';
+import EventListItemDetails from './EventListItemDetails';
 
 /* Style imports --------------------------------------- */
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
-
-/* Styling --------------------------------------------- */
-const descriptionSpan = css`
-  & ul {
-    list-style: inside;
-  };
-  & p {
-    padding-bottom: 0.5rem;
-  };
-`;
 
 /* EventListItem component prop types ------------------ */
 interface EventListItemProps {
@@ -194,65 +184,11 @@ const EventListItem: React.FC<EventListItemProps> = (
       </ListItem>
       {
         collapsiblePresent === true &&
-          <Collapse
-            in={open}
-            timeout="auto"
-            unmountOnExit
-          >
-            <ListItem divider={divider}>
-              <div className={`flex flex-col ${descriptionSpan}`}>
-                {
-                  event.description !== undefined &&
-                    <article>
-                      <Typography
-                        variant="h6"
-                        color="text.secondary"
-                      >
-                        Description de l'événement :
-                      </Typography>
-                      <br />
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                      >
-                        {event.description}
-                      </Typography>
-                    </article>
-                }
-                {
-                  event.links !== undefined &&
-                  event.links.length > 0 &&
-                    <p>
-
-                      <Typography
-                        variant="h6"
-                        color="text.secondary"
-                      >
-                        Liens :
-                      </Typography>
-                      <ul>
-                        {
-                          event.links.map(
-                            (link, index) => (
-                              <li key={`${link}-${index}`}>
-                                <MuiLink
-                                  href={link}
-                                  underline="none"
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {link}
-                                </MuiLink>
-                              </li>
-                            ),
-                          )
-                        }
-                      </ul>
-                    </p>
-                }
-              </div>
-            </ListItem>
-          </Collapse>
+          <EventListItemDetails
+            open={open}
+            event={event}
+            divider={divider}
+          />
       }
     </>
   );
