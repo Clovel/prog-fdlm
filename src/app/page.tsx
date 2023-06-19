@@ -7,7 +7,6 @@ import React from 'react';
 import { events } from 'fixtures/events';
 
 /* Component imports ----------------------------------- */
-import Image from 'next/image';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import EventList from '../components/EventList/EventList';
@@ -41,7 +40,7 @@ const HomePage: React.FC<HomePageProps> = () => {
 
               return (
                 <React.Fragment key={`${categoryTitle}-${index}`}>
-                  <section className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0">
+                  <section className="w-full max-w-5xl px-2 lg:py-8 mx-auto lg:px-0">
                     <Typography
                       variant="h4"
                       className="py-4"
@@ -72,6 +71,7 @@ const HomePage: React.FC<HomePageProps> = () => {
           src="https://agendaculturel.emstorage.fr/fete-de-la-musique-a-bordeaux-2023-20230608161506.jpg"
           alt="Carte de l'agenda culturel de Bordeaux"
           // width={800}
+          loading="lazy"
         />
       </section>
     </div>
