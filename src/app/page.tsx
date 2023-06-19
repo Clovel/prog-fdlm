@@ -40,11 +40,8 @@ const HomePage: React.FC<HomePageProps> = () => {
               const categoryTitle = categoryEntry[0];
 
               return (
-                <>
-                  <section
-                    key={`${categoryTitle}-${index}`}
-                    className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0"
-                  >
+                <React.Fragment key={`${categoryTitle}-${index}`}>
+                  <section className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0">
                     <Typography
                       variant="h4"
                       className="py-4"
@@ -57,7 +54,7 @@ const HomePage: React.FC<HomePageProps> = () => {
                     array.length - 1 !== index &&
                       <Divider className="w-full" />
                   }
-                </>
+                </React.Fragment>
               );
             },
           )
