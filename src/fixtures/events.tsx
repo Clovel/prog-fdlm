@@ -268,7 +268,7 @@ export const events: Event[] = [
       addressStr: 'Cours Mably, Bordeaux',
     },
     startTime: new Date('2021-06-21T19:00:00+02:00'),
-    endTime: new Date('2021-06-22T0:00:00+02:00'),
+    endTime: new Date('2021-06-22T00:00:00+02:00'),
     genres: [
       'DJs sets',
       'Electro',
