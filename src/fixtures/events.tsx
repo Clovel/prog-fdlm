@@ -1,4 +1,5 @@
 /* Type imports ---------------------------------------- */
+import { InstagramEmbed } from 'react-social-media-embed';
 import type { Event } from 'types/Event';
 
 /* Events fixture -------------------------------------- */
@@ -874,55 +875,24 @@ export const events: Event[] = [
       name: 'The Grizzly Pub',
       addressStr: '12 place de la Victoire, 33000 Bordeaux',
     },
-    startTime: new Date('2021-06-21T22:00:00+02:00'),
-    endTime: new Date('2021-06-22T02:00:00+02:00'),
-    links: [
-      {
-        url: 'https://www.facebook.com/events/289565500165487',
-        label: 'Évènement Facebook',
-      },
-      {
-        url: 'https://www.instagram.com/thegrizzlypubbordeaux/',
-        label: 'Instagram du Grizzly Pub',
-      },
-      {
-        url: 'https://www.facebook.com/Cannonbardelique',
-        label: 'Page Facebook de Cannonbar',
-      },
-      {
-        url: 'https://www.facebook.com/pg/Medusyne/',
-        label: 'Page Facebook de Medusyne',
-      },
-    ],
+    startTime: new Date('2021-06-21T21:30:00+02:00'),
+    endTime: new Date('2021-06-22T04:00:00+02:00'),
     description: (
       <>
         <p>
-          <b>
-            ❌ FÊTE DE LA MUSIQUE - DJ SET CANNONBARDELIQUE ! ❌
-          </b>
+          A 21h30 : Concert Soledad & La Tropical
         </p>
         <p>
-          A l'initiative de l'association Anti Hype Orchestra et des soirées People Are Strange à Paris,
-          {' '}
-          <b>
-            Cannonbar
-          </b>
-          {' '}
-          propose des sélections riches en influences. Anarchiste sonore, elle refuse de se plier aux règles et se lance des défis, tentant à chaque fois de briser les codes et frontières de la musique.
+          A 22h : DJ Set
         </p>
         <p>
-          Affiliée à l'association bordelaise Medusyne, productrice des soirées qui font parler d'Elles pour faire la promotion de la scène féminine internationale, Cannonbar était déjà venue pendant l'hiver mettre le feu au Grizzly.
-          Elle revient le 21 juin pour « bardéliser » ton bar préféré, avant un crocher par
+          Grizzly ouvert
           {' '}
           <b>
-            <a
-              href="https://www.facebook.com/events/435984173835336/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Les Vivres de l'Art • Under the Skurt #2 Afro
-            </a>
+            jusqu'à 4H
           </b>
+          {' '}
+          !
         </p>
       </>
     ),
@@ -1864,6 +1834,28 @@ export const events: Event[] = [
               00h00 - & Fun ??? : La mascarade set
             </li>
           </ul>
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '39',
+    category: 'Centre ville',
+    location: {
+      name: 'Claro Que Si',
+      addressStr: '29 rue du Loup, 33000 Bordeaux',
+    },
+    startTime: new Date('2021-06-21T20:00:00+02:00'),
+    description: (
+      <>
+        <p>
+          Êtes-vous prêts ? 👹
+        </p>
+        <p>
+          Ce mercredi 21 juin, venez danser avec nous !🕺🏽🪩
+        </p>
+        <p>
+          SAVE THE DATE ! 💥
         </p>
       </>
     ),
