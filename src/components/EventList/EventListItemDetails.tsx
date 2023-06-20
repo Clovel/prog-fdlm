@@ -61,6 +61,7 @@ const EventListItemDetails: React.FC<EventListItemDetailsProps> = (
                 <Typography
                   variant="body2"
                   color="text.secondary"
+                  component="div"
                 >
                   {event.description}
                 </Typography>
