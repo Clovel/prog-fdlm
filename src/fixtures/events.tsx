@@ -501,6 +501,12 @@ export const events: Event[] = [
         <p>
           Buvette à petits prix (brasserie locale l'Effet Papillon)
         </p>
+        <div
+          className="mx-auto"
+          style={{ maxWidth: 400 }}
+        >
+          <InstagramEmbed url="https://www.instagram.com/p/CtHeXMKIPZT/" />
+        </div>
       </>
     ),
   },
@@ -923,7 +929,7 @@ export const events: Event[] = [
     ],
     links: [
       {
-        url: 'https://www.instagram.com/p/CtqgK7vg20P/?igshid=MzRlODBiNWFlZA==',
+        url: 'https://www.instagram.com/p/CtqgK7vg20P/',
         label: 'Post Instagram',
       },
       {
@@ -944,6 +950,14 @@ export const events: Event[] = [
         <p>
           On prend parmis les collectifs les plus bouillants de la régions et on célèbre ensemble la musique jusqu’au petit matin.
         </p>
+        <div
+          className="mx-auto"
+          style={{ maxWidth: 400 }}
+        >
+          <InstagramEmbed
+            url="https://www.instagram.com/p/CtqgK7vg20P/"
+          />
+        </div>
       </>
     ),
   },
@@ -1523,6 +1537,12 @@ export const events: Event[] = [
         <p>
           Vous aurez la possibilité de découvrir ou (re)découvrir les saveurs basques avec des Taloas, de la charcuterie/fromage ou encore des desserts...
         </p>
+        <div
+          className="mx-auto"
+          style={{ maxWidth: 400 }}
+        >
+          <InstagramEmbed url="https://www.instagram.com/p/CtibNJQI9vy/" />
+        </div>
       </>
     ),
   },
