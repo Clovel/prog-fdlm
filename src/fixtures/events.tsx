@@ -463,7 +463,7 @@ export const events: Event[] = [
       addressStr: 'Quai de Queyries, 33100 Bordeaux',
     },
     startTime: new Date('2021-06-21T19:00:00+02:00'),
-    endTime: new Date('2021-06-21T00:45:00+02:00'),
+    endTime: new Date('2021-06-22T00:45:00+02:00'),
     genres: [
       'Electro',
       'Techno',
@@ -776,7 +776,7 @@ export const events: Event[] = [
       addressStr: 'Place Pey-Berland, 33000 Bordeaux',
     },
     startTime: new Date('2021-06-21T20:00:00+02:00'),
-    endTime: new Date('2021-06-21T00:45:00+02:00'),
+    endTime: new Date('2021-06-22T00:45:00+02:00'),
     artists: [
       'Amplitudes',
       'Cmd+O',
@@ -911,8 +911,8 @@ export const events: Event[] = [
       name: 'IBOAT',
       addressStr: 'Bassin à Flot n°, 1 Cr Henri Brunet, 33300 Bordeaux',
     },
-    startTime: new Date('2021-06-21T00:00:00+02:00'),
-    endTime: new Date('2021-06-21T06:00:00+02:00'),
+    startTime: new Date('2021-06-22T00:00:00+02:00'),
+    endTime: new Date('2021-06-22T06:00:00+02:00'),
     price: '🚨 ENTRÉE GRATUITE TOUTE LA NUIT 🚨',
     artists: [
       'Distill',
@@ -1038,7 +1038,7 @@ export const events: Event[] = [
       addressStr: 'Place de la République, 33000 Bordeaux',
     },
     startTime: new Date('2021-06-21T14:00:00+02:00'),
-    endTime: new Date('2021-06-21T00:00:00+02:00'),
+    endTime: new Date('2021-06-22T00:00:00+02:00'),
     price: 'Gratuit',
     genres: [
       'Reggae',
@@ -1123,7 +1123,7 @@ export const events: Event[] = [
       addressStr: '29 rue du Mirail, 33800 Bordeaux',
     },
     startTime: new Date('2021-06-21T19:00:00+02:00'),
-    endTime: new Date('2021-06-21T01:00:00+02:00'),
+    endTime: new Date('2021-06-22T01:00:00+02:00'),
     price: 'Gratuit, jauge 300 personnes',
     links: [
       {
@@ -1395,7 +1395,7 @@ export const events: Event[] = [
       addressStr: '54 rue Camille Sauvageau, 33800 Bordeaux',
     },
     startTime: new Date('2021-06-21T17:00:00+02:00'),
-    endTime: new Date('2021-06-21T02:00:00+02:00'),
+    endTime: new Date('2021-06-22T02:00:00+02:00'),
     genres: [
       'Black Noise',
       'Black Power Violence',
@@ -1432,7 +1432,7 @@ export const events: Event[] = [
       addressStr: '30 rue Bouquière, 33000 Bordeaux',
     },
     startTime: new Date('2021-06-21T18:00:00+02:00'),
-    endTime: new Date('2021-06-21T02:00:00+02:00'),
+    endTime: new Date('2021-06-22T02:00:00+02:00'),
     genres: [
       'DJs sets',
     ],
@@ -1472,7 +1472,7 @@ export const events: Event[] = [
       addressStr: 'Place des Basques, 33000 Bordeaux',
     },
     startTime: new Date('2021-06-21T17:00:00+02:00'),
-    endTime: new Date('2021-06-21T00:30:00+02:00'),
+    endTime: new Date('2021-06-22T00:30:00+02:00'),
     genres: [
       'Banda',
       'Traditionnel',
@@ -1806,7 +1806,7 @@ export const events: Event[] = [
       name: 'Rue Philippart, Bordeaux',
     },
     startTime: new Date('2021-06-21T20:00:00+02:00'),
-    endTime: new Date('2021-06-21T02:00:00+02:00'),
+    endTime: new Date('2021-06-22T02:00:00+02:00'),
     genres: [
       'House',
       'Tech-house',
