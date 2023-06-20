@@ -1485,7 +1485,7 @@ export const events: Event[] = [
         label: 'Évènement Facebook',
       },
       {
-        url: 'https://www.instagram.com/p/CtibNJQI9vy/',
+        url: 'https://www.instagram.com/p/Ctth8ifqaOV',
         label: 'Post Instagram',
       },
       {
@@ -1532,6 +1532,9 @@ export const events: Event[] = [
             <li>
               22h-00h Pirate Jus d’Orange (SELECTA)
             </li>
+            <li>
+              0h30 fermeture des portes
+            </li>
           </ul>
         </p>
         <p>
@@ -1541,7 +1544,7 @@ export const events: Event[] = [
           className="mx-auto"
           style={{ maxWidth: 400 }}
         >
-          <InstagramEmbed url="https://www.instagram.com/p/CtibNJQI9vy/" />
+          <InstagramEmbed url="https://www.instagram.com/p/Ctth8ifqaOV" />
         </div>
       </>
     ),
