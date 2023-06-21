@@ -25,6 +25,36 @@ const descriptionSpan = css`
   };
 `;
 
+const descriptionTypographyDiv = css`
+  @media only screen and (max-width: 600px) {
+    & > .MuiAlert-root {
+      padding: 0;
+    }
+  }
+
+  & > .MuiAlert-root {
+    width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+    & > .MuiAlert-message {
+      width: 100%;
+      & .rsme-embed {
+        max-width: 450px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  text-align: left;
+`;
+
 /* EventListItemDetails component prop types ----------- */
 interface EventListItemDetailsProps {
   open: boolean;
@@ -62,6 +92,7 @@ const EventListItemDetails: React.FC<EventListItemDetailsProps> = (
                   variant="body2"
                   color="text.secondary"
                   component="div"
+                  className={descriptionTypographyDiv}
                 >
                   {event.description}
                 </Typography>
@@ -70,7 +101,7 @@ const EventListItemDetails: React.FC<EventListItemDetailsProps> = (
           {
             event.links !== undefined &&
             event.links.length > 0 &&
-              <article>
+              <article className="flex flex-col">
 
                 <Typography
                   variant="h6"

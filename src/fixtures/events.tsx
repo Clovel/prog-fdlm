@@ -547,8 +547,7 @@ export const events: Event[] = [
       <>
         <Alert
           severity="warning"
-          className="p-0"
-          style={{ maxWidth: 380 }}
+          icon={false}
         >
           <p>
             Évènement déplacé a cause des intempéries.
@@ -556,10 +555,7 @@ export const events: Event[] = [
           <p>
             Déplacé au Deus Ex Machina, de 19h à 00h.
           </p>
-          <div
-            className="mx-auto"
-            style={{ maxWidth: 380 }}
-          >
+          <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
             <InstagramEmbed url="https://www.instagram.com/p/CtuDHmGKtcx/" />
           </div>
         </Alert>
@@ -630,8 +626,7 @@ export const events: Event[] = [
       <>
         <Alert
           severity="warning"
-          className="p-0"
-          style={{ maxWidth: 380 }}
+          icon={false}
         >
           <p>
             Évènement déplacé a cause des intempéries.
@@ -639,10 +634,7 @@ export const events: Event[] = [
           <p>
             Déplacé au Deus Ex Machina, de 19h à 00h.
           </p>
-          <div
-            className="mx-auto"
-            style={{ maxWidth: 380 }}
-          >
+          <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
             <InstagramEmbed url="https://www.instagram.com/p/CtuDHmGKtcx/" />
           </div>
         </Alert>
@@ -848,8 +840,7 @@ export const events: Event[] = [
       <>
         <Alert
           severity="warning"
-          className="p-0"
-          style={{ maxWidth: 380 }}
+          icon={false}
         >
           <p>
             Évènement déplacé a cause des intempéries.
@@ -857,10 +848,7 @@ export const events: Event[] = [
           <p>
             Déplacé à Darwin aux Heures Heureuses.
           </p>
-          <div
-            className="mx-auto"
-            style={{ maxWidth: 380 }}
-          >
+          <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
             <InstagramEmbed url="https://www.instagram.com/p/Ctt7gRIMF1O/" />
           </div>
         </Alert>
@@ -1198,8 +1186,7 @@ export const events: Event[] = [
       <>
         <Alert
           severity="warning"
-          className="p-0"
-          style={{ maxWidth: 380 }}
+          icon={false}
         >
           <p>
             Évènement déplacé a cause des intempéries.
@@ -1207,10 +1194,7 @@ export const events: Event[] = [
           <p>
             Déplacé à Darwin aux Heures Heureuses.
           </p>
-          <div
-            className="mx-auto"
-            style={{ maxWidth: 380 }}
-          >
+          <div className="mx-auto">
             <InstagramEmbed url="https://www.instagram.com/p/Ctt7gRIMF1O/" />
           </div>
         </Alert>
@@ -1996,8 +1980,7 @@ export const events: Event[] = [
       <>
         <Alert
           severity="warning"
-          className="p-0"
-          style={{ maxWidth: 380 }}
+          icon={false}
         >
           <p>
             Évènement déplacé a cause des intempéries.
@@ -2005,10 +1988,7 @@ export const events: Event[] = [
           <p>
             Déplacé à Les BROC'S Saint Michel, de 16h à 2h
           </p>
-          <div
-            className="mx-auto"
-            style={{ maxWidth: 380 }}
-          >
+          <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
             <InstagramEmbed url="https://www.instagram.com/p/CtuSF7vqFzZ/" />
           </div>
         </Alert>

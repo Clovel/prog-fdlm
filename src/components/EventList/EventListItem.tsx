@@ -92,30 +92,24 @@ const EventListItem: React.FC<EventListItemProps> = (
                   {event.name ?? event.location.name}
                 </span>
                 {
-                  event.status === 'rescheduled' &&
-                    <span className="to-red-600">
-                      Reprogrammé
-                    </span>
-                }
-                {
                   event.status !== undefined &&
                     ' - '
                 }
                 {
                   event.status === 'rescheduled' &&
-                    <span className="to-orange-600">
+                    <span className="text-orange-600">
                       Reprogrammé
                     </span>
                 }
                 {
                   event.status === 'canceled' &&
-                    <span className="to-red-600">
+                    <span className="text-red-600">
                       Reprogrammé
                     </span>
                 }
                 {
                   event.status === 'postponed' &&
-                    <span className="to-purple-600">
+                    <span className="text-purple-600">
                       Reporté
                     </span>
                 }

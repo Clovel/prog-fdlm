@@ -74,7 +74,7 @@ const HomePage: React.FC<HomePageProps> = () => {
 
               return (
                 <React.Fragment key={`${categoryTitle}-${index}`}>
-                  <section className="w-full max-w-5xl px-2 lg:py-8 mx-auto lg:px-0">
+                  <section className="flex flex-col w-full max-w-screen lg:max-w-5xl px-2 lg:py-8 mx-auto lg:px-0">
                     <Typography
                       variant="h4"
                       className="py-4"
