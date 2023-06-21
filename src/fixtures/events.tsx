@@ -1,5 +1,8 @@
-/* Type imports ---------------------------------------- */
+/* Component imports ----------------------------------- */
+import { Alert } from '@mui/material';
 import { InstagramEmbed } from 'react-social-media-embed';
+
+/* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
 
 /* Events fixture -------------------------------------- */
@@ -541,6 +544,24 @@ export const events: Event[] = [
     ],
     description: (
       <>
+        <Alert
+          severity="warning"
+          className="p-0"
+          style={{ maxWidth: 380 }}
+        >
+          <p>
+            Évènement déplacé a cause des intempéries.
+          </p>
+          <p>
+            Déplacé au Deus Ex Machina, de 19h à 00h.
+          </p>
+          <div
+            className="mx-auto"
+            style={{ maxWidth: 380 }}
+          >
+            <InstagramEmbed url="https://www.instagram.com/p/CtuDHmGKtcx/" />
+          </div>
+        </Alert>
         <p>
           WHYNOT présente
         </p>
@@ -604,23 +625,43 @@ export const events: Event[] = [
       },
     ],
     description: (
-      <p>
-        Programme :
-        <ul>
-          <li>
-            20:00 : Sam Fleisch (Indie Rock) [Bordeaux]
-          </li>
-          <li>
-            21:15 : Michelle et Les Garçons (80s Pop) [Angers]
-          </li>
-          <li>
-            22:15 : Blvck Hippie (Rock Indie Garage) [Memphis, USA]
-          </li>
-          <li>
-            23:30 : Musique d'Apéritif (Electro New Beat) [Biarritz]
-          </li>
-        </ul>
-      </p>
+      <>
+        <Alert
+          severity="warning"
+          className="p-0"
+          style={{ maxWidth: 380 }}
+        >
+          <p>
+            Évènement déplacé a cause des intempéries.
+          </p>
+          <p>
+            Déplacé au Deus Ex Machina, de 19h à 00h.
+          </p>
+          <div
+            className="mx-auto"
+            style={{ maxWidth: 380 }}
+          >
+            <InstagramEmbed url="https://www.instagram.com/p/CtuDHmGKtcx/" />
+          </div>
+        </Alert>
+        <p>
+          Programme :
+          <ul>
+            <li>
+              20:00 : Sam Fleisch (Indie Rock) [Bordeaux]
+            </li>
+            <li>
+              21:15 : Michelle et Les Garçons (80s Pop) [Angers]
+            </li>
+            <li>
+              22:15 : Blvck Hippie (Rock Indie Garage) [Memphis, USA]
+            </li>
+            <li>
+              23:30 : Musique d'Apéritif (Electro New Beat) [Biarritz]
+            </li>
+          </ul>
+        </p>
+      </>
     ),
   },
   {
@@ -802,6 +843,24 @@ export const events: Event[] = [
     ],
     description: (
       <>
+        <Alert
+          severity="warning"
+          className="p-0"
+          style={{ maxWidth: 380 }}
+        >
+          <p>
+            Évènement déplacé a cause des intempéries.
+          </p>
+          <p>
+            Déplacé à Darwin aux Heures Heureuses.
+          </p>
+          <div
+            className="mx-auto"
+            style={{ maxWidth: 380 }}
+          >
+            <InstagramEmbed url="https://www.instagram.com/p/Ctt7gRIMF1O/" />
+          </div>
+        </Alert>
         <p>
           On prends les mêmes et on recommence !
           <br />
@@ -1133,6 +1192,24 @@ export const events: Event[] = [
     ],
     description: (
       <>
+        <Alert
+          severity="warning"
+          className="p-0"
+          style={{ maxWidth: 380 }}
+        >
+          <p>
+            Évènement déplacé a cause des intempéries.
+          </p>
+          <p>
+            Déplacé à Darwin aux Heures Heureuses.
+          </p>
+          <div
+            className="mx-auto"
+            style={{ maxWidth: 380 }}
+          >
+            <InstagramEmbed url="https://www.instagram.com/p/Ctt7gRIMF1O/" />
+          </div>
+        </Alert>
         <p>
           Ayooo les loubards !!!
         </p>
@@ -1172,6 +1249,12 @@ export const events: Event[] = [
             </li>
           </ul>
         </p>
+        <div
+          className="mx-auto"
+          style={{ maxWidth: 380 }}
+        >
+          <InstagramEmbed url="https://www.instagram.com/p/CstiRaBIbQ_/" />
+        </div>
       </>
     ),
   },
@@ -1880,6 +1963,95 @@ export const events: Event[] = [
         <p>
           SAVE THE DATE ! 💥
         </p>
+      </>
+    ),
+  },
+  {
+    id: '40',
+    category: 'St. Michel',
+    name: 'FDLM2023 PLACE ST MICHEL 🤿 I 🚨③⑥①⑤𝘽𝙀𝘽𝙊𝙋🚨',
+    location: {
+      name: 'Place Saint-Michel',
+      addressStr: 'Place Meynard, 33000 Bordeaux',
+    },
+    startTime: new Date('2021-06-21T16:00:00+02:00'),
+    endTime: new Date('2021-06-22T00:00:00+02:00'),
+    genres: [
+      'DJs sets',
+      'Electro',
+      'Techno',
+    ],
+    links: [
+      {
+        url: 'https://www.facebook.com/events/1456328228448347',
+        label: 'Évènement Facebook',
+      },
+    ],
+    description: (
+      <>
+        <Alert
+          severity="warning"
+          className="p-0"
+          style={{ maxWidth: 380 }}
+        >
+          <p>
+            Évènement déplacé a cause des intempéries.
+          </p>
+          <p>
+            Déplacé à Les BROC'S Saint Michel, de 16h à 2h
+          </p>
+          <div
+            className="mx-auto"
+            style={{ maxWidth: 380 }}
+          >
+            <InstagramEmbed url="https://www.instagram.com/p/CtuSF7vqFzZ/" />
+          </div>
+        </Alert>
+        <p>
+          📅 𝗠𝗘𝗥𝗖𝗥𝗘𝗗𝗜 𝟮𝟭 𝗝𝗨𝗜𝗡 : 𝟭𝟲𝗵 - 𝟬𝟬𝗵𝟬𝟬 𝗣𝗟𝗔𝗖𝗘 𝗦𝗧 𝗠𝗜𝗖𝗛𝗘𝗟
+        </p>
+        <p>
+          🍺 BUVETTE SUR PLACE : 𝗣𝗜𝗡𝗧𝗘 𝗔̀ 𝟲€
+        </p>
+        <p>
+          🚨 𝘽𝙀𝘽𝙊𝙋 MOBILE
+        </p>
+        <p>
+          🛠️ Scéno SURPRISE en lien avec le flyer…👀
+        </p>
+        <p>
+          T’as vraiment cru que nous n’avions rien prévu ?
+        </p>
+        <p>
+          Savoir quoi ? 𝗥 𝗜 𝗘 𝗡 😈
+        </p>
+        <p>
+          🤡 𝗝𝗘𝗨 𝗖𝗢𝗡𝗖𝗢𝗨𝗥𝗦 🤡
+        </p>
+        <p>
+          FAKE ou pas FAKE ?
+        </p>
+        <p>
+          Feux d’artifice prévus sur la 𝘽𝙀𝘽𝙊𝙋 MOBILE ? 🎉
+        </p>
+        <p>
+          Réponds en commentaire sur le mur de l'évent en marquant 2 de tes potes.
+        </p>
+        <p>
+          🎁 𝗧𝗜𝗥𝗔𝗚𝗘 𝗔𝗨 𝗦𝗢𝗥𝗧 𝗠𝗘𝗥𝗖𝗥𝗘𝗗𝗜 𝟭𝟱𝗵 🎁
+        </p>
+        <p>
+          3 commentaires avec la bonne réponse seront tirés au sort et se verront offrir 3 pintes chacun.
+        </p>
+        <p>
+          🙃 𝗔𝗙𝗧𝗘𝗥 𝗣𝗔𝗥𝗧𝗬 𝗚𝗥𝗔𝗧𝗨𝗜𝗧𝗘 @ 𝗜𝗕𝗢𝗔𝗧 🚀 𝗣-𝗔 𝗔𝗨 𝗖𝗟𝗢𝗦𝗜𝗡𝗚 𝗗𝗘 𝟱 𝗮̀ 𝟲𝗵 🤯
+        </p>
+        <div
+          className="mx-auto"
+          style={{ maxWidth: 400 }}
+        >
+          <InstagramEmbed url="https://www.instagram.com/p/Ctq3lwlqEzS/" />
+        </div>
       </>
     ),
   },

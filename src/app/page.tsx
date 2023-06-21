@@ -5,13 +5,15 @@ import React from 'react';
 
 /* Module imports -------------------------------------- */
 import { events } from 'fixtures/events';
+import { reduceEventsByCategory } from 'helpers/reduceEventsByCategory';
+import { sortEventsByCategoryEntries } from 'helpers/orderEventsByCategory';
 
 /* Component imports ----------------------------------- */
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import Alert from '@mui/material/Alert';
+import { InstagramEmbed } from 'react-social-media-embed';
 import EventList from '../components/EventList/EventList';
-import { reduceEventsByCategory } from 'helpers/reduceEventsByCategory';
-import { sortEventsByCategoryEntries } from 'helpers/orderEventsByCategory';
 
 /* Style imports --------------------------------------- */
 
@@ -25,10 +27,42 @@ const HomePage: React.FC<HomePageProps> = () => {
   return (
     <div className="flex flex-col place-items-center min-w-full py-4 lg:py-0">
       <p>
-        Nombre d'events:
+        Nombre d'events :
         {' '}
         {events.length}
       </p>
+      <Alert
+        className="lg:my-2 lg:p-2 w-full"
+        severity="error"
+      >
+        A cause des orages annoncés pour ce soir, ne nombreux événements en plein air sont annulés ou reprogrammés dans des lieux abrités.
+        <br />
+        Par exemple, les évènements suivants ont été reprogrammés :
+        <ul className="!list-disc list-inside">
+          <li>
+            Amplitudes, Cmd+O & L'Orangeade : Darwin de 18 et 21h45, IBOAT de 21h et 4h
+          </li>
+          <li>
+            ③⑥①⑤𝘽𝙀𝘽𝙊𝙋 : Les BROC'S Saint Michel, de 16h à 2h
+          </li>
+          <li>
+            WHYNOT, l'Astrodøme et Musique d'Apéritif : Deus Ex Machina, de 19h à 00h
+          </li>
+        </ul>
+      </Alert>
+      <Alert
+        className="lg:my-2 lg:p-2 w-full"
+        severity="warning"
+      >
+        Les annulations et déplacement des évènements sont en cours de mise à jour.
+      </Alert>
+      <Alert
+        className="lg:my-2 lg:p-2 w-full"
+        severity="success"
+      >
+        Merci beaucoup aux lieux qui accueillent les artistes et les évènements qui ont été annulés à cause de la pluie !
+        Sans eux la fête serait annulée !
+      </Alert>
       {
         Object.entries(
           reduceEventsByCategory(events)
@@ -58,6 +92,20 @@ const HomePage: React.FC<HomePageProps> = () => {
             },
           )
       }
+      <section className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0">
+        <Typography
+          variant="h4"
+          className="pb-4"
+        >
+          Guide des évènements de Feather Webzine
+        </Typography>
+        <div
+          className="mx-auto"
+          style={{ maxWidth: 380 }}
+        >
+          <InstagramEmbed url="https://www.instagram.com/p/CttYam5KAhY/" />
+        </div>
+      </section>
       <section className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0">
         <Typography
           variant="h4"
