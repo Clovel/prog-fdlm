@@ -12,6 +12,7 @@ export interface EventLink {
 export interface Event {
   id: string;
   name?: string;
+  status?: 'canceled' | 'postponed' | 'rescheduled';
   description?: React.ReactNode;
   category?: typeof eventCategories[number];
   genres?: string[];

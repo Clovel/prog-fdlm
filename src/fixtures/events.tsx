@@ -515,6 +515,7 @@ export const events: Event[] = [
   },
   {
     id: '13',
+    status: 'rescheduled',
     category: 'Centre ville',
     location: {
       name: 'Place Saint Projet',
@@ -596,6 +597,7 @@ export const events: Event[] = [
   },
   {
     id: '14',
+    status: 'rescheduled',
     name: 'L\'Astrodøme et Musique d\'Apéritif',
     category: 'Centre ville',
     location: {
@@ -810,6 +812,7 @@ export const events: Event[] = [
   },
   {
     id: '19',
+    status: 'rescheduled',
     category: 'Centre ville',
     name: "Amplitudes, Cmd+O & L'Orangeade",
     location: {
@@ -1175,6 +1178,7 @@ export const events: Event[] = [
   },
   {
     id: '26',
+    status: 'rescheduled',
     name: 'Mates x Le Protocole Radio',
     category: 'Centre ville',
     location: {
@@ -1968,8 +1972,9 @@ export const events: Event[] = [
   },
   {
     id: '40',
+    status: 'rescheduled',
     category: 'St. Michel',
-    name: 'FDLM2023 PLACE ST MICHEL 🤿 I 🚨③⑥①⑤𝘽𝙀𝘽𝙊𝙋🚨',
+    name: '🚨③⑥①⑤𝘽𝙀𝘽𝙊𝙋🚨',
     location: {
       name: 'Place Saint-Michel',
       addressStr: 'Place Meynard, 33000 Bordeaux',
