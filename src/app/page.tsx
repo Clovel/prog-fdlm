@@ -35,9 +35,13 @@ const HomePage: React.FC<HomePageProps> = () => {
         className="lg:my-2 lg:p-2 w-full"
         severity="error"
       >
-        A cause des orages annoncés pour ce soir, ne nombreux événements en plein air sont annulés ou reprogrammés dans des lieux abrités.
+        <p>
+          A cause des orages annoncés pour ce soir, ne nombreux événements en plein air sont annulés ou reprogrammés dans des lieux abrités.
+        </p>
         <br />
-        Par exemple, les évènements suivants ont été reprogrammés :
+        <p>
+          Par exemple, les évènements suivants ont été reprogrammés :
+        </p>
         <ul className="!list-disc list-inside">
           <li>
             Amplitudes, Cmd+O & L'Orangeade : Darwin de 18 et 21h45, IBOAT de 21h et 4h
@@ -49,6 +53,19 @@ const HomePage: React.FC<HomePageProps> = () => {
             WHYNOT, l'Astrodøme et Musique d'Apéritif : Deus Ex Machina, de 19h à 00h
           </li>
         </ul>
+        <br />
+        <p>
+          Pour Darwin, pensez a vous inscrire sur la liste d'attente :
+          {' '}
+          <a
+            href="https://dice.fm/event/yaedr-hh-fte-de-la-musique-et-du-skate-21st-jun-darwin-bordeaux-tickets"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="text-blue-500 hover:underline"
+          >
+            Billetterie DICE
+          </a>
+        </p>
       </Alert>
       <Alert
         className="lg:my-2 lg:p-2 w-full"
