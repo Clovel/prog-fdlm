@@ -1,6 +1,7 @@
 /* Component imports ----------------------------------- */
 import { Alert } from '@mui/material';
-import CustomInstagramEmbed from 'components/CustomInstagramEmbed/CustomInstagramEmbed';
+import CustomEmbed from 'components/CustomEmbed/CustomEmbed';
+import { FacebookEmbed } from 'react-social-media-embed';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
@@ -129,7 +130,7 @@ export const events: Event[] = [
             See you there 🫶
           </i>
         </p>
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C7wfI07KKfY/?img_index=1" />
+        <CustomEmbed url="https://www.instagram.com/p/C7wfI07KKfY/?img_index=1" />
       </>
     ),
   },
@@ -207,7 +208,7 @@ export const events: Event[] = [
           </ul>
         </p>
 
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C8M9APpqOfo/" />
+        <CustomEmbed url="https://www.instagram.com/p/C8M9APpqOfo/" />
       </>
     ),
   },
@@ -283,7 +284,7 @@ export const events: Event[] = [
           🍺 MAXI BUVETTE : PINTE 6€
         </p>
 
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C8M9APpqOfo/" />
+        <CustomEmbed url="https://www.instagram.com/p/C8M9APpqOfo/" />
       </>
     ),
   },
@@ -327,7 +328,7 @@ export const events: Event[] = [
           <br />
           Pour ce faire nous convoquons nos dieux lumières, le @collectif_cmdo à la sceno et derrière les platines @vingt__deux__ & @s.olynde du collectif @w__i__l__d_, @fullspeed_3000, @deejayblond, @will_diggs_lorangeade_djs et @freemadj ☀️
         </p>
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C7UVHVZK56Q/" />
+        <CustomEmbed url="https://www.instagram.com/p/C7UVHVZK56Q/" />
       </>
     ),
   },
@@ -445,7 +446,7 @@ export const events: Event[] = [
           <br />
           ❤️ visuel by @daphneadoto
         </p>
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C8FNgggoxoO/" />
+        <CustomEmbed url="https://www.instagram.com/p/C8FNgggoxoO/" />
       </>
     ),
   },
@@ -493,7 +494,7 @@ export const events: Event[] = [
   },
   {
     id: '50',
-    name: `Trafic + Bruit Rose + Super Daronne + Mates + Distill + Les Viatiques`,
+    name: `Bordeaux fête la musique - Mini festival, Maxi collectivité`,
     category: 'Centre ville',
     location: {
       name: 'Parc Bordelais',
@@ -517,12 +518,20 @@ export const events: Event[] = [
     price: 'Gratuit sur préventes',
     links: [
       {
-        url: 'https://l.facebook.com/l.php?u=https%3A%2F%2Flink.dice.fm%2FO6152de7a2b0%3Ffbclid%3DIwZXh0bgNhZW0CMTAAAR1dfEoczpYGLVQ7B9I6HUBVkcO8dPmQ5R86UQM4o3_XIk9J8HYiwjrL9bM_aem_AcYM4cvkBPJD0pmH5ZgKJbSLt73rRf6Z0HHcyqDHmVQZkO2L73cxiauVBURTjxlGPQaxcLrZc4ZdZYUVVRQl1v38&h=AT0lKKxRDrW9J_9qjMUBCIPT5P_0gG86kHHKvkQDRwOTWwxPORVuZ7rk9oLgIWhCwZ2CnfmKHce4Ed2ZA6HZxEwBK09vwbJWzCutmsqnkPIBXXXtryFmz694lAvFUXOJg7z8HL5GXw&__tn__=q&c[0]=AT03lOjxYvbcDxg8N0lVHC0QJEFpPpnvFEfNfV02KvEiPkls8JKSJ3R3TWSJLQbvlCTIhL1c4P_WeLvtUgFiOuH47ciOctY1qVpILJSf0IWq7F96SioO5yhcxnE_Xws0DhW8i8HfB8kGZosTW44xobBQY8pPXI_SFdKGgwJ4HTHJ-GxaeE9G',
+        url: 'https://dice.fm/partner/iboat/event/gvqlb-bordeaux-fte-la-musique-electronique-parc-bordelais-21st-jun-parc-bordelais-bordeaux-tickets?dice_id=3008650&dice_channel=web&dice_tags=organic&dice_campaign=IBOAT&dice_feature=mio_marketing&_branch_match_id=1332477066904013691&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXz8nMy9ZLyUxO1UvL1fc3MzQ1Skk1TzRKMgAAtqSnDCEAAAA%3D',
         label: 'Billetterie coupe file (DICE)',
       },
       {
         url: 'https://www.bordeaux.fr/e220461/trafic-bruit-rose-super-daronne-mates-distill-les-viatiques',
         label: 'Évènement dans l\'agenda bordeaux.fr',
+      },
+      {
+        url: 'https://www.instagram.com/p/C6Y8dVyK8tQ/',
+        label: 'Post Instagram',
+      },
+      {
+        url: 'https://www.facebook.com/events/1594624761113483?acontext=%7B%22event_action_history%22:%5B%5D%7D',
+        label: 'Évènement Facebook',
       },
     ],
     description: (
@@ -552,6 +561,12 @@ export const events: Event[] = [
             Après ça : Direction l’IBOAT pour un Club de la Musique déjà mémorable ! Enfin pour les plus courageux : c'est à partir de 6h00 qu'il faudra rejoindre un all day long en open air bien costaud dans un lieu tenu secret jusqu'au dernier moment !
           </b>
         </p>
+
+        <CustomEmbed
+          EmbedComponent={FacebookEmbed}
+          url="https://www.facebook.com/events/1594624761113483?acontext=%7B%22event_action_history%22:%5B%5D%7D"
+        />
+        <CustomEmbed url="https://www.instagram.com/p/C6Y8dVyK8tQ/" />
       </>
     ),
   },
@@ -809,7 +824,7 @@ export const events: Event[] = [
       'Bar',
     ],
     description: (
-      <CustomInstagramEmbed url="https://www.instagram.com/p/C8Up5WmIrJn/" />
+      <CustomEmbed url="https://www.instagram.com/p/C8Up5WmIrJn/" />
     ),
   },
   {
@@ -833,7 +848,7 @@ export const events: Event[] = [
       'DJ set',
     ],
     description: (
-      <CustomInstagramEmbed url="https://www.instagram.com/p/C8U_8TEqq1r/" />
+      <CustomEmbed url="https://www.instagram.com/p/C8U_8TEqq1r/" />
     ),
   },
   {
@@ -909,7 +924,7 @@ export const events: Event[] = [
 
           𝗘́𝗧𝗘𝗥𝗡𝗘𝗟𝗟𝗘 𝗤𝗨𝗘𝗦𝗧𝗜𝗢𝗡 : 𝗦𝗔𝗩𝗢𝗜𝗥 𝗤𝗨𝗢𝗜 ? 𝗥 𝗜 𝗘 𝗡 😈
         </p>
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C7epaKOK7FS/" />
+        <CustomEmbed url="https://www.instagram.com/p/C7epaKOK7FS/" />
       </>
     ),
   },
@@ -949,7 +964,7 @@ export const events: Event[] = [
           <br />
           A partir de 20h
         </p>
-        <CustomInstagramEmbed
+        <CustomEmbed
           url="https://www.instagram.com/p/C8WuUmTqAh5/?img_index=2"
         />
       </>
@@ -1043,7 +1058,7 @@ export const events: Event[] = [
       'Trikar',
     ],
     description: (
-      <CustomInstagramEmbed url="https://www.instagram.com/p/C6Y8dVyK8tQ/" />
+      <CustomEmbed url="https://www.instagram.com/p/C6Y8dVyK8tQ/" />
     ),
   },
   {
@@ -1091,7 +1106,7 @@ export const events: Event[] = [
           <br />
           25€ / personne
         </p>
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C8cnutDoFqp/" />
+        <CustomEmbed url="https://www.instagram.com/p/C8cnutDoFqp/" />
       </>
     ),
   },
@@ -1134,7 +1149,7 @@ export const events: Event[] = [
           <br />
           De 22h30 à 2h
         </p>
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C8cnutDoFqp/" />
+        <CustomEmbed url="https://www.instagram.com/p/C8cnutDoFqp/" />
       </>
     ),
   },
@@ -1178,7 +1193,7 @@ export const events: Event[] = [
           <br />
           Prod : @theo.miege
         </p>
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C7POU_sIa19/" />
+        <CustomEmbed url="https://www.instagram.com/p/C7POU_sIa19/" />
       </>
     ),
   },
@@ -1231,7 +1246,7 @@ export const events: Event[] = [
         <p>
           (OUVERTURE DES PORTES MINUIT //OPEN GATES 00:00)
         </p>
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C7yxwd2oC72/" />
+        <CustomEmbed url="https://www.instagram.com/p/C7yxwd2oC72/" />
       </>
     ),
   },
@@ -1289,7 +1304,7 @@ export const events: Event[] = [
           🕠 19h - 2h
         </p>
 
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C8IGRN9Iy7F/" />
+        <CustomEmbed url="https://www.instagram.com/p/C8IGRN9Iy7F/" />
       </>
     ),
   },
@@ -1361,7 +1376,7 @@ export const events: Event[] = [
           Ne manquez pas cette soirée mémorable ! 🌠
         </p>
 
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C8XS02DovYc/" />
+        <CustomEmbed url="https://www.instagram.com/p/C8XS02DovYc/" />
       </>
     ),
   },
@@ -1427,7 +1442,7 @@ export const events: Event[] = [
           🍷 L’abus d’alcool est dangereux pour la santé, à consommer avec modération
         </p>
 
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C8MLnqLo3YY/" />
+        <CustomEmbed url="https://www.instagram.com/p/C8MLnqLo3YY/" />
       </>
     ),
   },
@@ -1493,7 +1508,7 @@ export const events: Event[] = [
             </li>
           </ul>
         </p>
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C8ZxNPyKto1/" />
+        <CustomEmbed url="https://www.instagram.com/p/C8ZxNPyKto1/" />
       </>
     ),
   },
@@ -1560,7 +1575,7 @@ export const events: Event[] = [
           @flavvmusic @butano_tisma @snertechno @saw__dj @chesh_t_r @vincent_tury_21 @kent.lewis_ @2id.wav @c_titu_psyguana @h_forbes_ @saihttam.music @furik_officiel @_djeudj_ @_hisachi__ @_hisachi__ @hendemic_music
         </p>
 
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C8XE6J2IBZ7/?img_index=1" />
+        <CustomEmbed url="https://www.instagram.com/p/C8XE6J2IBZ7/?img_index=1" />
       </>
     ),
   },
