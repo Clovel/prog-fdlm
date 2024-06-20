@@ -1,7 +1,7 @@
 /* Type imports ---------------------------------------- */
 import type React from 'react';
 import type { Location } from './Location';
-import type { EventCategory } from 'fixtures/eventCategories';
+import type { EventCategory } from 'types/eventCategories';
 
 /* Event interface declaration ------------------------- */
 export interface EventLink {

@@ -1,5 +1,5 @@
 /* Module imports -------------------------------------- */
-import { eventCategories } from 'fixtures/eventCategories';
+import { eventCategories } from 'types/eventCategories';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
