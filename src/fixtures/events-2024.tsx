@@ -1609,7 +1609,11 @@ export const events: Event[] = [
         </p>
         <p>
           <code>
-            Téma l'heure mdr.
+            Téma l'event mdr. C'est de
+            {' '}
+            <b>
+              07h à 13h au cours de la Marne
+            </b>
           </code>
         </p>
       </>
