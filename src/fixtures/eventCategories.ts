@@ -10,6 +10,8 @@ export const eventCategories = [
   'Pessac',
   'Mérignac',
   'Bordeaux Ouest',
+  'Ambulant',
+  'Bordeaux sud',
 ] as const;
 
 export type EventCategory = typeof eventCategories[number];

@@ -27,12 +27,19 @@ const EventCategoryView: React.FC<EventCategoryViewProps> = (
 ) => {
   return (
     <section className="flex flex-col w-full max-w-screen lg:max-w-5xl px-2 lg:py-8 mx-auto lg:px-0">
-      <Typography
-        variant="h4"
-        className="py-4"
-      >
-        {categoryTitle}
-      </Typography>
+      <div className="flex justify-between items-center">
+        <Typography
+          variant="h4"
+          className="py-4"
+        >
+          {categoryTitle}
+        </Typography>
+        <span>
+          Nombre d'events :
+          {' '}
+          {categoryEvents.length}
+        </span>
+      </div>
       <EventList events={categoryEvents} />
     </section>
   );

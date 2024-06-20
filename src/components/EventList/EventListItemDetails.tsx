@@ -33,6 +33,7 @@ const descriptionTypographyDiv = css`
   }
 
   & > .MuiAlert-root {
+    margin: .5rem 0;
     width: 100%;
       display: flex;
       flex-direction: column;
@@ -77,10 +78,10 @@ const EventListItemDetails: React.FC<EventListItemDetailsProps> = (
       unmountOnExit
     >
       <ListItem divider={divider}>
-        <div className={`flex flex-col ${descriptionSpan}`}>
+        <div className={`flex flex-col ${descriptionSpan} w-full`}>
           {
             event.description !== undefined &&
-              <article>
+              <article className="w-full">
                 <Typography
                   variant="h6"
                   color="text.secondary"
@@ -101,7 +102,7 @@ const EventListItemDetails: React.FC<EventListItemDetailsProps> = (
           {
             event.links !== undefined &&
             event.links.length > 0 &&
-              <article className="flex flex-col">
+              <article className="flex flex-col w-full">
 
                 <Typography
                   variant="h6"
