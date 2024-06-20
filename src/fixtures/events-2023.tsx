@@ -1249,7 +1249,7 @@ export const events: Event[] = [
   {
     id: '27',
     name: 'Zéro Degré',
-    category: 'Bordeaux Ouest',
+    category: 'Bordeaux ouest',
     location: {
       name: 'Jardin de la Béchade',
       addressStr: 'Rue de la Béchade, 33000 Bordeaux',
@@ -1318,7 +1318,7 @@ export const events: Event[] = [
   {
     id: '28',
     name: 'Festival 33 Tour',
-    category: 'Bordeaux Ouest',
+    category: 'Bordeaux ouest',
     location: {
       name: 'Parc Bordelais',
       addressStr: 'Rue du Bocage, 33200 Bordeaux',
@@ -1420,7 +1420,7 @@ export const events: Event[] = [
   {
     id: '30',
     name: 'Les moules ont la frite',
-    category: 'Bordeaux Ouest',
+    category: 'Bordeaux ouest',
     location: {
       name: 'Parc de Lussy',
       addressStr: 'Avenue de Bel Air, 33200 Bordeaux',
