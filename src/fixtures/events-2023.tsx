@@ -15,8 +15,8 @@ export const events: Event[] = [
       name: 'Quai Des Sports (face À La Porte De La Monnaie)',
       // addressStr: 'Quai Des Sports, Bordeaux, France',
     },
-    startTime: new Date('2021-06-21T18:00:00+02:00'),
-    endTime: new Date('2021-06-22T02:00:00+02:00'),
+    startTime: new Date('2023-06-21T18:00:00+02:00'),
+    endTime: new Date('2023-06-22T02:00:00+02:00'),
     genres: [
       'Techno',
       'House',
@@ -25,8 +25,8 @@ export const events: Event[] = [
   {
     id: '2',
     name: 'Concert au Garage Moderne',
-    startTime: new Date('2021-06-21T17:00:00+02:00'),
-    endTime: new Date('2021-06-22T23:00:00+02:00'),
+    startTime: new Date('2023-06-21T17:00:00+02:00'),
+    endTime: new Date('2023-06-22T23:00:00+02:00'),
     category: 'Bassins à flot',
     location: {
       name: 'Le Garage Moderne',
@@ -90,7 +90,7 @@ export const events: Event[] = [
       name: 'Musée des Beaux-Arts',
       addressStr: '20 Cours d\'Albret, Bordeaux',
     },
-    startTime: new Date('2021-06-21T10:00:00+02:00'),
+    startTime: new Date('2023-06-21T10:00:00+02:00'),
     price: `5€ par enfant + entrée du musée pour les parents`,
     genres: [
       'Enfants',
@@ -149,7 +149,7 @@ export const events: Event[] = [
       name: 'Le Jardin de ta Soeur',
       addressStr: 'Rue de la Motte Picquet, Bordeaux',
     },
-    startTime: new Date('2021-06-21T15:00:00+02:00'),
+    startTime: new Date('2023-06-21T15:00:00+02:00'),
     genres: [
       'Enfants',
       'Découverte',
@@ -192,7 +192,7 @@ export const events: Event[] = [
       name: "Musée d'Aquitaine",
       addressStr: '20 Cours Pasteur, Bordeaux',
     },
-    startTime: new Date('2021-06-21T18:00:00+02:00'),
+    startTime: new Date('2023-06-21T18:00:00+02:00'),
     genres: [
       'Historique',
       'Théâtre musical',
@@ -221,7 +221,7 @@ export const events: Event[] = [
       name: 'Musée des arts décoratifs et du design',
       addressStr: '39 Rue Bouffard, Bordeaux',
     },
-    startTime: new Date('2021-06-21T19:00:00+02:00'),
+    startTime: new Date('2023-06-21T19:00:00+02:00'),
     genres: [
       'DJs sets',
       'Drag',
@@ -270,8 +270,8 @@ export const events: Event[] = [
       name: 'Cours Mably',
       addressStr: 'Cours Mably, Bordeaux',
     },
-    startTime: new Date('2021-06-21T19:00:00+02:00'),
-    endTime: new Date('2021-06-22T00:00:00+02:00'),
+    startTime: new Date('2023-06-21T19:00:00+02:00'),
+    endTime: new Date('2023-06-22T00:00:00+02:00'),
     genres: [
       'DJs sets',
       'Electro',
@@ -290,7 +290,7 @@ export const events: Event[] = [
       name: 'Musée Mer Marine',
       addressStr: '89 Rue des Étrangers, Bordeaux',
     },
-    startTime: new Date('2021-06-21T19:00:00+02:00'),
+    startTime: new Date('2023-06-21T19:00:00+02:00'),
     genres: [
       'Chant',
       'Danse',
@@ -315,8 +315,8 @@ export const events: Event[] = [
       name: 'Salle Gouffrand',
       addressStr: '23 rue Gouffrand, Bordeaux',
     },
-    startTime: new Date('2021-06-21T19:00:00+02:00'),
-    endTime: new Date('2021-06-21T22:00:00+02:00'),
+    startTime: new Date('2023-06-21T19:00:00+02:00'),
+    endTime: new Date('2023-06-21T22:00:00+02:00'),
     price: '6€ + chapeau',
     genres: [
       'Jazz caribéen',
@@ -355,8 +355,8 @@ export const events: Event[] = [
       addressStr: 'Place Dom Bedos, Bordeaux',
     },
     name: 'La Relâche : Allez les Filles et Bordeaux Rock',
-    startTime: new Date('2021-06-21T19:00:00+02:00'),
-    endTime: new Date('2021-06-22T01:00:00+02:00'),
+    startTime: new Date('2023-06-21T19:00:00+02:00'),
+    endTime: new Date('2023-06-22T01:00:00+02:00'),
     genres: [
       'Rock',
       'Indie rock',
@@ -418,8 +418,8 @@ export const events: Event[] = [
       name: 'Quai Deschamps',
       // addressStr: 'Quai Deschamps, Bordeaux',
     },
-    startTime: new Date('2021-06-21T19:00:00+02:00'),
-    endTime: new Date('2021-06-22T00:45:00+02:00'),
+    startTime: new Date('2023-06-21T19:00:00+02:00'),
+    endTime: new Date('2023-06-22T00:45:00+02:00'),
     genres: [
       'Dub',
       'Afro',
@@ -465,8 +465,8 @@ export const events: Event[] = [
       name: 'Square Toussaint Louverture',
       addressStr: 'Quai de Queyries, 33100 Bordeaux',
     },
-    startTime: new Date('2021-06-21T19:00:00+02:00'),
-    endTime: new Date('2021-06-22T00:45:00+02:00'),
+    startTime: new Date('2023-06-21T19:00:00+02:00'),
+    endTime: new Date('2023-06-22T00:45:00+02:00'),
     genres: [
       'Electro',
       'Techno',
@@ -520,8 +520,8 @@ export const events: Event[] = [
     location: {
       name: 'Place Saint Projet',
     },
-    startTime: new Date('2021-06-21T19:30:00+02:00'),
-    endTime: new Date('2021-06-22T00:45:00+02:00'),
+    startTime: new Date('2023-06-21T19:30:00+02:00'),
+    endTime: new Date('2023-06-22T00:45:00+02:00'),
     genres: [
       'Rock',
       'Punk',
@@ -599,8 +599,8 @@ export const events: Event[] = [
     location: {
       name: 'Place du Palais',
     },
-    startTime: new Date('2021-06-21T19:30:00+02:00'),
-    endTime: new Date('2021-06-22T01:00:00+02:00'),
+    startTime: new Date('2023-06-21T19:30:00+02:00'),
+    endTime: new Date('2023-06-22T01:00:00+02:00'),
     genres: [
       'Indie Rock',
       '80s',
@@ -665,8 +665,8 @@ export const events: Event[] = [
     location: {
       name: 'Place Fernand Lafargue',
     },
-    startTime: new Date('2021-06-21T20:00:00+02:00'),
-    endTime: new Date('2021-06-22T00:45:00+02:00'),
+    startTime: new Date('2023-06-21T20:00:00+02:00'),
+    endTime: new Date('2023-06-22T00:45:00+02:00'),
     genres: [
       'Reggae',
       'DJs sets',
@@ -716,8 +716,8 @@ export const events: Event[] = [
       name: 'Archive de Bordeaux Métrpole',
       addressStr: 'Parvis des Archives, 33100 Bordeaux',
     },
-    startTime: new Date('2021-06-21T20:00:00+02:00'),
-    endTime: new Date('2021-06-21T20:45:00+02:00'),
+    startTime: new Date('2023-06-21T20:00:00+02:00'),
+    endTime: new Date('2023-06-21T20:45:00+02:00'),
     artists: [
       'Molto Assaï',
     ],
@@ -750,7 +750,7 @@ export const events: Event[] = [
       addressStr: '164 Rue Judaïque, 33000 Bordeaux',
     },
     price: 'Tarif d\'une entrée piscine',
-    startTime: new Date('2021-06-21T16:30:00+02:00'),
+    startTime: new Date('2023-06-21T16:30:00+02:00'),
     description: (
       <>
         <p>
@@ -770,7 +770,7 @@ export const events: Event[] = [
       name: 'La Tencha',
       addressStr: '22 Quai de la Monnaie, 33800 Bordeaux',
     },
-    startTime: new Date('2021-06-21T18:00:00+02:00'),
+    startTime: new Date('2023-06-21T18:00:00+02:00'),
     genres: [
       'Brass band',
       'Latino',
@@ -811,8 +811,8 @@ export const events: Event[] = [
       name: 'Place Pey-Berland',
       addressStr: 'Place Pey-Berland, 33000 Bordeaux',
     },
-    startTime: new Date('2021-06-21T20:00:00+02:00'),
-    endTime: new Date('2021-06-22T00:45:00+02:00'),
+    startTime: new Date('2023-06-21T20:00:00+02:00'),
+    endTime: new Date('2023-06-22T00:45:00+02:00'),
     artists: [
       'Amplitudes',
       'Cmd+O',
@@ -897,7 +897,7 @@ export const events: Event[] = [
       name: 'La Guinguette chez Alriq',
       addressStr: 'Quai des Queyries, 33100 Bordeaux',
     },
-    startTime: new Date('2021-06-21T20:00:00+02:00'),
+    startTime: new Date('2023-06-21T20:00:00+02:00'),
     price: 'libre',
     genres: [
       'Italien',
@@ -931,8 +931,8 @@ export const events: Event[] = [
       name: 'The Grizzly Pub',
       addressStr: '12 place de la Victoire, 33000 Bordeaux',
     },
-    startTime: new Date('2021-06-21T21:30:00+02:00'),
-    endTime: new Date('2021-06-22T04:00:00+02:00'),
+    startTime: new Date('2023-06-21T21:30:00+02:00'),
+    endTime: new Date('2023-06-22T04:00:00+02:00'),
     description: (
       <>
         <p>
@@ -961,8 +961,8 @@ export const events: Event[] = [
       name: 'IBOAT',
       addressStr: 'Bassin à Flot n°, 1 Cr Henri Brunet, 33300 Bordeaux',
     },
-    startTime: new Date('2021-06-22T00:00:00+02:00'),
-    endTime: new Date('2021-06-22T06:00:00+02:00'),
+    startTime: new Date('2023-06-22T00:00:00+02:00'),
+    endTime: new Date('2023-06-22T06:00:00+02:00'),
     price: '🚨 ENTRÉE GRATUITE TOUTE LA NUIT 🚨',
     artists: [
       'Distill',
@@ -1019,8 +1019,8 @@ export const events: Event[] = [
       name: 'Doyen Brus',
       addressStr: '1 rue Leo Lagrange, 33600 Pessac',
     },
-    startTime: new Date('2021-06-21T19:00:00+02:00'),
-    endTime: new Date('2021-06-22T02:00:00+02:00'),
+    startTime: new Date('2023-06-21T19:00:00+02:00'),
+    endTime: new Date('2023-06-22T02:00:00+02:00'),
     genres: [
       'Deep House',
       'Techno',
@@ -1055,8 +1055,8 @@ export const events: Event[] = [
       name: 'Musée des Beaux-Arts',
       addressStr: '20 cours d\'Albret, 33000 Bordeaux',
     },
-    startTime: new Date('2021-06-21T19:00:00+02:00'),
-    endTime: new Date('2021-06-21T21:30:00+02:00'),
+    startTime: new Date('2023-06-21T19:00:00+02:00'),
+    endTime: new Date('2023-06-21T21:30:00+02:00'),
     price: 'Gratuit',
     links: [
       {
@@ -1087,8 +1087,8 @@ export const events: Event[] = [
       name: 'Place de la République',
       addressStr: 'Place de la République, 33000 Bordeaux',
     },
-    startTime: new Date('2021-06-21T14:00:00+02:00'),
-    endTime: new Date('2021-06-22T00:00:00+02:00'),
+    startTime: new Date('2023-06-21T14:00:00+02:00'),
+    endTime: new Date('2023-06-22T00:00:00+02:00'),
     price: 'Gratuit',
     genres: [
       'Reggae',
@@ -1173,8 +1173,8 @@ export const events: Event[] = [
       name: 'Crédit Municipal de Bordeaux',
       addressStr: '29 rue du Mirail, 33800 Bordeaux',
     },
-    startTime: new Date('2021-06-21T19:00:00+02:00'),
-    endTime: new Date('2021-06-22T01:00:00+02:00'),
+    startTime: new Date('2023-06-21T19:00:00+02:00'),
+    endTime: new Date('2023-06-22T01:00:00+02:00'),
     price: 'Gratuit, jauge 300 personnes',
     links: [
       {
@@ -1254,8 +1254,8 @@ export const events: Event[] = [
       name: 'Jardin de la Béchade',
       addressStr: 'Rue de la Béchade, 33000 Bordeaux',
     },
-    startTime: new Date('2021-06-21T14:00:00+02:00'),
-    endTime: new Date('2021-06-21T19:00:00+02:00'),
+    startTime: new Date('2023-06-21T14:00:00+02:00'),
+    endTime: new Date('2023-06-21T19:00:00+02:00'),
     genres: [
       'Hip-hop',
       'Rap',
@@ -1323,7 +1323,7 @@ export const events: Event[] = [
       name: 'Parc Bordelais',
       addressStr: 'Rue du Bocage, 33200 Bordeaux',
     },
-    startTime: new Date('2021-06-21T15:00:00+02:00'),
+    startTime: new Date('2023-06-21T15:00:00+02:00'),
     genres: [
       'Pop Idéaliste',
       'Atelier d\'éveil musical',
@@ -1372,7 +1372,7 @@ export const events: Event[] = [
       name: 'Blonde Vénus',
       addressStr: 'Bassin à flot n°1 - Esplanade du Pertuis, 33300 Bordeaux',
     },
-    startTime: new Date('2021-06-21T18:00:00+02:00'),
+    startTime: new Date('2023-06-21T18:00:00+02:00'),
     genres: [
       'Ludique',
       'Jeux',
@@ -1425,7 +1425,7 @@ export const events: Event[] = [
       name: 'Parc de Lussy',
       addressStr: 'Avenue de Bel Air, 33200 Bordeaux',
     },
-    startTime: new Date('2021-06-21T20:00:00+02:00'),
+    startTime: new Date('2023-06-21T20:00:00+02:00'),
     genres: [
       'Banda',
     ],
@@ -1465,8 +1465,8 @@ export const events: Event[] = [
       name: 'Les Furies Bergères',
       addressStr: '54 rue Camille Sauvageau, 33800 Bordeaux',
     },
-    startTime: new Date('2021-06-21T17:00:00+02:00'),
-    endTime: new Date('2021-06-22T02:00:00+02:00'),
+    startTime: new Date('2023-06-21T17:00:00+02:00'),
+    endTime: new Date('2023-06-22T02:00:00+02:00'),
     genres: [
       'Black Noise',
       'Black Power Violence',
@@ -1502,8 +1502,8 @@ export const events: Event[] = [
       name: 'La Manufacture',
       addressStr: '30 rue Bouquière, 33000 Bordeaux',
     },
-    startTime: new Date('2021-06-21T18:00:00+02:00'),
-    endTime: new Date('2021-06-22T02:00:00+02:00'),
+    startTime: new Date('2023-06-21T18:00:00+02:00'),
+    endTime: new Date('2023-06-22T02:00:00+02:00'),
     genres: [
       'DJs sets',
     ],
@@ -1542,8 +1542,8 @@ export const events: Event[] = [
       name: 'Place des Basques',
       addressStr: 'Place des Basques, 33000 Bordeaux',
     },
-    startTime: new Date('2021-06-21T17:00:00+02:00'),
-    endTime: new Date('2021-06-22T00:30:00+02:00'),
+    startTime: new Date('2023-06-21T17:00:00+02:00'),
+    endTime: new Date('2023-06-22T00:30:00+02:00'),
     genres: [
       'Banda',
       'Traditionnel',
@@ -1628,7 +1628,7 @@ export const events: Event[] = [
       name: 'La Cabane Cent Un',
       addressStr: '7 rue Rode, Bordeaux',
     },
-    startTime: new Date('2021-06-21T18:00:00+02:00'),
+    startTime: new Date('2023-06-21T18:00:00+02:00'),
     genres: [
       'Old school',
       'DJs sets',
@@ -1675,7 +1675,7 @@ export const events: Event[] = [
       name: 'Delicatessen',
       addressStr: '36 rue de la Benauge, Bordeaux',
     },
-    startTime: new Date('2021-06-21T19:00:00+02:00'),
+    startTime: new Date('2023-06-21T19:00:00+02:00'),
     price: 33.00,
     genres: [
       'Jazz',
@@ -1724,7 +1724,7 @@ export const events: Event[] = [
       name: 'Place Général Sarrail',
       addressStr: 'Place Général Sarrail, Bordeaux',
     },
-    startTime: new Date('2021-06-21T18:00:00+02:00'),
+    startTime: new Date('2023-06-21T18:00:00+02:00'),
     genres: [
       'Tropical',
       'Soul',
@@ -1774,8 +1774,8 @@ export const events: Event[] = [
       name: 'Zig Zag Café',
       addressStr: "73 cours de l'Argonne, Bordeaux",
     },
-    startTime: new Date('2021-06-21T20:00:00+02:00'),
-    endTime: new Date('2021-06-22T04:00:00+02:00'),
+    startTime: new Date('2023-06-21T20:00:00+02:00'),
+    endTime: new Date('2023-06-22T04:00:00+02:00'),
     genres: [
       'Drum & Bass',
       'Dubstep',
@@ -1879,8 +1879,8 @@ export const events: Event[] = [
     location: {
       name: 'Rue Philippart, Bordeaux',
     },
-    startTime: new Date('2021-06-21T20:00:00+02:00'),
-    endTime: new Date('2021-06-22T02:00:00+02:00'),
+    startTime: new Date('2023-06-21T20:00:00+02:00'),
+    endTime: new Date('2023-06-22T02:00:00+02:00'),
     genres: [
       'House',
       'Tech-house',
@@ -1939,7 +1939,7 @@ export const events: Event[] = [
       name: 'Claro Que Si',
       addressStr: '29 rue du Loup, 33000 Bordeaux',
     },
-    startTime: new Date('2021-06-21T20:00:00+02:00'),
+    startTime: new Date('2023-06-21T20:00:00+02:00'),
     description: (
       <>
         <p>
@@ -1963,8 +1963,8 @@ export const events: Event[] = [
       name: 'Place Saint-Michel',
       addressStr: 'Place Meynard, 33000 Bordeaux',
     },
-    startTime: new Date('2021-06-21T16:00:00+02:00'),
-    endTime: new Date('2021-06-22T00:00:00+02:00'),
+    startTime: new Date('2023-06-21T16:00:00+02:00'),
+    endTime: new Date('2023-06-22T00:00:00+02:00'),
     genres: [
       'DJs sets',
       'Electro',

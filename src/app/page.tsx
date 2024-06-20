@@ -4,7 +4,7 @@
 import React from 'react';
 
 /* Module imports -------------------------------------- */
-import { events } from 'fixtures/events';
+import { events } from 'fixtures/events-2023';
 import { reduceEventsByCategory } from 'helpers/reduceEventsByCategory';
 import { sortEventsByCategoryEntries } from 'helpers/orderEventsByCategory';
 
