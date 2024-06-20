@@ -1,7 +1,7 @@
 /* Type imports ---------------------------------------- */
 import type React from 'react';
 import type { Location } from './Location';
-import type { eventCategories } from 'fixtures/eventCategories';
+import type { EventCategory } from 'fixtures/eventCategories';
 
 /* Event interface declaration ------------------------- */
 export interface EventLink {
@@ -14,7 +14,7 @@ export interface Event {
   name?: string;
   status?: 'canceled' | 'postponed' | 'rescheduled';
   description?: React.ReactNode;
-  category?: typeof eventCategories[number];
+  category?: EventCategory;
   genres?: string[];
   links?: EventLink[];
   location: Location;

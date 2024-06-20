@@ -11,3 +11,5 @@ export const eventCategories = [
   'Mérignac',
   'Bordeaux Ouest',
 ] as const;
+
+export type EventCategory = typeof eventCategories[number];
