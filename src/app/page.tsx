@@ -11,9 +11,9 @@ import { sortEventsByCategoryEntries } from 'helpers/orderEventsByCategory';
 /* Component imports ----------------------------------- */
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import { InstagramEmbed } from 'react-social-media-embed';
 import EventsRecap from '../components/EventsRecap/EventsRecap';
 import EventCategoryView from 'components/EventCategoryView/EventCategoryView';
-import CustomInstagramEmbed from 'components/CustomInstagramEmbed/CustomInstagramEmbed';
 
 /* Style imports --------------------------------------- */
 
@@ -60,7 +60,7 @@ const HomePage: React.FC<HomePageProps> = () => {
         >
           Cartes des événements
         </Typography>
-        <CustomInstagramEmbed url="https://www.instagram.com/p/C8bz_zPIUdX/" />
+        <InstagramEmbed url="https://www.instagram.com/p/C8bz_zPIUdX/" />
       </section>
     </div>
   );
