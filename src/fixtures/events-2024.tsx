@@ -1,11 +1,9 @@
 /* Component imports ----------------------------------- */
 import { Alert } from '@mui/material';
-import { InstagramEmbed } from 'react-social-media-embed';
 import CustomInstagramEmbed from 'components/CustomInstagramEmbed/CustomInstagramEmbed';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
-import Image from 'next/image';
 
 /* Events fixture -------------------------------------- */
 export const events: Event[] = [
@@ -107,6 +105,10 @@ export const events: Event[] = [
         url: 'https://www.bordeaux.fr/e220332/amplitudes-bordeaux-open-air',
         label: 'Évènement dans l\'agenda bordeaux.fr',
       },
+      {
+        url: 'https://www.instagram.com/p/C7wfI07KKfY/?img_index=1',
+        label: 'Post Instagram',
+      },
     ],
     artists: [
       'Amplitudes',
@@ -120,6 +122,14 @@ export const events: Event[] = [
         <p>
           Rendez-vous dans la Cour du Crédit Municipal pour une soirée au pouls effréné ouverte à toutes et à tous ! Les DJs issus des deux collectifs se succèderont derrière les platines pour vous faire vibrer et transpirer !
         </p>
+        <p>
+          <i>
+            S’il y a bien une guindoule à ne pas rater en Juin c’est bien la fête de la musique. Un rendez-vous incontournable de la teuf qui nous fera nous retrouver dans la cour du Crédit Municipal ! On se donne rendez-vous avec @bordeauxopenair DJ’s, @kaizerziegler et @fabiooo_________ pour notre première dans ce spot
+            <br />
+            See you there 🫶
+          </i>
+        </p>
+        <CustomInstagramEmbed url="https://www.instagram.com/p/C7wfI07KKfY/?img_index=1" />
       </>
     ),
   },
@@ -297,10 +307,28 @@ export const events: Event[] = [
       'House',
       'Techno',
     ],
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C7UVHVZK56Q/',
+        label: 'Post Instagram',
+      },
+      {
+        url: 'https://www.bordeaux.fr/e220459/l-orangeade-wild-cmd-o',
+        label: 'Évènement dans l\'agenda bordeaux.fr',
+      },
+    ],
     description: (
-      <p>
-        Le jour le plus long de l'année sera groovy ou ne sera pas ! L'Orangeade, Wild et CMD+O transforment la Cour Mably en dancefloor joyeux et ensoleillé pour célébrer dignement la Fête de la Musique. Leur secret ? Des sets musicaux sans frontières, une passion pour les fêtes spectaculaires et l'envie suprême de mettre le public en transe. Indice 50 conseillé !
-      </p>
+      <>
+        <p>
+          Le jour le plus long de l'année sera groovy ou ne sera pas ! L'Orangeade, Wild et CMD+O transforment la Cour Mably en dancefloor joyeux et ensoleillé pour célébrer dignement la Fête de la Musique. Leur secret ? Des sets musicaux sans frontières, une passion pour les fêtes spectaculaires et l'envie suprême de mettre le public en transe. Indice 50 conseillé !
+        </p>
+        <p>
+          L’été peine à montrer le bout de son nez, mais dès qu’il sera là, nous le célèbrerons comme il se doit !
+          <br />
+          Pour ce faire nous convoquons nos dieux lumières, le @collectif_cmdo à la sceno et derrière les platines @vingt__deux__ & @s.olynde du collectif @w__i__l__d_, @fullspeed_3000, @deejayblond, @will_diggs_lorangeade_djs et @freemadj ☀️
+        </p>
+        <CustomInstagramEmbed url="https://www.instagram.com/p/C7UVHVZK56Q/" />
+      </>
     ),
   },
   {
@@ -351,15 +379,39 @@ export const events: Event[] = [
       addressStr: 'Quai des Queyries, 33000 Bordeaux',
     },
     startTime: new Date('2024-06-21T19:00:00'),
-    endTime: new Date('2024-06-22T00:45:00'),
+    endTime: new Date('2024-06-22T01:00:00'),
+    price: 'Gratuit',
     genres: [
       'Electro',
       'House',
       'Techno',
+      'Hard Trance',
+      'Hard Techno',
+      'Acidcore',
+      'Bass Music',
     ],
     artists: [
-      'Collectif Munera',
-      'Le Chaudron',
+      '@tarsmusic_',
+      '@djnee_23',
+      '@foussyyy',
+      '@utk_shz',
+      '@kloss_dj',
+      '@catharso.shz',
+      '@knaf',
+    ],
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C8FNgggoxoO/',
+        label: 'Post Instagram',
+      },
+      {
+        url: 'https://www.facebook.com/events/1135060547722667',
+        label: 'Évènement Facebook',
+      },
+      {
+        url: 'https://www.bordeaux.fr/e220336/collectif-munera-le-chaudron',
+        label: 'Évènement dans l\'agenda bordeaux.fr',
+      },
     ],
     description: (
       <>
@@ -371,6 +423,29 @@ export const events: Event[] = [
         <p>
           Le temps d'une soirée sur les berges de la Garonne, le Parc aux Angéliques se mue en lieu majeur de la fête éco-responsable et solidaire. Artistes locaux et ambiance festive assurée !
         </p>
+        <p>
+          Pour une seconde collaboration le collectif Munera et le Chaudron sont très fièr.e.s de vous inviter à nouveau au Parc aux Angéliques à Bordeaux le 21 juin, à 5 minutes à pied seulement de Stalingrad, en face du jardin botanique !
+          <br />
+          On vous attend nombreux.ses pour un solstice d'été hors du temps 💜
+          <br />
+          ☁️☁️☁️☁️☁️☁️☁️☁️☁️☁️☁️☁️☁️☁️☁️
+          🎧 ARTISTES : @tarsmusic_ / @djnee_23 / @foussyyy / @utk_shz / @kloss_dj / @catharso.shz / @knaf
+          <br />
+          🔊 Tekno / Hard Trance / Hard Techno / Acidcore / Bass Music
+          <br />
+          🕦 19h00 // 01h00 🕦
+          <br />
+          🔊 80KW LINE ARRAY BY LE CHAUDRON & LEAF 🔊
+          <br />
+          ✨ LIGHTS, LASERS & LED SCREEN SHOW BY OBLIVION, AO LIGHTS, DNR & VISUAL FLOW ✨
+          <br />
+          🎟️ ENTRÉE GRATUITE 🎟️
+          <br />
+          🖤 NO DISCRIMINATION HERE 🖤
+          <br />
+          ❤️ visuel by @daphneadoto
+        </p>
+        <CustomInstagramEmbed url="https://www.instagram.com/p/C8FNgggoxoO/" />
       </>
     ),
   },
@@ -525,7 +600,7 @@ export const events: Event[] = [
   {
     id: '52',
     name: `Centre d'animation du grand parc + le petit parc`,
-    category: 'Bordeaux Ouest',
+    category: 'Bordeaux ouest',
     location: {
       name: `Parvis du centre d'animation du Grand Parc`,
       addressStr: '36 Rue Robert Schuman, 33300 Bordeaux',
@@ -605,7 +680,7 @@ export const events: Event[] = [
   {
     id: '55',
     name: 'Opéra national de Bordeaux + CHU',
-    category: 'Bordeaux Ouest',
+    category: 'Bordeaux ouest',
     location: {
       name: `Jardin de l'hôpital Saint André`,
       addressStr: '1 Rue Jean Burguet, 33000 Bordeaux',
@@ -969,6 +1044,575 @@ export const events: Event[] = [
     ],
     description: (
       <CustomInstagramEmbed url="https://www.instagram.com/p/C6Y8dVyK8tQ/" />
+    ),
+  },
+  {
+    id: '63',
+    name: 'Open Air au JOYA MAX',
+    category: 'Bassins à flot',
+    location: {
+      name: 'JOYA MAX',
+      addressStr: '106 Quai Lawton, 33300 Bordeaux',
+    },
+    startTime: new Date('2024-06-21T18:00:00'),
+    endTime: new Date('2024-06-21T21:00:00'),
+    genres: [
+      'DJ set',
+      'BBQ',
+      'Open air',
+    ],
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C8cnutDoFqp/',
+        label: 'Post Instagram',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          🎉 Open Air au JOYA MAX 🎉
+        </p>
+        <p>
+          <i>
+            Cette année, la fête de la musique se passe au Joya Max!
+            <br />
+            On vous prévoit un programme de folie ✨
+            <br />
+            On vous attend nombreux dès 18h, hâte de vous voir!
+          </i>
+        </p>
+        <p>
+          🎧 DJ set 🎧
+          <br />
+          De 18h à 21h
+        </p>
+        <p>
+          Barbecue à volonté 🍖
+          <br />
+          25€ / personne
+        </p>
+        <CustomInstagramEmbed url="https://www.instagram.com/p/C8cnutDoFqp/" />
+      </>
+    ),
+  },
+  {
+    id: '64',
+    name: 'Club - Fête de la musique au JOYA MAX',
+    category: 'Bassins à flot',
+    location: {
+      name: 'JOYA MAX',
+      addressStr: '106 Quai Lawton, 33300 Bordeaux',
+    },
+    startTime: new Date('2024-06-21T22:30:00'),
+    endTime: new Date('2024-06-22T02:00:00'),
+    genres: [
+      'Club',
+      'DJ set',
+    ],
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C8cnutDoFqp/',
+        label: 'Post Instagram',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          🎉 Club - Fête de la musique au JOYA MAX 🎉
+        </p>
+        <p>
+          <i>
+            Cette année, la fête de la musique se passe au Joya Max!
+            <br />
+            On vous prévoit un programme de folie ✨
+            <br />
+            On vous attend nombreux dès 22h30h, hâte de vous voir!
+          </i>
+        </p>
+        <p>
+          🎧 DJ set au club 🎧
+          <br />
+          De 22h30 à 2h
+        </p>
+        <CustomInstagramEmbed url="https://www.instagram.com/p/C8cnutDoFqp/" />
+      </>
+    ),
+  },
+  {
+    id: '65',
+    name: 'Hard Edition IV - GEIST CELEBRATES MUSIC',
+    category: 'Bordeaux nord',
+    location: {
+      name: 'Espace DS',
+      addressStr: '17 Rue Edouard Faure, 33300 Bordeaux',
+    },
+    startTime: new Date('2024-06-22T00:00:00'),
+    endTime: new Date('2024-06-22T06:00:00'),
+    artists: [
+      '6EJOU [LIVE]',
+      'LESSSS',
+      'NICE KEED',
+      'HASS',
+      'DREAMZ',
+    ],
+    genres: [
+      'Club',
+      'DJ set',
+      'Electro',
+      'Techno',
+    ],
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C7POU_sIa19/',
+        label: 'Post Instagram',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          GEIST CELEBRATES MUSIC THE 21.06.24 !
+          <br />
+          Time to increase the temperature presenting our Hard Edition IV.
+          <br />
+          Get ready for a full force elite lineup presenting @6ejou @lessssdj @nicekeedmusic @hass.iv @dreamz.music
+          <br />
+          Prod : @theo.miege
+        </p>
+        <CustomInstagramEmbed url="https://www.instagram.com/p/C7POU_sIa19/" />
+      </>
+    ),
+  },
+  {
+    id: '66',
+    name: `FAITES DE LA MUSIQUE - L'Entrepôt`,
+    category: 'Bordeaux nord',
+    location: {
+      name: `L'Entrepôt`,
+      addressStr: '36 Avenue du Dr. Schinazi, 33300 Bordeaux',
+    },
+    startTime: new Date('2024-06-22T00:00:00'),
+    endTime: new Date('2024-06-22T06:00:00'),
+    artists: [
+      'MOMOMO',
+      'SOHIER',
+      'BRAINWASHERS',
+      'NØW',
+      'GLÖK',
+      '-EKAR',
+    ],
+    genres: [
+      'Club',
+      'DJ set',
+      'Electro',
+      'Techno',
+    ],
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C7yxwd2oC72/',
+        label: 'Post Instagram',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          VENDREDI 21 JUIN
+          <br />
+          FAITES DE LA MUSIQUE
+          <br />
+          w/ MOMOMO / SOHIER / BRAINWASHERS / NØW / GLÖK / -EKAR
+        </p>
+
+        <p>
+          21/06/2024 || 00h00 - 06h00
+          <br />
+          L’ENTREPÔT - 36 AV. du Dr. Schinazi, 33300 Bordeaux.
+        </p>
+
+        <p>
+          (OUVERTURE DES PORTES MINUIT //OPEN GATES 00:00)
+        </p>
+        <CustomInstagramEmbed url="https://www.instagram.com/p/C7yxwd2oC72/" />
+      </>
+    ),
+  },
+  {
+    id: '67',
+    name: 'FÊTE DE LA MUSIQUE par NOVABASS - La Fabriek',
+    category: 'Centre ville',
+    location: {
+      name: 'La Fabriek',
+      addressStr: '11 Rue des Faussets, 33000 Bordeaux',
+    },
+    startTime: new Date('2024-06-21T19:00:00'),
+    endTime: new Date('2024-06-22T02:00:00'),
+    price: 'Gratuit',
+    genres: [
+      'Techno',
+      'Hard Techno',
+      'Indus',
+      'Tekno',
+      'Hard Music',
+    ],
+    artists: [
+      'KSTLE',
+      'LOUIS WIRZ',
+      'MAAX D',
+      '2MODS (KO)',
+      'INSO.ENCE',
+      'LA TORGNOLE',
+      'KLÖSS',
+      'MINDBENDER',
+    ],
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C8IGRN9Iy7F/',
+        label: 'Post Instagram',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          VENDREDI 21 JUIN
+          <br />
+          FÊTE DE LA MUSIQUE par NOVABASS
+        </p>
+
+        <p>
+          KSTLE // LOUIS WIRZ // MAAX D // 2MODS (KO) // INSO.ENCE b2b LA TORGNOLE // KLÖSS // MINDBENDER
+        </p>
+
+        <p>
+          📅 VENDREDI 21 JUIN
+          <br />
+          🔊 Techno / Hard Techno / Indus / Tekno / Hard Music
+          <br />
+          🕠 19h - 2h
+        </p>
+
+        <CustomInstagramEmbed url="https://www.instagram.com/p/C8IGRN9Iy7F/" />
+      </>
+    ),
+  },
+  {
+    id: '68',
+    name: `🌟🎶 Fête de la Musique La kermess au Levrette Café Bordeaux 🎶🌟`,
+    category: 'Centre ville',
+    location: {
+      name: 'Levrette Café Bordeaux',
+      addressStr: '6-8 Rue de Mérignac, 33000 Bordeaux',
+    },
+    startTime: new Date('2024-06-21T18:00:00'),
+    endTime: new Date('2024-06-22T02:00:00'),
+    genres: [
+      'Bar',
+      'DJ set',
+      'Electro',
+      'House',
+    ],
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C8XS02DovYc/',
+        label: 'Post Instagram',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          <b>
+            🌟🎶 **Fête de la Musique La kermess au Levrette Café Bordeaux** 🎶🌟
+          </b>
+        </p>
+
+        <p>
+          Rejoignez-nous le 21 juin de 21h à 2h pour une soirée inoubliable à l’occasion de la Fête de la Musique ! 🎉
+        </p>
+
+        <p>
+          Au programme, des performances électrisantes avec :
+          <ul>
+            <li>
+              🪩 @bouta.fr
+            </li>
+            <li>
+              🪩 @folcoch_
+            </li>
+            <li>
+              🪩 @zaraki.___
+            </li>
+            <li>
+              🪩 @la_frit3
+            </li>
+          </ul>
+        </p>
+
+        <p>
+          Venez vibrer au rythme de la musique dans un lieu atypique et unique : le Levrette Café Bordeaux ! 🍻✨
+        </p>
+
+        <p>
+          📍 **Lieu** : Levrette Café Bordeaux
+          <br />
+          🕘 **Horaire** : 21h - 2h
+          <br />
+          📅 **Date** : 21 juin
+        </p>
+
+        <p>
+          Ne manquez pas cette soirée mémorable ! 🌠
+        </p>
+
+        <CustomInstagramEmbed url="https://www.instagram.com/p/C8XS02DovYc/" />
+      </>
+    ),
+  },
+  {
+    id: '69',
+    name: 'Open Air de la Talenquère',
+    category: 'Centre ville',
+    location: {
+      name: 'La Talenquère',
+      addressStr: '8 place Saint-Pierre, 33000 Bordeaux',
+    },
+    startTime: new Date('2024-06-21T14:00:00'),
+    endTime: new Date('2024-06-22T02:00:00'),
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C8MLnqLo3YY/',
+        label: 'Post Instagram',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          Après une belle édition en 2023, La Talenquère fête de nouveau la musique place Saint-Pierre devant l'église avec une belle équipe et un gros soundsystem en open air ! 😍
+        </p>
+
+        <p>
+          Niveau son, on repart sur quelque chose de progressif, il y en aura pour tous les goûts ☀️💃 Et tout au long de la journée des bières pressions et des frites et hot dogs jusqu’à épuisement des stocks 🍟🌭
+        </p>
+
+        <p>
+          ➡️ 14h - 17h : @fitandfat.bdx
+          <br />
+          ➡️ 17h - 20h : @broken_district
+          <br />
+          ➡️ 20h - 23h : @gimmesound
+          <br />
+          ➡️ 23h - 1h : @slimmy_music_
+          <br />
+          ➡️ 1h - 2h : surprise 🤫
+        </p>
+
+        <p>
+          Alors on te voit le 21 juin ? 🔥
+        </p>
+        •
+        <p>
+          📍 La Talenquère - 8 place Saint-Pierre, Bordeaux
+          <br />
+          📆 Mardi au samedi / 13h - 00h
+          <br />
+          🐷
+          {' '}
+          <a
+            href="https://www.latalenquere.fr"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            www.latalenquere.fr
+          </a>
+          <br />
+          📸 @la_torpille_graphique @lord_torpille
+          <br />
+          🍷 L’abus d’alcool est dangereux pour la santé, à consommer avec modération
+        </p>
+
+        <CustomInstagramEmbed url="https://www.instagram.com/p/C8MLnqLo3YY/" />
+      </>
+    ),
+  },
+  {
+    id: '70',
+    name: 'Love & Unity - La Belle Brochette',
+    category: 'St. Michel',
+    location: {
+      name: 'Place Meynard',
+      addressStr: 'Place Meynard, 33000 Bordeaux',
+    },
+    startTime: new Date('2024-06-21T19:00:00'),
+    endTime: new Date('2024-06-22T00:45:00'),
+    price: 'Gratuit',
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C8ZxNPyKto1/',
+        label: 'Post Instagram',
+      },
+    ],
+    genres: [
+      'Jungle',
+      'Techno',
+      'Bass music',
+      'Drum and bass',
+      'House',
+      'Riddim',
+    ],
+    artists: [
+      'Sohier',
+      'Nasty Lewis',
+      'Enola',
+      'MZE',
+      'Codename:N24',
+      'Ginger 808',
+      'Sainte Croix',
+    ],
+    description: (
+      <>
+        <p>
+          ☮️ La Belle Brochette sort les chemises colorées et sera à Saint-Michel pour célébrer la musique comme il se doit. Un lineup éclectique et des good vibes, avec toujours son lot de bass music comme on aime faire. Venez avec nous pour propager l'amour et la solidarité, étant les principaux messages des musiques électroniques.
+        </p>
+        <p>
+          Avec:
+          <ul>
+            <li>
+              @nasty_lewis (jungle)
+            </li>
+            <li>
+              @sohier_music & @st_crx (techno)
+            </li>
+            <li>
+              @mzednb (drum and bass)
+            </li>
+            <li>
+              @enolabrume (house)
+            </li>
+            <li>
+              @ginger.808 (jungle/DnB)
+            </li>
+            <li>
+              @codename_n24 (riddim)
+            </li>
+          </ul>
+        </p>
+        <CustomInstagramEmbed url="https://www.instagram.com/p/C8ZxNPyKto1/" />
+      </>
+    ),
+  },
+  {
+    id: '71',
+    name: 'Tropical Party - Le Karadoc fête la musique',
+    category: 'St. Michel',
+    location: {
+      name: 'Le Karadoc',
+      addressStr: '166 Cours de la Marne, 33800 Bordeaux',
+    },
+    startTime: new Date('2024-06-21T11:00:00'),
+    endTime: new Date('2024-06-22T02:00:00'),
+    genres: [
+      'Bar',
+      'DJ set',
+    ],
+    artists: [
+      'ASMOSIAS',
+      'HISACHI',
+      'HENDEMICS',
+      'PSYGUANA',
+      'FORBES',
+      '2ID',
+      'FURIK',
+      'FURIK',
+      'CHESH T-R',
+      'SAIHTTAM',
+      'DJEUJ',
+      'San Tury & Kent Lewis',
+      'SAW',
+      'SNER',
+      'Butano',
+      'Flav Music',
+    ],
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C8XE6J2IBZ7/?img_index=1',
+        label: 'Post Instagram',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          Le Karadoc fête la musique !
+          Attention énorme soirée en prévision ! Ce vendredi, vient fêter la musique avec nous. Au programme :
+        </p>
+
+        <p>
+          Ouverture 11h-2h : DJ sets de folie ( 15 de nos meilleurs dj locaux )
+          <br />
+          8KW DE SOND prévus pour l’occasion !
+          <br />
+          Plancha extérieure, tatoueurs présent, stand de merch by @dynamica_productions 👕
+          <br />
+          Déco 100% tropical de nombreux goodies offert !
+        </p>
+        <p>
+          Diffusion du match Pays-Bas vs France sur écran intérieur et extérieur ! ⚽️
+        </p>
+
+        <p>
+          Viens vibrer all night long aux rythmes de :
+          @flavvmusic @butano_tisma @snertechno @saw__dj @chesh_t_r @vincent_tury_21 @kent.lewis_ @2id.wav @c_titu_psyguana @h_forbes_ @saihttam.music @furik_officiel @_djeudj_ @_hisachi__ @_hisachi__ @hendemic_music
+        </p>
+
+        <CustomInstagramEmbed url="https://www.instagram.com/p/C8XE6J2IBZ7/?img_index=1" />
+      </>
+    ),
+  },
+  {
+    id: '72',
+    name: 'After au complexe Aquitain',
+    category: 'Bordeaux sud',
+    location: {
+      name: 'Complexe Aquitain',
+      addressStr: '229 Cr de la Marne, 33800 Bordeaux',
+    },
+    startTime: new Date('2024-06-22T07:00:00'),
+    endTime: new Date('2024-06-22T13:00:00'),
+    genres: [
+      'After',
+      'Club',
+      'Sex positive',
+      'Love store',
+    ],
+    artists: [
+      'FC Kabagar',
+      'Strict Fox',
+      'QLEM',
+      'Who is Andras',
+      'Soixanteee',
+      'Maax D',
+    ],
+    links: [
+      {
+        url: 'http://www.complexeaquitain.com/',
+        label: (
+          <span>
+            <b>
+              [NSFW]
+            </b>
+            {' '}
+            Site web du Complexe Aquitain
+          </span>
+        ),
+      },
+    ],
+    description: (
+      <>
+        <p>
+          [NDLR] Alors la je ne sait pas, mais c'est dans un ciné porno / sex shop.
+        </p>
+        <p>
+          <code>
+            Téma l'heure mdr.
+          </code>
+        </p>
+      </>
     ),
   },
 ];

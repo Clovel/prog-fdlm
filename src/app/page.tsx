@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import EventsRecap from '../components/EventsRecap/EventsRecap';
 import EventCategoryView from 'components/EventCategoryView/EventCategoryView';
+import CustomInstagramEmbed from 'components/CustomInstagramEmbed/CustomInstagramEmbed';
 
 /* Style imports --------------------------------------- */
 
@@ -59,14 +60,7 @@ const HomePage: React.FC<HomePageProps> = () => {
         >
           Cartes des événements
         </Typography>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          className="inline"
-          src="https://agendaculturel.emstorage.fr/fete-de-la-musique-a-bordeaux-2023-20230608161506.jpg"
-          alt="Carte de l'agenda culturel de Bordeaux"
-          // width={800}
-          loading="lazy"
-        />
+        <CustomInstagramEmbed url="https://www.instagram.com/p/C8bz_zPIUdX/" />
       </section>
     </div>
   );

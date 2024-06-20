@@ -6,7 +6,7 @@ import type { EventCategory } from 'fixtures/eventCategories';
 /* Event interface declaration ------------------------- */
 export interface EventLink {
   url: string;
-  label: string;
+  label: React.ReactNode;
 }
 
 export interface Event {
