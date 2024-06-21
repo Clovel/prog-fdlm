@@ -2322,4 +2322,57 @@ export const events: Event[] = [
       </>
     ),
   },
+  {
+    id: '84',
+    name: 'Baballe POP ! - Darwin',
+    category: 'Rive droite',
+    location: {
+      name: 'Darwin',
+      addressStr: '87 Quai de Queyries, 33100 Bordeaux',
+    },
+    startTime: new Date('2023-06-21T18:00:00+02:00'),
+    genres: [
+      'DJ set',
+      'Match',
+      'Musique du monde',
+      'Maghreb',
+      'Moyen-Orient',
+      'Balkans',
+    ],
+    artists: [
+      'DJ Cristina Monet',
+    ],
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C8ZtT3Is2yM',
+        label: 'Post Instagram',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          BABALLE POP :
+          DJ SET et Match
+        </p>
+
+        <p>
+          Rejoignez-nous le 21 juin à DARWIN à partir de 18h avec une sélection musicale éclectique du monde et ne manquez pas le choc tant attendu entre les Pays-Bas et la France nous allons aussi retransmettre du match de foot.
+        </p>
+
+        <p>
+          Un grand Big Up à DJ Cristina Monet qui viendra assurer un Set de Musique du monde Maghreb, Moyen-Orient et Balkan, un Dj set de soutien contre la montée de l’extrême Droite.
+        </p>
+
+        <p>
+          📍 HALLES DARWIN
+          <br />
+          21 juin à partir de 18h30
+          <br />
+          EVENEMENT GRATUIT
+        </p>
+
+        <CustomEmbed url="https://www.instagram.com/p/C8ZtT3Is2yM" />
+      </>
+    ),
+  },
 ];
