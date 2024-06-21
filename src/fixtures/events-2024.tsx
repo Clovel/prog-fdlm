@@ -2114,6 +2114,7 @@ export const events: Event[] = [
     startTime: new Date('2023-06-21T17:00:00+02:00'),
     endTime: new Date('2023-06-22T00:30:00+02:00'),
     genres: [
+      'Bar',
       'Banda',
       'Traditionnel',
       'Basque',
@@ -2184,6 +2185,140 @@ export const events: Event[] = [
         <p>
           Vous aurez la possibilité de découvrir ou (re)découvrir les saveurs basques avec des Taloas, de la charcuterie/fromage ou encore des desserts...
         </p>
+      </>
+    ),
+  },
+  {
+    id: '81',
+    name: 'Delirium musique',
+    category: 'Bassins à flot',
+    location: {
+      name: 'Delirium Café Bordeaux',
+      addressStr: '30 Quai Virginie Hériot, 33300 Bordeaux',
+    },
+    startTime: new Date('2023-06-21T18:00:00+02:00'),
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C8WZ9S-qjFZ/',
+        label: 'Post Instagram',
+      },
+    ],
+    artists: [
+      '@__peiyo__',
+      '@mojo.music_',
+      '@kalosmusic_',
+    ],
+    description: (
+      <>
+        <p>
+          🪩 Le Delirium Café Bordeaux fête la musique ! 🎶
+        </p>
+
+        <p>
+          Attention énorme soirée en prévision ! Ce vendredi, vient fêter la musique avec nous. Au programme : concert, dj sets de folie, inauguration de notre bar extérieur et diffusion du match Pays-Bas vs France de l’Euro 2024 ! 🫶✨
+        </p>
+
+        <p>
+          Viens vibrer all night long aux rythmes de @__peiyo__, @mojo.music_ et @kalosmusic_ ! 🪩🍻
+        </p>
+
+        <CustomEmbed url="https://www.instagram.com/p/C8WZ9S-qjFZ/" />
+      </>
+    ),
+  },
+  {
+    id: '82',
+    name: 'Redcat - Fête de la musique',
+    category: 'Centre ville',
+    location: {
+      name: 'Redcat',
+      addressStr: '7 rue du Cerf Volant, 33000 Bordeaux',
+    },
+    startTime: new Date('2023-06-21T17:00:00+02:00'),
+    endTime: new Date('2023-06-22T02:00:00+02:00'),
+    genres: [
+      'Hip hop',
+      'Afro',
+      'Drum & bass',
+      'Baile',
+      'House',
+      'Funk',
+    ],
+    artists: [
+      '@iamaxel.h',
+      '@sossbacc',
+      '@neftariri',
+      '@swanndelamancha',
+      '@lolo.cresce',
+    ],
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C8XJXOlKyQR',
+        label: 'Post Instagram',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          Pour l’occasion le @cruise.ctr au grand complet nous fait le plaisir de venir mixer (@iamaxel.h, @sossbacc et @neftariri) et puisque plus on est de fous plus on rit on accueillera également @swanndelamancha et @lolo.cresce !
+        </p>
+        <p>
+          Au programme: hip hop, afro, drum & bass, baile, house, funk…. Breeeeeeeef il y en aura pour tous les goûts ! 📀💃🏼
+        </p>
+
+        <p>
+          Début des festivités : 17h 🥳
+        </p>
+
+        <p>
+          Évidemment on vous a préparé une carte de boissons à emporter ! Swipe pour les prix doux 👉🏼
+        </p>
+
+        <CustomEmbed url="https://www.instagram.com/p/C8XJXOlKyQR" />
+
+        <p>
+          🐈‍⬛ Ouvert 7j/7 | 18h-2h
+          <br />
+          📍 7 Rue du Cerf Volant, Bordeaux
+          <br />
+          🍺 Happy Hour | Lun - Sam : 18h-20h | Dim : 18h-22h
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '83',
+    name: 'La fête de la musique c’est toute l’année à @latenchabordeaux ✨',
+    category: 'St. Michel',
+    location: {
+      name: 'La Tencha',
+      addressStr: '22 Quai de la Monnaie, 33800 Bordeaux',
+    },
+    startTime: new Date('2023-06-21T18:00:00+02:00'),
+    endTime: new Date('2023-06-22T02:00:00+02:00'),
+    genres: [
+      'Bar',
+      'DJ set',
+      'Concert',
+      'Fanfare',
+    ],
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C8eRCkxKiTi',
+        label: 'Post Instagram',
+      },
+      {
+        url: 'https://www.instagram.com/latenchabordeaux/',
+        label: 'Page Instagram de La Tencha',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          Ce soir c’est fanfare en terrasse et djs dedans ! 💥
+        </p>
+
+        <CustomEmbed url="https://www.instagram.com/p/C8eRCkxKiTi" />
       </>
     ),
   },
