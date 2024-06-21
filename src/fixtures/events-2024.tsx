@@ -11,7 +11,7 @@ export const events: Event[] = [
   {
     id: '41',
     category: 'St. Michel',
-    name: `Allez les filles + L'astrodome + Bordeaux rock`,
+    name: `Allez les filles + L'astrodøme + Bordeaux rock`,
     location: {
       name: 'Square Dom Bedos',
       addressStr: `rue Jacques d'Welles, Square Dom Bedos, 33800 Bordeaux`,
@@ -29,8 +29,44 @@ export const events: Event[] = [
     ],
     links: [
       {
+        url: 'https://www.instagram.com/p/C8M2dnZKPSY/',
+        label: 'Post Instagram',
+      },
+      {
         url: 'https://www.bordeaux.fr/e220331/allez-les-filles-l-astrodome-bordeaux-rock',
         label: 'Évènement dans l\'agenda bordeaux.fr',
+      },
+      {
+        url: 'https://www.facebook.com/events/947021640358266',
+        label: 'Évènement Facebook',
+      },
+      {
+        url: 'https://www.instagram.com/lastrodome.bdx/',
+        label: 'Instagram de l\'Astrodøme',
+      },
+      {
+        url: ' https://www.instagram.com/allezlesfilles_bdx/',
+        label: 'Instagram de Allez les Filles',
+      },
+      {
+        url: 'https://www.instagram.com/bordeaux.rock/',
+        label: 'Instagram de Bordeaux Rock',
+      },
+      {
+        url: 'https://www.facebook.com/wearenastyjoe',
+        label: 'Facebook de Nastyjoe',
+      },
+      {
+        url: 'https://www.facebook.com/chelabom',
+        label: 'Facebook de Chelabôm',
+      },
+      {
+        url: 'https://www.facebook.com/SIZband',
+        label: 'Facebook de Siz',
+      },
+      {
+        url: 'https://www.facebook.com/yokoohnobordeaux',
+        label: 'Facebook de Yoko ? Oh No',
       },
     ],
     artists: [
@@ -48,6 +84,98 @@ export const events: Event[] = [
         <p>
           A l'affiche, 5 lives explosifs avec le stoner rock de Nebula, le noise rock de Siz, le post-punk tourmenté de Nastyjoe et le punk rock de Yoko ? Oh No ; et pour compléter cette programmation impeccable, une touche de groove néo-soul des irrésistibles Chelabôm !
         </p>
+
+        <p>
+          🚪🎸👊 𝗙𝗘𝗧𝗘 𝗗𝗘 𝗟𝗔 𝗠𝗨𝗦𝗜𝗤𝗨𝗘 𝟮𝟬𝟮𝟰
+          <br />
+          📣 Les 3 associations L'Astrodøme, Allez les Filles et Bordeaux Rock unissent leurs forces pour une fête de la Musique en plein air au Square Dom Bedos ! 4 groupes locaux au menu de cette soirée gratuite.
+          <br />
+          🗓️ 21 JUIN 2024
+          <br />
+          🚪 Ouverture des portes à 18h
+          <br />
+          🎵 Début des concerts à 19h
+          <br />
+          🗺️ Square Dom Bedos - Rue Jacques d'Welles, 33800 Bordeaux
+          <br />
+          🎟️ Entrée Libre
+          <br />
+          🥪 Restauration sur place
+        </p>
+
+        <p>
+          🎶 𝐏𝐑𝐎𝐆𝐑𝐀𝐌𝐌𝐀𝐓𝐈𝐎𝐍 :
+          <ul>
+            <li>
+              ▲ 𝗡𝗔𝗦𝗧𝗬𝗝𝗢𝗘 (Post-Punk - Bordeaux)
+            </li>
+            <li>
+              ▲ 𝗖𝗛𝗘𝗟𝗔𝗕𝗢̂𝗠 (Nu-Soul - Bordeaux)
+            </li>
+            <li>
+              ▲ 𝗦𝗜𝗭 (Grunge, Shoegaze - Bordeaux)
+            </li>
+            <li>
+              ▲ 𝗬𝗢𝗞𝗢? 𝗢𝗛 𝗡𝗢! (Punk, Rock - Bordeaux)
+            </li>
+          </ul>
+          {'>>'}
+          {' '}
+          𝗡𝗘𝗕𝗨𝗟𝗔 (Stoner Psych - USA) (!!! ANNULÉ !!!)
+        </p>
+
+        <p>
+          🔎 𝐈𝐍𝐅𝐎𝐒 𝐏𝐑𝐀𝐓𝐈𝐐𝐔𝐄𝐒 :
+          <br />
+          🗺️Square Dom Bedos, Rue Jacques d'Welles, 33800 Bordeaux
+          <br />
+          🚋 TRAM C et D | Bus 10, 31 et TBNIGHT : Arrêt Sainte-Croix | Station VCUB
+          <br />
+          🎟️ Entrée libre de 18h à 00h30
+          <br />
+          Contrôle des sacs à l’entrée du square par une équipe de sécurité, emmener des boissons alcoolisées n'est pas autorisé.
+          <br />
+          🍔 Food-truck : Nous vous annoncerons bientôt les food-trucks présents
+        </p>
+
+        <p>
+          <b>
+            Les artistes :
+          </b>
+        </p>
+
+        <p>
+          ▲ 𝗡𝗔𝗦𝗧𝗬𝗝𝗢𝗘 (Post-Punk - Bordeaux)
+          <br />
+          La lumière est noire. Elle nous rappelle celle qui éclairait les années du post-punk britannique. Celui-ci convoque un art de la tension et un souci de la mélodie, une gravité réaliste et sincère. Inspiré par ses doutes et ses névroses, les performances du combo bordelais transforment les tourments en ballades et ramènent les espoirs à un chaos cosmique.
+          <br />
+          NASTYJOE tourne en poésie ce que nous ne voulons pas voir, fait ressurgir en négatif qui nous sommes. Un développement anti-personnel pour une sombre communion.
+        </p>
+
+        <p>
+          ▲ 𝗖𝗛𝗘𝗟𝗔𝗕𝗢̂𝗠 (Nu-Soul, Bordeaux)
+          <br />
+          Chelabôm plonge dans un univers aux influences multiples sur les bases de la néo-soul. Ils mélangent des sonorités afro et latinos, des rythmes hip-hop et jungle, et des textures électro à la recherche du groove collectif, où des histoires se racontent et s'incarnent par la danse.
+        </p>
+
+        <p>
+          ▲ 𝗦𝗜𝗭 (Grunge, Shoegaze - Bordeaux)
+          <br />
+          SIZ est le pseudonyme de Sylvain Palis, musicien bordelais hyperactif du collectif Flippin’ Freaks, et membre de la formation live de TH Da Freak. Nourri au grunge et au shoegaze des 90’s, SIZ produit une musique énergique et massive comme en témoigne son premier album Liquid sorti en 2019 sur Flippin’ Freaks Records, qui fait toutefois la part belle à une forte sensibilité mélodique. Après plusieurs tournées dévastatrices, SIZ a rodé un set puissant et calibré dont on ne ressort que rarement indemne.
+        </p>
+
+        <p>
+          ▲ 𝗬𝗢𝗞𝗢? 𝗢𝗛 𝗡𝗢! (Punk, Rock - Bordeaux)
+          <br />
+          Distillant un punk rock à la sauce garage – poisseux de bière et autres liquides peu catholiques – les trois lascars atteint d’une Beatlemania aigue chante les travers de notre société et de nos coeurs avec une efficacité remarquable. Et oui, ce n’est pas parce que leur album s’appelle Tattoos and Chlamydias qu’ils ne peuvent pas faire preuve d’un peu de romantisme… et BEAUCOUP de second degré !
+        </p>
+
+        <CustomEmbed url="https://www.instagram.com/p/C8M2dnZKPSY/" />
+
+        <CustomEmbed
+          EmbedComponent={FacebookEmbed}
+          url="https://www.facebook.com/events/947021640358266"
+        />
       </>
     ),
   },
@@ -1382,11 +1510,11 @@ export const events: Event[] = [
   },
   {
     id: '69',
-    name: 'Open Air de la Talenquère',
+    name: 'Open Air de la Talenquère - St. Pierre',
     category: 'Centre ville',
     location: {
       name: 'La Talenquère',
-      addressStr: '8 place Saint-Pierre, 33000 Bordeaux',
+      addressStr: '5 place Saint-Pierre, 33000 Bordeaux',
     },
     startTime: new Date('2024-06-21T14:00:00'),
     endTime: new Date('2024-06-22T02:00:00'),
@@ -1394,6 +1522,10 @@ export const events: Event[] = [
       {
         url: 'https://www.instagram.com/p/C8MLnqLo3YY/',
         label: 'Post Instagram',
+      },
+      {
+        url: 'https://www.facebook.com/events/1406746993369114',
+        label: 'Événement Facebook',
       },
     ],
     description: (
@@ -1443,6 +1575,11 @@ export const events: Event[] = [
         </p>
 
         <CustomEmbed url="https://www.instagram.com/p/C8MLnqLo3YY/" />
+
+        <CustomEmbed
+          EmbedComponent={FacebookEmbed}
+          url="https://www.facebook.com/events/1406746993369114"
+        />
       </>
     ),
   },
@@ -1644,6 +1781,24 @@ export const events: Event[] = [
     },
     startTime: new Date('2024-06-21T20:00:00'),
     endTime: new Date('2024-06-22T02:00:00'),
+    genres: [
+      'Disco',
+      'Grunge',
+      'Rock',
+      'Soul',
+      'Funk',
+      'Italodisco',
+      'Pop',
+      'Variété française',
+      '60s',
+      '70s',
+      '80s',
+      '90s',
+      '2000s',
+      'Electro',
+      'Reggae',
+      'Musique du monde',
+    ],
     links: [
       {
         url: 'https://www.facebook.com/events/753777480244427',
@@ -1686,5 +1841,231 @@ export const events: Event[] = [
         />
       </>
     ),
+  },
+  {
+    id: '74',
+    name: `ZOULOU Sound System fête la musique`,
+    category: 'Bordeaux sud',
+    location: {
+      name: 'La Méca',
+      addressStr: 'Parvis Corto Maltese, Quai de Paludate, 33800 Bordeaux, France',
+    },
+    startTime: new Date('2024-06-21T16:00:00'),
+    endTime: new Date('2024-06-22T01:00:00'),
+    price: 'Gratuit',
+    artists: [
+      'ITAL VIBES',
+      'WEST HIGH DUB',
+      'SPIRAL SKANK',
+      'ZOULOU SOUND SYSTEM',
+    ],
+    genres: [
+      'DJ set',
+      'Dub',
+    ],
+    links: [
+      {
+        url: 'https://www.facebook.com/events/s/fete-de-la-musique-2024/777402217521395/',
+        label: 'Facebook event',
+      },
+    ],
+    description: (
+      <CustomEmbed
+        EmbedComponent={FacebookEmbed}
+        url="https://www.facebook.com/events/s/fete-de-la-musique-2024/777402217521395/"
+      />
+    ),
+  },
+  {
+    id: '75',
+    name: '🤘 Ô Tiap acceuil un trio Rock 🤘',
+    category: 'Bordeaux ouest',
+    location: {
+      name: 'Ô Tiap',
+      addressStr: '158 Rue Émile Combes, 33000 Bordeaux, France',
+    },
+    startTime: new Date('2024-06-21T20:00:00'),
+    endTime: new Date('2024-06-22T00:00:00'),
+    genres: [
+      'Bar',
+      'Rock',
+    ],
+    links: [
+      {
+        url: 'https://www.facebook.com/events/829825602585397',
+        label: 'Facebook event',
+      },
+      {
+        url: 'https://otiap.fr',
+        label: `Site officiel d'Ô Tiap`,
+      },
+    ],
+    description: (
+      <>
+        <p>
+          Le Tiap accueille un trio rock🤘 ; guitare, basse et chant pour faire vivre la musique rue Emile Combes !🎸
+        </p>
+        <p>
+          Sur place, planches, burger, croque-monsieur et cuisine végétarienne et une variété de boissons pour passer un agréable moment entre ami.e.s ou en famille.
+          On vous réserve une table ?
+        </p>
+        <p>
+          Vous verrez tout sur notre site Internet : otiap.fr
+        </p>
+
+        <p>
+          A très vite 🎶
+        </p>
+
+        <CustomEmbed
+          EmbedComponent={FacebookEmbed}
+          url="https://www.facebook.com/events/829825602585397"
+        />
+      </>
+    ),
+  },
+  {
+    id: '76',
+    name: 'DŌJŌ fête la musique #1',
+    category: 'Talence',
+    location: {
+      name: 'DŌJŌ',
+      addressStr: '475 Cours de la Libération, 33400 Talence, France',
+    },
+    startTime: new Date('2024-06-21T19:00:00'),
+    endTime: new Date('2024-06-22T00:00:00'),
+    links: [
+      {
+        url: 'https://www.facebook.com/events/384156541310932/',
+        label: 'Facebook event',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          DŌJŌ fête la musique à Talence ! 💽
+        </p>
+        <p>
+          Comme promis, on te réserve un été riche en évènements et en rencontres.
+          Pour sa première année, DŌJŌ fête la musique, et à cette occasion, on te donne rendez-vous à Talence, face à l'arrêt Peixotto.
+          Rejoins-nous sur les tatamis 🎎️ comme tu sais le faire et viens nous transmettre toute ta belle énergie estivale🌞
+        </p>
+        <p>
+          <b>
+            ATTENTION :
+          </b>
+          {' '}
+          DŌJŌ est un lieu d'échange, de partage et d'amour. Tout acte transphobe, homophobe, raciste, ou s'en rapprochant de près ou de loin est strictement PROSCRIT. DŌJŌ a bonne mémoire. Nous nous réservons le droit de t'exclure de TOUTES les prochaines soirées, et tenons une blacklist à jour.
+        </p>
+
+        <p>
+          Informations pratiques :
+          <ul>
+            <li>
+              🍻 Pas de buvette sur le lieu de la soirée. Soyez prévoyants. PAS DE BOUTEILLE EN VERRE.
+            </li>
+            <li>
+              📍 459-475 Cr de la Libération, 33400 Talence
+            </li>
+            <li>
+              🚉 Tram B - Arrêt : Peixotto
+            </li>
+            <li>
+              🚍 Bus 10, 20, 21, 35 arrêt Peixotto
+            </li>
+            <li>
+              🎟️ Entrée gratuite
+            </li>
+          </ul>
+        </p>
+
+        <CustomEmbed
+          EmbedComponent={FacebookEmbed}
+          url="https://www.facebook.com/events/384156541310932/"
+        />
+      </>
+    ),
+  },
+  {
+    id: '77',
+    name: 'Blanquefort fête la musique',
+    category: 'Blanquefort',
+    location: {
+      name: 'Pomme Cactus Blanquefort',
+      addressStr: '5 Rue Eugène Tartas, 33290 Blanquefort, France',
+    },
+    startTime: new Date('2024-06-21T19:00:00'),
+    links: [
+      {
+        url: 'https://www.facebook.com/events/2767429456741941/',
+        label: 'Facebook event',
+      },
+      {
+        url: 'https://www.facebook.com/pommecactus',
+        label: 'Page Facebook de Pomme Cactus',
+      },
+      {
+        url: 'https://www.pommecactus.com/',
+        label: 'Site officiel de Pomme Cactus',
+      },
+    ],
+    description: (
+      <p>
+        Venez fêter le retour de l'été et la fête de la musique avec nous !
+        Nous vous proposons une soirée tapas inédite, profitez de notre terrasse en musique !
+      </p>
+    ),
+  },
+  {
+    id: '78',
+    name: 'Fête de la musique de Saint-Médard-en-Jalles',
+    category: 'Saint-Médard-en-Jalles',
+    location: {
+      name: `Place de l'hotel de ville`,
+      addressStr: `1 Place de l'Hôtel de Ville, 33160 Saint-Médard-en-Jalles, France`,
+    },
+    startTime: new Date('2024-06-21T17:00:00'),
+    endTime: new Date('2024-06-22T04:00:00'),
+    genres: [
+      'Village',
+      'Concert',
+    ],
+    links: [
+      {
+        url: 'https://www.facebook.com/events/975278387627020/',
+        label: 'Facebook event',
+      },
+      {
+        url: 'https://www.saint-medard-en-jalles.fr/page/sinformer/agenda/2514-fete-de-la-musique-2024',
+        label: 'Site officiel de la ville',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          Vendredi 21 juin 2024, Saint-Médard-en-Jalles célèbre la musique et l'été.
+        </p>
+        <p>
+          Pour la 42ᵉ édition de la Fête de la musique, la Ville propose dès l'après-midi un temps convivial et festif qui se prolongera le soir dans le centre-ville.
+        </p>
+        <p>
+          Rendez-vous dès 19h, place de la République et parc de L'ingénieur pour profiter de concerts en tout genre !
+        </p>
+
+        <CustomEmbed
+          EmbedComponent={FacebookEmbed}
+          url="https://www.facebook.com/events/975278387627020"
+        />
+      </>
+    ),
+  },
+  {
+    id: '79',
+    name: 'Open Air Place Saint-Pierre',
+    category: 'Centre ville',
+    location: {
+      name: 'Place Saint-Pierre',
+      addressStr: '5 Place Saint-Pierre, 33000 Bordeaux',
+    },
   },
 ];

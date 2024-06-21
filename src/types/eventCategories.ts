@@ -6,13 +6,15 @@ export const eventCategories = [
   'Chartrons',
   'Bassins à flot',
   'Rive droite',
-  'Talence',
-  'Pessac',
-  'Mérignac',
   'Ambulant',
   'Bordeaux ouest',
   'Bordeaux sud',
   'Bordeaux nord',
+  'Talence',
+  'Pessac',
+  'Mérignac',
+  'Blanquefort',
+  'Saint-Médard-en-Jalles',
 ] as const;
 
 export type EventCategory = typeof eventCategories[number];

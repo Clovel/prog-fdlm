@@ -134,6 +134,7 @@ const EventsMap: React.FC<EventsMapProps> = (
       events,
     ]
   );
+
   const onLoad = useCallback(
     function callback(map: google.maps.Map) {
       // This is just an example of getting and using the map instance!!! don't just blindly copy!
