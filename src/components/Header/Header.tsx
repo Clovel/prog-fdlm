@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = (
                 événement
                 {events.length !== 1 ? 's' : ''}
                 {' '}
-                cette année
+                cette année.
               </>
           }
         </p>
