@@ -1,12 +1,16 @@
 /* Framework imports ----------------------------------- */
 import React, {
+  useCallback,
   useEffect,
   useState,
 } from 'react';
 
 /* Module imports -------------------------------------- */
-import { Client as GoogleMapsServicesClient } from '@googlemaps/google-maps-services-js';
-import { axiosInstance } from 'helpers/axiosInstance';
+import {
+  setDefaults,
+  fromAddress,
+  OutputFormat,
+} from 'react-geocode';
 import EventInfoWindow from './EventInfoWindow';
 
 /* Component imports ----------------------------------- */
@@ -20,7 +24,10 @@ import {
 /* Style imports --------------------------------------- */
 
 /* Type imports ---------------------------------------- */
-import type { LatLngLiteral } from '@googlemaps/google-maps-services-js';
+import type {
+  GeocodeResponseData,
+  LatLngLiteral,
+} from '@googlemaps/google-maps-services-js';
 import type { Event } from 'types/Event';
 
 /* Type declarations ----------------------------------- */
@@ -41,8 +48,12 @@ const center: LatLngLiteral = {
   lng: -0.571377,
 };
 
-const googleMapsServicesClient = new GoogleMapsServicesClient({
-  axiosInstance: axiosInstance,
+setDefaults({
+  // key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+  key: process.env.NEXT_PUBLIC_GEOCODING_API_KEY,
+  language: 'fr', // Default language for responses.
+  region: 'fr', // Default region for responses.
+  outputFormat: OutputFormat.JSON, // Default output format.
 });
 
 /* EventsMap component prop types ---------------------- */
@@ -59,6 +70,7 @@ const EventsMap: React.FC<EventsMapProps> = (
   const [ loadingGeocoding, setLoadingGeocoding ] = useState<boolean>(false);
   const [ eventMarkers, setEventMarkers ] = useState<MarkerInfo[]>([]);
   const [ selectedMarker, setSelectedMarker ] = useState<MarkerInfo | null>(null);
+  const [ map, setMap ] = useState<google.maps.Map | null>(null);
 
   const { isLoaded, loadError } = useJsApiLoader(
     {
@@ -78,27 +90,24 @@ const EventsMap: React.FC<EventsMapProps> = (
             event.location.addressStr.length > 0
           ) {
             try {
-              const response = await googleMapsServicesClient.geocode(
-                {
-                  params: {
-                    key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
-                    address: event.location.addressStr,
+              const data: GeocodeResponseData = await fromAddress(event.location.addressStr) as GeocodeResponseData;
+
+              if(data.results.length > 0) {
+                const { lat, lng } = data.results[0].geometry.location;
+
+                const marker: MarkerInfo = {
+                  id: event.id,
+                  position: {
+                    lat: lat,
+                    lng: lng,
                   },
-                }
-              );
+                  event: event,
+                };
 
-              const { lat, lng } = response.data.results[0].geometry.location;
-
-              const marker: MarkerInfo = {
-                id: event.id,
-                position: {
-                  lat: lat,
-                  lng: lng,
-                },
-                event: event,
-              };
-
-              markers.push(marker);
+                markers.push(marker);
+              } else {
+                console.warn(`[WARN] <EventsMap> No geocoding result for address "${event.location.addressStr}"`, data);
+              }
             } catch(error) {
               console.error(`[ERROR] <EventsMap> Failed to geocode address "${event.location.addressStr}" :`, error);
             }
@@ -124,6 +133,22 @@ const EventsMap: React.FC<EventsMapProps> = (
     [
       events,
     ]
+  );
+  const onLoad = useCallback(
+    function callback(map: google.maps.Map) {
+      // This is just an example of getting and using the map instance!!! don't just blindly copy!
+      // const bounds = new window.google.maps.La
+
+      setMap(map);
+    },
+    [],
+  );
+
+  const onUnmount = useCallback(
+    function callback(map: google.maps.Map) {
+      setMap(null);
+    },
+    [],
   );
 
   if(loadError !== undefined) {
@@ -152,6 +177,13 @@ const EventsMap: React.FC<EventsMapProps> = (
 
   return (
     <div>
+      <span>
+        {
+          loadingGeocoding ?
+            'Chargement des marqueurs...' :
+            `Affichage de ${eventMarkers.length} marqueurs`
+        }
+      </span>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         center={center}
@@ -177,6 +209,8 @@ const EventsMap: React.FC<EventsMapProps> = (
           }
         }
         onClick={(): void => setSelectedMarker(null)}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
       >
         {
           eventMarkers

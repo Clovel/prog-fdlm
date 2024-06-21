@@ -61,7 +61,11 @@ const HomePage: React.FC<HomePageProps> = () => {
         >
           Cartes des événements
         </Typography>
-        <EventsMap events={events} />
+        {
+          process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY !== undefined &&
+          process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY.length > 0 &&
+            <EventsMap events={events} />
+        }
         <InstagramEmbed url="https://www.instagram.com/p/C8bz_zPIUdX/" />
       </section>
     </div>

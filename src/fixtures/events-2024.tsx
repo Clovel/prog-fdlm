@@ -1585,7 +1585,7 @@ export const events: Event[] = [
     category: 'Bordeaux sud',
     location: {
       name: 'Complexe Aquitain',
-      addressStr: '229 Cr de la Marne, 33800 Bordeaux',
+      addressStr: '229 Cours de la Marne, 33800 Bordeaux',
     },
     startTime: new Date('2024-06-22T07:00:00'),
     endTime: new Date('2024-06-22T13:00:00'),

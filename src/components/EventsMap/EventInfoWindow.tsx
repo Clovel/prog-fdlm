@@ -77,9 +77,9 @@ const EventInfoWindow: React.FC<EventInfoWindowProps> = (
             <Typography variant="h6">
               Description :
             </Typography>
-            <Typography>
+            <div>
               {markerInfo.event.description}
-            </Typography>
+            </div>
           </>
       }
     </div>
