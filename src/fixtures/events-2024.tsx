@@ -1634,4 +1634,57 @@ export const events: Event[] = [
       </>
     ),
   },
+  {
+    id: '73',
+    name: 'Corazon Party édition spéciale fête de la musique !',
+    category: 'Bassins à flot',
+    location: {
+      name: 'Blonde Vénus',
+      addressStr: 'Cours Henri Brunet, 33300 Bordeaux',
+    },
+    startTime: new Date('2024-06-21T20:00:00'),
+    endTime: new Date('2024-06-22T02:00:00'),
+    links: [
+      {
+        url: 'https://www.facebook.com/events/753777480244427',
+        label: 'Facebook event',
+      },
+      {
+        url: 'https://www.iboat.eu/agenda/corazon-party-edition-speciale-fete-de-la-musique',
+        label: 'Agenda de l\'iBoat',
+      },
+      {
+        url: 'https://link.dice.fm/d2a45b5da622',
+        label: 'Billetterie réservation (DICE)',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          CORAZON PARTY : édition spéciale fête de la musique
+        </p>
+        <p>
+          Faire une bonne grosse fête en plein air pour célébrer la musique et vous voir danser encore et toujours !
+          Vendredi 21 juin, le duo Corazon s'empare de la guinguette de Blonde Venus avec sa boum renversante sur fond de musique d'extrême calidad pour cette édition spéciale fête de la musique. Et c'est une première !
+          Aucune excuse n'est acceptée, c'est un vendredi soir ! Venez vous emparer des pavets et de la terrasse ! Vous éloigner du centre (parce que c'est vraiment galère de se déplacer là-bas le 21 juin) et danser avec nous au bord de l'eau (ça non plus il n'y a pas dans le centre ville).
+          Dans tes oreilles le meilleur des années 60-2000 et sur des tempos différents (soyez assuré•es que ça va partir crescendo pour vous mettre en jambe) : disco, grunge, rock n'roll, hip hop, soul/funk, italo disco, pop, funk, varieté, 70s, 80s, 90s, 2000, musique du monde, punk, ragga, electro, tubes incontournables, artistes incontournables (Madonna , Mickael Jackson, Queen Céline etc…), new wave… Il y en aura pour vraiment tous les goûts !
+          Nos objectifs : voir des chorégraphies endiablées en mode pas loin de la crise d'épilepsie et un max de transpiration de l'extrême (puis il va faire chaud en plus).
+        </p>
+        <p>
+          Ouverture des portes 18h (ça vous laissera le temps de manger et de vous chauffer) - Start boum 20h
+        </p>
+        <p>
+          Bar & restauration sur place
+        </p>
+        <p>
+          {'Entrée libre et gratuite (réservation chaudement recommandée) > https://link.dice.fm/d2a45b5da622'}
+        </p>
+
+        <CustomEmbed
+          EmbedComponent={FacebookEmbed}
+          url="https://www.facebook.com/events/753777480244427"
+        />
+      </>
+    ),
+  },
 ];
