@@ -35,9 +35,10 @@ const EventCategoryView: React.FC<EventCategoryViewProps> = (
           {categoryTitle}
         </Typography>
         <span>
-          Nombre d'events :
-          {' '}
           {categoryEvents.length}
+          {' '}
+          event
+          {categoryEvents.length !== 1 ? 's' : ''}
         </span>
       </div>
       <EventList events={categoryEvents} />
