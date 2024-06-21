@@ -27,7 +27,6 @@ interface HomePageProps {}
 const HomePage: React.FC<HomePageProps> = () => {
   return (
     <div className="flex flex-col place-items-center min-w-full py-4 lg:py-0">
-      <EventsRecap events={events} />
       {/* <WeatherAlert /> */}
       {
         Object.entries(
@@ -54,6 +53,7 @@ const HomePage: React.FC<HomePageProps> = () => {
             },
           )
       }
+      <EventsRecap events={events} />
       <section className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0">
         <InstagramEmbed url="https://www.instagram.com/p/C8bvNYJI_BV/?img_index=1" />
       </section>

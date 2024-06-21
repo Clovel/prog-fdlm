@@ -22,9 +22,12 @@ const EventsRecap: React.FC<EventsRecapProps> = ({
   return (
     <div className="flex flex-col place-items-center min-w-full py-4 lg:py-0">
       <p>
-        Nombre d'events :
-        {' '}
         {events.length}
+        {' '}
+        événement
+        {events.length !== 1 ? 's' : ''}
+        {' '}
+        cette année.
       </p>
     </div>
   );
