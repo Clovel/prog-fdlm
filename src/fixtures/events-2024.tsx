@@ -2061,11 +2061,130 @@ export const events: Event[] = [
   },
   {
     id: '79',
-    name: 'Open Air Place Saint-Pierre',
+    name: 'Liftov fête la musique',
     category: 'Centre ville',
     location: {
-      name: 'Place Saint-Pierre',
-      addressStr: '5 Place Saint-Pierre, 33000 Bordeaux',
+      name: 'Liftov',
+      addressStr: '32 rue du cancera, Bordeaux, France 33000',
     },
+    startTime: new Date('2024-06-21T18:00:00'),
+    endTime: new Date('2024-06-22T02:00:00'),
+    genres: [
+      'Bar',
+      'Concert',
+      'Soul',
+      'RnB',
+      'Hip-hop',
+      'Funk',
+      'Electro',
+      'Tech house',
+      'Afro/latin house',
+    ],
+    links: [
+      {
+        url: 'https://www.instagram.com/p/C8ZHk4lqMOB/',
+        label: 'Post Instagram',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          Pour la fête de la Musique, le Liftov vous offre dès 18:00 un concert de soul par les @bjfrenchblues qui donnera le tempo pour une soirée qui s’annonce déjà mémorable.
+        </p>
+
+        <p>
+          À 20:30 on continue avec le génial @dafunklord qui vous fera voyager dans l’histoire de la musique jusqu’au bout de la nuit, avec un mix à base de soul, de RnB, de hip-hop, de funk, d’electro, de tech house, de afro/latin house, entre autres…
+        </p>
+
+        <p>
+          Avec ça: notre offre hot-dog+pinte à 10€. Mais vous pouvez bien sûr aussi profiter de nos cocktails maisons. 🍸
+        </p>
+
+        <CustomEmbed url="https://www.instagram.com/p/C8ZHk4lqMOB/" />
+      </>
+    ),
+  },
+  {
+    id: '80',
+    category: 'Centre ville',
+    location: {
+      name: 'Place des Basques',
+      addressStr: 'Place des Basques, 33000 Bordeaux',
+    },
+    startTime: new Date('2023-06-21T17:00:00+02:00'),
+    endTime: new Date('2023-06-22T00:30:00+02:00'),
+    genres: [
+      'Banda',
+      'Traditionnel',
+      'Basque',
+      'Fanfare',
+    ],
+    links: [
+      {
+        url: 'https://www.facebook.com/events/747373194001393',
+        label: 'Évènement Facebook',
+      },
+      {
+        url: 'hhttps://www.instagram.com/maisonbasquedebordeaux/',
+        label: 'Page Instagram de la Maison Basque de Bordeaux',
+      },
+      {
+        url: 'https://www.instagram.com/topa.comptoirbasque/',
+        label: 'Page Instagram de TOPA',
+      },
+      {
+        url: 'https://www.facebook.com/TOPAcomptoirbasque',
+        label: 'Page Facebook de TOPA',
+      },
+    ],
+    description: (
+      <>
+        <p>
+          🥳 Rejoignez-nous pour une soirée inoubliable de la Fête de la Musique avec la
+          {' '}
+          <a
+            href="https://www.instagram.com/maisonbasquedebordeaux/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @maisonbasquedebordeaux !
+          </a>
+        </p>
+        <p>
+          Pour la fête de la musique cette année, la Maison Basque de Bordeaux vous a mijoté une programmation aux petits oignons ! On commence tout doux (lasai) l’apéro au son des chants traditionnels basques de Kantuz, avant de basculer cash dans le groove de la Nouvelle Orléans avec la fanfare funky de Pampelune, le Broken Brothers Brass Band ! Enfin les plus motivés pourront continuer à guincher au son des platines de PIRATE JUS D’ORANGE, habitué à balancer du gordo gordo !
+        </p>
+        <p>
+          🎶 Célébrez la musique, la joie et la convivialité dans un cadre authentiquement basque.
+        </p>
+        <ul>
+          <li>
+            Ouverture des portes 18h.
+          </li>
+          <li>
+            Début des concerts à 19h.
+          </li>
+        </ul>
+        <p>
+          Au programme :
+          <ul>
+            <li>
+              19h Mutxiko (Danses Basques)
+            </li>
+            <li>
+              20h30 Kantuz (Chants tradi)
+            </li>
+            <li>
+              21h30 Iluma (Pop-Rock)
+            </li>
+            <li>
+              Snacks (Taloa, Croquettes, tortillas, charcuteries...) et boissons
+            </li>
+          </ul>
+        </p>
+        <p>
+          Vous aurez la possibilité de découvrir ou (re)découvrir les saveurs basques avec des Taloas, de la charcuterie/fromage ou encore des desserts...
+        </p>
+      </>
+    ),
   },
 ];

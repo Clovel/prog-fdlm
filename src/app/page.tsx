@@ -55,6 +55,9 @@ const HomePage: React.FC<HomePageProps> = () => {
           )
       }
       <section className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0">
+        <InstagramEmbed url="https://www.instagram.com/p/C8bvNYJI_BV/?img_index=1" />
+      </section>
+      <section className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0">
         <Typography
           variant="h4"
           className="pb-4"
