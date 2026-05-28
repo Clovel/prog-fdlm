@@ -40,7 +40,7 @@ There is no test framework configured. Verification is done via `tsc:ci`, `lint`
 The app uses the Next.js **App Router** (`src/app/`), not the legacy `pages/` router. There is exactly one page:
 
 - `src/app/layout.tsx` — `RootLayout` (server), sets `<html>`/`<head>`, mounts `<Analytics>` and `<MainLayout>`.
-- `src/app/MainLayout.tsx` — `'use client'`, wraps `<body>` with `ThemeRegistry` (MUI+Emotion) plus a fixed `Header`/`Copyright`.
+- `src/app/MainLayout.tsx` — `'use client'`, wraps `<body>` with `next-themes`' `ThemeProvider` (class-attribute strategy) plus a fixed `Header`/`Copyright`.
 - `src/app/page.tsx` — `'use client'`, the home page. The entire site lives here.
 
 `page.tsx` does the work in three stages, all client-side:
@@ -57,8 +57,8 @@ Because everything is one `'use client'` page reading a static fixture, there is
 
 - `Event` has `id`, optional `name`/`description`/`category`/`status`/`genres`/`artists`/`links`/`price`, plus a required `location: { name; addressStr?; coords? }` and `startTime: Date` (`endTime?` is optional — events may be open-ended or all-nighters).
 - `category` is constrained to the const array in `src/types/eventCategories.ts` — **add new neighborhoods there**, not in fixtures, or sorting will silently break (events with an unknown category produce `indexOf === -1` and sort to the very top).
-- `status` is one of `'canceled' | 'postponed' | 'rescheduled'` and is rendered as a colored badge in `EventListItem` (orange/red/purple). The display labels are in French; note `EventListItem` currently shows "Reprogrammé" for both `rescheduled` and `canceled` — that's a known string bug if you touch this file.
-- `description` and `EventLink.label` are typed as `React.ReactNode`, so fixtures freely embed JSX (`<p>`, `<FacebookEmbed>`, MUI `<Alert>`, etc.). This is why fixtures are `.tsx`, not `.ts` or JSON.
+- `status` is one of `'canceled' | 'postponed' | 'rescheduled'` and is rendered as a colored badge in `EventListItem` with the French labels "Annulé" (red), "Reporté" (purple), and "Reprogrammé" (orange). Each color has a `dark:` counterpart (`dark:text-red-400`, `dark:text-purple-400`, `dark:text-orange-400`) for dark mode.
+- `description` and `EventLink.label` are typed as `React.ReactNode`, so fixtures freely embed JSX (`<p>`, `<FacebookEmbed>`, shadcn `<Alert>`, etc.). This is why fixtures are `.tsx`, not `.ts` or JSON.
 
 ### Component conventions
 
@@ -77,19 +77,23 @@ Every component file follows a strict comment-banner layout that ESLint does not
 
 Components are typed as `React.FC<Props>`, default-exported, and prop interfaces live above the component (named `<Name>Props`, often empty `{}`). Type-only imports use `import type { ... }` — `@typescript-eslint/consistent-type-imports` enforces it.
 
-### Styling stack — three things at once
+### Styling stack
 
-The project mixes three styling systems and you will see all of them in the same file:
-
-- **Tailwind CSS v4** for layout/spacing utility classes (`flex flex-col`, `lg:py-8`, `min-w-full`). v4 uses **CSS-first config**: there is no `tailwind.config.js` — the configuration lives in `src/app/globals.css` inside `@theme { ... }` blocks. Source files are auto-detected; no `content` paths to maintain. PostCSS pipeline uses `@tailwindcss/postcss` (no autoprefixer, v4 handles it).
-- **Material UI v9 (`@mui/material`)** for primitives: `Typography`, `List`, `ListItem`, `Collapse`, `Alert`, `IconButton`, `Link as MuiLink`. Theme wired through `ThemeRegistry` → `ThemeProvider` (`src/components/Theme/ThemeRegistry/theme.ts`). Slot props use the v6+ `slotProps={{ primary: {...}, secondary: {...} }}` shape — the old `primaryTypographyProps`/`secondaryTypographyProps` API is gone.
-- **Emotion** (`@emotion/css`'s `css\`...\``) for the few cases that need real CSS (e.g. styling MUI internals like `& > .MuiAlert-root` in `EventListItemDetails.tsx`). Server-side insertion is handled by `NextAppDirEmotionCacheProvider` in `src/components/Theme/ThemeRegistry/EmotionCache.tsx` — do not bypass it or hydration mismatches will appear. MUI v9 still supports Emotion as a peer; Pigment CSS is opt-in only.
-
-`next.config.js` enables `modularizeImports` for `@mui/icons-material` so `import ExpandLess from '@mui/icons-material/ExpandLess'` stays tree-shaken.
+- **Tailwind CSS v4** for layout/spacing/typography utilities. CSS-first config in `src/app/globals.css` inside `@theme { ... }` blocks. Source files are auto-detected. PostCSS pipeline uses `@tailwindcss/postcss`.
+- **shadcn/ui (`new-york` style, `neutral` base)** for components. All components live under `src/components/ui/` as plain `.tsx` files we own — edit them freely. The full registry was installed up-front (~46 components); only a handful are wired into the page (`alert`, `button`, `collapsible`, `dropdown-menu`, `separator`). The rest are ready for future use.
+- **Theme tokens** are defined as CSS variables (`--background`, `--foreground`, `--primary`, `--muted-foreground`, etc.) in `src/app/globals.css`. Light/dark are scoped via a `.dark` class on `<html>`. Use `text-muted-foreground`, `bg-card`, `border-border` etc. in component code — do NOT reach for raw color names like `text-zinc-700`.
+- **Dark mode** is toggled by `next-themes` (`attribute="class"`, `defaultTheme="system"`, `enableSystem`). The toggle dropdown lives in `src/components/ThemeToggle/ThemeToggle.tsx` and is mounted in the header.
+- **Icons** are `lucide-react`.
+- **Custom one-offs** that don't fit a utility (e.g. the in-description `<ul>` / `<p>` defaults) live as a `@layer components` block in `globals.css`, scoped via the `.event-description` class.
 
 ### Path aliases
 
-`tsconfig.json` uses `paths: { "*": ["./src/*"] }` (since TS 6 deprecated `baseUrl`). Imports across the codebase are bare relative-to-src:
+`tsconfig.json` defines two aliases that both resolve to `./src/*`:
+
+- `*` — used by project code (`fixtures/...`, `components/...`, `types/...`, `helpers/...`).
+- `@/*` — used by shadcn-generated code under `src/components/ui/` and `src/lib/utils.ts`. Mirrors the shadcn convention so the registry-installed files work without rewriting their imports.
+
+Stick to the bare-alias style when writing project code; use `@/` only inside shadcn-touched files.
 
 ```ts
 import { events } from 'fixtures/events-2024';
@@ -111,6 +115,7 @@ Use this style, not `../../../`.
 - `prefer-template` — no string concatenation with `+`.
 - `promise/always-return` + `promise/catch-or-return` (with `allowFinally`) — every promise chain must `.catch()` (or `.finally()`) and every `then` must return something. See `EventsMap.tsx`'s `fetchEventMarkers().catch(...).finally(...)` as the template.
 - `react-hooks/set-state-in-effect` (new in `eslint-plugin-react-hooks` v7) — flags synchronous `setState` calls inside `useEffect`. `EventsMap.tsx` disables it for one line where the pattern is correct (mark-loading → fetch → mark-loaded); follow the same pattern if you hit it.
+- **shadcn-generated code is exempt from several strict rules.** `eslint.config.mjs` relaxes `explicit-function-return-type`, `no-unsafe-*`, `strict-boolean-expressions`, and a few React rules for files under `src/components/ui/`, `src/lib/`, and `src/hooks/use-mobile.ts`. Don't try to "fix" the relaxations — the generated code is meant to be edited as-is and re-relaxed if needed.
 
 **ESLint is pinned to v9, not v10.** v10's new scope-manager API breaks `eslint-plugin-react`'s old `eslint-scope` dependency (and transitively `eslint-config-next`'s plugins). Bump to v10 only once the React/Next plugin ecosystem catches up. Several rules from the old `.eslintrc.js` were dropped during the flat-config migration because their plugins haven't been updated: `eslint-config-standard`, `@spence1115/eslint-plugin-modules-newlines`, and several of the verbose `react/jsx-*` formatting rules. The codebase still follows the old conventions (one prop per line, one expression per line, multi-import wrapping) — the rules just don't enforce them anymore.
 
