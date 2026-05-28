@@ -4,15 +4,11 @@
 import React from 'react';
 
 /* Module imports -------------------------------------- */
+import { ThemeProvider } from 'next-themes';
 
 /* Component imports ----------------------------------- */
-import ThemeRegistry from 'components/Theme/ThemeRegistry/ThemeRegistry';
 import Header from 'components/Header/Header';
 import Copyright from 'components/Copyright/Copyright';
-
-/* Style imports --------------------------------------- */
-
-/* Type imports ---------------------------------------- */
 
 /* MainLayout component prop types --------------------- */
 interface MainLayoutProps {
@@ -22,7 +18,12 @@ interface MainLayoutProps {
 /* MainLayout component -------------------------------- */
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
-    <ThemeRegistry>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
       <body className="flex flex-col min-h-screen">
         <Header />
         <main className="flex-1 min-h-full flex flex-col items-center lg:p-24 lg:pt-8">
@@ -32,7 +33,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           <Copyright />
         </footer>
       </body>
-    </ThemeRegistry>
+    </ThemeProvider>
   );
 };
 
