@@ -21,11 +21,13 @@ interface FacebookEmbedProps {
   maxWidth?: number;
   showText?: boolean;
   className?: string;
+  postAspectRatio?: string;
+  videoAspectRatio?: string;
 }
 
-const DEFAULT_MAX_WIDTH = 750;
-const POST_ASPECT_RATIO = '1.91/1';
-const VIDEO_ASPECT_RATIO = '16/9';
+const DEFAULT_MAX_WIDTH = 750 as const;
+const DEFAULT_POST_ASPECT_RATIO = '1.91/1' as const;
+const DEFAULT_VIDEO_ASPECT_RATIO = '16/9' as const;
 
 /* FacebookEmbed component ----------------------------- */
 const FacebookEmbed: React.FC<FacebookEmbedProps> = (
@@ -35,6 +37,8 @@ const FacebookEmbed: React.FC<FacebookEmbedProps> = (
     maxWidth = DEFAULT_MAX_WIDTH,
     showText = true,
     className,
+    postAspectRatio = DEFAULT_POST_ASPECT_RATIO,
+    videoAspectRatio = DEFAULT_VIDEO_ASPECT_RATIO,
   },
 ) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -43,7 +47,7 @@ const FacebookEmbed: React.FC<FacebookEmbedProps> = (
   useSocialEmbedScript('facebook', inViewport);
 
   const blockClass = type === 'video' ? 'fb-video' : 'fb-post';
-  const aspectRatio = type === 'video' ? VIDEO_ASPECT_RATIO : POST_ASPECT_RATIO;
+  const aspectRatio = type === 'video' ? videoAspectRatio : postAspectRatio;
 
   return (
     <div

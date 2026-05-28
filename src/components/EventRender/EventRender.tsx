@@ -4,52 +4,24 @@ import React from 'react';
 /* Module imports -------------------------------------- */
 
 /* Component imports ----------------------------------- */
-import {
-  InstagramEmbed,
-  FacebookEmbed,
-} from 'components/embeds';
+import CustomEmbed from 'components/CustomEmbed/CustomEmbed';
 
 /* Style imports --------------------------------------- */
 
 /* Type imports ---------------------------------------- */
-import type {
-  Event,
-  EventEmbedLink,
-} from 'types/Event';
+import type { Event } from 'types/Event';
 
 /* EventRender component prop types -------------------- */
 interface EventRenderProps {
   event: Event;
 }
 
-/* Helpers --------------------------------------------- */
-const renderEmbed = (link: EventEmbedLink, index: number): React.ReactNode => {
-  switch(link.type) {
-    case 'instagram':
-      return (
-        <InstagramEmbed
-          key={`${link.url}-${index}`}
-          url={link.url}
-          className="my-4"
-        />
-      );
-    case 'facebook':
-      return (
-        <FacebookEmbed
-          key={`${link.url}-${index}`}
-          url={link.url}
-          className="my-4"
-        />
-      );
-    default: {
-      const _exhaustive: never = link.type;
-      return _exhaustive;
-    }
-  }
-};
-
 /* EventRender component ------------------------------- */
-const EventRender: React.FC<EventRenderProps> = ({ event }) => {
+const EventRender: React.FC<EventRenderProps> = (
+  {
+    event
+  },
+) => {
   return (
     <div className="event-description flex flex-col w-full px-4 py-2">
       {
@@ -68,7 +40,17 @@ const EventRender: React.FC<EventRenderProps> = ({ event }) => {
         event.embedLinks !== undefined &&
         event.embedLinks.length > 0 &&
           <article className="flex flex-col w-full mt-4">
-            {event.embedLinks.map(renderEmbed)}
+            {
+              event.embedLinks.map(
+                (link, index) => (
+                  <CustomEmbed
+                    key={`${link.url}-${index}`}
+                    url={link.url}
+                    type={link.type}
+                  />
+                ),
+              )
+            }
           </article>
       }
       {
