@@ -132,3 +132,13 @@
     @apply font-sans;
   }
 }
+
+@layer components {
+  .event-description ul {
+    list-style: inside;
+  }
+
+  .event-description p {
+    padding-bottom: 0.5rem;
+  }
+}

@@ -1,3 +1,5 @@
+'use client';
+
 /* Framework imports ----------------------------------- */
 import React, {
   useMemo,
@@ -8,17 +10,15 @@ import React, {
 import { formatPrice } from 'helpers/formatPrice';
 
 /* Component imports ----------------------------------- */
-import Typography from '@mui/material/Typography';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import IconButton from '@mui/material/IconButton';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import { ChevronDown, ChevronUp } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
 import EventTime from './EventTime';
 import EventListItemDetails from './EventListItemDetails';
-
-/* Style imports --------------------------------------- */
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
@@ -26,14 +26,12 @@ import type { Event } from 'types/Event';
 /* EventListItem component prop types ------------------ */
 interface EventListItemProps {
   event: Event;
-  divider?: boolean;
 }
 
 /* EventListItem component ----------------------------- */
 const EventListItem: React.FC<EventListItemProps> = (
   {
     event,
-    divider = false,
   },
 ) => {
   const [ open, setOpen ] = useState<boolean>(false);
@@ -47,155 +45,132 @@ const EventListItem: React.FC<EventListItemProps> = (
     ]
   );
 
-  const onExpandClicked: React.MouseEventHandler<HTMLElement> = (event) => {
-    event.stopPropagation();
-
-    setOpen(!open);
-  };
+  const titleBlock = (
+    <>
+      <div className="text-lg font-medium">
+        <span className="font-bold">
+          {event.name ?? event.location.name}
+        </span>
+        {
+          event.status !== undefined &&
+            ' - '
+        }
+        {
+          event.status === 'rescheduled' &&
+            <span className="text-orange-600 dark:text-orange-400">
+              Reprogrammé
+            </span>
+        }
+        {
+          event.status === 'canceled' &&
+            <span className="text-red-600 dark:text-red-400">
+              Annulé
+            </span>
+        }
+        {
+          event.status === 'postponed' &&
+            <span className="text-purple-600 dark:text-purple-400">
+              Reporté
+            </span>
+        }
+      </div>
+      <div className="text-sm">
+        <span className="font-semibold">
+          {
+            event.name !== undefined &&
+                event.location.name
+          }
+        </span>
+        <span>
+          {
+            event.name !== undefined &&
+              event.location.addressStr !== undefined &&
+                ', '
+          }
+          {
+            event.location.addressStr !== undefined &&
+              event.location.addressStr
+          }
+        </span>
+        {
+          event.genres !== undefined &&
+          event.genres.length > 0 &&
+            <p>
+              - Genres :
+              {' '}
+              {event.genres.join(', ')}
+            </p>
+        }
+        {
+          event.artists !== undefined &&
+          event.artists.length > 0 &&
+            <p>
+              - Artistes :
+              {' '}
+              {event.artists.join(', ')}
+            </p>
+        }
+        {
+          event.price !== undefined &&
+            <p>
+              - Prix :
+              {' '}
+              {formatPrice(event.price)}
+            </p>
+        }
+      </div>
+    </>
+  );
 
   return (
-    <>
-      <ListItem
-        alignItems="flex-start"
-        secondaryAction={
-          collapsiblePresent === true ?
-            <IconButton
-              edge="end"
-              aria-label="toggle"
-              onClick={collapsiblePresent ? onExpandClicked : undefined}
-              disabled={!collapsiblePresent}
-            >
-              {
-                open ?
-                  <ExpandLess /> :
-                  <ExpandMore />
-              }
-            </IconButton> :
-            undefined
-        }
-        disablePadding
-        divider={divider && !open}
+    <li className="py-2">
+      <Collapsible
+        open={open}
+        onOpenChange={setOpen}
       >
-        <ListItemButton
-          onClick={
+        <div className="flex items-start justify-between gap-2 px-4">
+          {
             collapsiblePresent ?
-              onExpandClicked :
-              undefined
-          }
-        >
-          <ListItemText
-            primary={
-              <Typography
-                variant="subtitle1"
-              >
-                <span className="font-bold">
-                  {event.name ?? event.location.name}
-                </span>
-                {
-                  event.status !== undefined &&
-                    ' - '
-                }
-                {
-                  event.status === 'rescheduled' &&
-                    <span className="text-orange-600">
-                      Reprogrammé
-                    </span>
-                }
-                {
-                  event.status === 'canceled' &&
-                    <span className="text-red-600">
-                      Reprogrammé
-                    </span>
-                }
-                {
-                  event.status === 'postponed' &&
-                    <span className="text-purple-600">
-                      Reporté
-                    </span>
-                }
-              </Typography>
-            }
-            secondary={
-              <React.Fragment>
-                <div className="inline">
-                  <Typography
-                    className="!font-semibold"
-                    variant="body2"
-                    color="text.primary"
-                    component="span"
-                  >
-                    {
-                      event.name !== undefined &&
-                          event.location.name
-                    }
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.primary"
-                    component="span"
-                  >
-                    {
-                      event.name !== undefined &&
-                        event.location.addressStr !== undefined &&
-                          ', '
-                    }
-                    {
-                      event.location.addressStr !== undefined &&
-                        event.location.addressStr
-                    }
-                  </Typography>
+              <CollapsibleTrigger asChild>
+                <div className="flex-1 min-w-0 cursor-pointer rounded-md hover:bg-accent -mx-2 px-2 py-1">
+                  {titleBlock}
                 </div>
-                {
-                  event.genres !== undefined &&
-                  event.genres.length > 0 &&
-                    <Typography>
-                      - Genres :
-                      {' '}
-                      {event.genres.join(', ')}
-                    </Typography>
-                }
-                {
-                  event.artists !== undefined &&
-                  event.artists.length > 0 &&
-                    <Typography>
-                      - Artistes :
-                      {' '}
-                      {event.artists.join(', ')}
-                    </Typography>
-                }
-                {
-                  event.price !== undefined &&
-                    <Typography>
-                      - Prix :
-                      {' '}
-                      {formatPrice(event.price)}
-                    </Typography>
-                }
-              </React.Fragment>
+              </CollapsibleTrigger> :
+              <div className="flex-1 min-w-0">
+                {titleBlock}
+              </div>
+          }
+          <div className="flex items-center gap-2 shrink-0">
+            <EventTime
+              startTime={event.startTime}
+              endTime={event.endTime}
+            />
+            {
+              collapsiblePresent &&
+                <CollapsibleTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label={open ? 'Replier' : 'Déplier'}
+                  >
+                    {
+                      open ?
+                        <ChevronUp className="h-5 w-5" /> :
+                        <ChevronDown className="h-5 w-5" />
+                    }
+                  </Button>
+                </CollapsibleTrigger>
             }
-            slotProps={
-              {
-                secondary: {
-                  component: 'div',
-                },
-              }
-            }
-          />
-          <EventTime
-            startTime={event.startTime}
-            endTime={event.endTime}
-          />
-        </ListItemButton>
-      </ListItem>
-      {
-        collapsiblePresent === true &&
-          <EventListItemDetails
-            open={open}
-            event={event}
-            divider={divider}
-          />
-      }
-    </>
+          </div>
+        </div>
+        {
+          collapsiblePresent &&
+            <CollapsibleContent>
+              <EventListItemDetails event={event} />
+            </CollapsibleContent>
+        }
+      </Collapsible>
+    </li>
   );
 };
 

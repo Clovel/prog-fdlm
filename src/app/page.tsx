@@ -9,8 +9,7 @@ import { reduceEventsByCategory } from 'helpers/reduceEventsByCategory';
 import { sortEventsByCategoryEntries } from 'helpers/orderEventsByCategory';
 
 /* Component imports ----------------------------------- */
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
+import { Separator } from '@/components/ui/separator';
 import { InstagramEmbed } from 'react-social-media-embed';
 import EventsRecap from 'components/EventsRecap/EventsRecap';
 import EventCategoryView from 'components/EventCategoryView/EventCategoryView';
@@ -46,7 +45,7 @@ const HomePage: React.FC<HomePageProps> = () => {
                   />
                   {
                     array.length - 1 !== index &&
-                      <Divider className="w-full" />
+                      <Separator className="w-full" />
                   }
                 </React.Fragment>
               );
@@ -58,12 +57,9 @@ const HomePage: React.FC<HomePageProps> = () => {
         <InstagramEmbed url="https://www.instagram.com/p/C8bvNYJI_BV/?img_index=1" />
       </section>
       <section className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0">
-        <Typography
-          variant="h4"
-          className="pb-4"
-        >
+        <h4 className="text-2xl font-semibold tracking-tight pb-4">
           Cartes des événements
-        </Typography>
+        </h4>
         {
           process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY !== undefined &&
           process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY.length > 0 &&

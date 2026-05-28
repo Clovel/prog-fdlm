@@ -3,13 +3,8 @@
 /* Framework imports ----------------------------------- */
 import React from 'react';
 
-/* Module imports -------------------------------------- */
-
 /* Component imports ----------------------------------- */
-import List from '@mui/material/List';
 import EventListItem from './EventListItem';
-
-/* Style imports --------------------------------------- */
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
@@ -22,21 +17,18 @@ interface EventListProps {
 /* EventList component --------------------------------- */
 const EventList: React.FC<EventListProps> = ({ events = []}) => {
   return (
-    <List className="min-w-full">
+    <ul className="min-w-full divide-y divide-border">
       {
         events.map(
-          (event, index, array) => {
-            return (
-              <EventListItem
-                key={`${event.name}-${index}`}
-                event={event}
-                divider={index < array.length - 1}
-              />
-            );
-          }
+          (event, index) => (
+            <EventListItem
+              key={`${event.name ?? event.location.name}-${index}`}
+              event={event}
+            />
+          )
         )
       }
-    </List>
+    </ul>
   );
 };
 
