@@ -1,7 +1,10 @@
 'use client';
 
 /* Framework imports ----------------------------------- */
-import React from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 
 /* Module imports -------------------------------------- */
 import { useTheme } from 'next-themes';
@@ -9,44 +12,63 @@ import { useTheme } from 'next-themes';
 /* Component imports ----------------------------------- */
 import { Moon, Sun, Monitor } from 'lucide-react';
 import { Button } from 'components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from 'components/ui/dropdown-menu';
+
+/* Constants ------------------------------------------- */
+const CYCLE: Record<string, string> = {
+  light: 'dark',
+  dark: 'system',
+  system: 'light',
+};
+
+const LABELS: Record<string, string> = {
+  light: 'Thème : clair',
+  dark: 'Thème : sombre',
+  system: 'Thème : système',
+};
 
 /* ThemeToggle component ------------------------------- */
 const ThemeToggle: React.FC = () => {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+  const [ mounted, setMounted ] = useState<boolean>(false);
+
+  useEffect(
+    () => {
+      queueMicrotask((): void => setMounted(true));
+    },
+    [],
+  );
+
+  const current = theme ?? 'system';
+
+  const onCycle = (): void => {
+    setTheme(CYCLE[current] ?? 'system');
+  };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          aria-label="Toggle theme"
-        >
-          <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={(): void => setTheme('light')}>
-          <Sun className="mr-2 h-4 w-4" />
-          Clair
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={(): void => setTheme('dark')}>
-          <Moon className="mr-2 h-4 w-4" />
-          Sombre
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={(): void => setTheme('system')}>
-          <Monitor className="mr-2 h-4 w-4" />
-          Système
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={onCycle}
+      aria-label={mounted ? LABELS[current] : 'Bascule du thème'}
+      title={mounted ? LABELS[current] : undefined}
+    >
+      {
+        mounted && current === 'light' &&
+          <Sun className="h-5 w-5" />
+      }
+      {
+        mounted && current === 'dark' &&
+          <Moon className="h-5 w-5" />
+      }
+      {
+        mounted && current === 'system' &&
+          <Monitor className="h-5 w-5" />
+      }
+      {
+        !mounted &&
+          <Monitor className="h-5 w-5 opacity-50" />
+      }
+    </Button>
   );
 };
 
