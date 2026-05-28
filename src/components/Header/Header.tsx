@@ -47,7 +47,7 @@ const Header: React.FC<HeaderProps> = (
             href="https://github.com/Clovel"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline-offset-4 hover:underline"
+            className="text-blue-600 dark:text-blue-400 underline-offset-4 hover:underline"
           >
             Clovis Durand
           </a>

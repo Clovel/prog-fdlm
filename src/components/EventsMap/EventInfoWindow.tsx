@@ -45,7 +45,7 @@ const EventInfoWindow: React.FC<EventInfoWindowProps> = (
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block underline-offset-4 hover:underline"
+                        className="inline-block text-blue-600 dark:text-blue-400 underline-offset-4 hover:underline"
                       >
                         {link.label}
                       </a>
