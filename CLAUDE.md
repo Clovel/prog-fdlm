@@ -47,7 +47,7 @@ The app uses the Next.js **App Router** (`src/app/`), not the legacy `pages/` ro
 
 1. **Group + sort by category.** `reduceEventsByCategory(events)` produces `Partial<EventsByCategories>` (a map keyed by `EventCategory | 'Autres'`). `Object.entries(...).sort(sortEventsByCategoryEntries)` orders categories using the canonical order defined in `src/types/eventCategories.ts` (`'Centre ville'` first, …, `'Saint-Médard-en-Jalles'` last, with `'Autres'` always pushed to the end).
 2. **Render one `EventCategoryView` per category**, which in turn renders an `EventList` of `EventListItem`s. Each item is expandable (`Collapse`) into `EventListItemDetails` showing description + links.
-3. **Append the recap, Instagram embeds, and the Google Map** (`EventsMap`), which geocodes every event with an `addressStr` and drops a `Marker` at the result.
+3. **Append the recap, two page-level Instagram embeds (hardcoded in `page.tsx`, NOT driven by `event.embedLinks`), and the Google Map** (`EventsMap`), which geocodes every event with an `addressStr` and drops a `Marker` at the result.
 
 Because everything is one `'use client'` page reading a static fixture, there is no data-fetching layer, no API routes, no server actions. Adding/removing events = editing the fixture file.
 
@@ -58,7 +58,9 @@ Because everything is one `'use client'` page reading a static fixture, there is
 - `Event` has `id`, optional `name`/`description`/`category`/`status`/`genres`/`artists`/`links`/`price`, plus a required `location: { name; addressStr?; coords? }` and `startTime: Date` (`endTime?` is optional — events may be open-ended or all-nighters).
 - `category` is constrained to the const array in `src/types/eventCategories.ts` — **add new neighborhoods there**, not in fixtures, or sorting will silently break (events with an unknown category produce `indexOf === -1` and sort to the very top).
 - `status` is one of `'canceled' | 'postponed' | 'rescheduled'` and is rendered as a colored badge in `EventListItem` with the French labels "Annulé" (red), "Reporté" (purple), and "Reprogrammé" (orange). Each color has a `dark:` counterpart (`dark:text-red-400`, `dark:text-purple-400`, `dark:text-orange-400`) for dark mode.
-- `description` and `EventLink.label` are typed as `React.ReactNode`, so fixtures freely embed JSX (`<p>`, `<FacebookEmbed>`, shadcn `<Alert>`, etc.). This is why fixtures are `.tsx`, not `.ts` or JSON.
+- `description` is typed as `React.ReactNode` for free-form text/JSX. As of the `react-social-media-embed` removal, `description` no longer contains `<InstagramEmbed>` / `<FacebookEmbed>` / `<CustomEmbed>` JSX — embeds are stored as structured data in `event.embedLinks: EventEmbedLink[]` and rendered by `<EventRender />`. Inline `<Alert>` JSX (e.g. cancellation notices) still belongs inside `description`. Embeds always render AFTER the description; positional interleaving inside the description is not supported by the new model.
+- `embedLinks?: EventEmbedLink[]` — optional, an array of `{ type: 'instagram' | 'facebook'; url: string }`. Used by `<EventRender />` to render embeds below the description. No per-embed `maxWidth` field by design.
+- `EventLink.label` is typed as `React.ReactNode` (for cases where the label needs richer JSX). Fixtures are `.tsx`, not `.ts` or JSON, so JSX in `description` / `label` works.
 
 ### Component conventions
 
@@ -85,6 +87,16 @@ Components are typed as `React.FC<Props>`, default-exported, and prop interfaces
 - **Dark mode** is toggled by `next-themes` (`attribute="class"`, `defaultTheme="system"`, `enableSystem`). The toggle dropdown lives in `src/components/ThemeToggle/ThemeToggle.tsx` and is mounted in the header.
 - **Icons** are `lucide-react`.
 - **Custom one-offs** that don't fit a utility (e.g. the in-description `<ul>` / `<p>` defaults) live as a `@layer components` block in `globals.css`, scoped via the `.event-description` class.
+
+### Social media embeds
+
+Instagram and Facebook embeds are owned in-tree under `src/components/embeds/`:
+
+- `InstagramEmbed` and `FacebookEmbed` are public exports from `src/components/embeds/index.ts`. Each takes a `url` (and `<FacebookEmbed>` optionally `type: 'post' | 'video'`); width is fluid up to a CSS-driven `maxWidth` cap (default 540 px Instagram, 750 px Facebook). The `maxWidth` is a per-instance prop on the component, NOT a per-`EventEmbedLink` field — the data model intentionally has no per-embed width override (was a hand-tuned prop in the old `react-social-media-embed` wrappers; dropped during the rsme removal for simplicity).
+- `<CustomEmbed type="instagram" | "facebook" url={...} maxWidth={...} />` (at `src/components/CustomEmbed/CustomEmbed.tsx`) is a thin dispatcher that picks the right component. The `maxWidth` prop is forwarded to the underlying `<InstagramEmbed>` / `<FacebookEmbed>`. Useful when the embed kind is data-driven (e.g. when rendering an `EventEmbedLink`). `<EventRender />` does NOT use `CustomEmbed` — it dispatches inline via its own `renderEmbed` helper. `CustomEmbed` is currently unused by the app — it exists for future data-driven callers.
+- The Meta SDK scripts are loaded lazily, once per page, by `src/hooks/useSocialEmbedScript.ts` (gated on a viewport check from `src/hooks/useInViewport.ts` and a consent boolean from `src/hooks/useSocialEmbedConsent.ts`).
+- Consent is currently stubbed: `useSocialEmbedConsent()` returns `true` unless `NEXT_PUBLIC_DISABLE_SOCIAL_EMBEDS=true` is set. Replace the stub when a CMP is introduced.
+- Fluid iframe overrides live in `src/components/embeds/embeds.css`, imported via `src/app/globals.css`.
 
 ### Path aliases
 
@@ -127,7 +139,7 @@ When in doubt, run `pnpm lint-fix` and mirror the style of a neighbouring file.
 2. Add an object to the `events` array. `id` is a free-form string but must be **unique within the file** — `EventsMap` uses it as the React `key` and as the `Marker` id.
 3. Set `category` to one of the values in `src/types/eventCategories.ts`, or omit it to fall under `'Autres'` (rendered last).
 4. Provide `location.addressStr` if you want the event to appear on the map — `EventsMap` skips events without an `addressStr` and logs a `console.warn` for any address Google can't geocode.
-5. `description` and `links[].label` can be JSX; embeds (`<InstagramEmbed>`, `<FacebookEmbed>`, `<CustomEmbed>`) drop in fine.
+5. `description` and `links[].label` can be JSX (paragraphs, `<br />`, `<a>`, shadcn `<Alert>`, etc.). Embeds are NOT JSX — to attach an Instagram or Facebook post to an event, add an entry to `embedLinks: [{ type: 'instagram' | 'facebook', url: '...' }, ...]`. The embed renders below the description, in order.
 6. Switching years: update the import in both `src/app/page.tsx` and `src/components/Header/Header.tsx` (Header reads `events.length` for the count).
 
 ## Deployment
