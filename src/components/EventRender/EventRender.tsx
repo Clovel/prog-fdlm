@@ -50,7 +50,7 @@ const EventRender: React.FC<EventRenderProps> = (
             </h6>
             <br />
             <div className="text-sm text-muted-foreground">
-              <DescriptionRender markdown={event.description as string} />
+              <DescriptionRender markdown={event.description} />
             </div>
           </article>
       }

@@ -35,7 +35,7 @@ export interface Event {
   name?: string;
   status?: 'canceled' | 'postponed' | 'rescheduled';
   alerts?: EventAlert[];
-  description?: React.ReactNode;
+  description?: string;
   category?: EventCategory;
   genres?: string[];
   links?: EventLink[];

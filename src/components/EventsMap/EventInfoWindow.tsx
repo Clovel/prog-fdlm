@@ -1,6 +1,9 @@
 /* Framework imports ----------------------------------- */
 import React from 'react';
 
+/* Component imports ----------------------------------- */
+import DescriptionRender from 'components/DescriptionRender/DescriptionRender';
+
 /* Type imports ---------------------------------------- */
 import type { MarkerInfo } from './EventsMap';
 
@@ -63,7 +66,7 @@ const EventInfoWindow: React.FC<EventInfoWindowProps> = (
               Description :
             </h6>
             <div>
-              {markerInfo.event.description}
+              <DescriptionRender markdown={markerInfo.event.description} />
             </div>
           </>
       }
