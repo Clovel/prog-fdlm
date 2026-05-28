@@ -5,6 +5,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import type { Event } from 'types/Event';
 
 /* Events fixture -------------------------------------- */
+export const FETE_DE_LA_MUSIQUE_DAY_2023 = new Date('2023-06-21');
 export const events: Event[] = [
   {
     id: '1',

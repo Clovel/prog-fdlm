@@ -12,10 +12,16 @@ import type { Event } from 'types/Event';
 /* EventList component prop types ---------------------- */
 interface EventListProps {
   events: Event[];
+  feteDeLaMusiqueDay: Date;
 }
 
 /* EventList component --------------------------------- */
-const EventList: React.FC<EventListProps> = ({ events = []}) => {
+const EventList: React.FC<EventListProps> = (
+  {
+    events = [],
+    feteDeLaMusiqueDay,
+  },
+) => {
   return (
     <ul className="min-w-full divide-y divide-border">
       {
@@ -24,6 +30,7 @@ const EventList: React.FC<EventListProps> = ({ events = []}) => {
             <EventListItem
               key={`${event.name ?? event.location.name}-${index}`}
               event={event}
+              feteDeLaMusiqueDay={feteDeLaMusiqueDay}
             />
           )
         )

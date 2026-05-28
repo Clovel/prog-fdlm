@@ -11,6 +11,7 @@ import type { Event } from 'types/Event';
 interface EventCategoryViewProps {
   categoryTitle: React.ReactNode;
   categoryEvents: Event[];
+  feteDeLaMusiqueDay: Date;
 }
 
 /* EventCategoryView component ------------------------- */
@@ -18,6 +19,7 @@ const EventCategoryView: React.FC<EventCategoryViewProps> = (
   {
     categoryTitle,
     categoryEvents,
+    feteDeLaMusiqueDay,
   },
 ) => {
   return (
@@ -33,7 +35,7 @@ const EventCategoryView: React.FC<EventCategoryViewProps> = (
           {categoryEvents.length !== 1 ? 's' : ''}
         </span>
       </div>
-      <EventList events={categoryEvents} />
+      <EventList events={categoryEvents} feteDeLaMusiqueDay={feteDeLaMusiqueDay} />
     </section>
   );
 };

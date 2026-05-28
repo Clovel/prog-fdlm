@@ -26,10 +26,16 @@ import type { Event } from 'types/Event';
 /* EventListItem component prop types ------------------ */
 interface EventListItemProps {
   event: Event;
+  feteDeLaMusiqueDay: Date;
 }
 
 /* EventListItem component ----------------------------- */
-const EventListItem: React.FC<EventListItemProps> = ({ event }) => {
+const EventListItem: React.FC<EventListItemProps> = (
+  {
+    event,
+    feteDeLaMusiqueDay,
+  },
+) => {
   const [ open, setOpen ] = useState<boolean>(false);
 
   const collapsiblePresent: boolean = useMemo<boolean>(
@@ -54,42 +60,33 @@ const EventListItem: React.FC<EventListItemProps> = ({ event }) => {
       <Collapsible
         open={open}
         onOpenChange={setOpen}
+        disabled={!collapsiblePresent}
       >
-        <div className="flex items-start justify-between gap-2 px-4">
-          {
-            collapsiblePresent ?
-              <CollapsibleTrigger asChild>
-                <div className="flex-1 min-w-0 cursor-pointer rounded-md hover:bg-accent -mx-2 px-2 py-1">
-                  {titleBlock}
-                </div>
-              </CollapsibleTrigger> :
-              <div className="flex-1 min-w-0">
-                {titleBlock}
-              </div>
-          }
-          <div className="flex items-center gap-2 shrink-0">
-            <EventTime
-              startTime={event.startTime}
-              endTime={event.endTime}
-            />
-            {
-              collapsiblePresent &&
-                <CollapsibleTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    aria-label={open ? 'Replier' : 'Déplier'}
-                  >
-                    {
-                      open ?
-                        <ChevronUp className="h-5 w-5" /> :
-                        <ChevronDown className="h-5 w-5" />
-                    }
-                  </Button>
-                </CollapsibleTrigger>
-            }
+        <CollapsibleTrigger asChild disabled={!collapsiblePresent}>
+          <div className="flex items-center justify-between gap-2 px-4 cursor-pointer rounded-md hover:bg-accent">
+            <div className="flex-1 min-w-0 -mx-2 px-2 py-1">
+              {titleBlock}
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <EventTime
+                startTime={event.startTime}
+                endTime={event.endTime}
+                feteDeLaMusiqueDay={feteDeLaMusiqueDay}
+              />
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label={open ? 'Replier' : 'Déplier'}
+              >
+                {
+                  open ?
+                    <ChevronUp className="h-5 w-5" /> :
+                    <ChevronDown className="h-5 w-5" />
+                }
+              </Button>
+            </div>
           </div>
-        </div>
+        </CollapsibleTrigger>
         {
           collapsiblePresent &&
             <CollapsibleContent>

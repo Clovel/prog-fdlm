@@ -4,7 +4,7 @@
 import React from 'react';
 
 /* Module imports -------------------------------------- */
-import { events } from 'fixtures/events-2024';
+import { events, FETE_DE_LA_MUSIQUE_DAY_2024 } from 'fixtures/events-2024';
 import { reduceEventsByCategory } from 'helpers/reduceEventsByCategory';
 import { sortEventsByCategoryEntries } from 'helpers/orderEventsByCategory';
 
@@ -42,6 +42,7 @@ const HomePage: React.FC<HomePageProps> = () => {
                   <EventCategoryView
                     categoryTitle={categoryTitle}
                     categoryEvents={categoryEvents}
+                    feteDeLaMusiqueDay={FETE_DE_LA_MUSIQUE_DAY_2024}
                   />
                   {
                     array.length - 1 !== index &&
