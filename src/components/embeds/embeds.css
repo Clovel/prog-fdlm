@@ -1,0 +1,21 @@
+/* Fluid sizing for Meta's embed iframes -------------- */
+
+/* Instagram ---------------------------------------- */
+.instagram-media,
+.instagram-media iframe {
+  max-width: 100% !important;
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+/* Facebook ----------------------------------------- */
+.fb-post,
+.fb-post > span,
+.fb-post iframe,
+.fb-video,
+.fb-video > span,
+.fb-video iframe {
+  max-width: 100% !important;
+  min-width: 0 !important;
+  width: 100% !important;
+}

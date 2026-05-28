@@ -9,6 +9,21 @@ export interface EventLink {
   label: React.ReactNode;
 }
 
+/* Event embed link declaration ------------------------ */
+export type EventEmbedLinkType = 'instagram' | 'facebook';
+
+export interface EventEmbedLink {
+  type: EventEmbedLinkType;
+  url: string;
+}
+
+/**
+ * Platform names supported by the social embed script loader. Exact same
+ * shape as `EventEmbedLinkType` (both `'instagram' | 'facebook'`); kept as
+ * a separate name for readability at hook call sites.
+ */
+export type SocialEmbedPlatform = EventEmbedLinkType;
+
 export interface Event {
   id: string;
   name?: string;
@@ -17,6 +32,7 @@ export interface Event {
   category?: EventCategory;
   genres?: string[];
   links?: EventLink[];
+  embedLinks?: EventEmbedLink[];
   location: Location;
   startTime: Date;
   endTime?: Date; /* Might be unknown, might be an all-nighter */
