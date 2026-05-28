@@ -12,7 +12,7 @@
 /**
  * Identity-shape tagged template for markdown strings. Concatenates the
  * template parts and stringified interpolated values, returning the raw
- * markdown text. Editors and tooling that recognize the `md` tag can
+ * markdown text. Editors and tooling that recognize the \`md\` tag can
  * provide markdown-aware syntax highlighting on tagged strings while the
  * runtime cost stays nil.
  */
