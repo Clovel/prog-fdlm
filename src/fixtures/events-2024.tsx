@@ -1,8 +1,5 @@
 /* Component imports ----------------------------------- */
 
-/* Module imports -------------------------------------- */
-import { md } from 'helpers/arkdown-tagged-template';
-
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
 
@@ -77,7 +74,7 @@ export const events: Event[] = [
       'Yoko ? Oh No',
       'Chelabôm',
     ],
-    description: md`Allez les Filles, Bordeaux Rock et l'Astrodøme joignent leurs forces pour vous faire vivre une soirée électrique et rock'n'roll !
+    description: `Allez les Filles, Bordeaux Rock et l'Astrodøme joignent leurs forces pour vous faire vivre une soirée électrique et rock'n'roll !
 
 A l'affiche, 5 lives explosifs avec le stoner rock de Nebula, le noise rock de Siz, le post-punk tourmenté de Nastyjoe et le punk rock de Yoko ? Oh No ; et pour compléter cette programmation impeccable, une touche de groove néo-soul des irrésistibles Chelabôm !
 
@@ -171,7 +168,7 @@ Distillant un punk rock à la sauce garage – poisseux de bière et autres liqu
         label: 'Évènement dans l\'agenda bordeaux.fr',
       },
     ],
-    description: md`Le Chef et son gang reviennent faire danser les Bordelaises et les Bordelais sur la Place de la Comédie avec une grande soirée rock dont eux seuls ont la recette !
+    description: `Le Chef et son gang reviennent faire danser les Bordelaises et les Bordelais sur la Place de la Comédie avec une grande soirée rock dont eux seuls ont la recette !
 
 Cinquante ans de reprises endiablées pour un show de folie de ce groupe de toqués passionnés. À ne pas rater dès 20h, l'énergie décoiffante du power trio de rock heavy 100% féminin Madam.`,
   },
@@ -204,7 +201,7 @@ Cinquante ans de reprises endiablées pour un show de folie de ce groupe de toqu
       'Amplitudes',
       'Bordeaux Open Air',
     ],
-    description: md`Les hyperactifs collectifs ambianceurs Amplitudes et Bordeaux Open Air, s'associent pour notre plus grand plaisir afin de fêter la Musique à leur sauce, électronique, fun et groovy !
+    description: `Les hyperactifs collectifs ambianceurs Amplitudes et Bordeaux Open Air, s'associent pour notre plus grand plaisir afin de fêter la Musique à leur sauce, électronique, fun et groovy !
 
 Rendez-vous dans la Cour du Crédit Municipal pour une soirée au pouls effréné ouverte à toutes et à tous ! Les DJs issus des deux collectifs se succèderont derrière les platines pour vous faire vibrer et transpirer !
 
@@ -247,7 +244,7 @@ See you there 🫶*`,
       'Tape',
       'Vice City',
     ],
-    description: md`Sur la charmante Place Fernand Lafargue, le bouillonnant collectif 3615 Bebop et ses acolytes célèbrent le solstice d'été
+    description: `Sur la charmante Place Fernand Lafargue, le bouillonnant collectif 3615 Bebop et ses acolytes célèbrent le solstice d'été
 
 Le collectif 3615 Bebop et ses acolytes vous convient à une fête brûlante, chauffée par les DJ sets enlevés des collectifs électroniques Früor, Vice City, Tape et Marée Basse. Un bal estival 2.0 sous électrochoc, entre trance, breakbeats syncopés et techno festive !
 
@@ -305,7 +302,7 @@ SOYEZ PRÊTS, ON VA TOUT PÉTER 😈
       'DOUCEUR',
       'RAVN',
     ],
-    description: md`📍 PLACE SAINT MICHEL 19h - 01h :
+    description: `📍 PLACE SAINT MICHEL 19h - 01h :
 
 🔊 SYSTÈME SON MARÉE BASSE
 
@@ -358,7 +355,7 @@ SOYEZ PRÊTS, ON VA TOUT PÉTER 😈
         label: 'Évènement dans l\'agenda bordeaux.fr',
       },
     ],
-    description: md`Le jour le plus long de l'année sera groovy ou ne sera pas ! L'Orangeade, Wild et CMD+O transforment la Cour Mably en dancefloor joyeux et ensoleillé pour célébrer dignement la Fête de la Musique. Leur secret ? Des sets musicaux sans frontières, une passion pour les fêtes spectaculaires et l'envie suprême de mettre le public en transe. Indice 50 conseillé !
+    description: `Le jour le plus long de l'année sera groovy ou ne sera pas ! L'Orangeade, Wild et CMD+O transforment la Cour Mably en dancefloor joyeux et ensoleillé pour célébrer dignement la Fête de la Musique. Leur secret ? Des sets musicaux sans frontières, une passion pour les fêtes spectaculaires et l'envie suprême de mettre le public en transe. Indice 50 conseillé !
 
 L’été peine à montrer le bout de son nez, mais dès qu’il sera là, nous le célèbrerons comme il se doit !
 
@@ -386,7 +383,7 @@ Pour ce faire nous convoquons nos dieux lumières, le @collectif_cmdo à la scen
       'Musique de chambre',
       'Piano',
     ],
-    description: md`Aux Archives de Bordeaux Métropole, l'orchestre Molto Assaï dont on célèbre les 40 ans cette année, offre un concert de musique de chambre, musique vivante et intime perpétuant une tradition et un répertoire riche de plusieurs siècles. Le pianiste William Theviot leur succédera, déployant sur son instrument toute la palette émotionnelle de son jeu.
+    description: `Aux Archives de Bordeaux Métropole, l'orchestre Molto Assaï dont on célèbre les 40 ans cette année, offre un concert de musique de chambre, musique vivante et intime perpétuant une tradition et un répertoire riche de plusieurs siècles. Le pianiste William Theviot leur succédera, déployant sur son instrument toute la palette émotionnelle de son jeu.
 
 Fondé en 1983, Molto Assaï est composé en majorité de musiciens amateurs, de tous âges et de tous niveaux. L'association en plein essor depuis 2006 est passée d'un ensemble orchestral à un orchestre symphonique en 2011. Elle propose un large répertoire, de la musique baroque à la musique contemporaine.
 
@@ -437,7 +434,7 @@ www.moltoassai.fr
         label: 'Évènement dans l\'agenda bordeaux.fr',
       },
     ],
-    description: md`*Les collectifs Munera et Le Chaudron mettent en scène, en son et en lumière, la culture électronique avec une programmation musicale qui s'adresse au plus grand nombre.*
+    description: `*Les collectifs Munera et Le Chaudron mettent en scène, en son et en lumière, la culture électronique avec une programmation musicale qui s'adresse au plus grand nombre.*
 
 Le temps d'une soirée sur les berges de la Garonne, le Parc aux Angéliques se mue en lieu majeur de la fête éco-responsable et solidaire. Artistes locaux et ambiance festive assurée !
 
@@ -494,7 +491,7 @@ On vous attend nombreux.ses pour un solstice d'été hors du temps 💜
       'Latino',
       'Caribéen',
     ],
-    description: md`*Vue sur la Garonne, fièvre tropicale et ambiance caliente au programme avec les associations Mascarade et le Barrio Fino, en complicité avec Bien Public.*
+    description: `*Vue sur la Garonne, fièvre tropicale et ambiance caliente au programme avec les associations Mascarade et le Barrio Fino, en complicité avec Bien Public.*
 
 Avec des DJ sets pimentés, baile funk, cumbia, reggaeton ou encore shatta, l'osmose s'annonce totale entre cultures Afro, Latino et Caribéennes avec DJ Vélos, Stayup, EmmaFleurs, DJ Lexx & DJ Watrfall, Mitxel, Freakytón, Les Meufs Mortelles.`,
   },
@@ -540,7 +537,7 @@ Avec des DJ sets pimentés, baile funk, cumbia, reggaeton ou encore shatta, l'os
         label: 'Évènement Facebook',
       },
     ],
-    description: md`**Trafic + Bruit Rose + Super Daronne + Mates + Distill + Les Viatiques**
+    description: `**Trafic + Bruit Rose + Super Daronne + Mates + Distill + Les Viatiques**
 
 *Pour une grande et éblouissante fête électronique, rejoignez le célèbre Parc Bordelais et profitez d'une programmation plurielle qui invite une kyrielle d'artistes et de collectifs musicaux bien connus du public bordelais ! Trois espaces musicaux et des surprises en pagaille au son des DJs de Super Daronne, Mates, Distill, Les Viatiques et plus encore. Let's dance*
 
@@ -585,7 +582,7 @@ Biotope privilégié d’une fête innocente et spontanée, les corps sont invit
       'DJ set',
       'Electro',
     ],
-    description: md`*La zone d'utilité la Cité Bleue vous accueille en complicité avec le Mégaphone et le Garage Moderne, pour une soirée conviviale et musicale concoctée sur mesure et en proximité.*
+    description: `*La zone d'utilité la Cité Bleue vous accueille en complicité avec le Mégaphone et le Garage Moderne, pour une soirée conviviale et musicale concoctée sur mesure et en proximité.*
 
 Focus sur la scène locale avec les concerts pop et rock de V-Gang, So Flat et Purple Square, suivis d'un live du trio toulousain Touriste et des DJ sets rieurs de la Brigade du Bonheur.`,
   },
@@ -611,7 +608,7 @@ Focus sur la scène locale avec les concerts pop et rock de V-Gang, So Flat et P
         label: 'Évènement dans l\'agenda bordeaux.fr',
       },
     ],
-    description: md`Concert et ateliers musicaux autour des pratiques amateurs du quartier et de l'école de musique du Centre d'animation du Grand Parc.`,
+    description: `Concert et ateliers musicaux autour des pratiques amateurs du quartier et de l'école de musique du Centre d'animation du Grand Parc.`,
   },
   {
     id: '53',
@@ -633,7 +630,7 @@ Focus sur la scène locale avec les concerts pop et rock de V-Gang, So Flat et P
       'Latino',
       'Caribéen',
     ],
-    description: md`*Concerts autour des cultures latino-américaines qui complètent le programme de la semaine de l'Amérique latine et des Caraïbes 2024.*`,
+    description: `*Concerts autour des cultures latino-américaines qui complètent le programme de la semaine de l'Amérique latine et des Caraïbes 2024.*`,
   },
   {
     id: '54',
@@ -651,7 +648,7 @@ Focus sur la scène locale avec les concerts pop et rock de V-Gang, So Flat et P
         label: 'Évènement dans l\'agenda bordeaux.fr',
       },
     ],
-    description: md`*Joyeux tintamarre et participation du public avec le "Karaoké Ambulant de Marjolaine", dans le quartier de Bacalan, départ Place Adolphe Buscaillet à 18h.*`,
+    description: `*Joyeux tintamarre et participation du public avec le "Karaoké Ambulant de Marjolaine", dans le quartier de Bacalan, départ Place Adolphe Buscaillet à 18h.*`,
   },
   {
     id: '55',
@@ -674,7 +671,7 @@ Focus sur la scène locale avec les concerts pop et rock de V-Gang, So Flat et P
         label: 'Évènement dans l\'agenda bordeaux.fr',
       },
     ],
-    description: md`*Concert de musique chorale*
+    description: `*Concert de musique chorale*
 
 - Georges Gershwin, Porgy and Bess (extraits)
 
@@ -715,7 +712,7 @@ En partenariat avec le CHU de Bordeaux`,
         content: 'Évènement le 23 juin 2024',
       },
     ],
-    description: md`*L'équipe de Ricochet Sonore accueille les enfants et les familles au coeur du Parc bordelais. Cette après-midi divertissante et conviviale propose des concerts et spectacles jeune public, des jeux, des sets DJ en mode chill-out, une scène ouverte, des ateliers et des animations ludiques dont Ricochet Sonore a le secret.*
+    description: `*L'équipe de Ricochet Sonore accueille les enfants et les familles au coeur du Parc bordelais. Cette après-midi divertissante et conviviale propose des concerts et spectacles jeune public, des jeux, des sets DJ en mode chill-out, une scène ouverte, des ateliers et des animations ludiques dont Ricochet Sonore a le secret.*
 
 Une folle journée qui se clôture avec un concert exceptionnel de l'Orchestre d'Harmonie de Bordeaux ouvert aux mélomanes de tous âges.
 
@@ -822,7 +819,7 @@ Au programme :
         label: 'Instagram de 𝗥𝗔𝗝𝗔𝗫',
       },
     ],
-    description: md`𝗔𝗙𝗧𝗘𝗥 𝗣𝗔𝗥𝗧𝗬 𝗙𝗗𝗟𝗠 : 𝗗𝗥𝗔𝗚𝗢𝗡 𝗕𝗔𝗟𝗟 𝗕𝗘𝗕𝗢𝗣 @ 𝗟𝗔 𝗣𝗟𝗔𝗚𝗘 : 𝟮 𝗦𝗔𝗟𝗟𝗘𝗦 / 𝗖𝗔𝗣𝗔𝗖𝗜𝗧𝗘́ 𝗥𝗘́𝗗𝗨𝗜𝗧𝗘 / 𝗔𝗥𝗧𝗜𝗦𝗧𝗘𝗦 𝗜𝗡𝗧𝗘𝗥𝗡𝗔𝗧𝗜𝗢𝗡𝗔𝗨𝗫
+    description: `𝗔𝗙𝗧𝗘𝗥 𝗣𝗔𝗥𝗧𝗬 𝗙𝗗𝗟𝗠 : 𝗗𝗥𝗔𝗚𝗢𝗡 𝗕𝗔𝗟𝗟 𝗕𝗘𝗕𝗢𝗣 @ 𝗟𝗔 𝗣𝗟𝗔𝗚𝗘 : 𝟮 𝗦𝗔𝗟𝗟𝗘𝗦 / 𝗖𝗔𝗣𝗔𝗖𝗜𝗧𝗘́ 𝗥𝗘́𝗗𝗨𝗜𝗧𝗘 / 𝗔𝗥𝗧𝗜𝗦𝗧𝗘𝗦 𝗜𝗡𝗧𝗘𝗥𝗡𝗔𝗧𝗜𝗢𝗡𝗔𝗨𝗫
 
 ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 📅 𝗩𝗘𝗡𝗗𝗥𝗘𝗗𝗜 𝟮𝟭 𝗝𝗨𝗜𝗡 : 𝟬𝟬𝗵 - 𝟬𝟲𝗵
@@ -877,7 +874,7 @@ Conclusion ? 𝗢𝗡 𝗩𝗔 𝗧𝗢𝗨𝗧 𝗥𝗔𝗦𝗘𝗥 🚀
     artists: [
       'Swann de la Mancha',
     ],
-    description: md`🎉 Fête de la musique à l'Adiù 🎉
+    description: `🎉 Fête de la musique à l'Adiù 🎉
 
 🎤 Karaoké Geant 🎤
 
@@ -904,7 +901,7 @@ A partir de 20h`,
       'Techno',
       'Hip Hop',
     ],
-    description: md`🎉 Fête de la musique au Wall Street 🎉
+    description: `🎉 Fête de la musique au Wall Street 🎉
 
 🎧 DJ set 🎧
 
@@ -979,7 +976,7 @@ Jusqu'à 3h du matin
         label: 'Post Instagram',
       },
     ],
-    description: md`🎉 Open Air au JOYA MAX 🎉
+    description: `🎉 Open Air au JOYA MAX 🎉
 
 *Cette année, la fête de la musique se passe au Joya Max!
 
@@ -1018,7 +1015,7 @@ Barbecue à volonté 🍖
         label: 'Post Instagram',
       },
     ],
-    description: md`🎉 Club - Fête de la musique au JOYA MAX 🎉
+    description: `🎉 Club - Fête de la musique au JOYA MAX 🎉
 
 *Cette année, la fête de la musique se passe au Joya Max!
 
@@ -1062,7 +1059,7 @@ De 22h30 à 2h`,
         label: 'Post Instagram',
       },
     ],
-    description: md`GEIST CELEBRATES MUSIC THE 21.06.24 !
+    description: `GEIST CELEBRATES MUSIC THE 21.06.24 !
 
 Time to increase the temperature presenting our Hard Edition IV.
 
@@ -1103,7 +1100,7 @@ Prod : @theo.miege`,
         label: 'Post Instagram',
       },
     ],
-    description: md`VENDREDI 21 JUIN
+    description: `VENDREDI 21 JUIN
 
 FAITES DE LA MUSIQUE
 
@@ -1152,7 +1149,7 @@ L’ENTREPÔT - 36 AV. du Dr. Schinazi, 33300 Bordeaux.
         label: 'Post Instagram',
       },
     ],
-    description: md`VENDREDI 21 JUIN
+    description: `VENDREDI 21 JUIN
 
 FÊTE DE LA MUSIQUE par NOVABASS
 
@@ -1189,7 +1186,7 @@ KSTLE // LOUIS WIRZ // MAAX D // 2MODS (KO) // INSO.ENCE b2b LA TORGNOLE // KLÖ
         label: 'Post Instagram',
       },
     ],
-    description: md`**🌟🎶 **Fête de la Musique La kermess au Levrette Café Bordeaux** 🎶🌟**
+    description: `**🌟🎶 **Fête de la Musique La kermess au Levrette Café Bordeaux** 🎶🌟**
 
 Rejoignez-nous le 21 juin de 21h à 2h pour une soirée inoubliable à l’occasion de la Fête de la Musique ! 🎉
 
@@ -1236,7 +1233,7 @@ Ne manquez pas cette soirée mémorable ! 🌠`,
         label: 'Événement Facebook',
       },
     ],
-    description: md`Après une belle édition en 2023, La Talenquère fête de nouveau la musique place Saint-Pierre devant l'église avec une belle équipe et un gros soundsystem en open air ! 😍
+    description: `Après une belle édition en 2023, La Talenquère fête de nouveau la musique place Saint-Pierre devant l'église avec une belle équipe et un gros soundsystem en open air ! 😍
 
 Niveau son, on repart sur quelque chose de progressif, il y en aura pour tous les goûts ☀️💃 Et tout au long de la journée des bières pressions et des frites et hot dogs jusqu’à épuisement des stocks 🍟🌭
 
@@ -1305,7 +1302,7 @@ www.latalenquere.fr
       'Ginger 808',
       'Sainte Croix',
     ],
-    description: md`☮️ La Belle Brochette sort les chemises colorées et sera à Saint-Michel pour célébrer la musique comme il se doit. Un lineup éclectique et des good vibes, avec toujours son lot de bass music comme on aime faire. Venez avec nous pour propager l'amour et la solidarité, étant les principaux messages des musiques électroniques.
+    description: `☮️ La Belle Brochette sort les chemises colorées et sera à Saint-Michel pour célébrer la musique comme il se doit. Un lineup éclectique et des good vibes, avec toujours son lot de bass music comme on aime faire. Venez avec nous pour propager l'amour et la solidarité, étant les principaux messages des musiques électroniques.
 
 Avec:
 
@@ -1362,7 +1359,7 @@ Avec:
         label: 'Post Instagram',
       },
     ],
-    description: md`Le Karadoc fête la musique !
+    description: `Le Karadoc fête la musique !
 Attention énorme soirée en prévision ! Ce vendredi, vient fêter la musique avec nous. Au programme :
 
 Ouverture 11h-2h : DJ sets de folie ( 15 de nos meilleurs dj locaux )
@@ -1419,7 +1416,7 @@ Viens vibrer all night long aux rythmes de :
         ),
       },
     ],
-    description: md`[NDLR] Alors la je ne sait pas, mais c'est dans un ciné porno / sex shop.
+    description: `[NDLR] Alors la je ne sait pas, mais c'est dans un ciné porno / sex shop.
 
 \`Téma l'event mdr. C'est de\` **07h à 13h au cours de la Marne**`,
   },
@@ -1465,7 +1462,7 @@ Viens vibrer all night long aux rythmes de :
         label: 'Billetterie réservation (DICE)',
       },
     ],
-    description: md`CORAZON PARTY : édition spéciale fête de la musique
+    description: `CORAZON PARTY : édition spéciale fête de la musique
 
 Faire une bonne grosse fête en plein air pour célébrer la musique et vous voir danser encore et toujours !
 Vendredi 21 juin, le duo Corazon s'empare de la guinguette de Blonde Venus avec sa boum renversante sur fond de musique d'extrême calidad pour cette édition spéciale fête de la musique. Et c'est une première !
@@ -1537,7 +1534,7 @@ Entrée libre et gratuite (réservation chaudement recommandée) > https://link.
         label: `Site officiel d'Ô Tiap`,
       },
     ],
-    description: md`Le Tiap accueille un trio rock🤘 ; guitare, basse et chant pour faire vivre la musique rue Emile Combes !🎸
+    description: `Le Tiap accueille un trio rock🤘 ; guitare, basse et chant pour faire vivre la musique rue Emile Combes !🎸
 
 Sur place, planches, burger, croque-monsieur et cuisine végétarienne et une variété de boissons pour passer un agréable moment entre ami.e.s ou en famille.
 On vous réserve une table ?
@@ -1565,7 +1562,7 @@ A très vite 🎶`,
         label: 'Facebook event',
       },
     ],
-    description: md`DŌJŌ fête la musique à Talence ! 💽
+    description: `DŌJŌ fête la musique à Talence ! 💽
 
 Comme promis, on te réserve un été riche en évènements et en rencontres.
 Pour sa première année, DŌJŌ fête la musique, et à cette occasion, on te donne rendez-vous à Talence, face à l'arrêt Peixotto.
@@ -1613,7 +1610,7 @@ Informations pratiques :
         label: 'Site officiel de Pomme Cactus',
       },
     ],
-    description: md`Venez fêter le retour de l'été et la fête de la musique avec nous !
+    description: `Venez fêter le retour de l'été et la fête de la musique avec nous !
 Nous vous proposons une soirée tapas inédite, profitez de notre terrasse en musique !`,
   },
   {
@@ -1640,7 +1637,7 @@ Nous vous proposons une soirée tapas inédite, profitez de notre terrasse en mu
         label: 'Site officiel de la ville',
       },
     ],
-    description: md`Vendredi 21 juin 2024, Saint-Médard-en-Jalles célèbre la musique et l'été.
+    description: `Vendredi 21 juin 2024, Saint-Médard-en-Jalles célèbre la musique et l'été.
 
 Pour la 42ᵉ édition de la Fête de la musique, la Ville propose dès l'après-midi un temps convivial et festif qui se prolongera le soir dans le centre-ville.
 
@@ -1676,7 +1673,7 @@ Rendez-vous dès 19h, place de la République et parc de L'ingénieur pour profi
         label: 'Post Instagram',
       },
     ],
-    description: md`Pour la fête de la Musique, le Liftov vous offre dès 18:00 un concert de soul par les @bjfrenchblues qui donnera le tempo pour une soirée qui s’annonce déjà mémorable.
+    description: `Pour la fête de la Musique, le Liftov vous offre dès 18:00 un concert de soul par les @bjfrenchblues qui donnera le tempo pour une soirée qui s’annonce déjà mémorable.
 
 À 20:30 on continue avec le génial @dafunklord qui vous fera voyager dans l’histoire de la musique jusqu’au bout de la nuit, avec un mix à base de soul, de RnB, de hip-hop, de funk, d’electro, de tech house, de afro/latin house, entre autres…
 
@@ -1719,7 +1716,7 @@ Avec ça: notre offre hot-dog+pinte à 10€. Mais vous pouvez bien sûr aussi p
         label: 'Page Facebook de TOPA',
       },
     ],
-    description: md`🥳 Rejoignez-nous pour une soirée inoubliable de la Fête de la Musique avec la [@maisonbasquedebordeaux !](https://www.instagram.com/maisonbasquedebordeaux/)
+    description: `🥳 Rejoignez-nous pour une soirée inoubliable de la Fête de la Musique avec la [@maisonbasquedebordeaux !](https://www.instagram.com/maisonbasquedebordeaux/)
 
 Pour la fête de la musique cette année, la Maison Basque de Bordeaux vous a mijoté une programmation aux petits oignons ! On commence tout doux (lasai) l’apéro au son des chants traditionnels basques de Kantuz, avant de basculer cash dans le groove de la Nouvelle Orléans avec la fanfare funky de Pampelune, le Broken Brothers Brass Band ! Enfin les plus motivés pourront continuer à guincher au son des platines de PIRATE JUS D’ORANGE, habitué à balancer du gordo gordo !
 
@@ -1761,7 +1758,7 @@ Vous aurez la possibilité de découvrir ou (re)découvrir les saveurs basques a
       '@mojo.music_',
       '@kalosmusic_',
     ],
-    description: md`🪩 Le Delirium Café Bordeaux fête la musique ! 🎶
+    description: `🪩 Le Delirium Café Bordeaux fête la musique ! 🎶
 
 Attention énorme soirée en prévision ! Ce vendredi, vient fêter la musique avec nous. Au programme : concert, dj sets de folie, inauguration de notre bar extérieur et diffusion du match Pays-Bas vs France de l’Euro 2024 ! 🫶✨
 
@@ -1801,7 +1798,7 @@ Viens vibrer all night long aux rythmes de @__peiyo__, @mojo.music_ et @kalosmus
         label: 'Post Instagram',
       },
     ],
-    description: md`Pour l’occasion le @cruise.ctr au grand complet nous fait le plaisir de venir mixer (@iamaxel.h, @sossbacc et @neftariri) et puisque plus on est de fous plus on rit on accueillera également @swanndelamancha et @lolo.cresce !
+    description: `Pour l’occasion le @cruise.ctr au grand complet nous fait le plaisir de venir mixer (@iamaxel.h, @sossbacc et @neftariri) et puisque plus on est de fous plus on rit on accueillera également @swanndelamancha et @lolo.cresce !
 
 Au programme: hip hop, afro, drum & bass, baile, house, funk…. Breeeeeeeef il y en aura pour tous les goûts ! 📀💃🏼
 
@@ -1844,7 +1841,7 @@ Début des festivités : 17h 🥳
         label: 'Page Instagram de La Tencha',
       },
     ],
-    description: md`Ce soir c’est fanfare en terrasse et djs dedans ! 💥`,
+    description: `Ce soir c’est fanfare en terrasse et djs dedans ! 💥`,
     embedLinks: [
       { type: 'instagram', url: 'https://www.instagram.com/p/C8eRCkxKiTi' },
     ],
@@ -1875,7 +1872,7 @@ Début des festivités : 17h 🥳
         label: 'Post Instagram',
       },
     ],
-    description: md`BABALLE POP :
+    description: `BABALLE POP :
 DJ SET et Match
 
 Rejoignez-nous le 21 juin à DARWIN à partir de 18h avec une sélection musicale éclectique du monde et ne manquez pas le choc tant attendu entre les Pays-Bas et la France nous allons aussi retransmettre du match de foot.

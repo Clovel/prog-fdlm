@@ -1,8 +1,5 @@
 /* Component imports ----------------------------------- */
 
-/* Module imports -------------------------------------- */
-import { md } from 'helpers/arkdown-tagged-template';
-
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
 
@@ -50,7 +47,7 @@ export const events: Event[] = [
       'Asiatique',
       'Electro',
     ],
-    description: md`Dans un subtil mélange de sonorités du monde avec Zaltar and the Tribe suivit de Kei McGregor's Band, les musiciens que vous découvrirez sur scène unissent tradition et modernité avec un sacré savoir faire et nous sommes très fiers de les recevoir !
+    description: `Dans un subtil mélange de sonorités du monde avec Zaltar and the Tribe suivit de Kei McGregor's Band, les musiciens que vous découvrirez sur scène unissent tradition et modernité avec un sacré savoir faire et nous sommes très fiers de les recevoir !
 
 Avec Zaltar and the Tribe, vous voguerez sur des rythmes africains, orientaux, asiatiques et indiens interprétés avec brio avec un son électro-instrumental. Les musiciens ont une solide expérience de création au sein d'anciens groupes comme Sultan Project, WSM, Hostile 17, Appel d'airs, Solune, Baz y Bozuk, Jazz à flot. Le trio est composé de Sylvain Le Ruen aux percussions et didgeridoo, de Thierry Ferrand aux flûtes orientales et traversière et aux claviers, ainsi que de Matthieu Rios au saxophone, violoncelle et spacedrum.
 
@@ -88,7 +85,7 @@ Programme :
         label: "Site de l'évènement du Musée des Beaux-Arts",
       },
     ],
-    description: md`Spectacle à partir de 1 an.
+    description: `Spectacle à partir de 1 an.
 
 Visite en musique pour les tout-petits !
 
@@ -123,7 +120,7 @@ Gratuit avec la Carte Jeune Bordeaux Métropole pour un enfant et un accompagnan
       'Découverte',
       'Ludique',
     ],
-    description: md`Cet après-midi divertissant et convivial rassemble une scène ouverte, une restitution d'ateliers musicaux, des animations ludiques dont l'équipe de Ricochet Sonore a le secret, et se clôture avec un concert du duo Kayola !
+    description: `Cet après-midi divertissant et convivial rassemble une scène ouverte, une restitution d'ateliers musicaux, des animations ludiques dont l'équipe de Ricochet Sonore a le secret, et se clôture avec un concert du duo Kayola !
 
 Rendez-vous est pris au Jardin de ta Soeur, du côté des Bassins à Flot, avec la dynamique association Ricochet Sonore.
 
@@ -154,7 +151,7 @@ Au programme :
       'Nadine Gabard',
       'Anne-Laure Menard',
     ],
-    description: md`Nadine Gabard, mezzo-soprano et Anne-Laure Menard, claveciniste, proposent un théâtre musical décalé, à l'occasion du tricentenaire de la naissance de Jean-François Marmontel (1723-1799), un auteur proche de Diderot et quelque peu oublié du siècle des Lumières. Les deuc artistes dépoussièrent les classiques et les font résonner avec notre actualité.
+    description: `Nadine Gabard, mezzo-soprano et Anne-Laure Menard, claveciniste, proposent un théâtre musical décalé, à l'occasion du tricentenaire de la naissance de Jean-François Marmontel (1723-1799), un auteur proche de Diderot et quelque peu oublié du siècle des Lumières. Les deuc artistes dépoussièrent les classiques et les font résonner avec notre actualité.
 
 Avec la complicité de Magali Fourgnaud, maître de conférences en littérature.`,
   },
@@ -177,7 +174,7 @@ Avec la complicité de Magali Fourgnaud, maître de conférences en littérature
       'Sevenbeatz',
       'Marge',
     ],
-    description: md`La Sueur et la Maison Ô Fantasme reviennent plus bouillants que jamais pour embraser la cour de l'Hôtel de Lalande
+    description: `La Sueur et la Maison Ô Fantasme reviennent plus bouillants que jamais pour embraser la cour de l'Hôtel de Lalande
 
 Une nouvelle occasion de se rassembler pour lâcher prise, transpirer et resplendir ensemble. Mélangeons follement les genres, les corps, les identités, les inspirations musicales et entremêlons toutes les danses avec une seule envie : créer collectivement un espace de fête respectueuse et joyeuse où nous pouvons parader et briller sans complexes ni préjugés, danser à cœur ouvert et revendiquer avec fierté la liberté d'être qui nous voulons être.
 
@@ -258,7 +255,7 @@ A chaque édition, l'équipe de la Sueur travaillent pour nous améliorer encore
       'rock',
       "R'nb",
     ],
-    description: md`Concert spécial fête de la musique 2023
+    description: `Concert spécial fête de la musique 2023
 
 - Sista et Mikka (soul, pop, rock et R'nb)
 
@@ -288,7 +285,7 @@ A chaque édition, l'équipe de la Sueur travaillent pour nous améliorer encore
       'Blackbird Hill',
       'Jach Ernest',
     ],
-    description: md`Cette année, Allez les Filles et Bordeaux Rock unissent leurs forces de nouveau afin de fêter la musique de façon très rock. La fête de la musique se tiendra comme l’année dernière au Square Dom Bedos et fera jouer 4 groupes locaux et un groupe Canadien.
+    description: `Cette année, Allez les Filles et Bordeaux Rock unissent leurs forces de nouveau afin de fêter la musique de façon très rock. La fête de la musique se tiendra comme l’année dernière au Square Dom Bedos et fera jouer 4 groupes locaux et un groupe Canadien.
 
 Rendez-vous mercredi 21 juin dès 18h au Square Dom Bedos.
 
@@ -328,7 +325,7 @@ La programmation :
         label: 'Événement Facebook',
       },
     ],
-    description: md`Wandem Sound System, organisateur des réjouissantes soirées Bordeaux Dub School, installe sa sono artisanale sur les bords de Garonne pour une chaude soirée musicale aux accents jamaïcains.
+    description: `Wandem Sound System, organisateur des réjouissantes soirées Bordeaux Dub School, installe sa sono artisanale sur les bords de Garonne pour une chaude soirée musicale aux accents jamaïcains.
 
 Avec leurs meilleurs vinyles, mais aussi des musiciens live, Wandem Sound System and Friends vous accueillent dans la meilleure ambiance pour une soirée hautement dansante.
 
@@ -373,7 +370,7 @@ Avec leurs meilleurs vinyles, mais aussi des musiciens live, Wandem Sound System
         label: "Post Instagram de l'évènement",
       },
     ],
-    description: md`Venez fêter les musiques électroniques en bord de Garonne !
+    description: `Venez fêter les musiques électroniques en bord de Garonne !
 
 Le Collectif Munera et Le Chaudron mettent en scène la vaste palette sonore des musiques électroniques avec une programmation généreuse ouverte à un large public.
 
@@ -420,7 +417,7 @@ Buvette à petits prix (brasserie locale l'Effet Papillon)`,
         content: 'Évènement déplacé a cause des intempéries.\n\nDéplacé au Deus Ex Machina, de 19h à 00h.',
       },
     ],
-    description: md`WHYNOT présente
+    description: `WHYNOT présente
 
 FÊTE DE LA MUSIQUE - PLACE SAINT-PROJET
 
@@ -478,7 +475,7 @@ AU BAR Bières fraîches + softs + food cooked by Deus Ex Machina`,
         content: 'Évènement déplacé a cause des intempéries.\n\nDéplacé au Deus Ex Machina, de 19h à 00h.',
       },
     ],
-    description: md`Programme :
+    description: `Programme :
 
 - 20:00 : Sam Fleisch (Indie Rock) [Bordeaux]
 
@@ -521,7 +518,7 @@ AU BAR Bières fraîches + softs + food cooked by Deus Ex Machina`,
         label: 'Évènement Facebook',
       },
     ],
-    description: md`Depuis 12 ans, BACO MUSIC développe ses activités dans le monde de la musique. Label, organisateur de tournées internationales, studio, distributeur, éditeur...
+    description: `Depuis 12 ans, BACO MUSIC développe ses activités dans le monde de la musique. Label, organisateur de tournées internationales, studio, distributeur, éditeur...
 
 De notoriété internationale aujourd’hui, la structure bordelaise travaille à 360° avec ses artistes, défendant des projets forts et indépendants. Pour la seconde fois, la programmation de la scène installée Place Fernand Lafargue sera gérée par BACO MUSIC, qui a vu les choses en grand avec du reggae et du hip-hop au menu !
 
@@ -544,7 +541,7 @@ Le tout backé par DJ KASH qui ne laissera aucun répit à la soirée avec ses m
     artists: [
       'Molto Assaï',
     ],
-    description: md`C'est dans le cadre paysager de leur parvis que les Archives de Bordeaux Métropole vous invitent à célébrer la musique. À l'ombre de la canopée, les musiciens de l'orchestre Molto Assaï en petite formation offrent un concert de musique de chambre, une musique vivante perpétuant la pratique d'un répertoire et d'instruments de plusieurs siècles.
+    description: `C'est dans le cadre paysager de leur parvis que les Archives de Bordeaux Métropole vous invitent à célébrer la musique. À l'ombre de la canopée, les musiciens de l'orchestre Molto Assaï en petite formation offrent un concert de musique de chambre, une musique vivante perpétuant la pratique d'un répertoire et d'instruments de plusieurs siècles.
 
 Fondé en 1983, Molto Assaï est composé en majorité de musiciens amateurs, de tous âges et de tous niveaux. L'association en plein essor depuis 2006 est passée d'un ensemble orchestral à un orchestre symphonique en 2011. Elle propose un large répertoire, de la musique baroque à la musique contemporaine.
 
@@ -562,7 +559,7 @@ www.moltoassai.fr
     },
     price: 'Tarif d\'une entrée piscine',
     startTime: new Date('2023-06-21T16:30:00+02:00'),
-    description: md`La piscine Piscine Judaïque - Jean Boiteux fête la musique lors de sa nocturne le jeudi 22 juin et organise une pool party.
+    description: `La piscine Piscine Judaïque - Jean Boiteux fête la musique lors de sa nocturne le jeudi 22 juin et organise une pool party.
 
 Le bassin de 50m sera divisé en 2, une partie pour les nageurs (25m) et une partie pour de l'animation aquagym, jeux avec présence d'un DJ toute la soirée.`,
   },
@@ -592,7 +589,7 @@ Le bassin de 50m sera divisé en 2, une partie pour les nageurs (25m) et une par
         label: 'Évènement Facebook',
       },
     ],
-    description: md`La tencha propose pour fêter la musique, deux ambiance :
+    description: `La tencha propose pour fêter la musique, deux ambiance :
 
 A l'extérieur et à l'intérieur avec une fanfare et des Djs qui vous pour vous faire transpirer sur le dancefloor !
 
@@ -638,7 +635,7 @@ Brigitte Bordo est une jeune fanfare aux mille facettes et aux mille paillettes,
         content: 'Évènement déplacé a cause des intempéries.\n\nDéplacé à Darwin aux Heures Heureuses.',
       },
     ],
-    description: md`On prends les mêmes et on recommence !
+    description: `On prends les mêmes et on recommence !
 
 **Cette année, pas de frustration**
 , nous comptons bien faire vibrer la place Pey Berland une bonne partie de la nuit.
@@ -690,7 +687,7 @@ Créateur d’événements pluriartistiques et collectif de DJs, les membres de 
         label: 'Réservations par mail',
       },
     ],
-    description: md`Naturellement inspiré par les chants et les musiques traditionnelles d’Italie du Sud, depuis 2019 Avinavita transmet à son tour et avec cœur cet héritage précieux qu’ils ont reçu. Des Tarentelles Calabraises au Pizzica Pizzica des Pouilles ou autre Tammurriata Napolitaine, Avinavita nous entraîne dans une fête colorée, populaire et chaleureuse qui nous rappelle que la danse fait totalement partie des traditions. Les chants, le tamburello, la guitare battente, l’accordéon et la mandoline donnent au répertoire d’Avinavita ses harmonies originales, portées par une généreuse rythmique au souffle rock et au groove chaloupé qui transcendent les mélodies.
+    description: `Naturellement inspiré par les chants et les musiques traditionnelles d’Italie du Sud, depuis 2019 Avinavita transmet à son tour et avec cœur cet héritage précieux qu’ils ont reçu. Des Tarentelles Calabraises au Pizzica Pizzica des Pouilles ou autre Tammurriata Napolitaine, Avinavita nous entraîne dans une fête colorée, populaire et chaleureuse qui nous rappelle que la danse fait totalement partie des traditions. Les chants, le tamburello, la guitare battente, l’accordéon et la mandoline donnent au répertoire d’Avinavita ses harmonies originales, portées par une généreuse rythmique au souffle rock et au groove chaloupé qui transcendent les mélodies.
 Le groupe continue sa route pour les terres chaudes du Sud`,
   },
   {
@@ -702,7 +699,7 @@ Le groupe continue sa route pour les terres chaudes du Sud`,
     },
     startTime: new Date('2023-06-21T21:30:00+02:00'),
     endTime: new Date('2023-06-22T04:00:00+02:00'),
-    description: md`A 21h30 : Concert Soledad & La Tropical
+    description: `A 21h30 : Concert Soledad & La Tropical
 
 A 22h : DJ Set
 
@@ -742,7 +739,7 @@ Grizzly ouvert **jusqu'à 4H** !`,
         label: 'Évènement Facebook',
       },
     ],
-    description: md`**AFTER FÊTE DE LA MUSIQUE 🌈**
+    description: `**AFTER FÊTE DE LA MUSIQUE 🌈**
 
 Festivités terminées sur tous les spots de la ville ne signe pas la fin de la fête : on vous donne rendez-vous au club pour un after fête de la musique que vous n’êtes pas prêt·es d’oublier !
 
@@ -777,7 +774,7 @@ On prend parmis les collectifs les plus bouillants de la régions et on célèbr
         label: 'Page Facebook de YEGO Music',
       },
     ],
-    description: md`Solstice d'été? Musique? Open air?
+    description: `Solstice d'été? Musique? Open air?
 
 Oui oui oui! Après ces quelques années d'absence, nous revenons sur nos terres pour vous programmer un Open air digne de ce nom pour la fête de la musique!
 
@@ -800,7 +797,7 @@ Au programme, 7h de son, de la Deep House, techno, minimal à la trance, il y en
         label: 'Évènement Facebook',
       },
     ],
-    description: md`📍 Rendez-vous dans le Hall-Bonheur du musée
+    description: `📍 Rendez-vous dans le Hall-Bonheur du musée
 
 🎶 Deux sets de 40min à 19h et 19h45
 
@@ -832,7 +829,7 @@ La musique a inspiré de nombreux peintres et la peinture a inspiré beaucoup de
         label: 'Évènement Facebook',
       },
     ],
-    description: md`Guess what ? Magnitude 7 vous dévoile son événement pour la Fête de la Musique 2023 et vous propose de danser le + longtemps possible pour le jour le + long de l’année ! ☀
+    description: `Guess what ? Magnitude 7 vous dévoile son événement pour la Fête de la Musique 2023 et vous propose de danser le + longtemps possible pour le jour le + long de l’année ! ☀
 
 Préparez vous à gravir des contrées sonores toutes plus surprenantes les unes que les autres avec un line up méli-mélove de copain.es !
 
@@ -890,7 +887,7 @@ Entre reggae, dub, house, breaks, techno, rap et autres surprises sonores, le pr
         content: 'Évènement déplacé a cause des intempéries.\n\nDéplacé à Darwin aux Heures Heureuses.',
       },
     ],
-    description: md`Ayooo les loubards !!!
+    description: `Ayooo les loubards !!!
 
 Le 21 juin 2023, comme vous le savez, la musique résonne aux 4 coins du globe pour marquer le début de l’été. 🌤💦
 
@@ -953,7 +950,7 @@ INFOS PRATIQUES
         label: 'Page Instagram de Zéro Degré',
       },
     ],
-    description: md`Slam, rap et musiques urbaines sont mis à l'honneur au Jardin de la Béchade avec le label associatif Zéro Degré, pour un après-midi festif et poétique.
+    description: `Slam, rap et musiques urbaines sont mis à l'honneur au Jardin de la Béchade avec le label associatif Zéro Degré, pour un après-midi festif et poétique.
 
 Au programme, une variété d'artistes, mêlant amateur·rices et professionnel·les, musique et danse, avec notamment une prestation artistique avec Wanda, Nathan et Charles 3 multi-instrumentistes, Nino et Tina 2 danseureuses hip-hop, suivi d'un concert inédit avec les rappeurs Sticky, Gat et Yamä du label Zéro Degré. Enfin, le groupe de Rock/Rap Valjean proposera un spectacle explosif et dansant pour clôturer cet après-midi musical !
 
@@ -995,7 +992,7 @@ Pour participer à la scène ouverte, merci d'envoyer les informations suivantes
         label: 'Évènement dans l\'agenda bordeaux.fr',
       },
     ],
-    description: md`La Cassette et Wow, prennent leurs quartiers d'été à Caudéran et proposent une série de concerts et d'ateliers musicaux pour toutes et tous dans le cadre bucolique du Parc Bordelais.
+    description: `La Cassette et Wow, prennent leurs quartiers d'été à Caudéran et proposent une série de concerts et d'ateliers musicaux pour toutes et tous dans le cadre bucolique du Parc Bordelais.
 
 La Cassette et Wow, prennent leurs quartiers d'été à Caudéran et proposent une série de concerts et d'ateliers musicaux pour toutes et tous dans le cadre bucolique du Parc Bordelais. Au programme également, avec les équipes de la bibliothèque Pierre Veilletet, du festival 33Tours et de l'incontournable Bibliobus, blindtests, démonstrations d'instruments, lectures musicales et boom familiale !
 
@@ -1028,7 +1025,7 @@ Au programme également, avec les équipes de la bibliothèque Pierre Veilletet,
         label: 'Évènement Facebook',
       },
     ],
-    description: md`**POUR VOUS LES FAMILLES**
+    description: `**POUR VOUS LES FAMILLES**
 
 Blonde Venus fête la musique pour les cool kids
 
@@ -1066,7 +1063,7 @@ La guinguette de Blonde Venus vous accueille à table sur sa jolie terrasse avec
         label: 'Page Facebook de l`\'association des commerçants de la Barrière Judaïque',
       },
     ],
-    description: md`L'association des commerçants de la Barrière Judaïque, avec la participation de l'association Caudéran Ensemble, vous invitent à la Fête de la musique 2023 : Les moules ont la frite !
+    description: `L'association des commerçants de la Barrière Judaïque, avec la participation de l'association Caudéran Ensemble, vous invitent à la Fête de la musique 2023 : Les moules ont la frite !
 
 - Concert de la Banda d'Ornon et musiciens amateurs
 
@@ -1098,7 +1095,7 @@ La guinguette de Blonde Venus vous accueille à table sur sa jolie terrasse avec
       'Fièvres',
       'Renaïders',
     ],
-    description: md`Concerts dans la rue Camille Sauvageau, suivis d’une belle sélecta pour finir la soirée en continuant de danser… !
+    description: `Concerts dans la rue Camille Sauvageau, suivis d’une belle sélecta pour finir la soirée en continuant de danser… !
 
 Ouverture du bar à 17h, début des concerts 20h30.`,
   },
@@ -1129,7 +1126,7 @@ Ouverture du bar à 17h, début des concerts 20h30.`,
         label: 'Évènement Facebook',
       },
     ],
-    description: md`La Manufacture vous invite à voyager avec elle en invitant de nombreux artistes à bord ! 📢
+    description: `La Manufacture vous invite à voyager avec elle en invitant de nombreux artistes à bord ! 📢
 
 Prêts pour le grand départ cosmique ? 🚀
 
@@ -1164,7 +1161,7 @@ Prêts pour le grand départ cosmique ? 🚀
         label: 'Page Facebook de TOPA',
       },
     ],
-    description: md`🥳 Rejoignez-nous pour une soirée inoubliable de la Fête de la Musique avec la [@maisonbasquedebordeaux !](https://www.instagram.com/maisonbasquedebordeaux/)
+    description: `🥳 Rejoignez-nous pour une soirée inoubliable de la Fête de la Musique avec la [@maisonbasquedebordeaux !](https://www.instagram.com/maisonbasquedebordeaux/)
 
 Pour la fête de la musique cette année, la Maison Basque de Bordeaux vous a mijoté une programmation aux petits oignons ! On commence tout doux (lasai) l’apéro au son des chants traditionnels basques de Kantuz, avant de basculer cash dans le groove de la Nouvelle Orléans avec la fanfare funky de Pampelune, le Broken Brothers Brass Band ! Enfin les plus motivés pourront continuer à guincher au son des platines de PIRATE JUS D’ORANGE, habitué à balancer du gordo gordo !
 
@@ -1208,7 +1205,7 @@ Vous aurez la possibilité de découvrir ou (re)découvrir les saveurs basques a
         label: 'Évènement Facebook',
       },
     ],
-    description: md`Une soirée avec un DJ set pour la fête de la musique, ça vous dit ? 🥳
+    description: `Une soirée avec un DJ set pour la fête de la musique, ça vous dit ? 🥳
 
 Préparez-vous car la cabane 101 vous donne rendez-vous le Mercredi 21 juin pour célébrer la fête de la musique ! 🎶
 
@@ -1249,7 +1246,7 @@ Tout en comptant sur la présence des bières, des vins, de la sangria et puis q
         label: 'Évènement Facebook',
       },
     ],
-    description: md`A l’occasion de la fête de la musique, @delicatessen.bdx et @sauvignonnes vous proposent la soirée de tous les accords, le 21/06 :
+    description: `A l’occasion de la fête de la musique, @delicatessen.bdx et @sauvignonnes vous proposent la soirée de tous les accords, le 21/06 :
 
 - ✅ Concert
 
@@ -1286,7 +1283,7 @@ Une parenthèse conviviale, gastronomique et musicale, avec la participation de 
         label: 'Évènement Facebook',
       },
     ],
-    description: md`La Fête de la Musique revient cette année à la Place Général Sarrail pour une soirée tropicale et dansante ! 🍍🌺
+    description: `La Fête de la Musique revient cette année à la Place Général Sarrail pour une soirée tropicale et dansante ! 🍍🌺
 Deux groupes et un DJ set pour vous ambiancer jusqu'au bout de la nuit.🦩
 
 Venez célébrer la musique dans un cadre ensoleillé et fleuri sur la place Général Sarrail le soir du 21 juin 2023 ! Plongez-vous dans une atmosphère exotique et laissez-vous emporter par les rythmes envoûtants du funk et du blues ! 🥥
@@ -1325,7 +1322,7 @@ Brooklyn Brewery seront présent au HMS Victory pour un Show Moléculaire - une 
         label: 'Instagram de BLUXHAO [TATTOO]',
       },
     ],
-    description: md`Cette année avec Bass Reload Bordeaux on vous donne rendez-vous au ZigZag Café pour la fête de la musique et nous aurons comme invité le collectif Sound Rising ! 🔥
+    description: `Cette année avec Bass Reload Bordeaux on vous donne rendez-vous au ZigZag Café pour la fête de la musique et nous aurons comme invité le collectif Sound Rising ! 🔥
 
 **Au programme 2 Dancefloors :**
 
@@ -1389,7 +1386,7 @@ Mais il y aura aussi un espace TATTOO,et nous aurons le plaisir d'avoir BLUXHAO 
         label: 'Instagram de La Mascarade',
       },
     ],
-    description: md`Le collectif bordelais La Mascarade est enfin là pour enflammer les nuits de la ville !
+    description: `Le collectif bordelais La Mascarade est enfin là pour enflammer les nuits de la ville !
 
 Composé d'une bande d'amoureux de la musique, ils vont vous faire voyager au rythme de la House, de la Tech House et de la Minimal.
 
@@ -1415,7 +1412,7 @@ Leur objectif est de faire vibrer les auditeurs présents lors de leurs events e
       addressStr: '29 rue du Loup, 33000 Bordeaux',
     },
     startTime: new Date('2023-06-21T20:00:00+02:00'),
-    description: md`Êtes-vous prêts ? 👹
+    description: `Êtes-vous prêts ? 👹
 
 Ce mercredi 21 juin, venez danser avec nous !🕺🏽🪩
 
@@ -1449,7 +1446,7 @@ SAVE THE DATE ! 💥`,
         content: 'Évènement déplacé a cause des intempéries.\n\nDéplacé à Les BROC\'S Saint Michel, de 16h à 2h',
       },
     ],
-    description: md`📅 𝗠𝗘𝗥𝗖𝗥𝗘𝗗𝗜 𝟮𝟭 𝗝𝗨𝗜𝗡 : 𝟭𝟲𝗵 - 𝟬𝟬𝗵𝟬𝟬 𝗣𝗟𝗔𝗖𝗘 𝗦𝗧 𝗠𝗜𝗖𝗛𝗘𝗟
+    description: `📅 𝗠𝗘𝗥𝗖𝗥𝗘𝗗𝗜 𝟮𝟭 𝗝𝗨𝗜𝗡 : 𝟭𝟲𝗵 - 𝟬𝟬𝗵𝟬𝟬 𝗣𝗟𝗔𝗖𝗘 𝗦𝗧 𝗠𝗜𝗖𝗛𝗘𝗟
 
 🍺 BUVETTE SUR PLACE : 𝗣𝗜𝗡𝗧𝗘 𝗔̀ 𝟲€
 
