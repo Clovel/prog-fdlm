@@ -42,12 +42,14 @@ const EventListItem: React.FC<EventListItemProps> = (
     () => {
       return (
         event.description !== undefined ||
+        (event.alerts !== undefined && event.alerts.length > 0) ||
         (event.embedLinks !== undefined && event.embedLinks.length > 0) ||
         (event.links !== undefined && event.links.length > 0)
       );
     },
     [
       event.description,
+      event.alerts,
       event.embedLinks,
       event.links,
     ],

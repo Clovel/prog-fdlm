@@ -5,6 +5,7 @@ import React from 'react';
 
 /* Component imports ----------------------------------- */
 import CustomEmbed from 'components/CustomEmbed/CustomEmbed';
+import EventAlert from 'components/EventAlert/EventAlert';
 
 /* Style imports --------------------------------------- */
 
@@ -24,6 +25,22 @@ const EventRender: React.FC<EventRenderProps> = (
 ) => {
   return (
     <div className="event-description flex flex-col w-full px-4 py-2">
+      {
+        event.alerts !== undefined &&
+        event.alerts.length > 0 &&
+          <article className="w-full">
+            {
+              event.alerts.map(
+                (alert, index) => (
+                  <EventAlert
+                    key={`${alert.type ?? 'default'}-${index}`}
+                    alert={alert}
+                  />
+                ),
+              )
+            }
+          </article>
+      }
       {
         event.description !== undefined &&
           <article className="w-full">

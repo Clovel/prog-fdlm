@@ -1,5 +1,4 @@
 /* Component imports ----------------------------------- */
-import { Alert, AlertDescription } from 'components/ui/alert';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
@@ -895,16 +894,14 @@ export const events: Event[] = [
         label: 'Évènement dans l\'agenda bordeaux.fr',
       },
     ],
+    alerts: [
+      {
+        type: 'warning',
+        content: 'Évènement le 23 juin 2024',
+      },
+    ],
     description: (
       <>
-        <Alert
-          variant="warning"
-          className="my-2 max-w-[450px] mx-auto"
-        >
-          <AlertDescription>
-            Évènement le 23 juin 2024
-          </AlertDescription>
-        </Alert>
         <p>
           <i>
             L'équipe de Ricochet Sonore accueille les enfants et les familles au coeur du Parc bordelais. Cette après-midi divertissante et conviviale propose des concerts et spectacles jeune public, des jeux, des sets DJ en mode chill-out, une scène ouverte, des ateliers et des animations ludiques dont Ricochet Sonore a le secret.

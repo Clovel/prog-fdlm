@@ -2,6 +2,7 @@
 import type React from 'react';
 import type { Location } from './Location';
 import type { EventCategory } from 'types/eventCategories';
+import type{ Alert } from 'components/ui/alert';
 
 /* Event interface declaration ------------------------- */
 export interface EventLink {
@@ -9,7 +10,12 @@ export interface EventLink {
   label: React.ReactNode;
 }
 
-/* Event embed link declaration ------------------------ */
+export interface EventAlert {
+  type: React.ComponentProps<typeof Alert>['variant'];
+  title?: string;
+  content: string;
+}
+
 export type EventEmbedLinkType = 'instagram' | 'facebook';
 
 export interface EventEmbedLink {
@@ -28,6 +34,7 @@ export interface Event {
   id: string;
   name?: string;
   status?: 'canceled' | 'postponed' | 'rescheduled';
+  alerts?: EventAlert[];
   description?: React.ReactNode;
   category?: EventCategory;
   genres?: string[];

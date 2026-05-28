@@ -1,5 +1,4 @@
 /* Component imports ----------------------------------- */
-import { Alert, AlertDescription } from 'components/ui/alert';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
@@ -540,21 +539,14 @@ export const events: Event[] = [
         label: 'Événement Facebook',
       },
     ],
+    alerts: [
+      {
+        type: 'warning',
+        content: 'Évènement déplacé a cause des intempéries.\n\nDéplacé au Deus Ex Machina, de 19h à 00h.',
+      },
+    ],
     description: (
       <>
-        <Alert
-          variant="warning"
-          className="my-2 max-w-[450px] mx-auto"
-        >
-          <AlertDescription>
-            <p>
-              Évènement déplacé a cause des intempéries.
-            </p>
-            <p>
-              Déplacé au Deus Ex Machina, de 19h à 00h.
-            </p>
-          </AlertDescription>
-        </Alert>
         <p>
           WHYNOT présente
         </p>
@@ -621,39 +613,30 @@ export const events: Event[] = [
         label: 'Évènement Facebook',
       },
     ],
+    alerts: [
+      {
+        type: 'warning',
+        content: 'Évènement déplacé a cause des intempéries.\n\nDéplacé au Deus Ex Machina, de 19h à 00h.',
+      },
+    ],
     description: (
-      <>
-        <Alert
-          variant="warning"
-          className="my-2 max-w-[450px] mx-auto"
-        >
-          <AlertDescription>
-            <p>
-              Évènement déplacé a cause des intempéries.
-            </p>
-            <p>
-              Déplacé au Deus Ex Machina, de 19h à 00h.
-            </p>
-          </AlertDescription>
-        </Alert>
-        <p>
-          Programme :
-          <ul>
-            <li>
-              20:00 : Sam Fleisch (Indie Rock) [Bordeaux]
-            </li>
-            <li>
-              21:15 : Michelle et Les Garçons (80s Pop) [Angers]
-            </li>
-            <li>
-              22:15 : Blvck Hippie (Rock Indie Garage) [Memphis, USA]
-            </li>
-            <li>
-              23:30 : Musique d'Apéritif (Electro New Beat) [Biarritz]
-            </li>
-          </ul>
-        </p>
-      </>
+      <p>
+        Programme :
+        <ul>
+          <li>
+            20:00 : Sam Fleisch (Indie Rock) [Bordeaux]
+          </li>
+          <li>
+            21:15 : Michelle et Les Garçons (80s Pop) [Angers]
+          </li>
+          <li>
+            22:15 : Blvck Hippie (Rock Indie Garage) [Memphis, USA]
+          </li>
+          <li>
+            23:30 : Musique d'Apéritif (Electro New Beat) [Biarritz]
+          </li>
+        </ul>
+      </p>
     ),
     embedLinks: [
       { type: 'instagram', url: 'https://www.instagram.com/p/CtuDHmGKtcx/' },
@@ -837,21 +820,14 @@ export const events: Event[] = [
         label: "Instagram de l'Orangeade",
       },
     ],
+    alerts: [
+      {
+        type: 'warning',
+        content: 'Évènement déplacé a cause des intempéries.\n\nDéplacé à Darwin aux Heures Heureuses.',
+      },
+    ],
     description: (
       <>
-        <Alert
-          variant="warning"
-          className="my-2 max-w-[450px] mx-auto"
-        >
-          <AlertDescription>
-            <p>
-              Évènement déplacé a cause des intempéries.
-            </p>
-            <p>
-              Déplacé à Darwin aux Heures Heureuses.
-            </p>
-          </AlertDescription>
-        </Alert>
         <p>
           On prends les mêmes et on recommence !
           <br />
@@ -1180,21 +1156,14 @@ export const events: Event[] = [
         label: 'Évènement Facebook',
       },
     ],
+    alerts: [
+      {
+        type: 'warning',
+        content: 'Évènement déplacé a cause des intempéries.\n\nDéplacé à Darwin aux Heures Heureuses.',
+      },
+    ],
     description: (
       <>
-        <Alert
-          variant="warning"
-          className="my-2 max-w-[450px] mx-auto"
-        >
-          <AlertDescription>
-            <p>
-              Évènement déplacé a cause des intempéries.
-            </p>
-            <p>
-              Déplacé à Darwin aux Heures Heureuses.
-            </p>
-          </AlertDescription>
-        </Alert>
         <p>
           Ayooo les loubards !!!
         </p>
@@ -1968,21 +1937,14 @@ export const events: Event[] = [
         label: 'Évènement Facebook',
       },
     ],
+    alerts: [
+      {
+        type: 'warning',
+        content: 'Évènement déplacé a cause des intempéries.\n\nDéplacé à Les BROC\'S Saint Michel, de 16h à 2h',
+      },
+    ],
     description: (
       <>
-        <Alert
-          variant="warning"
-          className="my-2 max-w-[450px] mx-auto"
-        >
-          <AlertDescription>
-            <p>
-              Évènement déplacé a cause des intempéries.
-            </p>
-            <p>
-              Déplacé à Les BROC'S Saint Michel, de 16h à 2h
-            </p>
-          </AlertDescription>
-        </Alert>
         <p>
           📅 𝗠𝗘𝗥𝗖𝗥𝗘𝗗𝗜 𝟮𝟭 𝗝𝗨𝗜𝗡 : 𝟭𝟲𝗵 - 𝟬𝟬𝗵𝟬𝟬 𝗣𝗟𝗔𝗖𝗘 𝗦𝗧 𝗠𝗜𝗖𝗛𝗘𝗟
         </p>
