@@ -4,43 +4,51 @@ import React from 'react';
 /* Module imports -------------------------------------- */
 
 /* Component imports ----------------------------------- */
-import { InstagramEmbed } from 'react-social-media-embed';
+import {
+  InstagramEmbed,
+  FacebookEmbed,
+} from 'components/embeds';
 
 /* Style imports --------------------------------------- */
 
 /* Type imports ---------------------------------------- */
-import type { FacebookEmbed } from 'react-social-media-embed';
+import type { EventEmbedLinkType } from 'types/Event';
 
 /* CustomEmbed component prop types -------------------- */
 interface CustomEmbedProps {
   url: string;
+  type: EventEmbedLinkType;
   maxWidth?: number;
-  EmbedComponent?: typeof InstagramEmbed | typeof FacebookEmbed;
 }
 
 /* CustomEmbed component ------------------------------- */
 const CustomEmbed: React.FC<CustomEmbedProps> = (
   {
     url,
-    maxWidth = 600,
-    EmbedComponent = InstagramEmbed,
+    type,
+    maxWidth,
   },
 ) => {
-  return (
-    <div
-      className="flex justify-center w-full"
-    >
-      <div
-        className="flex justify-center w-full"
-        style={{ maxWidth: maxWidth }}
-      >
-        <EmbedComponent
-          width="100%"
+  switch(type) {
+    case 'instagram':
+      return (
+        <InstagramEmbed
           url={url}
+          maxWidth={maxWidth}
         />
-      </div>
-    </div>
-  );
+      );
+    case 'facebook':
+      return (
+        <FacebookEmbed
+          url={url}
+          maxWidth={maxWidth}
+        />
+      );
+    default: {
+      const _exhaustive: never = type;
+      return _exhaustive;
+    }
+  }
 };
 
 /* Export CustomEmbed component ------------------------ */

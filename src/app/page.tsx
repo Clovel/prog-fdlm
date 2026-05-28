@@ -10,7 +10,7 @@ import { sortEventsByCategoryEntries } from 'helpers/orderEventsByCategory';
 
 /* Component imports ----------------------------------- */
 import { Separator } from '@/components/ui/separator';
-import { InstagramEmbed } from 'react-social-media-embed';
+import { InstagramEmbed } from 'components/embeds';
 import EventsRecap from 'components/EventsRecap/EventsRecap';
 import EventCategoryView from 'components/EventCategoryView/EventCategoryView';
 import EventsMap from 'components/EventsMap/EventsMap';

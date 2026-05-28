@@ -1,7 +1,5 @@
 /* Component imports ----------------------------------- */
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import CustomEmbed from 'components/CustomEmbed/CustomEmbed';
-import { FacebookEmbed } from 'react-social-media-embed';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
@@ -169,15 +167,12 @@ export const events: Event[] = [
           <br />
           Distillant un punk rock à la sauce garage – poisseux de bière et autres liquides peu catholiques – les trois lascars atteint d’une Beatlemania aigue chante les travers de notre société et de nos coeurs avec une efficacité remarquable. Et oui, ce n’est pas parce que leur album s’appelle Tattoos and Chlamydias qu’ils ne peuvent pas faire preuve d’un peu de romantisme… et BEAUCOUP de second degré !
         </p>
-
-        <CustomEmbed url="https://www.instagram.com/p/C8M2dnZKPSY/" />
-
-        <CustomEmbed
-          EmbedComponent={FacebookEmbed}
-          url="https://www.facebook.com/events/947021640358266"
-        />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8M2dnZKPSY/' },
+      { type: 'facebook', url: 'https://www.facebook.com/events/947021640358266' },
+    ],
   },
   {
     id: '42',
@@ -258,9 +253,11 @@ export const events: Event[] = [
             See you there 🫶
           </i>
         </p>
-        <CustomEmbed url="https://www.instagram.com/p/C7wfI07KKfY/?img_index=1" />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C7wfI07KKfY/?img_index=1' },
+    ],
   },
   {
     id: '44',
@@ -335,10 +332,11 @@ export const events: Event[] = [
             </li>
           </ul>
         </p>
-
-        <CustomEmbed url="https://www.instagram.com/p/C8M9APpqOfo/" />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8M9APpqOfo/' },
+    ],
   },
   {
     id: '45',
@@ -411,10 +409,11 @@ export const events: Event[] = [
         <p>
           🍺 MAXI BUVETTE : PINTE 6€
         </p>
-
-        <CustomEmbed url="https://www.instagram.com/p/C8M9APpqOfo/" />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8M9APpqOfo/' },
+    ],
   },
   {
     id: '46',
@@ -456,9 +455,11 @@ export const events: Event[] = [
           <br />
           Pour ce faire nous convoquons nos dieux lumières, le @collectif_cmdo à la sceno et derrière les platines @vingt__deux__ & @s.olynde du collectif @w__i__l__d_, @fullspeed_3000, @deejayblond, @will_diggs_lorangeade_djs et @freemadj ☀️
         </p>
-        <CustomEmbed url="https://www.instagram.com/p/C7UVHVZK56Q/" />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C7UVHVZK56Q/' },
+    ],
   },
   {
     id: '47',
@@ -574,9 +575,11 @@ export const events: Event[] = [
           <br />
           ❤️ visuel by @daphneadoto
         </p>
-        <CustomEmbed url="https://www.instagram.com/p/C8FNgggoxoO/" />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8FNgggoxoO/' },
+    ],
   },
   {
     id: '49',
@@ -689,14 +692,12 @@ export const events: Event[] = [
             Après ça : Direction l’IBOAT pour un Club de la Musique déjà mémorable ! Enfin pour les plus courageux : c'est à partir de 6h00 qu'il faudra rejoindre un all day long en open air bien costaud dans un lieu tenu secret jusqu'au dernier moment !
           </b>
         </p>
-
-        <CustomEmbed
-          EmbedComponent={FacebookEmbed}
-          url="https://www.facebook.com/events/1594624761113483?acontext=%7B%22event_action_history%22:%5B%5D%7D"
-        />
-        <CustomEmbed url="https://www.instagram.com/p/C6Y8dVyK8tQ/" />
       </>
     ),
+    embedLinks: [
+      { type: 'facebook', url: 'https://www.facebook.com/events/1594624761113483?acontext=%7B%22event_action_history%22:%5B%5D%7D' },
+      { type: 'instagram', url: 'https://www.instagram.com/p/C6Y8dVyK8tQ/' },
+    ],
   },
   {
     id: '51',
@@ -953,9 +954,9 @@ export const events: Event[] = [
     genres: [
       'Bar',
     ],
-    description: (
-      <CustomEmbed url="https://www.instagram.com/p/C8Up5WmIrJn/" />
-    ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8Up5WmIrJn/' },
+    ],
   },
   {
     id: '58',
@@ -977,9 +978,9 @@ export const events: Event[] = [
       'Bar',
       'DJ set',
     ],
-    description: (
-      <CustomEmbed url="https://www.instagram.com/p/C8U_8TEqq1r/" />
-    ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8U_8TEqq1r/' },
+    ],
   },
   {
     id: '59',
@@ -1026,37 +1027,37 @@ export const events: Event[] = [
       },
     ],
     description: (
-      <>
-        <p>
-          𝗔𝗙𝗧𝗘𝗥 𝗣𝗔𝗥𝗧𝗬 𝗙𝗗𝗟𝗠 : 𝗗𝗥𝗔𝗚𝗢𝗡 𝗕𝗔𝗟𝗟 𝗕𝗘𝗕𝗢𝗣 @ 𝗟𝗔 𝗣𝗟𝗔𝗚𝗘 : 𝟮 𝗦𝗔𝗟𝗟𝗘𝗦 / 𝗖𝗔𝗣𝗔𝗖𝗜𝗧𝗘́ 𝗥𝗘́𝗗𝗨𝗜𝗧𝗘 / 𝗔𝗥𝗧𝗜𝗦𝗧𝗘𝗦 𝗜𝗡𝗧𝗘𝗥𝗡𝗔𝗧𝗜𝗢𝗡𝗔𝗨𝗫
+      <p>
+        𝗔𝗙𝗧𝗘𝗥 𝗣𝗔𝗥𝗧𝗬 𝗙𝗗𝗟𝗠 : 𝗗𝗥𝗔𝗚𝗢𝗡 𝗕𝗔𝗟𝗟 𝗕𝗘𝗕𝗢𝗣 @ 𝗟𝗔 𝗣𝗟𝗔𝗚𝗘 : 𝟮 𝗦𝗔𝗟𝗟𝗘𝗦 / 𝗖𝗔𝗣𝗔𝗖𝗜𝗧𝗘́ 𝗥𝗘́𝗗𝗨𝗜𝗧𝗘 / 𝗔𝗥𝗧𝗜𝗦𝗧𝗘𝗦 𝗜𝗡𝗧𝗘𝗥𝗡𝗔𝗧𝗜𝗢𝗡𝗔𝗨𝗫
 
-          ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-          📅 𝗩𝗘𝗡𝗗𝗥𝗘𝗗𝗜 𝟮𝟭 𝗝𝗨𝗜𝗡 : 𝟬𝟬𝗵 - 𝟬𝟲𝗵
-          📍 𝗟𝗔 𝗣𝗟𝗔𝗚𝗘, 𝗟𝗘 𝗖𝗟𝗨𝗕 : 𝟰𝟬 𝗤𝗨𝗔𝗜 𝗗𝗘 𝗣𝗔𝗟𝗨𝗗𝗔𝗧𝗘 - 𝟯𝟯𝟬𝟬𝟬 𝗕𝗢𝗥𝗗𝗘𝗔𝗨𝗫
-          🔊 𝟮 𝗦𝗔𝗟𝗟𝗘𝗦 : 𝗧𝗘𝗖𝗛𝗡𝗢 / 𝗧𝗘𝗖𝗛𝗡𝗢 𝗧𝗥𝗔𝗡𝗖𝗘 / 𝗔𝗖𝗜𝗗 𝗧𝗘𝗖𝗛𝗡𝗢 / 𝗛𝗔𝗥𝗗𝗚𝗥𝗢𝗢𝗩𝗘 / 𝗧𝗘𝗞𝗡𝗢 / 𝗣𝗦𝗬𝗧𝗥𝗔𝗡𝗖𝗘 🙃 𝗖𝗔𝗣𝗔𝗖𝗜𝗧𝗘́ 𝗥𝗘́𝗗𝗨𝗜𝗧𝗘
-          🎟️ 𝗣𝗥𝗘́𝗩𝗘𝗡𝗧𝗘𝗦 𝟵€ 👆𝗟𝗜𝗘𝗡 𝗘𝗡 𝗕𝗜𝗢 👆
-          ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        📅 𝗩𝗘𝗡𝗗𝗥𝗘𝗗𝗜 𝟮𝟭 𝗝𝗨𝗜𝗡 : 𝟬𝟬𝗵 - 𝟬𝟲𝗵
+        📍 𝗟𝗔 𝗣𝗟𝗔𝗚𝗘, 𝗟𝗘 𝗖𝗟𝗨𝗕 : 𝟰𝟬 𝗤𝗨𝗔𝗜 𝗗𝗘 𝗣𝗔𝗟𝗨𝗗𝗔𝗧𝗘 - 𝟯𝟯𝟬𝟬𝟬 𝗕𝗢𝗥𝗗𝗘𝗔𝗨𝗫
+        🔊 𝟮 𝗦𝗔𝗟𝗟𝗘𝗦 : 𝗧𝗘𝗖𝗛𝗡𝗢 / 𝗧𝗘𝗖𝗛𝗡𝗢 𝗧𝗥𝗔𝗡𝗖𝗘 / 𝗔𝗖𝗜𝗗 𝗧𝗘𝗖𝗛𝗡𝗢 / 𝗛𝗔𝗥𝗗𝗚𝗥𝗢𝗢𝗩𝗘 / 𝗧𝗘𝗞𝗡𝗢 / 𝗣𝗦𝗬𝗧𝗥𝗔𝗡𝗖𝗘 🙃 𝗖𝗔𝗣𝗔𝗖𝗜𝗧𝗘́ 𝗥𝗘́𝗗𝗨𝗜𝗧𝗘
+        🎟️ 𝗣𝗥𝗘́𝗩𝗘𝗡𝗧𝗘𝗦 𝟵€ 👆𝗟𝗜𝗘𝗡 𝗘𝗡 𝗕𝗜𝗢 👆
+        ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 
-          Cette année, nous avons la chance que la 𝗙𝗘̂𝗧𝗘 𝗗𝗘 𝗟𝗔 𝗠𝗨𝗦𝗜𝗤𝗨𝗘 tombe un 𝗩𝗘𝗡𝗗𝗥𝗘𝗗𝗜.
+        Cette année, nous avons la chance que la 𝗙𝗘̂𝗧𝗘 𝗗𝗘 𝗟𝗔 𝗠𝗨𝗦𝗜𝗤𝗨𝗘 tombe un 𝗩𝗘𝗡𝗗𝗥𝗘𝗗𝗜.
 
-          Nous avons donc travaillé à vous proposer des événements, 𝗘𝗡 𝗣𝗟𝗘𝗜𝗡 𝗖𝗘𝗡𝗧𝗥𝗘, 𝗔𝗩𝗔𝗡𝗧 𝗠𝗜𝗡𝗨𝗜𝗧, ainsi qu’une 𝗔𝗙𝗧𝗘𝗥 𝗣𝗔𝗥𝗧𝗬, 𝗔𝗨 𝗣𝗟𝗨𝗦 𝗣𝗥𝗢𝗖𝗛𝗘, 𝗔𝗖𝗖𝗘𝗦𝗦𝗜𝗕𝗟𝗘 𝗔̀ 𝗣𝗜𝗘𝗗𝗦.
+        Nous avons donc travaillé à vous proposer des événements, 𝗘𝗡 𝗣𝗟𝗘𝗜𝗡 𝗖𝗘𝗡𝗧𝗥𝗘, 𝗔𝗩𝗔𝗡𝗧 𝗠𝗜𝗡𝗨𝗜𝗧, ainsi qu’une 𝗔𝗙𝗧𝗘𝗥 𝗣𝗔𝗥𝗧𝗬, 𝗔𝗨 𝗣𝗟𝗨𝗦 𝗣𝗥𝗢𝗖𝗛𝗘, 𝗔𝗖𝗖𝗘𝗦𝗦𝗜𝗕𝗟𝗘 𝗔̀ 𝗣𝗜𝗘𝗗𝗦.
 
-          On ouvre 𝟮 𝗦𝗔𝗟𝗟𝗘𝗦, 𝗢𝗡 𝗥𝗘́𝗗𝗨𝗜𝗧 𝗟𝗔 𝗖𝗔𝗣𝗔𝗖𝗜𝗧𝗘́ 𝗣𝗢𝗨𝗥 𝗨𝗡 𝗖𝗢𝗡𝗙𝗢𝗥𝗧 𝗢𝗣𝗧𝗜𝗠𝗔𝗟, et aux côtés de nos DJs locaux, on invite des DJs 𝗜𝗡𝗧𝗘𝗥𝗡𝗔𝗧𝗜𝗢𝗡𝗔𝗨𝗫, DANS DES STYLES 𝗗𝗜𝗙𝗙𝗘́𝗥𝗘𝗡𝗧𝗦 :
-          𝗔𝗜𝗦𝗛𝗔 (@aisha.deejay ): 𝗗𝗝 & 𝗣𝗥𝗢𝗗𝗨𝗖𝗧𝗥𝗜𝗖𝗘 𝗯𝗮𝘀𝗲́𝗲 𝗮̀ 𝗚𝗟𝗔𝗦𝗚𝗢𝗪 : 𝗧𝗘𝗖𝗛𝗡𝗢 𝗧𝗥𝗔𝗡𝗖𝗘
+        On ouvre 𝟮 𝗦𝗔𝗟𝗟𝗘𝗦, 𝗢𝗡 𝗥𝗘́𝗗𝗨𝗜𝗧 𝗟𝗔 𝗖𝗔𝗣𝗔𝗖𝗜𝗧𝗘́ 𝗣𝗢𝗨𝗥 𝗨𝗡 𝗖𝗢𝗡𝗙𝗢𝗥𝗧 𝗢𝗣𝗧𝗜𝗠𝗔𝗟, et aux côtés de nos DJs locaux, on invite des DJs 𝗜𝗡𝗧𝗘𝗥𝗡𝗔𝗧𝗜𝗢𝗡𝗔𝗨𝗫, DANS DES STYLES 𝗗𝗜𝗙𝗙𝗘́𝗥𝗘𝗡𝗧𝗦 :
+        𝗔𝗜𝗦𝗛𝗔 (@aisha.deejay ): 𝗗𝗝 & 𝗣𝗥𝗢𝗗𝗨𝗖𝗧𝗥𝗜𝗖𝗘 𝗯𝗮𝘀𝗲́𝗲 𝗮̀ 𝗚𝗟𝗔𝗦𝗚𝗢𝗪 : 𝗧𝗘𝗖𝗛𝗡𝗢 𝗧𝗥𝗔𝗡𝗖𝗘
 
-          𝗚𝗘𝗔 (@_g.ea ) : 𝗗𝗝 & 𝗣𝗥𝗢𝗗𝗨𝗖𝗧𝗥𝗜𝗖𝗘 𝗯𝗮𝘀𝗲́𝗲 𝗮̀ 𝗕𝗔𝗥𝗖𝗘𝗟𝗢𝗡𝗘 : 𝗔𝗖𝗜𝗗 𝗧𝗘𝗖𝗛𝗡𝗢
+        𝗚𝗘𝗔 (@_g.ea ) : 𝗗𝗝 & 𝗣𝗥𝗢𝗗𝗨𝗖𝗧𝗥𝗜𝗖𝗘 𝗯𝗮𝘀𝗲́𝗲 𝗮̀ 𝗕𝗔𝗥𝗖𝗘𝗟𝗢𝗡𝗘 : 𝗔𝗖𝗜𝗗 𝗧𝗘𝗖𝗛𝗡𝗢
 
-          𝗣𝗛𝗔𝗧 𝗢𝗧𝗜𝗭 (@phatotiz_ ) : 𝗗𝗝 & 𝗣𝗥𝗢𝗗𝗨𝗖𝗧𝗘𝗨𝗥 𝗔𝗨𝗧𝗥𝗜𝗖𝗛𝗜𝗘𝗡 𝗯𝗮𝘀𝗲́ 𝗮̀ 𝗩𝗜𝗘𝗡𝗡𝗘𝗦 : 𝗔𝗖𝗜𝗗 𝗧𝗘𝗞𝗡𝗢
+        𝗣𝗛𝗔𝗧 𝗢𝗧𝗜𝗭 (@phatotiz_ ) : 𝗗𝗝 & 𝗣𝗥𝗢𝗗𝗨𝗖𝗧𝗘𝗨𝗥 𝗔𝗨𝗧𝗥𝗜𝗖𝗛𝗜𝗘𝗡 𝗯𝗮𝘀𝗲́ 𝗮̀ 𝗩𝗜𝗘𝗡𝗡𝗘𝗦 : 𝗔𝗖𝗜𝗗 𝗧𝗘𝗞𝗡𝗢
 
-          𝗥𝗔𝗝𝗔𝗫 (@rajax_outrance ) : 𝗗𝗝 𝗯𝗮𝘀𝗲́ 𝗮̀ 𝗕𝗔𝗥𝗖𝗘𝗟𝗢𝗡𝗘 : 𝗣𝗦𝗬𝗧𝗥𝗔𝗡𝗖𝗘
+        𝗥𝗔𝗝𝗔𝗫 (@rajax_outrance ) : 𝗗𝗝 𝗯𝗮𝘀𝗲́ 𝗮̀ 𝗕𝗔𝗥𝗖𝗘𝗟𝗢𝗡𝗘 : 𝗣𝗦𝗬𝗧𝗥𝗔𝗡𝗖𝗘
 
-          Conclusion ? 𝗢𝗡 𝗩𝗔 𝗧𝗢𝗨𝗧 𝗥𝗔𝗦𝗘𝗥 🚀
+        Conclusion ? 𝗢𝗡 𝗩𝗔 𝗧𝗢𝗨𝗧 𝗥𝗔𝗦𝗘𝗥 🚀
 
-          𝗘́𝗧𝗘𝗥𝗡𝗘𝗟𝗟𝗘 𝗤𝗨𝗘𝗦𝗧𝗜𝗢𝗡 : 𝗦𝗔𝗩𝗢𝗜𝗥 𝗤𝗨𝗢𝗜 ? 𝗥 𝗜 𝗘 𝗡 😈
-        </p>
-        <CustomEmbed url="https://www.instagram.com/p/C7epaKOK7FS/" />
-      </>
+        𝗘́𝗧𝗘𝗥𝗡𝗘𝗟𝗟𝗘 𝗤𝗨𝗘𝗦𝗧𝗜𝗢𝗡 : 𝗦𝗔𝗩𝗢𝗜𝗥 𝗤𝗨𝗢𝗜 ? 𝗥 𝗜 𝗘 𝗡 😈
+      </p>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C7epaKOK7FS/' },
+    ],
   },
   {
     id: '60',
@@ -1094,11 +1095,11 @@ export const events: Event[] = [
           <br />
           A partir de 20h
         </p>
-        <CustomEmbed
-          url="https://www.instagram.com/p/C8WuUmTqAh5/?img_index=2"
-        />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8WuUmTqAh5/?img_index=2' },
+    ],
   },
   {
     id: '61',
@@ -1187,9 +1188,9 @@ export const events: Event[] = [
       'Tapage',
       'Trikar',
     ],
-    description: (
-      <CustomEmbed url="https://www.instagram.com/p/C6Y8dVyK8tQ/" />
-    ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C6Y8dVyK8tQ/' },
+    ],
   },
   {
     id: '63',
@@ -1236,9 +1237,11 @@ export const events: Event[] = [
           <br />
           25€ / personne
         </p>
-        <CustomEmbed url="https://www.instagram.com/p/C8cnutDoFqp/" />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8cnutDoFqp/' },
+    ],
   },
   {
     id: '64',
@@ -1279,9 +1282,11 @@ export const events: Event[] = [
           <br />
           De 22h30 à 2h
         </p>
-        <CustomEmbed url="https://www.instagram.com/p/C8cnutDoFqp/" />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8cnutDoFqp/' },
+    ],
   },
   {
     id: '65',
@@ -1313,19 +1318,19 @@ export const events: Event[] = [
       },
     ],
     description: (
-      <>
-        <p>
-          GEIST CELEBRATES MUSIC THE 21.06.24 !
-          <br />
-          Time to increase the temperature presenting our Hard Edition IV.
-          <br />
-          Get ready for a full force elite lineup presenting @6ejou @lessssdj @nicekeedmusic @hass.iv @dreamz.music
-          <br />
-          Prod : @theo.miege
-        </p>
-        <CustomEmbed url="https://www.instagram.com/p/C7POU_sIa19/" />
-      </>
+      <p>
+        GEIST CELEBRATES MUSIC THE 21.06.24 !
+        <br />
+        Time to increase the temperature presenting our Hard Edition IV.
+        <br />
+        Get ready for a full force elite lineup presenting @6ejou @lessssdj @nicekeedmusic @hass.iv @dreamz.music
+        <br />
+        Prod : @theo.miege
+      </p>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C7POU_sIa19/' },
+    ],
   },
   {
     id: '66',
@@ -1376,9 +1381,11 @@ export const events: Event[] = [
         <p>
           (OUVERTURE DES PORTES MINUIT //OPEN GATES 00:00)
         </p>
-        <CustomEmbed url="https://www.instagram.com/p/C7yxwd2oC72/" />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C7yxwd2oC72/' },
+    ],
   },
   {
     id: '67',
@@ -1433,10 +1440,11 @@ export const events: Event[] = [
           <br />
           🕠 19h - 2h
         </p>
-
-        <CustomEmbed url="https://www.instagram.com/p/C8IGRN9Iy7F/" />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8IGRN9Iy7F/' },
+    ],
   },
   {
     id: '68',
@@ -1505,10 +1513,11 @@ export const events: Event[] = [
         <p>
           Ne manquez pas cette soirée mémorable ! 🌠
         </p>
-
-        <CustomEmbed url="https://www.instagram.com/p/C8XS02DovYc/" />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8XS02DovYc/' },
+    ],
   },
   {
     id: '69',
@@ -1575,15 +1584,12 @@ export const events: Event[] = [
           <br />
           🍷 L’abus d’alcool est dangereux pour la santé, à consommer avec modération
         </p>
-
-        <CustomEmbed url="https://www.instagram.com/p/C8MLnqLo3YY/" />
-
-        <CustomEmbed
-          EmbedComponent={FacebookEmbed}
-          url="https://www.facebook.com/events/1406746993369114"
-        />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8MLnqLo3YY/' },
+      { type: 'facebook', url: 'https://www.facebook.com/events/1406746993369114' },
+    ],
   },
   {
     id: '70',
@@ -1647,9 +1653,11 @@ export const events: Event[] = [
             </li>
           </ul>
         </p>
-        <CustomEmbed url="https://www.instagram.com/p/C8ZxNPyKto1/" />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8ZxNPyKto1/' },
+    ],
   },
   {
     id: '71',
@@ -1713,10 +1721,11 @@ export const events: Event[] = [
           Viens vibrer all night long aux rythmes de :
           @flavvmusic @butano_tisma @snertechno @saw__dj @chesh_t_r @vincent_tury_21 @kent.lewis_ @2id.wav @c_titu_psyguana @h_forbes_ @saihttam.music @furik_officiel @_djeudj_ @_hisachi__ @_hisachi__ @hendemic_music
         </p>
-
-        <CustomEmbed url="https://www.instagram.com/p/C8XE6J2IBZ7/?img_index=1" />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8XE6J2IBZ7/?img_index=1' },
+    ],
   },
   {
     id: '72',
@@ -1836,13 +1845,11 @@ export const events: Event[] = [
         <p>
           {'Entrée libre et gratuite (réservation chaudement recommandée) > https://link.dice.fm/d2a45b5da622'}
         </p>
-
-        <CustomEmbed
-          EmbedComponent={FacebookEmbed}
-          url="https://www.facebook.com/events/753777480244427"
-        />
       </>
     ),
+    embedLinks: [
+      { type: 'facebook', url: 'https://www.facebook.com/events/753777480244427' },
+    ],
   },
   {
     id: '74',
@@ -1871,12 +1878,9 @@ export const events: Event[] = [
         label: 'Facebook event',
       },
     ],
-    description: (
-      <CustomEmbed
-        EmbedComponent={FacebookEmbed}
-        url="https://www.facebook.com/events/s/fete-de-la-musique-2024/777402217521395/"
-      />
-    ),
+    embedLinks: [
+      { type: 'facebook', url: 'https://www.facebook.com/events/s/fete-de-la-musique-2024/777402217521395/' },
+    ],
   },
   {
     id: '75',
@@ -1918,13 +1922,11 @@ export const events: Event[] = [
         <p>
           A très vite 🎶
         </p>
-
-        <CustomEmbed
-          EmbedComponent={FacebookEmbed}
-          url="https://www.facebook.com/events/829825602585397"
-        />
       </>
     ),
+    embedLinks: [
+      { type: 'facebook', url: 'https://www.facebook.com/events/829825602585397' },
+    ],
   },
   {
     id: '76',
@@ -1980,13 +1982,11 @@ export const events: Event[] = [
             </li>
           </ul>
         </p>
-
-        <CustomEmbed
-          EmbedComponent={FacebookEmbed}
-          url="https://www.facebook.com/events/384156541310932/"
-        />
       </>
     ),
+    embedLinks: [
+      { type: 'facebook', url: 'https://www.facebook.com/events/384156541310932/' },
+    ],
   },
   {
     id: '77',
@@ -2053,13 +2053,11 @@ export const events: Event[] = [
         <p>
           Rendez-vous dès 19h, place de la République et parc de L'ingénieur pour profiter de concerts en tout genre !
         </p>
-
-        <CustomEmbed
-          EmbedComponent={FacebookEmbed}
-          url="https://www.facebook.com/events/975278387627020"
-        />
       </>
     ),
+    embedLinks: [
+      { type: 'facebook', url: 'https://www.facebook.com/events/975278387627020' },
+    ],
   },
   {
     id: '79',
@@ -2101,10 +2099,11 @@ export const events: Event[] = [
         <p>
           Avec ça: notre offre hot-dog+pinte à 10€. Mais vous pouvez bien sûr aussi profiter de nos cocktails maisons. 🍸
         </p>
-
-        <CustomEmbed url="https://www.instagram.com/p/C8ZHk4lqMOB/" />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8ZHk4lqMOB/' },
+    ],
   },
   {
     id: '80',
@@ -2223,10 +2222,11 @@ export const events: Event[] = [
         <p>
           Viens vibrer all night long aux rythmes de @__peiyo__, @mojo.music_ et @kalosmusic_ ! 🪩🍻
         </p>
-
-        <CustomEmbed url="https://www.instagram.com/p/C8WZ9S-qjFZ/" />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8WZ9S-qjFZ/' },
+    ],
   },
   {
     id: '82',
@@ -2276,8 +2276,6 @@ export const events: Event[] = [
           Évidemment on vous a préparé une carte de boissons à emporter ! Swipe pour les prix doux 👉🏼
         </p>
 
-        <CustomEmbed url="https://www.instagram.com/p/C8XJXOlKyQR" />
-
         <p>
           🐈‍⬛ Ouvert 7j/7 | 18h-2h
           <br />
@@ -2287,6 +2285,9 @@ export const events: Event[] = [
         </p>
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8XJXOlKyQR' },
+    ],
   },
   {
     id: '83',
@@ -2315,14 +2316,13 @@ export const events: Event[] = [
       },
     ],
     description: (
-      <>
-        <p>
-          Ce soir c’est fanfare en terrasse et djs dedans ! 💥
-        </p>
-
-        <CustomEmbed url="https://www.instagram.com/p/C8eRCkxKiTi" />
-      </>
+      <p>
+        Ce soir c’est fanfare en terrasse et djs dedans ! 💥
+      </p>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8eRCkxKiTi' },
+    ],
   },
   {
     id: '84',
@@ -2372,9 +2372,10 @@ export const events: Event[] = [
           <br />
           EVENEMENT GRATUIT
         </p>
-
-        <CustomEmbed url="https://www.instagram.com/p/C8ZtT3Is2yM" />
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/C8ZtT3Is2yM' },
+    ],
   },
 ];

@@ -1,6 +1,5 @@
 /* Component imports ----------------------------------- */
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { InstagramEmbed } from 'react-social-media-embed';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
@@ -504,14 +503,11 @@ export const events: Event[] = [
         <p>
           Buvette à petits prix (brasserie locale l'Effet Papillon)
         </p>
-        <div
-          className="mx-auto"
-          style={{ maxWidth: 400 }}
-        >
-          <InstagramEmbed url="https://www.instagram.com/p/CtHeXMKIPZT/" />
-        </div>
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/CtHeXMKIPZT/' },
+    ],
   },
   {
     id: '13',
@@ -556,9 +552,6 @@ export const events: Event[] = [
             <p>
               Déplacé au Deus Ex Machina, de 19h à 00h.
             </p>
-            <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
-              <InstagramEmbed url="https://www.instagram.com/p/CtuDHmGKtcx/" />
-            </div>
           </AlertDescription>
         </Alert>
         <p>
@@ -592,6 +585,9 @@ export const events: Event[] = [
         </p>
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/CtuDHmGKtcx/' },
+    ],
   },
   {
     id: '14',
@@ -637,9 +633,6 @@ export const events: Event[] = [
             <p>
               Déplacé au Deus Ex Machina, de 19h à 00h.
             </p>
-            <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
-              <InstagramEmbed url="https://www.instagram.com/p/CtuDHmGKtcx/" />
-            </div>
           </AlertDescription>
         </Alert>
         <p>
@@ -661,6 +654,9 @@ export const events: Event[] = [
         </p>
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/CtuDHmGKtcx/' },
+    ],
   },
   {
     id: '15',
@@ -853,9 +849,6 @@ export const events: Event[] = [
             <p>
               Déplacé à Darwin aux Heures Heureuses.
             </p>
-            <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
-              <InstagramEmbed url="https://www.instagram.com/p/Ctt7gRIMF1O/" />
-            </div>
           </AlertDescription>
         </Alert>
         <p>
@@ -894,6 +887,9 @@ export const events: Event[] = [
         </p>
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/Ctt7gRIMF1O/' },
+    ],
   },
   {
     id: '20',
@@ -1006,16 +1002,11 @@ export const events: Event[] = [
         <p>
           On prend parmis les collectifs les plus bouillants de la régions et on célèbre ensemble la musique jusqu’au petit matin.
         </p>
-        <div
-          className="mx-auto"
-          style={{ maxWidth: 400 }}
-        >
-          <InstagramEmbed
-            url="https://www.instagram.com/p/CtqgK7vg20P/"
-          />
-        </div>
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/CtqgK7vg20P/' },
+    ],
   },
   {
     id: '23',
@@ -1201,9 +1192,6 @@ export const events: Event[] = [
             <p>
               Déplacé à Darwin aux Heures Heureuses.
             </p>
-            <div className="mx-auto">
-              <InstagramEmbed url="https://www.instagram.com/p/Ctt7gRIMF1O/" />
-            </div>
           </AlertDescription>
         </Alert>
         <p>
@@ -1245,14 +1233,12 @@ export const events: Event[] = [
             </li>
           </ul>
         </p>
-        <div
-          className="mx-auto"
-          style={{ maxWidth: 380 }}
-        >
-          <InstagramEmbed url="https://www.instagram.com/p/CstiRaBIbQ_/" />
-        </div>
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/Ctt7gRIMF1O/' },
+      { type: 'instagram', url: 'https://www.instagram.com/p/CstiRaBIbQ_/' },
+    ],
   },
   {
     id: '27',
@@ -1619,14 +1605,11 @@ export const events: Event[] = [
         <p>
           Vous aurez la possibilité de découvrir ou (re)découvrir les saveurs basques avec des Taloas, de la charcuterie/fromage ou encore des desserts...
         </p>
-        <div
-          className="mx-auto"
-          style={{ maxWidth: 400 }}
-        >
-          <InstagramEmbed url="https://www.instagram.com/p/Ctth8ifqaOV" />
-        </div>
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/Ctth8ifqaOV' },
+    ],
   },
   {
     id: '34',
@@ -1997,9 +1980,6 @@ export const events: Event[] = [
             <p>
               Déplacé à Les BROC'S Saint Michel, de 16h à 2h
             </p>
-            <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
-              <InstagramEmbed url="https://www.instagram.com/p/CtuSF7vqFzZ/" />
-            </div>
           </AlertDescription>
         </Alert>
         <p>
@@ -2041,13 +2021,11 @@ export const events: Event[] = [
         <p>
           🙃 𝗔𝗙𝗧𝗘𝗥 𝗣𝗔𝗥𝗧𝗬 𝗚𝗥𝗔𝗧𝗨𝗜𝗧𝗘 @ 𝗜𝗕𝗢𝗔𝗧 🚀 𝗣-𝗔 𝗔𝗨 𝗖𝗟𝗢𝗦𝗜𝗡𝗚 𝗗𝗘 𝟱 𝗮̀ 𝟲𝗵 🤯
         </p>
-        <div
-          className="mx-auto"
-          style={{ maxWidth: 400 }}
-        >
-          <InstagramEmbed url="https://www.instagram.com/p/Ctq3lwlqEzS/" />
-        </div>
       </>
     ),
+    embedLinks: [
+      { type: 'instagram', url: 'https://www.instagram.com/p/CtuSF7vqFzZ/' },
+      { type: 'instagram', url: 'https://www.instagram.com/p/Ctq3lwlqEzS/' },
+    ],
   },
 ];
