@@ -5,6 +5,7 @@ import React from 'react';
 
 /* Component imports ----------------------------------- */
 import CustomEmbed from 'components/CustomEmbed/CustomEmbed';
+import DescriptionRender from 'components/DescriptionRender/DescriptionRender';
 import EventAlert from 'components/EventAlert/EventAlert';
 
 /* Style imports --------------------------------------- */
@@ -49,7 +50,7 @@ const EventRender: React.FC<EventRenderProps> = (
             </h6>
             <br />
             <div className="text-sm text-muted-foreground">
-              {event.description}
+              <DescriptionRender markdown={event.description as string} />
             </div>
           </article>
       }
