@@ -19,10 +19,11 @@ interface InstagramEmbedProps {
   url: string;
   maxWidth?: number;
   className?: string;
+  aspectRatio?: string;
 }
 
-const DEFAULT_MAX_WIDTH = 540;
-const ASPECT_RATIO = '4/5';
+const DEFAULT_MAX_WIDTH = 540 as const;
+const DEFAULT_ASPECT_RATIO = '4/5' as const;
 
 /* InstagramEmbed component ---------------------------- */
 const InstagramEmbed: React.FC<InstagramEmbedProps> = (
@@ -30,6 +31,7 @@ const InstagramEmbed: React.FC<InstagramEmbedProps> = (
     url,
     maxWidth = DEFAULT_MAX_WIDTH,
     className,
+    aspectRatio = DEFAULT_ASPECT_RATIO,
   },
 ) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -58,7 +60,7 @@ const InstagramEmbed: React.FC<InstagramEmbedProps> = (
           /> :
           <EmbedPlaceholder
             platform="instagram"
-            aspectRatio={ASPECT_RATIO}
+            aspectRatio={aspectRatio}
           />
       }
     </div>

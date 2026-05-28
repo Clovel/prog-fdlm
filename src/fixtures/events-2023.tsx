@@ -1,5 +1,5 @@
 /* Component imports ----------------------------------- */
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertDescription } from 'components/ui/alert';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';

@@ -19,6 +19,7 @@ interface CustomEmbedProps {
   url: string;
   type: EventEmbedLinkType;
   maxWidth?: number;
+  className?: string;
 }
 
 /* CustomEmbed component ------------------------------- */
@@ -27,6 +28,7 @@ const CustomEmbed: React.FC<CustomEmbedProps> = (
     url,
     type,
     maxWidth,
+    className,
   },
 ) => {
   switch(type) {
@@ -35,6 +37,7 @@ const CustomEmbed: React.FC<CustomEmbedProps> = (
         <InstagramEmbed
           url={url}
           maxWidth={maxWidth}
+          className={className}
         />
       );
     case 'facebook':
@@ -42,6 +45,7 @@ const CustomEmbed: React.FC<CustomEmbedProps> = (
         <FacebookEmbed
           url={url}
           maxWidth={maxWidth}
+          className={className}
         />
       );
     default: {

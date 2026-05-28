@@ -10,12 +10,12 @@ import React, {
 
 /* Component imports ----------------------------------- */
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from 'components/ui/button';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/collapsible';
+} from 'components/ui/collapsible';
 import EventTime from './EventTime';
 import EventTitleBlock from 'components/EventTitleBlock/EventTitleBlock';
 import EventRender from 'components/EventRender/EventRender';

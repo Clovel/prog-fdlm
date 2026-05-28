@@ -102,9 +102,6 @@ Instagram and Facebook embeds are owned in-tree under `src/components/embeds/`:
 `tsconfig.json` defines two aliases that both resolve to `./src/*`:
 
 - `*` — used by project code (`fixtures/...`, `components/...`, `types/...`, `helpers/...`).
-- `@/*` — used by shadcn-generated code under `src/components/ui/` and `src/lib/utils.ts`. Mirrors the shadcn convention so the registry-installed files work without rewriting their imports.
-
-Stick to the bare-alias style when writing project code; use `@/` only inside shadcn-touched files.
 
 ```ts
 import { events } from 'fixtures/events-2024';

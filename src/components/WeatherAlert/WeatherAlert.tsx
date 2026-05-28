@@ -2,7 +2,7 @@
 import React from 'react';
 
 /* Component imports ----------------------------------- */
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertDescription } from 'components/ui/alert';
 
 /* WeatherAlert component prop types ------------------- */
 interface WeatherAlertProps {}

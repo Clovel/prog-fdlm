@@ -9,7 +9,7 @@ import { reduceEventsByCategory } from 'helpers/reduceEventsByCategory';
 import { sortEventsByCategoryEntries } from 'helpers/orderEventsByCategory';
 
 /* Component imports ----------------------------------- */
-import { Separator } from '@/components/ui/separator';
+import { Separator } from 'components/ui/separator';
 import { InstagramEmbed } from 'components/embeds';
 import EventsRecap from 'components/EventsRecap/EventsRecap';
 import EventCategoryView from 'components/EventCategoryView/EventCategoryView';

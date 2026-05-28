@@ -52,7 +52,7 @@ Expected: `Switched to a new branch 'feature/remove-mui'`.
 
 - [ ] **Step 1.2: Add the `@/*` path alias to `tsconfig.json`**
 
-shadcn uses `@/lib/utils`, `@/components/ui`, etc. throughout its generated code. The existing `"*": ["./src/*"]` alias stays; we add `"@/*": ["./src/*"]` alongside.
+shadcn uses `@/lib/utils`, `@/components/ui`, etc. throughout its generated code. The existing `"*": ["./src/*"]` alias stays; we add `"components/*": ["./src/*"]` alongside.
 
 Modify `tsconfig.json`'s `paths` field to:
 
@@ -61,7 +61,7 @@ Modify `tsconfig.json`'s `paths` field to:
       "*": [
         "./src/*"
       ],
-      "@/*": [
+      "components/*": [
         "./src/*"
       ]
     }
@@ -163,13 +163,13 @@ import { useTheme } from 'next-themes';
 
 /* Component imports ----------------------------------- */
 import { Moon, Sun, Monitor } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from 'components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from 'components/ui/dropdown-menu';
 
 /* ThemeToggle component ------------------------------- */
 const ThemeToggle: React.FC = () => {
@@ -670,7 +670,7 @@ Replace the file body of `src/components/WeatherAlert/WeatherAlert.tsx` with:
 import React from 'react';
 
 /* Component imports ----------------------------------- */
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertDescription } from 'components/ui/alert';
 
 /* WeatherAlert component prop types ------------------- */
 interface WeatherAlertProps {}
@@ -786,7 +786,7 @@ import Divider from '@mui/material/Divider';
 Imports — add:
 
 ```tsx
-import { Separator } from '@/components/ui/separator';
+import { Separator } from 'components/ui/separator';
 ```
 
 Inside the component body, replace:
@@ -889,12 +889,12 @@ import { formatPrice } from 'helpers/formatPrice';
 
 /* Component imports ----------------------------------- */
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from 'components/ui/button';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/collapsible';
+} from 'components/ui/collapsible';
 import EventTime from './EventTime';
 import EventListItemDetails from './EventListItemDetails';
 
@@ -1181,7 +1181,7 @@ import { Alert } from '@mui/material';
 with:
 
 ```tsx
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertDescription } from 'components/ui/alert';
 ```
 
 Find the inline `<Alert severity="warning">...</Alert>` block (around line 898) and replace `severity="warning"` with `variant="warning"`. Wrap the inner content in `<AlertDescription>...</AlertDescription>` (this matches the WeatherAlert pattern).
