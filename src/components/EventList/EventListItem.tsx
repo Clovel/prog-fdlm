@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 
 /* Module imports -------------------------------------- */
-import { formatPrice } from 'helpers/formatPrice';
 
 /* Component imports ----------------------------------- */
 import { ChevronDown, ChevronUp } from 'lucide-react';
@@ -18,7 +17,8 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import EventTime from './EventTime';
-import EventListItemDetails from './EventListItemDetails';
+import EventTitleBlock from 'components/EventTitleBlock/EventTitleBlock';
+import EventRender from 'components/EventRender/EventRender';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
@@ -29,98 +29,25 @@ interface EventListItemProps {
 }
 
 /* EventListItem component ----------------------------- */
-const EventListItem: React.FC<EventListItemProps> = (
-  {
-    event,
-  },
-) => {
+const EventListItem: React.FC<EventListItemProps> = ({ event }) => {
   const [ open, setOpen ] = useState<boolean>(false);
 
   const collapsiblePresent: boolean = useMemo<boolean>(
     () => {
-      return event.description !== undefined;
+      return (
+        event.description !== undefined ||
+        (event.embedLinks !== undefined && event.embedLinks.length > 0) ||
+        (event.links !== undefined && event.links.length > 0)
+      );
     },
     [
       event.description,
-    ]
+      event.embedLinks,
+      event.links,
+    ],
   );
 
-  const titleBlock = (
-    <>
-      <div className="text-lg font-medium">
-        <span className="font-bold">
-          {event.name ?? event.location.name}
-        </span>
-        {
-          event.status !== undefined &&
-            ' - '
-        }
-        {
-          event.status === 'rescheduled' &&
-            <span className="text-orange-600 dark:text-orange-400">
-              Reprogrammé
-            </span>
-        }
-        {
-          event.status === 'canceled' &&
-            <span className="text-red-600 dark:text-red-400">
-              Annulé
-            </span>
-        }
-        {
-          event.status === 'postponed' &&
-            <span className="text-purple-600 dark:text-purple-400">
-              Reporté
-            </span>
-        }
-      </div>
-      <div className="text-sm">
-        <span className="font-semibold">
-          {
-            event.name !== undefined &&
-                event.location.name
-          }
-        </span>
-        <span>
-          {
-            event.name !== undefined &&
-              event.location.addressStr !== undefined &&
-                ', '
-          }
-          {
-            event.location.addressStr !== undefined &&
-              event.location.addressStr
-          }
-        </span>
-        {
-          event.genres !== undefined &&
-          event.genres.length > 0 &&
-            <p>
-              - Genres :
-              {' '}
-              {event.genres.join(', ')}
-            </p>
-        }
-        {
-          event.artists !== undefined &&
-          event.artists.length > 0 &&
-            <p>
-              - Artistes :
-              {' '}
-              {event.artists.join(', ')}
-            </p>
-        }
-        {
-          event.price !== undefined &&
-            <p>
-              - Prix :
-              {' '}
-              {formatPrice(event.price)}
-            </p>
-        }
-      </div>
-    </>
-  );
+  const titleBlock = <EventTitleBlock event={event} />;
 
   return (
     <li className="py-2">
@@ -166,7 +93,7 @@ const EventListItem: React.FC<EventListItemProps> = (
         {
           collapsiblePresent &&
             <CollapsibleContent>
-              <EventListItemDetails event={event} />
+              <EventRender event={event} />
             </CollapsibleContent>
         }
       </Collapsible>

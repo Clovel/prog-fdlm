@@ -1,20 +1,55 @@
 /* Framework imports ----------------------------------- */
 import React from 'react';
 
-/* Type imports ---------------------------------------- */
-import type { Event } from 'types/Event';
+/* Module imports -------------------------------------- */
 
-/* EventListItemDetails component prop types ----------- */
-interface EventListItemDetailsProps {
+/* Component imports ----------------------------------- */
+import {
+  InstagramEmbed,
+  FacebookEmbed,
+} from 'components/embeds';
+
+/* Style imports --------------------------------------- */
+
+/* Type imports ---------------------------------------- */
+import type {
+  Event,
+  EventEmbedLink,
+} from 'types/Event';
+
+/* EventRender component prop types -------------------- */
+interface EventRenderProps {
   event: Event;
 }
 
-/* EventListItemDetails component ---------------------- */
-const EventListItemDetails: React.FC<EventListItemDetailsProps> = (
-  {
-    event,
+/* Helpers --------------------------------------------- */
+const renderEmbed = (link: EventEmbedLink, index: number): React.ReactNode => {
+  switch(link.type) {
+    case 'instagram':
+      return (
+        <InstagramEmbed
+          key={`${link.url}-${index}`}
+          url={link.url}
+          className="my-4"
+        />
+      );
+    case 'facebook':
+      return (
+        <FacebookEmbed
+          key={`${link.url}-${index}`}
+          url={link.url}
+          className="my-4"
+        />
+      );
+    default: {
+      const _exhaustive: never = link.type;
+      return _exhaustive;
+    }
   }
-) => {
+};
+
+/* EventRender component ------------------------------- */
+const EventRender: React.FC<EventRenderProps> = ({ event }) => {
   return (
     <div className="event-description flex flex-col w-full px-4 py-2">
       {
@@ -27,6 +62,13 @@ const EventListItemDetails: React.FC<EventListItemDetailsProps> = (
             <div className="text-sm text-muted-foreground">
               {event.description}
             </div>
+          </article>
+      }
+      {
+        event.embedLinks !== undefined &&
+        event.embedLinks.length > 0 &&
+          <article className="flex flex-col w-full mt-4">
+            {event.embedLinks.map(renderEmbed)}
           </article>
       }
       {
@@ -60,5 +102,5 @@ const EventListItemDetails: React.FC<EventListItemDetailsProps> = (
   );
 };
 
-/* Export EventListItemDetails component --------------- */
-export default EventListItemDetails;
+/* Export EventRender component ------------------------ */
+export default EventRender;
