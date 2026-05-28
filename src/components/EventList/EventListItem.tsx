@@ -173,9 +173,11 @@ const EventListItem: React.FC<EventListItemProps> = (
                 }
               </React.Fragment>
             }
-            secondaryTypographyProps={
+            slotProps={
               {
-                component: 'div',
+                secondary: {
+                  component: 'div',
+                },
               }
             }
           />

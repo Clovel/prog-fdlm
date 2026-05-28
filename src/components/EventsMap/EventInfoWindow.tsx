@@ -51,7 +51,7 @@ const EventInfoWindow: React.FC<EventInfoWindowProps> = (
                 markerInfo.event.links.map(
                   (link, index) => (
                     <li
-                      key={`${link.label}-${index}`}
+                      key={`${link.url}-${index}`}
                     >
                       <MuiLink
                         href={link.url}

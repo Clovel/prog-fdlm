@@ -1,6 +1,5 @@
 /* Framework imports ----------------------------------- */
 import React, {
-  useCallback,
   useEffect,
   useState,
 } from 'react';
@@ -70,7 +69,6 @@ const EventsMap: React.FC<EventsMapProps> = (
   const [ loadingGeocoding, setLoadingGeocoding ] = useState<boolean>(false);
   const [ eventMarkers, setEventMarkers ] = useState<MarkerInfo[]>([]);
   const [ selectedMarker, setSelectedMarker ] = useState<MarkerInfo | null>(null);
-  const [ map, setMap ] = useState<google.maps.Map | null>(null);
 
   const { isLoaded, loadError } = useJsApiLoader(
     {
@@ -117,6 +115,7 @@ const EventsMap: React.FC<EventsMapProps> = (
         setEventMarkers(markers);
       };
 
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoadingGeocoding(true);
       fetchEventMarkers()
         .catch(
@@ -133,23 +132,6 @@ const EventsMap: React.FC<EventsMapProps> = (
     [
       events,
     ]
-  );
-
-  const onLoad = useCallback(
-    function callback(map: google.maps.Map) {
-      // This is just an example of getting and using the map instance!!! don't just blindly copy!
-      // const bounds = new window.google.maps.La
-
-      setMap(map);
-    },
-    [],
-  );
-
-  const onUnmount = useCallback(
-    function callback(map: google.maps.Map) {
-      setMap(null);
-    },
-    [],
   );
 
   if(loadError !== undefined) {
@@ -210,8 +192,6 @@ const EventsMap: React.FC<EventsMapProps> = (
           }
         }
         onClick={(): void => setSelectedMarker(null)}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
       >
         {
           eventMarkers

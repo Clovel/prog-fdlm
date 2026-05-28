@@ -32,16 +32,14 @@ const NextAppDirEmotionCacheProvider: React.FC<NextAppDirEmotionCacheProviderPro
 
   const [ { cache, flush } ] = useState(
     () => {
-    // eslint-disable-next-line @typescript-eslint/no-shadow
       const cache = createCache(options);
       cache.compat = true;
 
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       const prevInsert = cache.insert;
 
       let inserted: string[] = [];
 
-      cache.insert = (...args): string | void => {
+      cache.insert = (...args: Parameters<typeof prevInsert>): string | void => {
         const serialized = args[1];
         if(cache.inserted[serialized.name] === undefined) {
           inserted.push(serialized.name);
@@ -49,7 +47,6 @@ const NextAppDirEmotionCacheProvider: React.FC<NextAppDirEmotionCacheProviderPro
         return prevInsert(...args);
       };
 
-      // eslint-disable-next-line @typescript-eslint/no-shadow
       const flush = (): string[] => {
         const prevInserted = inserted;
         inserted = [];
@@ -70,7 +67,6 @@ const NextAppDirEmotionCacheProvider: React.FC<NextAppDirEmotionCacheProviderPro
         return null;
       }
       let styles = '';
-      // eslint-disable-next-line no-restricted-syntax
       for(const name of names) {
         styles += cache.inserted[name];
       }
@@ -78,7 +74,6 @@ const NextAppDirEmotionCacheProvider: React.FC<NextAppDirEmotionCacheProviderPro
         <style
           key={cache.key}
           data-emotion={`${cache.key} ${names.join(' ')}`}
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={
             {
               __html: styles,
