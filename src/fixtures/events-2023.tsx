@@ -1,5 +1,5 @@
 /* Component imports ----------------------------------- */
-import { Alert } from '@mui/material';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { InstagramEmbed } from 'react-social-media-embed';
 
 /* Type imports ---------------------------------------- */
@@ -546,18 +546,20 @@ export const events: Event[] = [
     description: (
       <>
         <Alert
-          severity="warning"
-          icon={false}
+          variant="warning"
+          className="my-2 max-w-[450px] mx-auto"
         >
-          <p>
-            Évènement déplacé a cause des intempéries.
-          </p>
-          <p>
-            Déplacé au Deus Ex Machina, de 19h à 00h.
-          </p>
-          <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
-            <InstagramEmbed url="https://www.instagram.com/p/CtuDHmGKtcx/" />
-          </div>
+          <AlertDescription>
+            <p>
+              Évènement déplacé a cause des intempéries.
+            </p>
+            <p>
+              Déplacé au Deus Ex Machina, de 19h à 00h.
+            </p>
+            <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
+              <InstagramEmbed url="https://www.instagram.com/p/CtuDHmGKtcx/" />
+            </div>
+          </AlertDescription>
         </Alert>
         <p>
           WHYNOT présente
@@ -625,18 +627,20 @@ export const events: Event[] = [
     description: (
       <>
         <Alert
-          severity="warning"
-          icon={false}
+          variant="warning"
+          className="my-2 max-w-[450px] mx-auto"
         >
-          <p>
-            Évènement déplacé a cause des intempéries.
-          </p>
-          <p>
-            Déplacé au Deus Ex Machina, de 19h à 00h.
-          </p>
-          <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
-            <InstagramEmbed url="https://www.instagram.com/p/CtuDHmGKtcx/" />
-          </div>
+          <AlertDescription>
+            <p>
+              Évènement déplacé a cause des intempéries.
+            </p>
+            <p>
+              Déplacé au Deus Ex Machina, de 19h à 00h.
+            </p>
+            <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
+              <InstagramEmbed url="https://www.instagram.com/p/CtuDHmGKtcx/" />
+            </div>
+          </AlertDescription>
         </Alert>
         <p>
           Programme :
@@ -839,18 +843,20 @@ export const events: Event[] = [
     description: (
       <>
         <Alert
-          severity="warning"
-          icon={false}
+          variant="warning"
+          className="my-2 max-w-[450px] mx-auto"
         >
-          <p>
-            Évènement déplacé a cause des intempéries.
-          </p>
-          <p>
-            Déplacé à Darwin aux Heures Heureuses.
-          </p>
-          <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
-            <InstagramEmbed url="https://www.instagram.com/p/Ctt7gRIMF1O/" />
-          </div>
+          <AlertDescription>
+            <p>
+              Évènement déplacé a cause des intempéries.
+            </p>
+            <p>
+              Déplacé à Darwin aux Heures Heureuses.
+            </p>
+            <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
+              <InstagramEmbed url="https://www.instagram.com/p/Ctt7gRIMF1O/" />
+            </div>
+          </AlertDescription>
         </Alert>
         <p>
           On prends les mêmes et on recommence !
@@ -1185,18 +1191,20 @@ export const events: Event[] = [
     description: (
       <>
         <Alert
-          severity="warning"
-          icon={false}
+          variant="warning"
+          className="my-2 max-w-[450px] mx-auto"
         >
-          <p>
-            Évènement déplacé a cause des intempéries.
-          </p>
-          <p>
-            Déplacé à Darwin aux Heures Heureuses.
-          </p>
-          <div className="mx-auto">
-            <InstagramEmbed url="https://www.instagram.com/p/Ctt7gRIMF1O/" />
-          </div>
+          <AlertDescription>
+            <p>
+              Évènement déplacé a cause des intempéries.
+            </p>
+            <p>
+              Déplacé à Darwin aux Heures Heureuses.
+            </p>
+            <div className="mx-auto">
+              <InstagramEmbed url="https://www.instagram.com/p/Ctt7gRIMF1O/" />
+            </div>
+          </AlertDescription>
         </Alert>
         <p>
           Ayooo les loubards !!!
@@ -1979,18 +1987,20 @@ export const events: Event[] = [
     description: (
       <>
         <Alert
-          severity="warning"
-          icon={false}
+          variant="warning"
+          className="my-2 max-w-[450px] mx-auto"
         >
-          <p>
-            Évènement déplacé a cause des intempéries.
-          </p>
-          <p>
-            Déplacé à Les BROC'S Saint Michel, de 16h à 2h
-          </p>
-          <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
-            <InstagramEmbed url="https://www.instagram.com/p/CtuSF7vqFzZ/" />
-          </div>
+          <AlertDescription>
+            <p>
+              Évènement déplacé a cause des intempéries.
+            </p>
+            <p>
+              Déplacé à Les BROC'S Saint Michel, de 16h à 2h
+            </p>
+            <div className="mx-auto max-w-[380px] lg:max-w-[450px]">
+              <InstagramEmbed url="https://www.instagram.com/p/CtuSF7vqFzZ/" />
+            </div>
+          </AlertDescription>
         </Alert>
         <p>
           📅 𝗠𝗘𝗥𝗖𝗥𝗘𝗗𝗜 𝟮𝟭 𝗝𝗨𝗜𝗡 : 𝟭𝟲𝗵 - 𝟬𝟬𝗵𝟬𝟬 𝗣𝗟𝗔𝗖𝗘 𝗦𝗧 𝗠𝗜𝗖𝗛𝗘𝗟

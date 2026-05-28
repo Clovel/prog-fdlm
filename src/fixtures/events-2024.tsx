@@ -1,5 +1,5 @@
 /* Component imports ----------------------------------- */
-import { Alert } from '@mui/material';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import CustomEmbed from 'components/CustomEmbed/CustomEmbed';
 import { FacebookEmbed } from 'react-social-media-embed';
 
@@ -896,10 +896,12 @@ export const events: Event[] = [
     description: (
       <>
         <Alert
-          severity="warning"
-          icon={false}
+          variant="warning"
+          className="my-2 max-w-[450px] mx-auto"
         >
-          Évènement le 23 juin 2024
+          <AlertDescription>
+            Évènement le 23 juin 2024
+          </AlertDescription>
         </Alert>
         <p>
           <i>
