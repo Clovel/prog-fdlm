@@ -1,31 +1,23 @@
 /* Framework imports ----------------------------------- */
 import React from 'react';
 
-/* Component imports ----------------------------------- */
-import Typography from '@mui/material/Typography';
-import MuiLink from '@mui/material/Link';
-
 /* Copyright component --------------------------------- */
 const Copyright: React.FC = () => {
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-    >
+    <p className="text-sm text-muted-foreground text-center">
       {'Made with ❤️ by '}
-      <MuiLink
-        color="inherit"
+      <a
         href="https://github.com/Clovel"
         target="_blank"
         rel="noopener noreferrer"
+        className="underline-offset-4 hover:underline"
       >
         Clovis Durand
-      </MuiLink>
+      </a>
       {', Copyright '}
       {new Date().getFullYear()}
       .
-    </Typography>
+    </p>
   );
 };
 

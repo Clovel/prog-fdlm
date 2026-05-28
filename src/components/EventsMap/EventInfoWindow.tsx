@@ -1,16 +1,6 @@
 /* Framework imports ----------------------------------- */
 import React from 'react';
 
-/* Module imports -------------------------------------- */
-
-/* Component imports ----------------------------------- */
-import {
-  Typography,
-  Link as MuiLink,
-} from '@mui/material';
-
-/* Style imports --------------------------------------- */
-
 /* Type imports ---------------------------------------- */
 import type { MarkerInfo } from './EventsMap';
 
@@ -27,43 +17,38 @@ const EventInfoWindow: React.FC<EventInfoWindowProps> = (
 ) => {
   return (
     <div>
-      <Typography variant="h5">
+      <h5 className="text-xl font-semibold">
         {markerInfo.event.name}
-      </Typography>
-      <Typography variant="h6">
+      </h5>
+      <h6 className="text-base font-semibold mt-2">
         Adresse :
-      </Typography>
-      <Typography>
+      </h6>
+      <p>
         {markerInfo.event.location.name}
-      </Typography>
-      <Typography>
+      </p>
+      <p>
         {markerInfo.event.location.addressStr}
-      </Typography>
+      </p>
       {
-        markerInfo.event.links &&
+        markerInfo.event.links !== undefined &&
         markerInfo.event.links.length > 0 &&
           <>
-            <Typography variant="h6">
+            <h6 className="text-base font-semibold mt-2">
               Liens :
-            </Typography>
+            </h6>
             <ul>
               {
                 markerInfo.event.links.map(
                   (link, index) => (
-                    <li
-                      key={`${link.url}-${index}`}
-                    >
-                      <MuiLink
+                    <li key={`${link.url}-${index}`}>
+                      <a
                         href={link.url}
-                        underline="none"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block ellipsis"
+                        className="inline-block underline-offset-4 hover:underline"
                       >
-                        <Typography>
-                          {link.label}
-                        </Typography>
-                      </MuiLink>
+                        {link.label}
+                      </a>
                     </li>
                   ),
                 )
@@ -74,9 +59,9 @@ const EventInfoWindow: React.FC<EventInfoWindowProps> = (
       {
         markerInfo.event.description !== undefined &&
           <>
-            <Typography variant="h6">
+            <h6 className="text-base font-semibold mt-2">
               Description :
-            </Typography>
+            </h6>
             <div>
               {markerInfo.event.description}
             </div>

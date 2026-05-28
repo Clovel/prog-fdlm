@@ -1,15 +1,6 @@
 /* Framework imports ----------------------------------- */
 import React from 'react';
 
-/* Module imports -------------------------------------- */
-
-/* Component imports ----------------------------------- */
-import Typography from '@mui/material/Typography';
-
-/* Style imports --------------------------------------- */
-
-/* Type imports ---------------------------------------- */
-
 /* EventTime component prop types ---------------------- */
 interface EventTimeProps {
   startTime: Date;
@@ -24,12 +15,7 @@ const EventTime: React.FC<EventTimeProps> = (
   }
 ) => {
   return (
-    <Typography
-      sx={{ display: 'inline' }}
-      component="span"
-      variant="body2"
-      color="text.primary"
-    >
+    <span className="inline text-sm">
       {
         endTime !== undefined ?
           'De ' :
@@ -59,7 +45,7 @@ const EventTime: React.FC<EventTimeProps> = (
             }
           </>
       }
-    </Typography>
+    </span>
   );
 };
 
