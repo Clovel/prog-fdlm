@@ -1,14 +1,10 @@
 'use client';
 
 /* Framework imports ----------------------------------- */
-import React, {
-  useRef,
-  useState,
-} from 'react';
+import React, { useRef } from 'react';
 
 /* Module imports -------------------------------------- */
 import { useInViewport } from 'hooks/useInViewport';
-import { useSocialEmbedConsent } from 'hooks/useSocialEmbedConsent';
 import { useSocialEmbedScript } from 'hooks/useSocialEmbedScript';
 
 /* Component imports ----------------------------------- */
@@ -43,13 +39,8 @@ const FacebookEmbed: React.FC<FacebookEmbedProps> = (
 ) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const inViewport = useInViewport(containerRef);
-  const globalConsent = useSocialEmbedConsent();
-  const [ localConsent, setLocalConsent ] = useState<boolean>(false);
 
-  const consented = globalConsent || localConsent;
-  const shouldLoad = consented && inViewport;
-
-  useSocialEmbedScript('facebook', shouldLoad);
+  useSocialEmbedScript('facebook', inViewport);
 
   const blockClass = type === 'video' ? 'fb-video' : 'fb-post';
   const aspectRatio = type === 'video' ? VIDEO_ASPECT_RATIO : POST_ASPECT_RATIO;
@@ -66,7 +57,7 @@ const FacebookEmbed: React.FC<FacebookEmbedProps> = (
       }}
     >
       {
-        shouldLoad ?
+        inViewport ?
           <div
             className={blockClass}
             data-href={url}
@@ -76,8 +67,6 @@ const FacebookEmbed: React.FC<FacebookEmbedProps> = (
           <EmbedPlaceholder
             platform="facebook"
             aspectRatio={aspectRatio}
-            consented={consented}
-            onConsent={(): void => setLocalConsent(true)}
           />
       }
     </div>

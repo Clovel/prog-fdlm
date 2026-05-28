@@ -6,7 +6,6 @@ import React from 'react';
 /* Module imports -------------------------------------- */
 
 /* Component imports ----------------------------------- */
-import { Button } from '@/components/ui/button';
 
 /* Style imports --------------------------------------- */
 
@@ -17,13 +16,11 @@ import type { SocialEmbedPlatform } from 'types/Event';
 interface EmbedPlaceholderProps {
   platform: SocialEmbedPlatform;
   aspectRatio: string;
-  consented: boolean;
-  onConsent: () => void;
 }
 
 const LABELS: Record<SocialEmbedPlatform, string> = {
-  instagram: 'Charger la publication Instagram',
-  facebook: 'Charger la publication Facebook',
+  instagram: 'Chargement de la publication Instagram…',
+  facebook: 'Chargement de la publication Facebook…',
 };
 
 /* EmbedPlaceholder component -------------------------- */
@@ -31,8 +28,6 @@ const EmbedPlaceholder: React.FC<EmbedPlaceholderProps> = (
   {
     platform,
     aspectRatio,
-    consented,
-    onConsent,
   },
 ) => {
   return (
@@ -40,19 +35,9 @@ const EmbedPlaceholder: React.FC<EmbedPlaceholderProps> = (
       className="w-full flex items-center justify-center bg-muted/40 border border-border rounded-md"
       style={{ aspectRatio }}
     >
-      {
-        consented ?
-          <span className="text-sm text-muted-foreground">
-            Chargement…
-          </span> :
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onConsent}
-          >
-            {LABELS[platform]}
-          </Button>
-      }
+      <span className="text-sm text-muted-foreground">
+        {LABELS[platform]}
+      </span>
     </div>
   );
 };

@@ -53,9 +53,9 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
           content="width=device-width, initial-scale=1"
         />
       </head>
-      <Analytics />
       <MainLayout>
         {children}
+        <Analytics />
         <SpeedInsights />
       </MainLayout>
     </html>

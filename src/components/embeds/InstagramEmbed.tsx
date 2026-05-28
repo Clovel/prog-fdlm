@@ -1,14 +1,10 @@
 'use client';
 
 /* Framework imports ----------------------------------- */
-import React, {
-  useRef,
-  useState,
-} from 'react';
+import React, { useRef } from 'react';
 
 /* Module imports -------------------------------------- */
 import { useInViewport } from 'hooks/useInViewport';
-import { useSocialEmbedConsent } from 'hooks/useSocialEmbedConsent';
 import { useSocialEmbedScript } from 'hooks/useSocialEmbedScript';
 
 /* Component imports ----------------------------------- */
@@ -38,13 +34,8 @@ const InstagramEmbed: React.FC<InstagramEmbedProps> = (
 ) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const inViewport = useInViewport(containerRef);
-  const globalConsent = useSocialEmbedConsent();
-  const [ localConsent, setLocalConsent ] = useState<boolean>(false);
 
-  const consented = globalConsent || localConsent;
-  const shouldLoad = consented && inViewport;
-
-  useSocialEmbedScript('instagram', shouldLoad);
+  useSocialEmbedScript('instagram', inViewport);
 
   return (
     <div
@@ -58,7 +49,7 @@ const InstagramEmbed: React.FC<InstagramEmbedProps> = (
       }}
     >
       {
-        shouldLoad ?
+        inViewport ?
           <blockquote
             className="instagram-media"
             data-instgrm-permalink={url}
@@ -68,8 +59,6 @@ const InstagramEmbed: React.FC<InstagramEmbedProps> = (
           <EmbedPlaceholder
             platform="instagram"
             aspectRatio={ASPECT_RATIO}
-            consented={consented}
-            onConsent={(): void => setLocalConsent(true)}
           />
       }
     </div>
