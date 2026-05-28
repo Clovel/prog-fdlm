@@ -53,8 +53,6 @@ const EventListItem: React.FC<EventListItemProps> = (
     ],
   );
 
-  const titleBlock = <EventTitleBlock event={event} />;
-
   return (
     <li className="py-2">
       <Collapsible
@@ -65,7 +63,7 @@ const EventListItem: React.FC<EventListItemProps> = (
         <CollapsibleTrigger asChild disabled={!collapsiblePresent}>
           <div className="flex items-center justify-between gap-2 px-4 cursor-pointer rounded-md hover:bg-accent">
             <div className="flex-1 min-w-0 -mx-2 px-2 py-1">
-              {titleBlock}
+            <EventTitleBlock event={event} />
             </div>
             <div className="flex items-center gap-2 shrink-0">
               <EventTime
