@@ -7,3 +7,4 @@ export * from './eventEmbedLinks';
 export * from './eventAlerts';
 export * from './generalAlerts';
 export * from './relations';
+export * from './auth';
