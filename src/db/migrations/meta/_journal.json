@@ -15,6 +15,20 @@
       "when": 1780150019257,
       "tag": "0001_nappy_black_bird",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1780154693287,
+      "tag": "0002_numerous_nomad",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1780156057527,
+      "tag": "0003_quiet_tattoo",
+      "breakpoints": true
     }
   ]
 }

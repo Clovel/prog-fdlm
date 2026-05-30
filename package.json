@@ -13,7 +13,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "db:seed": "tsx --env-file=.env.local src/db/seed/index.ts"
+    "db:seed": "tsx --env-file=.env.local src/db/seed/index.ts",
+    "db:seed:admin": "tsx --env-file=.env.local src/db/seed/admin.ts"
   },
   "engines": {
     "node": ">=24.0.0 <25.0.0",
@@ -29,6 +30,7 @@
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "axios": "^1.16.1",
+    "better-auth": "^1.6.12",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
@@ -52,6 +54,7 @@
     "react-resizable-panels": "^4",
     "recharts": "3.8.0",
     "remark-gfm": "^4.0.1",
+    "resend": "^6.12.4",
     "shadcn": "^4.8.2",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.6.0",
@@ -77,5 +80,10 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.60.0"
   },
-  "packageManager": "pnpm@11.4.0+sha512.f0febc7e37552ab485494a914241b338e0b3580b93d54ce31f00933015880863129038a1b4ae4e414a0ee63ac35bf21197e990172c4a68256450b5636310968f"
+  "packageManager": "pnpm@11.4.0+sha512.f0febc7e37552ab485494a914241b338e0b3580b93d54ce31f00933015880863129038a1b4ae4e414a0ee63ac35bf21197e990172c4a68256450b5636310968f",
+  "pnpm": {
+    "overrides": {
+      "kysely": "0.28.17"
+    }
+  }
 }
