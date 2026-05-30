@@ -56,12 +56,12 @@ export interface ListEditionEventsResult {
 /* Query ----------------------------------------------- */
 export const listEditionEvents = async (input: ListEditionEventsInput): Promise<ListEditionEventsResult | null> => {
   const editionRows = await db
-    .select({ id: editions.id })
+    .select({ id: editions.id, isPublished: editions.isPublished })
     .from(editions)
     .where(eq(editions.year, input.year))
     .limit(1);
   const edition = editionRows[0];
-  if(edition === undefined) {
+  if(edition === undefined || !edition.isPublished) {
     return null;
   }
 

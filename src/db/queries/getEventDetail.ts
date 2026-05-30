@@ -1,9 +1,9 @@
 /* Module imports -------------------------------------- */
-import { asc, eq } from 'drizzle-orm';
+import { and, asc, eq } from 'drizzle-orm';
 
 /* Module imports (project) ---------------------------- */
 import { db } from '../index';
-import { events, eventLinks, eventEmbedLinks, eventAlerts } from '../schema';
+import { editions, events, eventLinks, eventEmbedLinks, eventAlerts } from '../schema';
 
 /* Type imports ---------------------------------------- */
 import type { EventDetailDto } from './types';
@@ -17,7 +17,8 @@ export const getEventDetail = async (eventId: string): Promise<EventDetailDto | 
       description: events.description,
     })
     .from(events)
-    .where(eq(events.id, eventId))
+    .innerJoin(editions, eq(events.editionId, editions.id))
+    .where(and(eq(events.id, eventId), eq(editions.isPublished, true)))
     .limit(1);
   const event = eventRows[0];
   if(event === undefined) {

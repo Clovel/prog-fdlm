@@ -21,13 +21,14 @@ export const getEdition = async (year: number): Promise<GetEditionResult | null>
       year: editions.year,
       description: editions.description,
       dayOfFestival: editions.dayOfFestival,
+      isPublished: editions.isPublished,
     })
     .from(editions)
     .where(eq(editions.year, year))
     .limit(1);
 
   const edition = editionRows[0];
-  if(edition === undefined) {
+  if(edition === undefined || !edition.isPublished) {
     return null;
   }
 
@@ -48,5 +49,13 @@ export const getEdition = async (year: number): Promise<GetEditionResult | null>
     )
     .orderBy(asc(generalAlerts.position));
 
-  return { edition, generalAlerts: alertRows };
+  return {
+    edition: {
+      id: edition.id,
+      year: edition.year,
+      description: edition.description,
+      dayOfFestival: edition.dayOfFestival,
+    },
+    generalAlerts: alertRows,
+  };
 };

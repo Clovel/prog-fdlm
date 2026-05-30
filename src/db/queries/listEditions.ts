@@ -1,5 +1,5 @@
 /* Module imports -------------------------------------- */
-import { desc } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 
 /* Module imports (project) ---------------------------- */
 import { db } from '../index';
@@ -17,6 +17,7 @@ export const listEditions = async (): Promise<EditionDto[]> => {
       description: editions.description,
     })
     .from(editions)
+    .where(eq(editions.isPublished, true))
     .orderBy(desc(editions.year));
   return rows;
 };
