@@ -10,7 +10,6 @@ export const alertVariantEnum = pgEnum('alert_variant', [
   'default',
   'destructive',
   'warning',
-  'info',
   'success',
 ]);
 
