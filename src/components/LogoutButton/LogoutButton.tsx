@@ -3,6 +3,7 @@
 /* Framework imports ----------------------------------- */
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { LogOut } from 'lucide-react';
 
 /* Module imports (project) ---------------------------- */
 import { cn } from 'lib/utils';
@@ -26,7 +27,7 @@ const LogoutButton: React.FC<LogoutButtonProps> = ({ className }) => {
     <button
       type="button"
       className={cn(
-        'w-full rounded-md px-3 py-2 text-left text-sm font-medium transition-colors',
+        'flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm font-medium transition-colors',
         'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
         className,
       )}
@@ -34,6 +35,7 @@ const LogoutButton: React.FC<LogoutButtonProps> = ({ className }) => {
         void handleLogout();
       }}
     >
+      <LogOut className="size-4 shrink-0" aria-hidden="true" />
       Se déconnecter
     </button>
   );

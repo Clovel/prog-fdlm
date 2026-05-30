@@ -4,6 +4,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { ArrowLeft } from 'lucide-react';
 
 /* Component imports ----------------------------------- */
 import { Separator } from 'components/ui/separator';
@@ -40,25 +41,40 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ role }) => {
     <div className="flex h-full flex-col">
       <nav className="flex flex-col gap-1 p-3">
         {
-          items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                'rounded-md px-3 py-2 text-sm font-medium transition-colors',
-                isActive(pathname, item.href)
-                  ? 'bg-accent text-accent-foreground'
-                  : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
-              )}
-            >
-              {item.label}
-            </Link>
-          ))
+          items.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  'flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                  isActive(pathname, item.href)
+                    ? 'bg-accent text-accent-foreground'
+                    : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+                )}
+              >
+                <Icon className="size-4 shrink-0" aria-hidden="true" />
+                {item.label}
+              </Link>
+            );
+          })
         }
       </nav>
       <div className="mt-auto">
         <Separator />
-        <nav className="p-3">
+        <nav className="flex flex-col gap-1 p-3">
+          <Link
+            href="/"
+            className={cn(
+              'flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+              'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+            )}
+          >
+            <ArrowLeft className="size-4 shrink-0" aria-hidden="true" />
+            Retour au site public
+          </Link>
           <LogoutButton />
         </nav>
       </div>
