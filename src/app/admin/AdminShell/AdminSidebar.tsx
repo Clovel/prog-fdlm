@@ -5,6 +5,10 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+/* Component imports ----------------------------------- */
+import { Separator } from 'components/ui/separator';
+import LogoutButton from 'components/LogoutButton/LogoutButton';
+
 /* Module imports -------------------------------------- */
 import { cn } from 'lib/utils';
 import { adminNavItems } from './navItems';
@@ -33,24 +37,32 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ role }) => {
   );
 
   return (
-    <nav className="flex flex-col gap-1 p-3">
-      {
-        items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={cn(
-              'rounded-md px-3 py-2 text-sm font-medium transition-colors',
-              isActive(pathname, item.href)
-                ? 'bg-accent text-accent-foreground'
-                : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
-            )}
-          >
-            {item.label}
-          </Link>
-        ))
-      }
-    </nav>
+    <div className="flex h-full flex-col">
+      <nav className="flex flex-col gap-1 p-3">
+        {
+          items.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                'rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                isActive(pathname, item.href)
+                  ? 'bg-accent text-accent-foreground'
+                  : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
+              )}
+            >
+              {item.label}
+            </Link>
+          ))
+        }
+      </nav>
+      <div className="mt-auto">
+        <Separator />
+        <nav className="p-3">
+          <LogoutButton />
+        </nav>
+      </div>
+    </div>
   );
 };
 
