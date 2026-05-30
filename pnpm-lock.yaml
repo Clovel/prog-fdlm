@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  kysely: 0.28.17
+
 dependencies:
   '@base-ui/react':
     specifier: ^1.5.0
@@ -49,7 +52,7 @@ dependencies:
     version: 3.2.0(date-fns@4.3.0)
   drizzle-orm:
     specifier: ^0.45.2
-    version: 0.45.2(kysely@0.29.2)(postgres@3.4.9)
+    version: 0.45.2(kysely@0.28.17)(postgres@3.4.9)
   embla-carousel-react:
     specifier: ^8.6.0
     version: 8.6.0(react@19.2.6)
@@ -503,7 +506,7 @@ packages:
       use-sync-external-store: 1.6.0(react@19.2.6)
     dev: false
 
-  /@better-auth/core@1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.29.2)(nanostores@1.3.0):
+  /@better-auth/core@1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.28.17)(nanostores@1.3.0):
     resolution: {integrity: sha512-6mXtYSYfo6TvHHCZAZmfjvIQQtBDWzWzwy9iIWPEoede2lP2SuJzkfIQNuTtIGzZcn7a9iuzIm1jWDBzfnBARg==}
     peerDependencies:
       '@better-auth/utils': 0.4.1
@@ -512,7 +515,7 @@ packages:
       '@opentelemetry/api': ^1.9.0
       better-call: 1.3.5
       jose: ^6.1.0
-      kysely: ^0.28.5 || ^0.29.0
+      kysely: 0.28.17
       nanostores: ^1.0.1
     peerDependenciesMeta:
       '@cloudflare/workers-types':
@@ -526,7 +529,7 @@ packages:
       '@standard-schema/spec': 1.1.0
       better-call: 1.3.5(zod@4.4.3)
       jose: 6.2.3
-      kysely: 0.29.2
+      kysely: 0.28.17
       nanostores: 1.3.0
       zod: 4.4.3
     dev: false
@@ -541,24 +544,24 @@ packages:
       drizzle-orm:
         optional: true
     dependencies:
-      '@better-auth/core': 1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.29.2)(nanostores@1.3.0)
+      '@better-auth/core': 1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.28.17)(nanostores@1.3.0)
       '@better-auth/utils': 0.4.1
-      drizzle-orm: 0.45.2(kysely@0.29.2)(postgres@3.4.9)
+      drizzle-orm: 0.45.2(kysely@0.28.17)(postgres@3.4.9)
     dev: false
 
-  /@better-auth/kysely-adapter@1.6.12(@better-auth/core@1.6.12)(@better-auth/utils@0.4.1)(kysely@0.29.2):
+  /@better-auth/kysely-adapter@1.6.12(@better-auth/core@1.6.12)(@better-auth/utils@0.4.1)(kysely@0.28.17):
     resolution: {integrity: sha512-KhPwPmLj+MoTVGV6goPfCYf/7Fuiy2Q37GEWhvQdoFjkYKbGo995OoghBVNBnAYOakYvTYjG0JebCfiETBVX3g==}
     peerDependencies:
       '@better-auth/core': ^1.6.12
       '@better-auth/utils': 0.4.1
-      kysely: ^0.28.17 || ^0.29.0
+      kysely: 0.28.17
     peerDependenciesMeta:
       kysely:
         optional: true
     dependencies:
-      '@better-auth/core': 1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.29.2)(nanostores@1.3.0)
+      '@better-auth/core': 1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.28.17)(nanostores@1.3.0)
       '@better-auth/utils': 0.4.1
-      kysely: 0.29.2
+      kysely: 0.28.17
     dev: false
 
   /@better-auth/memory-adapter@1.6.12(@better-auth/core@1.6.12)(@better-auth/utils@0.4.1):
@@ -567,7 +570,7 @@ packages:
       '@better-auth/core': ^1.6.12
       '@better-auth/utils': 0.4.1
     dependencies:
-      '@better-auth/core': 1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.29.2)(nanostores@1.3.0)
+      '@better-auth/core': 1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.28.17)(nanostores@1.3.0)
       '@better-auth/utils': 0.4.1
     dev: false
 
@@ -581,7 +584,7 @@ packages:
       mongodb:
         optional: true
     dependencies:
-      '@better-auth/core': 1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.29.2)(nanostores@1.3.0)
+      '@better-auth/core': 1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.28.17)(nanostores@1.3.0)
       '@better-auth/utils': 0.4.1
     dev: false
 
@@ -598,7 +601,7 @@ packages:
       prisma:
         optional: true
     dependencies:
-      '@better-auth/core': 1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.29.2)(nanostores@1.3.0)
+      '@better-auth/core': 1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.28.17)(nanostores@1.3.0)
       '@better-auth/utils': 0.4.1
     dev: false
 
@@ -609,7 +612,7 @@ packages:
       '@better-auth/utils': 0.4.1
       '@better-fetch/fetch': 1.1.21
     dependencies:
-      '@better-auth/core': 1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.29.2)(nanostores@1.3.0)
+      '@better-auth/core': 1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.28.17)(nanostores@1.3.0)
       '@better-auth/utils': 0.4.1
       '@better-fetch/fetch': 1.1.21
     dev: false
@@ -4437,9 +4440,9 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@better-auth/core': 1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.29.2)(nanostores@1.3.0)
+      '@better-auth/core': 1.6.12(@better-auth/utils@0.4.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.5)(jose@6.2.3)(kysely@0.28.17)(nanostores@1.3.0)
       '@better-auth/drizzle-adapter': 1.6.12(@better-auth/core@1.6.12)(@better-auth/utils@0.4.1)(drizzle-orm@0.45.2)
-      '@better-auth/kysely-adapter': 1.6.12(@better-auth/core@1.6.12)(@better-auth/utils@0.4.1)(kysely@0.29.2)
+      '@better-auth/kysely-adapter': 1.6.12(@better-auth/core@1.6.12)(@better-auth/utils@0.4.1)(kysely@0.28.17)
       '@better-auth/memory-adapter': 1.6.12(@better-auth/core@1.6.12)(@better-auth/utils@0.4.1)
       '@better-auth/mongo-adapter': 1.6.12(@better-auth/core@1.6.12)(@better-auth/utils@0.4.1)
       '@better-auth/prisma-adapter': 1.6.12(@better-auth/core@1.6.12)(@better-auth/utils@0.4.1)
@@ -4451,9 +4454,9 @@ packages:
       better-call: 1.3.5(zod@4.4.3)
       defu: 6.1.7
       drizzle-kit: 0.31.10
-      drizzle-orm: 0.45.2(kysely@0.29.2)(postgres@3.4.9)
+      drizzle-orm: 0.45.2(kysely@0.28.17)(postgres@3.4.9)
       jose: 6.2.3
-      kysely: 0.29.2
+      kysely: 0.28.17
       nanostores: 1.3.0
       next: 16.2.6(@babel/core@7.29.7)(react-dom@19.2.6)(react@19.2.6)
       react: 19.2.6
@@ -5049,7 +5052,7 @@ packages:
       esbuild: 0.25.12
       tsx: 4.22.3
 
-  /drizzle-orm@0.45.2(kysely@0.29.2)(postgres@3.4.9):
+  /drizzle-orm@0.45.2(kysely@0.28.17)(postgres@3.4.9):
     resolution: {integrity: sha512-kY0BSaTNYWnoDMVoyY8uxmyHjpJW1geOmBMdSSicKo9CIIWkSxMIj2rkeSR51b8KAPB7m+qysjuHme5nKP+E5Q==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -5074,7 +5077,7 @@ packages:
       expo-sqlite: '>=14.0.0'
       gel: '>=2'
       knex: '*'
-      kysely: '*'
+      kysely: 0.28.17
       mysql2: '>=2'
       pg: '>=8'
       postgres: '>=3'
@@ -5141,7 +5144,7 @@ packages:
       sqlite3:
         optional: true
     dependencies:
-      kysely: 0.29.2
+      kysely: 0.28.17
       postgres: 3.4.9
     dev: false
 
@@ -6883,9 +6886,9 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /kysely@0.29.2:
-    resolution: {integrity: sha512-s6WVJyEZrbm6jhBpiKHsGHyePMrVQKJ85wZCFCr9W4QHv6WTjWIrdvTmO9hDEA3bNK0xkrE2DqrHsXMLWuZpQg==}
-    engines: {node: '>=22.0.0'}
+  /kysely@0.28.17:
+    resolution: {integrity: sha512-nbD8lB9EB3wNdMhOCdx5Li8DxnLbvKByylRLcJ1h+4SkrowVeECAyZlyiKMThF7xFdRz0jSQ2MoJr+wXux2y0Q==}
+    engines: {node: '>=20.0.0'}
     dev: false
 
   /language-subtag-registry@0.3.23:
