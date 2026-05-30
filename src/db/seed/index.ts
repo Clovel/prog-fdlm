@@ -12,6 +12,7 @@
 
 /* Framework imports ----------------------------------- */
 import { sql } from 'drizzle-orm';
+import React from 'react';
 
 /* Module imports (project) ---------------------------- */
 import { db } from '../index';
@@ -58,6 +59,28 @@ const assertString = (value: unknown, context: string): string => {
     throw new Error(`Expected string for ${context}, got ${typeof value}: ${String(value)}`);
   }
   return value;
+};
+
+/**
+ * Recursively extract plain text from a React.ReactNode.
+ * Used to flatten JSX link labels (e.g. `<span><b>[NSFW]</b> label</span>`)
+ * into a plain string suitable for the `event_links.label` text column.
+ */
+const reactNodeToText = (node: React.ReactNode): string => {
+  if(node === null || node === undefined || typeof node === 'boolean') {
+    return '';
+  }
+  if(typeof node === 'string' || typeof node === 'number') {
+    return String(node);
+  }
+  if(Array.isArray(node)) {
+    return node.map(reactNodeToText).join('');
+  }
+  if(React.isValidElement(node)) {
+    const element = node as React.ReactElement<{ children?: React.ReactNode }>;
+    return reactNodeToText(element.props.children);
+  }
+  return '';
 };
 
 const upsertEdition = async (edition: EditionSeed): Promise<string> => {
@@ -119,6 +142,7 @@ const upsertEvent = async (
     })
     .onConflictDoUpdate({
       target: [events.editionId, events.legacyId],
+      targetWhere: sql`legacy_id IS NOT NULL`,
       set: {
         name: fixtureEvent.name ?? null,
         description,
@@ -147,7 +171,9 @@ const syncLinks = async (eventId: string, links: EventLink[] | undefined): Promi
   for(let i = 0; i < list.length; i++) {
     const link: EventLink | undefined = list[i];
     if(link === undefined) continue;
-    const label: string = assertString(link.label, `link.label for event ${eventId} position ${i}`);
+    const label: string = typeof link.label === 'string'
+      ? link.label
+      : reactNodeToText(link.label);
     await db
       .insert(eventLinks)
       .values({ eventId, url: link.url, label, position: i })
