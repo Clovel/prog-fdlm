@@ -23,8 +23,8 @@ interface ConfirmDialogProps {
   onOpenChange: (open: boolean) => void;
   title: string;
   description: React.ReactNode;
-  /** The exact string the user must type to enable the confirm button. */
-  confirmPhrase: string;
+  /** The exact string the user must type to enable the confirm button. Omit to skip typing requirement. */
+  confirmPhrase?: string;
   confirmLabel: string;
   onConfirm: () => void;
   pending?: boolean;
@@ -44,7 +44,8 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = (
   },
 ) => {
   const [typed, setTyped] = useState<string>('');
-  const matches: boolean = typed === confirmPhrase;
+  const requiresTyping: boolean = confirmPhrase !== undefined;
+  const matches: boolean = !requiresTyping || typed === confirmPhrase;
 
   return (
     <AlertDialog
@@ -63,17 +64,20 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = (
             <div>{description}</div>
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="confirm-phrase">
-            {`Tapez « ${confirmPhrase} » pour confirmer`}
-          </Label>
-          <Input
-            id="confirm-phrase"
-            value={typed}
-            onChange={(e): void => setTyped(e.target.value)}
-            autoComplete="off"
-          />
-        </div>
+        {
+          requiresTyping &&
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="confirm-phrase">
+                {`Tapez « ${confirmPhrase ?? ''} » pour confirmer`}
+              </Label>
+              <Input
+                id="confirm-phrase"
+                value={typed}
+                onChange={(e): void => setTyped(e.target.value)}
+                autoComplete="off"
+              />
+            </div>
+        }
         <AlertDialogFooter>
           <AlertDialogCancel>Annuler</AlertDialogCancel>
           <AlertDialogAction
