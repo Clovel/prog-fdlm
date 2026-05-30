@@ -114,7 +114,7 @@ src/app/
 | ----------------- | ------------------------- | -------------------------------------------------------- |
 | id                | uuid                      | PK, default `gen_random_uuid()`                          |
 | editionId         | uuid                      | NOT NULL, FK → `editions.id` ON DELETE CASCADE           |
-| legacyId          | text                      | NULL — original fixture string id ("41", "42", …)        |
+| legacyId          | text                      | NULL — original fixture string id ("41", "42", …); kept for **seed idempotency** (`(editionId, legacyId)` upsert key) and **traceability** back to the fixture entry. Not used as an order field — events are sorted by `startTime ASC` in the API. In the old fixture-driven world, fixture array order (which happened to track `legacyId`) was the implicit display order; that ordering is replaced by `startTime`. |
 | name              | text                      | NULL                                                     |
 | description       | text                      | NULL — markdown                                          |
 | category          | event_category            | NULL                                                     |
@@ -128,7 +128,8 @@ src/app/
 | endTime           | timestamptz               | NULL                                                     |
 | createdAt         | timestamptz               | NOT NULL, default `now()`                                |
 | updatedAt         | timestamptz               | NOT NULL, default `now()`                                |
-| **UNIQUE**        | `(editionId, legacyId)`   | makes seed upserts safe; partial unique where `legacyId IS NOT NULL` |
+| **UNIQUE**        | `(editionId, legacyId)`   | partial unique where `legacyId IS NOT NULL`; required for idempotent seed |
+| **CHECK**         | `events_time_check`       | `endTime IS NULL OR endTime >= startTime`                |
 
 Indexes:
 - `events_editionId_idx` btree on `(editionId)`.
@@ -143,9 +144,11 @@ Indexes:
 | eventId  | uuid | NOT NULL, FK → `events.id` ON DELETE CASCADE |
 | url      | text | NOT NULL                                     |
 | label    | text | NOT NULL                                     |
-| position | integer | NOT NULL                                  |
+| position | integer | NOT NULL, CHECK `position >= 0`           |
+| **UNIQUE** | `(eventId, position)` | enables Strategy B seed upsert and explicit ordering |
+| **UNIQUE** | `(eventId, url)`     | prevents accidental duplicate links on the same event |
 
-Index `event_links_eventId_position_idx` on `(eventId, position)`.
+Index `event_links_eventId_position_idx` on `(eventId, position)` (subsumed by the UNIQUE constraint; declared explicitly for clarity).
 
 #### `event_embed_links`
 
@@ -155,9 +158,11 @@ Index `event_links_eventId_position_idx` on `(eventId, position)`.
 | eventId  | uuid            | NOT NULL, FK → `events.id` ON DELETE CASCADE |
 | platform | embed_platform  | NOT NULL                                     |
 | url      | text            | NOT NULL                                     |
-| position | integer         | NOT NULL                                     |
+| position | integer         | NOT NULL, CHECK `position >= 0`              |
+| **UNIQUE** | `(eventId, position)` | enables Strategy B seed upsert and explicit ordering |
+| **UNIQUE** | `(eventId, url)`     | prevents accidental duplicate embed URLs on the same event |
 
-Index `event_embed_links_eventId_position_idx` on `(eventId, position)`.
+Index `event_embed_links_eventId_position_idx` on `(eventId, position)` (subsumed by the UNIQUE constraint; declared explicitly for clarity).
 
 #### `event_alerts`
 
@@ -168,9 +173,10 @@ Index `event_embed_links_eventId_position_idx` on `(eventId, position)`.
 | variant  | alert_variant  | NOT NULL                                     |
 | title    | text           | NULL                                         |
 | content  | text           | NOT NULL                                     |
-| position | integer        | NOT NULL                                     |
+| position | integer        | NOT NULL, CHECK `position >= 0`              |
+| **UNIQUE** | `(eventId, position)` | enables Strategy B seed upsert and explicit ordering |
 
-Index `event_alerts_eventId_position_idx` on `(eventId, position)`.
+Index `event_alerts_eventId_position_idx` on `(eventId, position)` (subsumed by the UNIQUE constraint; declared explicitly for clarity).
 
 #### `general_alerts`
 
@@ -182,11 +188,12 @@ Index `event_alerts_eventId_position_idx` on `(eventId, position)`.
 | title       | text           | NULL                                              |
 | content     | text           | NOT NULL                                          |
 | isPublished | boolean        | NOT NULL, default `false`                         |
-| position    | integer        | NOT NULL                                          |
+| position    | integer        | NOT NULL, CHECK `position >= 0`                   |
 | createdAt   | timestamptz    | NOT NULL, default `now()`                         |
 | updatedAt   | timestamptz    | NOT NULL, default `now()`                         |
+| **UNIQUE**  | `(editionId, position)` | enables Strategy B seed upsert and explicit ordering |
 
-Index `general_alerts_editionId_position_idx` on `(editionId, position)`.
+Index `general_alerts_editionId_position_idx` on `(editionId, position)` (subsumed by the UNIQUE constraint; declared explicitly for clarity).
 
 ### 4.3 Relations
 
@@ -199,10 +206,25 @@ editions ────┬─< events ──┬─< event_links
 
 (`──<` = one-to-many.) In Drizzle `relations(...)`: `editions` hasMany `events` and `generalAlerts`; `events` belongsTo `edition`, hasMany `eventLinks`, `eventEmbedLinks`, `eventAlerts`; child tables belongsTo their parent.
 
-### 4.4 Models vs owned relations
+### 4.4 Standalone-managed vs inline-managed entities
 
-- **Models** (top-level entities, independent identity, get their own backoffice pages later): `editions`, `events`, `general_alerts`.
-- **Owned relations** (child rows of `events`, edited inline as repeated form sections in Spec 3): `event_links`, `event_embed_links`, `event_alerts`. They cascade-delete with the parent and have no standalone lookup story.
+All six tables are entities in the data model; most have parent FKs with `ON DELETE CASCADE`. The distinction below is about **how the backoffice manages them** (Spec 3 UX), not about the data model:
+
+- **Standalone-managed** — own list view and own edit page in the backoffice. Admin creates, edits, deletes them one by one.
+  - `editions` — root entity.
+  - `events` — listed and edited per edition (e.g. `/admin/editions/2026/events`).
+  - `general_alerts` — although FK-scoped to editions, has its own CRUD UI (e.g. `/admin/editions/2026/alerts`). Listed, created, edited, deleted individually.
+- **Inline-managed** — no standalone UI. Edited as repeatable form sections inside the parent's edit page. Cascade-delete with the parent.
+  - `event_links`, `event_embed_links`, `event_alerts` — all rendered as repeatable rows on the event edit page.
+
+Data model relationships (unchanged from §4.3):
+
+```
+editions ────┬─< events ──┬─< event_links
+             │            ├─< event_embed_links
+             │            └─< event_alerts
+             └─< general_alerts
+```
 
 ## 5. API surface
 
@@ -372,14 +394,25 @@ This in-memory cache is the minimum needed; TanStack Query / SWR remains deferre
 3. **For each fixture file, for each event:**
     - Map fixture shape → DB row shape (see §7.2).
     - `INSERT ... ON CONFLICT (editionId, legacyId) DO UPDATE SET <editable cols> = EXCLUDED.<col>, updatedAt = NOW() RETURNING id`. Returns the event's UUID either way.
-    - **Inside a single transaction per event:**
-      - `DELETE FROM event_links WHERE event_id = $1; INSERT INTO event_links (...) VALUES (...)` using the fixture's `links` array, with `position` = array index.
-      - Same delete-then-insert for `event_embed_links` and `event_alerts`.
-4. Logs per-edition: `N events upserted, M children replaced`.
+    - **Inside a single transaction per event, for each child table (`event_links`, `event_embed_links`, `event_alerts`):** Strategy B — position-keyed upsert plus trailing delete.
+      1. For each child in the fixture array (at index `i`):
+          ```sql
+          INSERT INTO event_links (eventId, url, label, position)
+          VALUES ($eventId, $url, $label, $i)
+          ON CONFLICT (eventId, position) DO UPDATE
+            SET url = EXCLUDED.url, label = EXCLUDED.label;
+          ```
+          (For `event_embed_links` update `platform, url`; for `event_alerts` update `variant, title, content`.)
+      2. Delete trailing rows where the fixture array is now shorter:
+          ```sql
+          DELETE FROM event_links WHERE eventId = $eventId AND position >= $fixtureLength;
+          ```
+4. Same strategy for `general_alerts` keyed on `(editionId, position)`. (Note: in Spec 1 the fixtures have no `generalAlerts`, so this is dead code for now — kept to keep the seed shape uniform when general alerts get seeded later.)
+5. Logs per-edition: `N events upserted, M child rows upserted, K trailing rows deleted`.
 
-**Why delete-then-insert for children:** children have no natural key from the fixture (no `id` field), so we can't sensibly upsert them. Deleting and re-inserting the full set per event guarantees the seeded child state always matches the fixture, at the cost of any backoffice edits to children being wiped if the seed re-runs.
+**Why Strategy B (position-keyed upsert) rather than delete-then-insert:** preserves child-row UUIDs across re-seeds — useful so that backoffice-bookmarked links to specific children survive a re-seed. Reflects fixture deletions (trailing-delete step). The trade-off is that reordering children in the backoffice (Spec 3) requires the standard position-swap pattern to avoid colliding with the UNIQUE constraint (temporarily set one row to a `-1` position, swap the others, then move the parked row back). This is a known pattern and not unique to this app.
 
-**Documented warning** in the seed file header: *"This script is a bootstrap. In production it is run once after the first deploy. Re-running it will overwrite any backoffice edits to the seeded events. Use `db:reset` (drop + migrate + seed) only in development."*
+**Documented warning** in the seed file header: *"This script is a bootstrap. In production it is run once after the first deploy. Re-running it overwrites any backoffice edits to seeded events (the event row content) but preserves child row identities. Use `db:reset` (drop + migrate + seed) only in development."*
 
 ### 7.2 Fixture → row mapping
 
@@ -444,7 +477,7 @@ The seed is **not** wired into the deploy step. Future deploys run `db:migrate` 
 - **Postgres availability.** If the DB is unreachable, the public page shows an error state. Mitigated by SWR-on-edge: last good response served for 5 min while origin is down. The `react-geocode` map continues to work because the map only depends on event addresses already in the cached payload.
 - **Timezone drift in seeded times.** Bare ISO strings in fixtures are interpreted in the runtime's local TZ, which varies across dev machines. Mitigated by `normalizeTime.ts` parsing them explicitly as Europe/Paris. Post-seed smoke check: pick three known events and assert their stored UTC values round-trip to the fixture's wall-clock time in `Europe/Paris`.
 - **Loss of immediate descriptions.** Old fixture-driven site had every description ready instantly; new flow defers description load until expand. Mitigated by tiny payload per detail and skeleton state in the expanded card. UX trade-off accepted: first paint is faster, expansion is slightly slower (a few hundred ms on a cold edge, often instant on warm).
-- **Seed wipe of admin edits to children.** Spec 3 risk, not Spec 1: once authoring exists, re-running the seed will wipe per-event link/embed/alert edits. Documented in the seed file header. Production seed is a one-shot.
+- **Seed overwrites admin edits to seeded events.** Spec 3 risk, not Spec 1: once authoring exists, re-running the seed against an already-populated DB will overwrite event-row content and any link/embed/alert content at matching positions. Child-row identities (UUIDs) are preserved by Strategy B. Documented in the seed file header. Production seed is a one-shot.
 
 ## 10. Decisions captured
 
@@ -457,7 +490,7 @@ The seed is **not** wired into the deploy step. Future deploys run `db:migrate` 
 | Render model                              | Client fetch against API routes. RSC migration deferred.                 |
 | General alerts scope                      | Edition-scoped; `isPublished` toggle, no time window.                    |
 | Primary keys                              | UUIDs everywhere except `editions.year` UNIQUE; `editions.id` is UUID PK |
-| Seed strategy                             | Upsert editions + events; delete-then-insert children                    |
+| Seed strategy                             | Upsert editions + events; position-keyed upsert + trailing delete for children (Strategy B) |
 | Client query cache                        | None in Spec 1. Defer to Spec 3 when mutations arrive.                   |
 | Public render of general alerts           | API serves them; UI banner ships in Spec 3                               |
 
