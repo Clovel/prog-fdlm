@@ -2,25 +2,27 @@
 import React from 'react';
 import Link from 'next/link';
 
+/* Component imports ----------------------------------- */
+import { Button } from 'components/ui/button';
+import Music404 from './Music404';
+
 /* NotFound component prop types ----------------------- */
 interface NotFoundProps {}
 
 /* NotFound component ---------------------------------- */
 const NotFound: React.FC<NotFoundProps> = () => {
   return (
-    <div className="flex flex-col items-center justify-center w-full p-8 text-center gap-2">
+    <div className="flex flex-col items-center justify-center w-full p-8 text-center gap-4">
+      <Music404 />
       <h1 className="text-2xl font-semibold">
-        Édition introuvable
+        Oups, fausse note 🎵
       </h1>
-      <p className="text-muted-foreground">
-        Cette édition de la Fête de la musique n&apos;existe pas.
+      <p className="text-muted-foreground max-w-md">
+        Cette édition de la Fête de la Musique n&apos;existe pas (ou pas encore).
       </p>
-      <Link
-        href="/"
-        className="text-blue-600 dark:text-blue-400 underline-offset-4 hover:underline"
-      >
-        Revenir à l&apos;édition courante
-      </Link>
+      <Button asChild>
+        <Link href="/">Revenir à l&apos;accueil</Link>
+      </Button>
     </div>
   );
 };
