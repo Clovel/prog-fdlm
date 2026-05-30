@@ -67,9 +67,9 @@ export const listEditionEvents = async (input: ListEditionEventsInput): Promise<
 
   const cursor: Cursor | null = input.cursor !== undefined ? decodeCursor(input.cursor) : null;
 
-  const linkCountSql = sql<number>`(SELECT COUNT(*)::int FROM ${eventLinks} WHERE ${eventLinks.eventId} = ${events.id})`;
-  const embedCountSql = sql<number>`(SELECT COUNT(*)::int FROM ${eventEmbedLinks} WHERE ${eventEmbedLinks.eventId} = ${events.id})`;
-  const alertCountSql = sql<number>`(SELECT COUNT(*)::int FROM ${eventAlerts} WHERE ${eventAlerts.eventId} = ${events.id})`;
+  const linkCountSql = db.$count(eventLinks, eq(eventLinks.eventId, events.id));
+  const embedCountSql = db.$count(eventEmbedLinks, eq(eventEmbedLinks.eventId, events.id));
+  const alertCountSql = db.$count(eventAlerts, eq(eventAlerts.eventId, events.id));
   const hasDescriptionSql = sql<boolean>`(${events.description} IS NOT NULL AND ${events.description} <> '')`;
 
   const filters = [
