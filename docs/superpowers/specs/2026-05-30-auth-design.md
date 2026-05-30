@@ -173,7 +173,6 @@ betterAuth({
   },
   advanced: {
     database: { generateId: 'uuid' },  // BetterAuth's built-in UUID id strategy
-    backgroundTasks: { handler: waitUntil },  // reliable email send on serverless
   },
   plugins: [ nextCookies() ],          // must be last
 });
@@ -183,9 +182,9 @@ betterAuth({
 - `input: false` on `role` blocks the field from being set through any auth request; only server-side code (seed now, Spec 3 endpoints later) writes it. The official docs use `role` with `input: false` as the canonical example for security-sensitive fields.
 - DB-backed sessions because we have Postgres.
 - `nextCookies()` last so cookie handling works in route handlers and server actions.
-- `waitUntil` is imported from `@vercel/functions` in production; locally a pass-through (`(p) => { void p; }`) is fine. The handler is only needed so fire-and-forget reset emails aren't cut off when a serverless function freezes after responding.
+- **No `backgroundTasks` handler.** BetterAuth's reset email is awaited inline by `sendResetPassword`. On this app's low volume that is simpler and more reliable on serverless than a fire-and-forget `waitUntil` handler (no risk of a frozen function cutting off the send); the only cost is a slightly slower password-reset response. `advanced.backgroundTasks.handler` exists (docs-confirmed) and can be added later if email volume grows.
 
-**Verified against the official BetterAuth docs for v1.6.x (the version we'll install, latest `1.6.12`):** `advanced.database.generateId` accepts the literal `'uuid'`; `advanced.backgroundTasks.handler` exists and takes `(promise) => …`; `emailAndPassword.disableSignUp` and `revokeSessionsOnPasswordReset` exist; `user.additionalFields` supports `input: false`. These config-API points are confirmed — no spike needed for them. (The internal *user-creation* API in §12 is a separate, still-unverified surface.)
+**Verified against the official BetterAuth docs for v1.6.x (the version we'll install, latest `1.6.12`):** `advanced.database.generateId` accepts the literal `'uuid'`; `emailAndPassword.disableSignUp` and `revokeSessionsOnPasswordReset` exist; `user.additionalFields` supports `input: false`; `advanced.backgroundTasks.handler` exists (we opt not to use it — see above). These config-API points are confirmed — no spike needed for them. (The internal *user-creation* API in §12 is a separate, still-unverified surface.)
 
 ## 8. Auth surface (handler, client, helpers)
 
@@ -214,7 +213,7 @@ Two layers — middleware alone cannot authoritatively validate a BetterAuth ses
 - **`src/auth/email.ts`** — `sendResetPasswordEmail(to, url)` wraps the Resend SDK. Reads `RESEND_API_KEY` + `EMAIL_FROM`; throws a clear error if either is missing. Sends a French email (subject "Réinitialisation de votre mot de passe") with the reset `url`. One inline HTML template, no template engine.
 - **`src/app/forgot-password/page.tsx`** — client. Email field → `authClient.requestPasswordReset({ email, redirectTo: '<BETTER_AUTH_URL>/reset-password' })`. Always shows a neutral confirmation ("Si un compte existe pour cette adresse, un email a été envoyé.") regardless of account existence.
 - **`src/app/reset-password/page.tsx`** — client. Reads `token` from query. New-password + confirm fields (zod: ≥12 chars, must match). `authClient.resetPassword({ newPassword, token })`. Success → `/login` with a notice. Invalid/expired token → French error + link back to `/forgot-password`.
-- **Security posture** (BetterAuth defaults, made explicit): single-use tokens deleted after use, 1-hour expiry, neutral responses that don't reveal account existence, all sessions revoked on reset (`revokeSessionsOnPasswordReset: true`), background email send via `advanced.backgroundTasks.handler`.
+- **Security posture** (BetterAuth defaults, made explicit): single-use tokens deleted after use, 1-hour expiry, neutral responses that don't reveal account existence, all sessions revoked on reset (`revokeSessionsOnPasswordReset: true`). The reset email is sent inline (awaited), not via a background handler — see §7.
 
 ## 12. Seeding the first admin
 
@@ -262,7 +261,7 @@ With `disableSignUp: true` and no admin plugin, there is no HTTP path to create 
 - **Internal user-creation API** (highest): mitigated by the explicit spike step (§14.3) before the seed task.
 - **Schema regeneration drift**: the `text`→`uuid` hand-edit must be re-applied on regeneration — documented in the `auth.ts` header.
 - **Middleware cannot validate sessions**: by design; the `/admin` layout is the authoritative gate, middleware is optimistic only.
-- **Resend on serverless**: background email send wired via `advanced.backgroundTasks.handler` + `waitUntil`.
+- **Resend on serverless**: reset email is awaited inline (no `backgroundTasks` handler), which is reliable on serverless for this volume; revisit `backgroundTasks` + `waitUntil` if email volume grows.
 - **`BETTER_AUTH_SECRET` rotation** invalidates all sessions — documented, acceptable for this app.
 - **Public site regression**: auth routes are additive; the Spec 1 public read path is not modified. Verified in §14.11.
 
