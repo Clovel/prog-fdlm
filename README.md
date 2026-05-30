@@ -74,3 +74,17 @@ pnpm db:seed
 
 - `pnpm db:generate` — regenerate migrations after editing `src/db/schema/*`.
 - `pnpm db:studio` — open Drizzle Studio in the browser to inspect data.
+
+## Authentication (BetterAuth)
+
+Email + password auth via BetterAuth. There is no public sign-up — the first admin is seeded and further users are created by admins (Spec 3). Set these in `.env.local` (see `.env.example`): `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `RESEND_API_KEY`, `EMAIL_FROM`, and the `ADMIN_*` seed vars.
+
+Seed the first admin (idempotent — ensures role `admin`, never clobbers an existing password):
+
+```bash
+pnpm db:seed:admin
+```
+
+Then sign in at `/login`. `/admin/*` is guarded (middleware + an authoritative server layout). Password reset (`/forgot-password` → email → `/reset-password`) sends via Resend.
+
+**Local dev gotcha:** BetterAuth validates the password-reset `redirectTo` against `BETTER_AUTH_URL`. Run the dev server on the port in `BETTER_AUTH_URL` (default `http://localhost:3000`), or update `BETTER_AUTH_URL` to match your dev port — otherwise reset requests fail with `INVALID_REDIRECT_URL`. In production, set `BETTER_AUTH_URL` to the deployed origin.
