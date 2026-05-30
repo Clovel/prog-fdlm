@@ -42,7 +42,7 @@ const Music404: React.FC<Music404Props> = () => {
       <circle cx="180" cy="90" r="30" className="fill-primary" />
       <circle cx="180" cy="90" r="6" className="fill-background" />
       {/* An eighth note resting on the label */}
-      <g className="fill-foreground">
+      <g className="fill-primary-foreground">
         <ellipse cx="168" cy="104" rx="11" ry="8" transform="rotate(-20 168 104)" />
         <rect x="177" y="62" width="4" height="44" rx="2" />
         <path d="M181 62 q18 4 14 24 q-2 -12 -14 -14 z" />
