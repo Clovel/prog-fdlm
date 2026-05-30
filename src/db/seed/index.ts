@@ -93,12 +93,14 @@ const upsertEdition = async (edition: EditionSeed): Promise<string> => {
     .values({
       year: edition.year,
       description: edition.description,
+      isPublished: true,
       dayOfFestival: edition.dayOfFestival,
     })
     .onConflictDoUpdate({
       target: editions.year,
       set: {
         description: edition.description,
+        isPublished: true,
         dayOfFestival: edition.dayOfFestival,
         updatedAt: sql`NOW()`,
       },
