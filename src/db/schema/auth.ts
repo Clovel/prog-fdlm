@@ -27,7 +27,7 @@ import {
 export const user = pgTable(
   'user',
   {
-    id: uuid('id').primaryKey(),
+    id: uuid('id').primaryKey().defaultRandom(),
     name: text('name').notNull(),
     firstName: text('first_name').notNull(),
     lastName: text('last_name').notNull(),
@@ -45,7 +45,7 @@ export const user = pgTable(
 export const session = pgTable(
   'session',
   {
-    id: uuid('id').primaryKey(),
+    id: uuid('id').primaryKey().defaultRandom(),
     userId: uuid('user_id').notNull().references(() => user.id, { onDelete: 'cascade' }),
     token: text('token').notNull().unique(),
     expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
@@ -61,7 +61,7 @@ export const session = pgTable(
 export const account = pgTable(
   'account',
   {
-    id: uuid('id').primaryKey(),
+    id: uuid('id').primaryKey().defaultRandom(),
     userId: uuid('user_id').notNull().references(() => user.id, { onDelete: 'cascade' }),
     accountId: text('account_id').notNull(),
     providerId: text('provider_id').notNull(),
@@ -82,7 +82,7 @@ export const account = pgTable(
 export const verification = pgTable(
   'verification',
   {
-    id: uuid('id').primaryKey(),
+    id: uuid('id').primaryKey().defaultRandom(),
     identifier: text('identifier').notNull(),
     value: text('value').notNull(),
     expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
