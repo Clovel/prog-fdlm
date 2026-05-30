@@ -23,6 +23,9 @@ dependencies:
   '@tailwindcss/postcss':
     specifier: ^4.3.0
     version: 4.3.0
+  '@tanstack/react-query':
+    specifier: ^5.100.14
+    version: 5.100.14(react@19.2.6)
   '@vercel/analytics':
     specifier: ^2.0.1
     version: 2.0.1(next@16.2.6)(react@19.2.6)
@@ -3580,6 +3583,19 @@ packages:
       '@tailwindcss/oxide': 4.3.0
       postcss: 8.5.15
       tailwindcss: 4.3.0
+    dev: false
+
+  /@tanstack/query-core@5.100.14:
+    resolution: {integrity: sha512-5X41dGpxgeaHISCRW2oYwcSycZeULZzAunaudXT9ov1KOTj9xwt0CH6hbwqP1/z74ZWF7rYFnDpyYH07XFcZew==}
+    dev: false
+
+  /@tanstack/react-query@5.100.14(react@19.2.6):
+    resolution: {integrity: sha512-oOr6aRdSFEwWhzxEkD/9ZcItM3+LjBSkeVmadWKwUssAHTsqd/7bOjWrX4AbvEkoEhgAxzN0Xk6H/aYzXiYBAw==}
+    peerDependencies:
+      react: ^18 || ^19
+    dependencies:
+      '@tanstack/query-core': 5.100.14
+      react: 19.2.6
     dev: false
 
   /@ts-morph/common@0.27.0:

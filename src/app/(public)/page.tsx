@@ -1,7 +1,7 @@
 /* Framework imports ----------------------------------- */
 import React from 'react';
 import { redirect } from 'next/navigation';
-import { desc } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 
 /* Module imports (project) ---------------------------- */
 import { db } from 'db';
@@ -12,6 +12,7 @@ const RootPage = async (): Promise<React.ReactElement> => {
   const rows = await db
     .select({ year: editions.year })
     .from(editions)
+    .where(eq(editions.isPublished, true))
     .orderBy(desc(editions.year))
     .limit(1);
 
