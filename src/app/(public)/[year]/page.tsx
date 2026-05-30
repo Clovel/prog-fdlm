@@ -15,6 +15,7 @@ import { InstagramEmbed } from 'components/embeds';
 import EventsRecap from 'components/EventsRecap/EventsRecap';
 import EventCategoryView from 'components/EventCategoryView/EventCategoryView';
 import EventsMap from 'components/EventsMap/EventsMap';
+import GeneralAlertsBanner from 'components/GeneralAlertsBanner/GeneralAlertsBanner';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
@@ -145,18 +146,7 @@ const EditionPage: React.FC<EditionPageProps> = () => {
 
   return (
     <div className="flex flex-col place-items-center min-w-full py-4 lg:py-0">
-      {
-        generalAlerts.length > 0 &&
-          <div className="w-full max-w-5xl px-4 mx-auto pb-4">
-            <ul className="text-sm text-muted-foreground list-disc pl-4">
-              {generalAlerts.map((alert) => (
-                <li key={alert.id}>
-                  {alert.title !== null ? `${alert.title}: ` : ''}{alert.content}
-                </li>
-              ))}
-            </ul>
-          </div>
-      }
+      <GeneralAlertsBanner alerts={generalAlerts} />
       {
         Object.entries(reduceEventsByCategory(viewEvents))
           .sort(sortEventsByCategoryEntries)
