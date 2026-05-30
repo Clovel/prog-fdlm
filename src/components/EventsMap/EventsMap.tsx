@@ -156,8 +156,6 @@ const EventsMap: React.FC<EventsMapProps> = (
     );
   }
 
-  console.log(`[DEBUG] <EventsMap> eventMarkers :`, eventMarkers);
-
   return (
     <div>
       <span>

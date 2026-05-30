@@ -33,6 +33,10 @@ const components: Components = {
     </a>
   ),
   img: ({ src, alt, ...props }) => (
+    // Markdown images come from arbitrary, unknown hosts with unknown
+    // dimensions; next/image would require whitelisting every domain in
+    // next.config remotePatterns, so a plain <img> is the correct choice here.
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={src}
       alt={alt ?? ''}
