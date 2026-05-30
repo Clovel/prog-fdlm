@@ -424,7 +424,7 @@ This in-memory cache is the minimum needed; TanStack Query / SWR remains deferre
 - `location.addressStr?` → `locationAddress`.
 - `location.coords?` → ignored in Spec 1 (no coord columns). Logged as a warning if present so we don't silently drop information.
 - `startTime: Date`, `endTime?: Date` → stored as `timestamptz`. Fixture dates use bare `new Date('2024-06-21T19:00:00')` which JS parses in the runtime's local timezone — risky for cross-machine reproducibility. `src/db/seed/normalizeTime.ts` parses each bare ISO string explicitly as Europe/Paris using `date-fns-tz`. Strings with explicit offsets (e.g. `2023-06-21T18:00:00+02:00`) parse without help. The helper accepts either `Date` or `string`; if the fixture passes a `Date` already constructed in unknown TZ, we serialize it as Europe/Paris first.
-- `links[].label: React.ReactNode` → `event_links.label: text`. Asserts string; throws on JSX (no JSX in current fixtures).
+- `links[].label: React.ReactNode` → `event_links.label: text`. The seed flattens any `React.ReactNode` (including JSX subtrees) to plain text via a small helper before inserting; the 2024 fixture contains at least one JSX label.
 - `links[]` → `event_links`, ordered by array index.
 - `embedLinks[]` → `event_embed_links` with `platform = type` and array-index `position`.
 - `alerts[]` → `event_alerts`. `type` mapped to `variant`; must match `alert_variant` enum, throws otherwise.
