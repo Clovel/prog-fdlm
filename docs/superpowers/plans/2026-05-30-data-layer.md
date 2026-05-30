@@ -153,7 +153,6 @@ export const alertVariantEnum = pgEnum('alert_variant', [
   'default',
   'destructive',
   'warning',
-  'info',
   'success',
 ]);
 
@@ -1040,7 +1039,7 @@ const syncAlerts = async (
 ): Promise<void> => {
   const list: EventAlert[] = alerts ?? [];
   const validVariants: readonly string[] = [
-    'default', 'destructive', 'warning', 'info', 'success',
+    'default', 'destructive', 'warning', 'success',
   ];
   for(let i = 0; i < list.length; i++) {
     const alert: EventAlert | undefined = list[i];
@@ -1055,7 +1054,7 @@ const syncAlerts = async (
       .insert(eventAlerts)
       .values({
         eventId,
-        variant: variant as typeof validVariants[number] as 'default' | 'destructive' | 'warning' | 'info' | 'success',
+        variant: variant as typeof validVariants[number] as 'default' | 'destructive' | 'warning' | 'success',
         title: alert.title ?? null,
         content: alert.content,
         position: i,
@@ -1063,7 +1062,7 @@ const syncAlerts = async (
       .onConflictDoUpdate({
         target: [eventAlerts.eventId, eventAlerts.position],
         set: {
-          variant: variant as 'default' | 'destructive' | 'warning' | 'info' | 'success',
+          variant: variant as 'default' | 'destructive' | 'warning' | 'success',
           title: alert.title ?? null,
           content: alert.content,
         },
@@ -1206,7 +1205,7 @@ export interface GeneralAlertDto {
   position: number;
 }
 
-export type AlertVariant = 'default' | 'destructive' | 'warning' | 'info' | 'success';
+export type AlertVariant = 'default' | 'destructive' | 'warning' | 'success';
 
 export interface EventSummaryDto {
   id: string;
@@ -2046,7 +2045,7 @@ These are the page's local view types. They mirror the API DTOs without duplicat
 import type { EventCategory } from 'types/eventCategories';
 
 /* View-layer types ------------------------------------ */
-export type AlertVariant = 'default' | 'destructive' | 'warning' | 'info' | 'success';
+export type AlertVariant = 'default' | 'destructive' | 'warning' | 'success';
 export type EventStatus = 'canceled' | 'postponed' | 'rescheduled';
 
 export interface EditionView {

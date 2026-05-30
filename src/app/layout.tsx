@@ -21,8 +21,8 @@ interface Metadata {
 }
 
 export const metadata: Metadata = {
-  title: 'Fête de la musique 2024 à Bordeaux',
-  description: 'Le programme de la fête de la musique 2024 à Bordeaux.',
+  title: 'Fête de la musique à Bordeaux',
+  description: 'Le programme de la fête de la musique à Bordeaux.',
 };
 
 /* RootLayout component prop types --------------------- */

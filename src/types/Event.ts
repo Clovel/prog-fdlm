@@ -45,6 +45,11 @@ export interface Event {
   endTime?: Date; /* Might be unknown, might be an all-nighter */
   price?: number | string; /* Might be free */
   artists?: string[];
+  /** Summary metadata — set when the event came from an API list payload. */
+  hasDescription?: boolean;
+  linkCount?: number;
+  embedCount?: number;
+  alertCount?: number;
 }
 
 export type EventsByCategoriesKey = Exclude<Event['category'], undefined> | 'Autres';
