@@ -16,6 +16,10 @@ import React from 'react';
 
 /* Module imports (project) ---------------------------- */
 import { db } from '../index';
+
+/* Type helpers ---------------------------------------- */
+/** Transaction client — same interface as `db` but scoped to a transaction. */
+type Tx = Parameters<typeof db.transaction>[0] extends (tx: infer T) => unknown ? T : never;
 import {
   editions,
   events,
@@ -108,6 +112,7 @@ const upsertEdition = async (edition: EditionSeed): Promise<string> => {
 };
 
 const upsertEvent = async (
+  tx: Tx,
   fixtureEvent: Event,
   editionId: string,
 ): Promise<string> => {
@@ -123,7 +128,7 @@ const upsertEvent = async (
     console.warn(`[seed] Ignoring location.coords for legacy event ${fixtureEvent.id} — coord columns deferred to Spec 3.`);
   }
 
-  const rows = await db
+  const rows = await tx
     .insert(events)
     .values({
       editionId,
@@ -166,7 +171,7 @@ const upsertEvent = async (
   return rows[0].id;
 };
 
-const syncLinks = async (eventId: string, links: EventLink[] | undefined): Promise<void> => {
+const syncLinks = async (tx: Tx, eventId: string, links: EventLink[] | undefined): Promise<void> => {
   const list: EventLink[] = links ?? [];
   for(let i = 0; i < list.length; i++) {
     const link: EventLink | undefined = list[i];
@@ -174,7 +179,7 @@ const syncLinks = async (eventId: string, links: EventLink[] | undefined): Promi
     const label: string = typeof link.label === 'string'
       ? link.label
       : reactNodeToText(link.label);
-    await db
+    await tx
       .insert(eventLinks)
       .values({ eventId, url: link.url, label, position: i })
       .onConflictDoUpdate({
@@ -182,12 +187,13 @@ const syncLinks = async (eventId: string, links: EventLink[] | undefined): Promi
         set: { url: link.url, label },
       });
   }
-  await db.execute(
+  await tx.execute(
     sql`DELETE FROM event_links WHERE event_id = ${eventId} AND position >= ${list.length}`,
   );
 };
 
 const syncEmbedLinks = async (
+  tx: Tx,
   eventId: string,
   embedLinks: EventEmbedLink[] | undefined,
 ): Promise<void> => {
@@ -195,7 +201,7 @@ const syncEmbedLinks = async (
   for(let i = 0; i < list.length; i++) {
     const embed: EventEmbedLink | undefined = list[i];
     if(embed === undefined) continue;
-    await db
+    await tx
       .insert(eventEmbedLinks)
       .values({ eventId, platform: embed.type, url: embed.url, position: i })
       .onConflictDoUpdate({
@@ -203,12 +209,13 @@ const syncEmbedLinks = async (
         set: { platform: embed.type, url: embed.url },
       });
   }
-  await db.execute(
+  await tx.execute(
     sql`DELETE FROM event_embed_links WHERE event_id = ${eventId} AND position >= ${list.length}`,
   );
 };
 
 const syncAlerts = async (
+  tx: Tx,
   eventId: string,
   alerts: EventAlert[] | undefined,
 ): Promise<void> => {
@@ -225,7 +232,7 @@ const syncAlerts = async (
         `Unknown alert variant "${variant}" on event ${eventId} position ${i}`,
       );
     }
-    await db
+    await tx
       .insert(eventAlerts)
       .values({
         eventId,
@@ -243,7 +250,7 @@ const syncAlerts = async (
         },
       });
   }
-  await db.execute(
+  await tx.execute(
     sql`DELETE FROM event_alerts WHERE event_id = ${eventId} AND position >= ${list.length}`,
   );
 };
@@ -255,11 +262,13 @@ const main = async (): Promise<void> => {
     let upsertedEvents: number = 0;
     let childRows: number = 0;
     for(const fixtureEvent of edition.fixture) {
-      const eventId: string = await upsertEvent(fixtureEvent, editionId);
+      await db.transaction(async (tx) => {
+        const eventId: string = await upsertEvent(tx, fixtureEvent, editionId);
+        await syncLinks(tx, eventId, fixtureEvent.links);
+        await syncEmbedLinks(tx, eventId, fixtureEvent.embedLinks);
+        await syncAlerts(tx, eventId, fixtureEvent.alerts);
+      });
       upsertedEvents += 1;
-      await syncLinks(eventId, fixtureEvent.links);
-      await syncEmbedLinks(eventId, fixtureEvent.embedLinks);
-      await syncAlerts(eventId, fixtureEvent.alerts);
       childRows +=
         (fixtureEvent.links?.length ?? 0) +
         (fixtureEvent.embedLinks?.length ?? 0) +
