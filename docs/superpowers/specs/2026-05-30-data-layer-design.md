@@ -90,7 +90,7 @@ src/app/
 
 ### 4.1 Enums (`pgEnum`)
 
-- `alert_variant` — `'default' | 'destructive' | 'warning' | 'info' | 'success'`. Mirrors the variants supported by `src/components/ui/alert.tsx`. If new variants are added there, the enum and a follow-up migration must mirror them.
+- `alert_variant` — `'default' | 'destructive' | 'warning' | 'success'`. Mirrors the variants supported by `src/components/ui/alert.tsx`. If new variants are added there, the enum and a follow-up migration must mirror them.
 - `event_status` — `'canceled' | 'postponed' | 'rescheduled'`. Mirrors `Event['status']`.
 - `embed_platform` — `'instagram' | 'facebook'`. Mirrors `EventEmbedLinkType`.
 - `event_category` — exact values from `src/types/eventCategories.ts` (`'Centre ville'`, `'St. Michel'`, …, `'Saint-Médard-en-Jalles'`). The TypeScript const array remains the source of truth; the migration mirrors it.
