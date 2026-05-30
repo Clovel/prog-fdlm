@@ -44,6 +44,7 @@ const summaryToEvent = (summary: EventSummaryView): Event => ({
 
 const fetchEdition = async (year: string): Promise<{ edition: EditionView; generalAlerts: GeneralAlertView[] }> => {
   const response: Response = await fetch(`/api/editions/${year}`);
+  // A 400 here means a malformed year param (the only client error these endpoints raise for valid callers); treat it as not-found.
   if(response.status === 404 || response.status === 400) {
     notFound();
   }
@@ -57,6 +58,7 @@ const fetchEvents = async (year: string): Promise<EventSummaryView[]> => {
   // The events endpoint caps at limit=200 (its API max). Current editions have ~50 events.
   // If an edition grows beyond 200, switch to keyset pagination via `nextCursor`.
   const response: Response = await fetch(`/api/editions/${year}/events?limit=200`);
+  // A 400 here means a malformed year param (the only client error these endpoints raise for valid callers); treat it as not-found.
   if(response.status === 404 || response.status === 400) {
     notFound();
   }
