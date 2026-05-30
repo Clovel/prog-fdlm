@@ -63,7 +63,7 @@ const apiCore = {
   endTime: isoDateTime.nullable().optional(),
 };
 const endAfterStart = (v: { startTime: string; endTime?: string | null }): boolean =>
-  v.endTime === undefined || v.endTime === null || v.endTime >= v.startTime;
+  v.endTime === undefined || v.endTime === null || new Date(v.endTime) >= new Date(v.startTime);
 
 export const createEventSchema = z.object({
   ...apiCore,

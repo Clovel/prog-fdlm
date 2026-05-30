@@ -1,5 +1,5 @@
 /* Module imports -------------------------------------- */
-import { and, asc, eq, sql } from 'drizzle-orm';
+import { asc, eq, sql } from 'drizzle-orm';
 
 /* Module imports (project) ---------------------------- */
 import { db } from '../../index';
@@ -37,7 +37,7 @@ export const listEditionEventsAdmin = async (editionId: string): Promise<AdminEv
       alertCount: alertCountSql,
     })
     .from(events)
-    .where(and(eq(events.editionId, editionId)))
+    .where(eq(events.editionId, editionId))
     .orderBy(asc(events.startTime), asc(events.id));
 
   return rows.map((r) => ({
