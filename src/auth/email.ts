@@ -20,6 +20,7 @@ export const sendResetPasswordEmail = async(to: string, url: string): Promise<vo
   }
 
   const resend: Resend = new Resend(apiKey);
+  const safeUrl: string = url.replace(/"/g, '%22');
 
   const { error } = await resend.emails.send({
     from,
@@ -28,7 +29,7 @@ export const sendResetPasswordEmail = async(to: string, url: string): Promise<vo
     html: `
       <p>Bonjour,</p>
       <p>Vous avez demandé la réinitialisation de votre mot de passe pour le site de la Fête de la Musique.</p>
-      <p><a href="${url}">Cliquez ici pour choisir un nouveau mot de passe</a>.</p>
+      <p><a href="${safeUrl}">Cliquez ici pour choisir un nouveau mot de passe</a>.</p>
       <p>Ce lien expire dans une heure. Si vous n'êtes pas à l'origine de cette demande, ignorez cet email.</p>
     `,
   });
