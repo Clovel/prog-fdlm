@@ -1,7 +1,7 @@
 'use client';
 
 /* Framework imports ----------------------------------- */
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
@@ -27,6 +27,17 @@ const LoginForm: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl: string = safeCallbackUrl(searchParams.get('callbackUrl'));
+
+  const { data: sessionData } = authClient.useSession();
+
+  useEffect(
+    () => {
+      if(sessionData !== null && sessionData !== undefined) {
+        router.replace(callbackUrl);
+      }
+    },
+    [sessionData, callbackUrl, router],
+  );
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
