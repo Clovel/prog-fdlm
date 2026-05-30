@@ -8,6 +8,7 @@ import { eventCategories } from 'types/eventCategories';
 
 /* Type imports ---------------------------------------- */
 import type { NextRequest } from 'next/server';
+import type { EventCategory } from 'types/eventCategories';
 
 /* Schema ---------------------------------------------- */
 const paramsSchema = z.object({
@@ -62,7 +63,7 @@ export const GET = async (
   try {
     const result = await listEditionEvents({
       year,
-      category: parsedQuery.data.category as never,
+      category: parsedQuery.data.category as EventCategory | undefined,
       q: parsedQuery.data.q,
       genre: parsedQuery.data.genre,
       status: parsedQuery.data.status,
