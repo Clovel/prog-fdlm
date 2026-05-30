@@ -28,3 +28,49 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Database
+
+The site reads events from a PostgreSQL database via Drizzle. You'll need a Postgres reachable via `DATABASE_URL` (set in `.env.local`, gitignored). Two common setups:
+
+### Option A — Supabase (used in this project)
+
+Create a project at supabase.com, copy the connection string from `Project Settings → Database → Connection string`, and put it in `.env.local`:
+
+```
+DATABASE_URL=postgresql://postgres:<password>@db.<ref>.supabase.co:5432/postgres
+```
+
+For best results on Vercel use the **session pooler** URL (port 5432 on the pooler) or the direct URL. The app's postgres-js client is configured with `prepare: false`, which is required if you point it at the transaction-mode pooler (port 6543).
+
+### Option B — Local Postgres via Docker
+
+```bash
+docker run --name fdlm-pg \
+  -e POSTGRES_PASSWORD=devpass \
+  -e POSTGRES_DB=fdlm_dev \
+  -p 5432:5432 \
+  -d postgres:16
+```
+
+Then in `.env.local`:
+
+```
+DATABASE_URL=postgres://postgres:devpass@localhost:5432/fdlm_dev
+```
+
+(Pick a different host port if 5432 is taken.)
+
+### Apply migrations and seed
+
+```bash
+pnpm db:migrate
+pnpm db:seed
+```
+
+`pnpm db:seed` is idempotent — re-running it preserves child-row UUIDs but overwrites event-row content. For a full reset during local development: drop the DB (or the relevant schema), recreate it, and re-run `db:migrate` followed by `db:seed`.
+
+### Useful commands
+
+- `pnpm db:generate` — regenerate migrations after editing `src/db/schema/*`.
+- `pnpm db:studio` — open Drizzle Studio in the browser to inspect data.
