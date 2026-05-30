@@ -36,6 +36,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     <html
       lang="en"
       className={GoogleInterFont.variable}
+      suppressHydrationWarning
     >
       <head>
         <title>
@@ -53,11 +54,13 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
           content="width=device-width, initial-scale=1"
         />
       </head>
-      <MainLayout>
-        {children}
-        <Analytics />
-        <SpeedInsights />
-      </MainLayout>
+      <body className="flex flex-col min-h-screen">
+        <MainLayout>
+          {children}
+          <Analytics />
+          <SpeedInsights />
+        </MainLayout>
+      </body>
     </html>
   );
 };
