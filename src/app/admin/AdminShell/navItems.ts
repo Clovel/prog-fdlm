@@ -1,18 +1,29 @@
+/* Framework imports ----------------------------------- */
+import {
+  Bell,
+  Calendar,
+  LayoutDashboard,
+  Mic2,
+  Users,
+} from 'lucide-react';
+
 /* Type imports ---------------------------------------- */
+import type { LucideIcon } from 'lucide-react';
 import type { Role } from 'auth/roles';
 
 /* Nav item model -------------------------------------- */
 export interface AdminNavItem {
   href: string;
   label: string;
+  icon: LucideIcon;
   /** When set, only these roles see the item. Undefined = all authenticated roles. */
   roles?: Role[];
 }
 
 export const adminNavItems: AdminNavItem[] = [
-  { href: '/admin', label: 'Tableau de bord' },
-  { href: '/admin/editions', label: 'Éditions' },
-  { href: '/admin/events', label: 'Événements' },
-  { href: '/admin/alerts', label: 'Alertes' },
-  { href: '/admin/users', label: 'Utilisateurs', roles: ['admin'] },
+  { href: '/admin', label: 'Tableau de bord', icon: LayoutDashboard },
+  { href: '/admin/editions', label: 'Éditions', icon: Calendar },
+  { href: '/admin/events', label: 'Événements', icon: Mic2 },
+  { href: '/admin/alerts', label: 'Alertes', icon: Bell },
+  { href: '/admin/users', label: 'Utilisateurs', icon: Users, roles: ['admin'] },
 ];

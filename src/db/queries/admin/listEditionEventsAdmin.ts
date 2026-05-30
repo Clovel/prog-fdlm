@@ -1,5 +1,5 @@
 /* Module imports -------------------------------------- */
-import { asc, eq, sql } from 'drizzle-orm';
+import { asc, eq } from 'drizzle-orm';
 
 /* Module imports (project) ---------------------------- */
 import { db } from '../../index';
@@ -20,10 +20,6 @@ export interface AdminEventSummary {
 
 /* Query ----------------------------------------------- */
 export const listEditionEventsAdmin = async (editionId: string): Promise<AdminEventSummary[]> => {
-  const linkCountSql = sql<number>`(SELECT COUNT(*)::int FROM ${eventLinks} WHERE ${eventLinks.eventId} = ${events.id})`;
-  const embedCountSql = sql<number>`(SELECT COUNT(*)::int FROM ${eventEmbedLinks} WHERE ${eventEmbedLinks.eventId} = ${events.id})`;
-  const alertCountSql = sql<number>`(SELECT COUNT(*)::int FROM ${eventAlerts} WHERE ${eventAlerts.eventId} = ${events.id})`;
-
   const rows = await db
     .select({
       id: events.id,
@@ -32,9 +28,9 @@ export const listEditionEventsAdmin = async (editionId: string): Promise<AdminEv
       status: events.status,
       startTime: events.startTime,
       endTime: events.endTime,
-      linkCount: linkCountSql,
-      embedCount: embedCountSql,
-      alertCount: alertCountSql,
+      linkCount: db.$count(eventLinks, eq(eventLinks.eventId, events.id)),
+      embedCount: db.$count(eventEmbedLinks, eq(eventEmbedLinks.eventId, events.id)),
+      alertCount: db.$count(eventAlerts, eq(eventAlerts.eventId, events.id)),
     })
     .from(events)
     .where(eq(events.editionId, editionId))

@@ -1,5 +1,5 @@
 /* Module imports -------------------------------------- */
-import { desc, sql } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 
 /* Module imports (project) ---------------------------- */
 import { db } from '../../index';
@@ -18,9 +18,6 @@ export interface AdminEditionDto {
 
 /* Query ----------------------------------------------- */
 export const listAllEditions = async (): Promise<AdminEditionDto[]> => {
-  const eventCountSql = sql<number>`(SELECT COUNT(*)::int FROM ${events} WHERE ${events.editionId} = ${editions.id})`;
-  const alertCountSql = sql<number>`(SELECT COUNT(*)::int FROM ${generalAlerts} WHERE ${generalAlerts.editionId} = ${editions.id})`;
-
   const rows = await db
     .select({
       id: editions.id,
@@ -28,8 +25,8 @@ export const listAllEditions = async (): Promise<AdminEditionDto[]> => {
       description: editions.description,
       dayOfFestival: editions.dayOfFestival,
       isPublished: editions.isPublished,
-      eventCount: eventCountSql,
-      alertCount: alertCountSql,
+      eventCount: db.$count(events, eq(events.editionId, editions.id)),
+      alertCount: db.$count(generalAlerts, eq(generalAlerts.editionId, editions.id)),
     })
     .from(editions)
     .orderBy(desc(editions.year));

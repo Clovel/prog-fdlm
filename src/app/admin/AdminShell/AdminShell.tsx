@@ -4,7 +4,6 @@ import React from 'react';
 /* Component imports ----------------------------------- */
 import { Separator } from 'components/ui/separator';
 import UserAvatar from 'components/UserAvatar/UserAvatar';
-import LogoutButton from 'components/LogoutButton/LogoutButton';
 import AdminSidebar from './AdminSidebar';
 
 /* Module imports (project) ---------------------------- */
@@ -37,7 +36,7 @@ const AdminShell: React.FC<AdminShellProps> = ({ user, children }) => {
 
   return (
     <div className="flex min-h-screen w-full">
-      <aside className="w-60 shrink-0 border-r border-border bg-card">
+      <aside className="flex w-60 shrink-0 flex-col border-r border-border bg-card">
         <div className="flex items-center gap-3 p-4">
           <UserAvatar src={avatarSrc} initials={initials} alt={user.name} />
           <div className="flex flex-col min-w-0">
@@ -46,12 +45,13 @@ const AdminShell: React.FC<AdminShellProps> = ({ user, children }) => {
           </div>
         </div>
         <Separator />
-        <AdminSidebar role={user.role} />
+        <div className="flex-1">
+          <AdminSidebar role={user.role} />
+        </div>
       </aside>
       <div className="flex flex-1 flex-col min-w-0">
-        <header className="flex items-center justify-between border-b border-border px-6 py-3">
+        <header className="flex items-center border-b border-border px-6 py-3">
           <span className="text-sm font-semibold">Back-office</span>
-          <LogoutButton />
         </header>
         <main className="flex-1 p-6">
           {children}
