@@ -34,7 +34,10 @@ const summaryToEvent = (summary: EventSummaryView): Event => ({
   },
   startTime: new Date(summary.startTime),
   endTime: summary.endTime !== null ? new Date(summary.endTime) : undefined,
-  // Description and child arrays are filled in on expand (see EventListItem; lands in Task 22).
+  hasDescription: summary.hasDescription,
+  linkCount: summary.linkCount,
+  embedCount: summary.embedCount,
+  alertCount: summary.alertCount,
 });
 
 const fetchEdition = async (year: string): Promise<{ edition: EditionView; generalAlerts: GeneralAlertView[] }> => {
