@@ -263,6 +263,7 @@ With `disableSignUp: true` and no admin plugin, there is no HTTP path to create 
 - **Middleware cannot validate sessions**: by design; the `/admin` layout is the authoritative gate, middleware is optimistic only.
 - **Resend on serverless**: reset email is awaited inline (no `backgroundTasks` handler), which is reliable on serverless for this volume; revisit `backgroundTasks` + `waitUntil` if email volume grows.
 - **`BETTER_AUTH_SECRET` rotation** invalidates all sessions — documented, acceptable for this app.
+- **better-auth/kysely bundling** (found during implementation): better-auth statically imports its internal kysely layer. Requires `serverExternalPackages: ['better-auth', 'kysely']` in `next.config.js` and a `pnpm.overrides` pin of `kysely` to `0.28.17` (kysely 0.29.2 dropped the `DEFAULT_MIGRATION_TABLE` root exports that `@better-auth/kysely-adapter@1.6.12` imports). Without both, the auth route 500s in dev and `pnpm build` fails.
 - **Public site regression**: auth routes are additive; the Spec 1 public read path is not modified. Verified in §14.11.
 
 ## 16. What lands in Spec 3 (informational)
