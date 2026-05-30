@@ -42,7 +42,7 @@ const summaryToEvent = (summary: EventSummaryView): Event => ({
 });
 
 const fetchEdition = async (year: string): Promise<{ edition: EditionView; generalAlerts: GeneralAlertView[] }> => {
-  const response: Response = await fetch(`/api/editions/${year}`, { cache: 'no-store' });
+  const response: Response = await fetch(`/api/editions/${year}`);
   if(response.status === 404) {
     notFound();
   }
@@ -53,7 +53,7 @@ const fetchEdition = async (year: string): Promise<{ edition: EditionView; gener
 };
 
 const fetchEvents = async (year: string): Promise<EventSummaryView[]> => {
-  const response: Response = await fetch(`/api/editions/${year}/events?limit=200`, { cache: 'no-store' });
+  const response: Response = await fetch(`/api/editions/${year}/events?limit=200`);
   if(response.status === 404) {
     notFound();
   }

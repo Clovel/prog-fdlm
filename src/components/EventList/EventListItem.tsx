@@ -76,7 +76,7 @@ const EventListItem: React.FC<EventListItemProps> = (
     if(next && !detailLoaded && !detailLoading) {
       setDetailLoading(true);
       setDetailError(null);
-      fetch(`/api/events/${event.id}`, { cache: 'no-store' })
+      fetch(`/api/events/${event.id}`)
         .then(
           async (response): Promise<void> => {
             if(!response.ok) {
