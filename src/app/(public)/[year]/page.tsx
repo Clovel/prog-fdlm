@@ -22,6 +22,11 @@ import type { Event } from 'types/Event';
 import type { EditionView, EventSummaryView, GeneralAlertView } from './types';
 
 /* Helpers --------------------------------------------- */
+// Thrown by the fetch helpers when an edition is missing. The effect translates it into
+// the `editionNotFound` flag so `notFound()` can be called during render (calling it from
+// inside an async promise callback would never reach Next's not-found boundary).
+class EditionNotFoundError extends Error {}
+
 const summaryToEvent = (summary: EventSummaryView): Event => ({
   id: summary.id,
   name: summary.name ?? undefined,
@@ -46,7 +51,7 @@ const fetchEdition = async (year: string): Promise<{ edition: EditionView; gener
   const response: Response = await fetch(`/api/editions/${year}`);
   // A 400 here means a malformed year param (the only client error these endpoints raise for valid callers); treat it as not-found.
   if(response.status === 404 || response.status === 400) {
-    notFound();
+    throw new EditionNotFoundError();
   }
   if(!response.ok) {
     throw new Error(`Edition fetch failed: ${response.status}`);
@@ -60,7 +65,7 @@ const fetchEvents = async (year: string): Promise<EventSummaryView[]> => {
   const response: Response = await fetch(`/api/editions/${year}/events?limit=200`);
   // A 400 here means a malformed year param (the only client error these endpoints raise for valid callers); treat it as not-found.
   if(response.status === 404 || response.status === 400) {
-    notFound();
+    throw new EditionNotFoundError();
   }
   if(!response.ok) {
     throw new Error(`Events fetch failed: ${response.status}`);
@@ -83,6 +88,7 @@ const EditionPage: React.FC<EditionPageProps> = () => {
 
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [editionNotFound, setEditionNotFound] = useState<boolean>(false);
   const [edition, setEdition] = useState<EditionView | null>(null);
   const [generalAlerts, setGeneralAlerts] = useState<GeneralAlertView[]>([]);
   const [summaries, setSummaries] = useState<EventSummaryView[]>([]);
@@ -95,6 +101,7 @@ const EditionPage: React.FC<EditionPageProps> = () => {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(true);
       setErrorMessage(null);
+      setEditionNotFound(false);
       Promise.all([fetchEdition(year), fetchEvents(year)])
         .then(
           ([editionPayload, eventList]): void => {
@@ -108,6 +115,10 @@ const EditionPage: React.FC<EditionPageProps> = () => {
         .catch(
           (error: unknown): void => {
             if(cancelled) return;
+            if(error instanceof EditionNotFoundError) {
+              setEditionNotFound(true);
+              return;
+            }
             console.error('[EditionPage] load failed:', error);
             setErrorMessage('Impossible de charger les événements.');
           },
@@ -135,6 +146,9 @@ const EditionPage: React.FC<EditionPageProps> = () => {
     [edition, year],
   );
 
+  if(editionNotFound) {
+    notFound();
+  }
   if(loading) {
     return (
       <div className="flex justify-center w-full py-16">
