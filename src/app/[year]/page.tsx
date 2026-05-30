@@ -7,6 +7,7 @@ import { notFound, useParams } from 'next/navigation';
 /* Module imports -------------------------------------- */
 import { reduceEventsByCategory } from 'helpers/reduceEventsByCategory';
 import { sortEventsByCategoryEntries } from 'helpers/orderEventsByCategory';
+import { useHeader } from 'app/HeaderContext';
 
 /* Component imports ----------------------------------- */
 import { Separator } from 'components/ui/separator';
@@ -77,6 +78,8 @@ const EditionPage: React.FC<EditionPageProps> = () => {
   const [generalAlerts, setGeneralAlerts] = useState<GeneralAlertView[]>([]);
   const [summaries, setSummaries] = useState<EventSummaryView[]>([]);
 
+  const { setState: setHeaderState } = useHeader();
+
   useEffect(
     () => {
       let cancelled: boolean = false;
@@ -90,6 +93,7 @@ const EditionPage: React.FC<EditionPageProps> = () => {
             setEdition(editionPayload.edition);
             setGeneralAlerts(editionPayload.generalAlerts);
             setSummaries(eventList);
+            setHeaderState({ year: Number(year), eventsCount: eventList.length });
           },
         )
         .catch(
@@ -106,9 +110,10 @@ const EditionPage: React.FC<EditionPageProps> = () => {
         );
       return (): void => {
         cancelled = true;
+        setHeaderState({ year: null, eventsCount: null });
       };
     },
-    [year],
+    [year, setHeaderState],
   );
 
   const viewEvents: Event[] = useMemo<Event[]>(

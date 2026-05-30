@@ -9,6 +9,7 @@ import { ThemeProvider } from 'next-themes';
 /* Component imports ----------------------------------- */
 import Header from 'components/Header/Header';
 import Copyright from 'components/Copyright/Copyright';
+import { HeaderProvider } from './HeaderContext';
 
 /* MainLayout component prop types --------------------- */
 interface MainLayoutProps {
@@ -24,15 +25,17 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       enableSystem
       disableTransitionOnChange
     >
-      <body className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-1 min-h-full flex flex-col items-center lg:p-24 lg:pt-8">
-          {children}
-        </main>
-        <footer className="flex flex-col justify-center h-14">
-          <Copyright />
-        </footer>
-      </body>
+      <HeaderProvider>
+        <body className="flex flex-col min-h-screen">
+          <Header />
+          <main className="flex-1 min-h-full flex flex-col items-center lg:p-24 lg:pt-8">
+            {children}
+          </main>
+          <footer className="flex flex-col justify-center h-14">
+            <Copyright />
+          </footer>
+        </body>
+      </HeaderProvider>
     </ThemeProvider>
   );
 };

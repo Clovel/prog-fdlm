@@ -4,7 +4,7 @@
 import React from 'react';
 
 /* Module imports -------------------------------------- */
-import { events } from 'fixtures/events-2024';
+import { useHeader } from 'app/HeaderContext';
 
 /* Component imports ----------------------------------- */
 import ThemeToggle from 'components/ThemeToggle/ThemeToggle';
@@ -18,22 +18,30 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = (
   {
     showEventsCount = false,
-  }
+  },
 ) => {
+  const { state } = useHeader();
+  const year: number | null = state.year;
+  const count: number | null = state.eventsCount;
+
   return (
     <header className="w-full font-mono flex flex-col lg:flex-row items-center justify-between gap-2 lg:p-16">
       <div>
         <p className="w-full justify-center border-b border-border bg-gradient-to-b from-muted/50 to-transparent pb-6 pt-8 backdrop-blur-2xl lg:rounded-xl lg:border lg:bg-muted/50 lg:p-4 p-2">
-          Liste des événements de la fête de la musique 2024 à Bordeaux
           {
-            showEventsCount === true &&
+            year !== null ?
+              `Liste des événements de la fête de la musique ${year} à Bordeaux` :
+              'Fête de la musique à Bordeaux'
+          }
+          {
+            showEventsCount === true && count !== null &&
               <>
                 <br />
                 <br />
-                {events.length}
+                {count}
                 {' '}
                 événement
-                {events.length !== 1 ? 's' : ''}
+                {count !== 1 ? 's' : ''}
                 {' '}
                 cette année.
               </>
