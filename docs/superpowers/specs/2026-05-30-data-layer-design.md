@@ -346,7 +346,6 @@ Response:
     id: string;
     editionId: string;
     description: string | null;
-    artists: string[] | null;
     links: Array<{ url: string; label: string }>;          // ordered by position
     embedLinks: Array<{ platform: 'instagram' | 'facebook'; url: string }>;   // ordered
     alerts: Array<{ variant: AlertVariant; title: string | null; content: string }>;   // ordered
