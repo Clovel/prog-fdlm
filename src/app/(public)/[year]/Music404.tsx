@@ -9,7 +9,6 @@ const Music404: React.FC<Music404Props> = () => {
   return (
     <svg
       viewBox="0 0 360 180"
-      role="img"
       aria-hidden="true"
       className="w-48 sm:w-64 h-auto"
     >
