@@ -1,7 +1,7 @@
 'use client';
 
 /* Framework imports ----------------------------------- */
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
@@ -13,14 +13,20 @@ import { Label } from 'components/ui/label';
 /* Module imports (project) ---------------------------- */
 import { authClient } from 'auth/client';
 
-/* LoginPage component prop types ---------------------- */
-interface LoginPageProps {}
+/* Helpers --------------------------------------------- */
+/** Only allow same-site path redirects to avoid open-redirect via ?callbackUrl. */
+const safeCallbackUrl = (raw: string | null): string => {
+  if(raw === null || !raw.startsWith('/') || raw.startsWith('//')) {
+    return '/admin';
+  }
+  return raw;
+};
 
-/* LoginPage component --------------------------------- */
-const LoginPage: React.FC<LoginPageProps> = () => {
+/* LoginForm component --------------------------------- */
+const LoginForm: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl: string = searchParams.get('callbackUrl') ?? '/admin';
+  const callbackUrl: string = safeCallbackUrl(searchParams.get('callbackUrl'));
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -82,6 +88,18 @@ const LoginPage: React.FC<LoginPageProps> = () => {
         Mot de passe oublié ?
       </Link>
     </form>
+  );
+};
+
+/* LoginPage component prop types ---------------------- */
+interface LoginPageProps {}
+
+/* LoginPage component --------------------------------- */
+const LoginPage: React.FC<LoginPageProps> = () => {
+  return (
+    <Suspense fallback={null}>
+      <LoginForm />
+    </Suspense>
   );
 };
 

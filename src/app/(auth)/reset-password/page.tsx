@@ -1,7 +1,7 @@
 'use client';
 
 /* Framework imports ----------------------------------- */
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
@@ -13,11 +13,8 @@ import { Label } from 'components/ui/label';
 /* Module imports (project) ---------------------------- */
 import { authClient } from 'auth/client';
 
-/* ResetPasswordPage component prop types -------------- */
-interface ResetPasswordPageProps {}
-
-/* ResetPasswordPage component ------------------------- */
-const ResetPasswordPage: React.FC<ResetPasswordPageProps> = () => {
+/* ResetPasswordForm component ------------------------- */
+const ResetPasswordForm: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token: string | null = searchParams.get('token');
@@ -103,6 +100,18 @@ const ResetPasswordPage: React.FC<ResetPasswordPageProps> = () => {
         {submitting ? 'Enregistrement…' : 'Réinitialiser'}
       </Button>
     </form>
+  );
+};
+
+/* ResetPasswordPage component prop types -------------- */
+interface ResetPasswordPageProps {}
+
+/* ResetPasswordPage component ------------------------- */
+const ResetPasswordPage: React.FC<ResetPasswordPageProps> = () => {
+  return (
+    <Suspense fallback={null}>
+      <ResetPasswordForm />
+    </Suspense>
   );
 };
 

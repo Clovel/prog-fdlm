@@ -20,17 +20,29 @@ const ForgotPasswordPage: React.FC<ForgotPasswordPageProps> = () => {
   const [email, setEmail] = useState<string>('');
   const [sent, setSent] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
+    setError(null);
     setSubmitting(true);
-    const origin: string = window.location.origin;
-    await authClient.requestPasswordReset({
-      email,
-      redirectTo: `${origin}/reset-password`,
-    });
-    setSent(true);
-    setSubmitting(false);
+    try {
+      const origin: string = window.location.origin;
+      const result = await authClient.requestPasswordReset({
+        email,
+        redirectTo: `${origin}/reset-password`,
+      });
+      if(result !== null && result !== undefined && 'error' in result && result.error !== null && result.error !== undefined) {
+        setError('Une erreur est survenue, veuillez réessayer.');
+        return;
+      }
+      setSent(true);
+    } catch(e) {
+      void e;
+      setError('Une erreur est survenue, veuillez réessayer.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if(sent) {
@@ -67,6 +79,10 @@ const ForgotPasswordPage: React.FC<ForgotPasswordPageProps> = () => {
           onChange={(e): void => setEmail(e.target.value)}
         />
       </div>
+      {
+        error !== null &&
+          <p className="text-sm text-destructive">{error}</p>
+      }
       <Button type="submit" disabled={submitting}>
         {submitting ? 'Envoi…' : 'Envoyer le lien'}
       </Button>
