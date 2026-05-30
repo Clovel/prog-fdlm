@@ -44,7 +44,7 @@ const summaryToEvent = (summary: EventSummaryView): Event => ({
 
 const fetchEdition = async (year: string): Promise<{ edition: EditionView; generalAlerts: GeneralAlertView[] }> => {
   const response: Response = await fetch(`/api/editions/${year}`);
-  if(response.status === 404) {
+  if(response.status === 404 || response.status === 400) {
     notFound();
   }
   if(!response.ok) {
@@ -57,7 +57,7 @@ const fetchEvents = async (year: string): Promise<EventSummaryView[]> => {
   // The events endpoint caps at limit=200 (its API max). Current editions have ~50 events.
   // If an edition grows beyond 200, switch to keyset pagination via `nextCursor`.
   const response: Response = await fetch(`/api/editions/${year}/events?limit=200`);
-  if(response.status === 404) {
+  if(response.status === 404 || response.status === 400) {
     notFound();
   }
   if(!response.ok) {
@@ -74,6 +74,10 @@ interface EditionPageProps {}
 const EditionPage: React.FC<EditionPageProps> = () => {
   const params = useParams<{ year: string }>();
   const year: string = params.year;
+
+  if(!/^\d{4}$/.test(year)) {
+    notFound();
+  }
 
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
