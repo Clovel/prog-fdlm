@@ -24,9 +24,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       disableTransitionOnChange
     >
       <HeaderProvider>
-        <body className="flex flex-col min-h-screen">
-          {children}
-        </body>
+        {children}
       </HeaderProvider>
     </ThemeProvider>
   );
