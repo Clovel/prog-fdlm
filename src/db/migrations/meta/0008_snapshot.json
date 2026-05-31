@@ -1,6 +1,6 @@
 {
-  "id": "ae1f2d42-5e28-4f6c-8776-ae541f05d7cd",
-  "prevId": "1dd150e6-0bb5-4ce3-933f-7bf9f61fa5ee",
+  "id": "95bd8454-22aa-4db2-916b-82b9ff3cfa59",
+  "prevId": "ae1f2d42-5e28-4f6c-8776-ae541f05d7cd",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -441,6 +441,113 @@
       "checkConstraints": {
         "event_embed_links_position_check": {
           "name": "event_embed_links_position_check",
+          "value": "position >= 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.edition_embed_links": {
+      "name": "edition_embed_links",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "edition_id": {
+          "name": "edition_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "platform": {
+          "name": "platform",
+          "type": "embed_platform",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_published": {
+          "name": "is_published",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "position": {
+          "name": "position",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "edition_embed_links_edition_position_uq": {
+          "name": "edition_embed_links_edition_position_uq",
+          "columns": [
+            {
+              "expression": "edition_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "position",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "edition_embed_links_edition_id_editions_id_fk": {
+          "name": "edition_embed_links_edition_id_editions_id_fk",
+          "tableFrom": "edition_embed_links",
+          "tableTo": "editions",
+          "columnsFrom": [
+            "edition_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "edition_embed_links_position_check": {
+          "name": "edition_embed_links_position_check",
           "value": "position >= 0"
         }
       },

@@ -28,10 +28,12 @@ import {
   eventLinks,
   eventEmbedLinks,
   eventAlerts,
+  editionEmbedLinks,
 } from '../schema';
 import { normalizeToParis } from './normalizeTime';
 import { events as events2023 } from 'fixtures/events-2023';
 import { events as events2024 } from 'fixtures/events-2024';
+import { events as events2026 } from 'fixtures/events-2026';
 
 /* Type imports ---------------------------------------- */
 import type { Event, EventLink, EventEmbedLink, EventAlert } from 'types/Event';
@@ -50,6 +52,7 @@ interface EditionSeed {
   description: string | null;
   dayOfFestival: string;
   fixture: Event[];
+  embedLinks?: { platform: 'instagram' | 'facebook'; url: string; isPublished?: boolean }[];
 }
 
 const EDITIONS: EditionSeed[] = [
@@ -64,6 +67,16 @@ const EDITIONS: EditionSeed[] = [
     description: null,
     dayOfFestival: '2024-06-21',
     fixture: events2024,
+    embedLinks: [
+      { platform: 'instagram', url: 'https://www.instagram.com/p/C8bvNYJI_BV/?img_index=1' },
+      { platform: 'instagram', url: 'https://www.instagram.com/p/C8bz_zPIUdX/' },
+    ],
+  },
+  {
+    year: 2026,
+    description: null,
+    dayOfFestival: '2026-06-21',
+    fixture: events2026,
   },
 ];
 
@@ -277,6 +290,28 @@ const syncEmbedLinks = async (
   );
 };
 
+const syncEditionEmbeds = async (
+  tx: Tx,
+  editionId: string,
+  embeds: { platform: 'instagram' | 'facebook'; url: string; isPublished?: boolean }[] | undefined,
+): Promise<void> => {
+  const list = embeds ?? [];
+  for(let i = 0; i < list.length; i++) {
+    const embed = list[i];
+    if(embed === undefined) continue;
+    await tx
+      .insert(editionEmbedLinks)
+      .values({ editionId, platform: embed.platform, url: embed.url, isPublished: embed.isPublished ?? true, position: i })
+      .onConflictDoUpdate({
+        target: [editionEmbedLinks.editionId, editionEmbedLinks.position],
+        set: { platform: embed.platform, url: embed.url, isPublished: embed.isPublished ?? true },
+      });
+  }
+  await tx.execute(
+    sql`DELETE FROM edition_embed_links WHERE edition_id = ${editionId} AND position >= ${list.length}`,
+  );
+};
+
 const syncAlerts = async (
   tx: Tx,
   eventId: string,
@@ -322,6 +357,9 @@ const syncAlerts = async (
 const main = async (): Promise<void> => {
   for(const edition of EDITIONS) {
     const editionId: string = await upsertEdition(edition);
+    await db.transaction(async (tx) => {
+      await syncEditionEmbeds(tx, editionId, edition.embedLinks);
+    });
     let upsertedEvents: number = 0;
     let childRows: number = 0;
     let geocodedOk: number = 0;

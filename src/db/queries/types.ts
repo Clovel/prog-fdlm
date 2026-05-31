@@ -46,6 +46,12 @@ export interface EventSummaryDto {
 
 export type EventStatus = 'canceled' | 'postponed' | 'rescheduled';
 
+export interface EmbedLinkDto {
+  id: string;
+  platform: 'instagram' | 'facebook';
+  url: string;
+}
+
 export interface EventDetailDto {
   id: string;
   editionId: string;

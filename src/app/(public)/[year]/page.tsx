@@ -11,7 +11,7 @@ import { useHeader } from 'app/HeaderContext';
 
 /* Component imports ----------------------------------- */
 import { Separator } from 'components/ui/separator';
-import { InstagramEmbed } from 'components/embeds';
+import EditionEmbeds from 'components/EditionEmbeds/EditionEmbeds';
 import EventsRecap from 'components/EventsRecap/EventsRecap';
 import EventCategoryView from 'components/EventCategoryView/EventCategoryView';
 import EventsMap from 'components/EventsMap/EventsMap';
@@ -22,7 +22,7 @@ import FavoritesSection from 'components/Favorites/FavoritesSection';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
-import type { EditionView, EventSummaryView, GeneralAlertView } from './types';
+import type { EditionView, EmbedLinkView, EventSummaryView, GeneralAlertView } from './types';
 
 /* Helpers --------------------------------------------- */
 // Thrown by the fetch helpers when an edition is missing. The effect translates it into
@@ -51,7 +51,7 @@ const summaryToEvent = (summary: EventSummaryView): Event => ({
   alertCount: summary.alertCount,
 });
 
-const fetchEdition = async (year: string): Promise<{ edition: EditionView; generalAlerts: GeneralAlertView[] }> => {
+const fetchEdition = async (year: string): Promise<{ edition: EditionView; generalAlerts: GeneralAlertView[]; embedLinks: EmbedLinkView[] }> => {
   const response: Response = await fetch(`/api/editions/${year}`);
   // A 400 here means a malformed year param (the only client error these endpoints raise for valid callers); treat it as not-found.
   if(response.status === 404 || response.status === 400) {
@@ -60,7 +60,7 @@ const fetchEdition = async (year: string): Promise<{ edition: EditionView; gener
   if(!response.ok) {
     throw new Error(`Edition fetch failed: ${response.status}`);
   }
-  return await response.json() as { edition: EditionView; generalAlerts: GeneralAlertView[] };
+  return await response.json() as { edition: EditionView; generalAlerts: GeneralAlertView[]; embedLinks: EmbedLinkView[] };
 };
 
 const fetchEvents = async (year: string): Promise<EventSummaryView[]> => {
@@ -95,6 +95,7 @@ const EditionPage: React.FC<EditionPageProps> = () => {
   const [editionNotFound, setEditionNotFound] = useState<boolean>(false);
   const [edition, setEdition] = useState<EditionView | null>(null);
   const [generalAlerts, setGeneralAlerts] = useState<GeneralAlertView[]>([]);
+  const [embedLinks, setEmbedLinks] = useState<EmbedLinkView[]>([]);
   const [summaries, setSummaries] = useState<EventSummaryView[]>([]);
 
   const { setState: setHeaderState } = useHeader();
@@ -112,6 +113,7 @@ const EditionPage: React.FC<EditionPageProps> = () => {
             if(cancelled) return;
             setEdition(editionPayload.edition);
             setGeneralAlerts(editionPayload.generalAlerts);
+            setEmbedLinks(editionPayload.embedLinks);
             setSummaries(eventList);
             setHeaderState({ year: Number(year), eventsCount: eventList.length });
           },
@@ -179,9 +181,49 @@ const EditionPage: React.FC<EditionPageProps> = () => {
     );
   }
 
+  const eventJsonLd: Array<Record<string, unknown>> = viewEvents
+    .filter((event: Event): boolean => event.name !== undefined && event.name.length > 0)
+    .map(
+      (event: Event): Record<string, unknown> => {
+        const place: Record<string, unknown> = {
+          '@type': 'Place',
+          name: event.location.name,
+        };
+        if(event.location.addressStr !== undefined && event.location.addressStr.length > 0) {
+          place.address = event.location.addressStr;
+        }
+        const eventStatusMap: Record<string, string> = {
+          canceled: 'https://schema.org/EventCancelled',
+          postponed: 'https://schema.org/EventPostponed',
+          rescheduled: 'https://schema.org/EventRescheduled',
+        };
+        const node: Record<string, unknown> = {
+          '@context': 'https://schema.org',
+          '@type': 'Event',
+          name: event.name,
+          startDate: event.startTime.toISOString(),
+          eventStatus: event.status !== undefined
+            ? eventStatusMap[event.status] ?? 'https://schema.org/EventScheduled'
+            : 'https://schema.org/EventScheduled',
+          location: place,
+        };
+        if(event.endTime !== undefined) {
+          node.endDate = event.endTime.toISOString();
+        }
+        return node;
+      },
+    );
+
   return (
     <FavoritesProvider editionId={edition.id}>
       <div className="flex flex-col place-items-center min-w-full py-4 lg:py-0">
+        {
+          eventJsonLd.length > 0 &&
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
+            />
+        }
         <GeneralAlertsBanner alerts={generalAlerts} />
         <FavoritesSection events={viewEvents} feteDeLaMusiqueDay={feteDeLaMusiqueDay} />
         {
@@ -208,9 +250,7 @@ const EditionPage: React.FC<EditionPageProps> = () => {
             )
         }
         <EventsRecap events={viewEvents} />
-        <section className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0">
-          <InstagramEmbed url="https://www.instagram.com/p/C8bvNYJI_BV/?img_index=1" />
-        </section>
+        <EditionEmbeds embeds={embedLinks} />
         <section className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0">
           <h4 className="text-2xl font-semibold tracking-tight pb-4">
             Cartes des événements
@@ -220,7 +260,6 @@ const EditionPage: React.FC<EditionPageProps> = () => {
             process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY.length > 0 &&
               <EventsMap events={viewEvents} />
           }
-          <InstagramEmbed url="https://www.instagram.com/p/C8bz_zPIUdX/" />
         </section>
       </div>
     </FavoritesProvider>
