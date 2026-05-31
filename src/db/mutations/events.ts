@@ -106,12 +106,18 @@ export const createEventsBatch = async (
   editionId: string,
   items: UpdateEventInput[],
 ): Promise<string[]> => {
+  const prepared: Array<{ item: UpdateEventInput; geo: Partial<typeof events.$inferInsert> }> = [];
+  for(const item of items) {
+    const addr = emptyToNull(item.locationAddress);
+    const geo = await geocodeColumns(addr, undefined);
+    prepared.push({ item, geo });
+  }
   return db.transaction(async (tx) => {
     const ids: string[] = [];
-    for(const item of items) {
+    for(const { item, geo } of prepared) {
       const rows = await tx
         .insert(events)
-        .values({ editionId, ...coreValues(item) } as typeof events.$inferInsert)
+        .values({ editionId, ...coreValues(item), ...geo } as typeof events.$inferInsert)
         .returning({ id: events.id });
       const row = rows[0];
       if(row === undefined) {
