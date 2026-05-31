@@ -3,7 +3,7 @@ import { and, asc, eq, gt, ilike, inArray, or, sql } from 'drizzle-orm';
 
 /* Module imports (project) ---------------------------- */
 import { db } from '../index';
-import { editions, events, eventLinks, eventEmbedLinks, eventAlerts } from '../schema';
+import { editions, events, eventLinks, eventEmbedLinks, eventAlerts, favorites } from '../schema';
 
 /* Type imports ---------------------------------------- */
 import type { EventSummaryDto, EventStatus } from './types';
@@ -70,6 +70,7 @@ export const listEditionEvents = async (input: ListEditionEventsInput): Promise<
   const linkCountSql = db.$count(eventLinks, eq(eventLinks.eventId, events.id));
   const embedCountSql = db.$count(eventEmbedLinks, eq(eventEmbedLinks.eventId, events.id));
   const alertCountSql = db.$count(eventAlerts, eq(eventAlerts.eventId, events.id));
+  const favoriteCountSql = db.$count(favorites, eq(favorites.eventId, events.id));
   const hasDescriptionSql = sql<boolean>`(${events.description} IS NOT NULL AND ${events.description} <> '')`;
 
   const filters = [
@@ -125,6 +126,7 @@ export const listEditionEvents = async (input: ListEditionEventsInput): Promise<
       linkCount: linkCountSql,
       embedCount: embedCountSql,
       alertCount: alertCountSql,
+      favoriteCount: favoriteCountSql,
       hasDescription: hasDescriptionSql,
     })
     .from(events)
@@ -164,6 +166,7 @@ export const listEditionEvents = async (input: ListEditionEventsInput): Promise<
       linkCount: row.linkCount,
       embedCount: row.embedCount,
       alertCount: row.alertCount,
+      favoriteCount: row.favoriteCount,
     }),
   );
 

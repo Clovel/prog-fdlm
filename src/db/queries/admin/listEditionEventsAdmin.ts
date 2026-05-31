@@ -3,7 +3,7 @@ import { asc, eq } from 'drizzle-orm';
 
 /* Module imports (project) ---------------------------- */
 import { db } from '../../index';
-import { events, eventLinks, eventEmbedLinks, eventAlerts } from '../../schema';
+import { events, eventLinks, eventEmbedLinks, eventAlerts, favorites } from '../../schema';
 
 /* Types ----------------------------------------------- */
 export interface AdminEventSummary {
@@ -16,6 +16,7 @@ export interface AdminEventSummary {
   linkCount: number;
   embedCount: number;
   alertCount: number;
+  favoriteCount: number;
 }
 
 /* Query ----------------------------------------------- */
@@ -31,6 +32,7 @@ export const listEditionEventsAdmin = async (editionId: string): Promise<AdminEv
       linkCount: db.$count(eventLinks, eq(eventLinks.eventId, events.id)),
       embedCount: db.$count(eventEmbedLinks, eq(eventEmbedLinks.eventId, events.id)),
       alertCount: db.$count(eventAlerts, eq(eventAlerts.eventId, events.id)),
+      favoriteCount: db.$count(favorites, eq(favorites.eventId, events.id)),
     })
     .from(events)
     .where(eq(events.editionId, editionId))
@@ -46,5 +48,6 @@ export const listEditionEventsAdmin = async (editionId: string): Promise<AdminEv
     linkCount: r.linkCount,
     embedCount: r.embedCount,
     alertCount: r.alertCount,
+    favoriteCount: r.favoriteCount,
   }));
 };
