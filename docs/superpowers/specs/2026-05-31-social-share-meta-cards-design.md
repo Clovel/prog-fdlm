@@ -100,12 +100,15 @@ cannot read CSS variables; see Fonts & tokens below).
    column — format as a calendar date, no timezone math needed.
 4. Renders the layout via `ImageResponse`, returning `image/png` at 1200×630.
 
-The vinyl/note motif is **inlined as Satori-supported SVG primitives** inside the
-`ImageResponse` JSX (Satori renders `div`/`svg` primitive shapes; inlining is more
-reliable than an `<img src>` to an external `.svg`). To avoid drift, the motif's
-shape geometry is extracted into **one shared source of truth** consumed by both
-`Music404` and the OG card. (A standalone `public/*.svg` is intentionally **not**
-required for this path.)
+The vinyl/note motif's shape geometry is **one shared source of truth** consumed by
+both `Music404` and the OG card.
+
+> **Implementation note (resolved during build):** Satori mangles deeply-nested
+> *inline* `<svg>` trees — resvg then throws `xmlParseEntityRef: no name` and the
+> PNG never renders. So `VinylNoteGlyph` exports a `vinylNoteSvg()` string builder
+> (sharing the React component's geometry constants), and the card embeds it as a
+> **base64 data-URI `<img>`**, which resvg rasterizes directly. (A standalone
+> `public/*.svg` is still not needed.)
 
 `twitter-image.tsx` re-exports the same renderer (or shares a common module) so the
 Twitter card matches the OG image.
@@ -149,10 +152,11 @@ native `metadata` export:
 
 ## Fonts & tokens (Satori constraints)
 
-- Satori **cannot read CSS or CSS variables.** Required font weights of **Inter**
-  (body) and the **mono** face used for headers must be loaded as font buffers and
-  passed to `ImageResponse({ fonts: [...] })`. The plan picks the minimal weight set
-  and a font-loading strategy (bundled asset read at runtime).
+- Satori **cannot read CSS or CSS variables.** **Inter** weights 400 + 700 are
+  bundled (`src/lib/shareCard/fonts/*.ttf`) and loaded as buffers via
+  `fs.readFile(new URL('./fonts/..', import.meta.url))`, then passed to
+  `ImageResponse({ fonts: [...] })`. Only Inter is bundled — the "mono header" look
+  is reproduced with letter-spaced uppercase Inter, so no second face is needed.
 - Theme `oklch(...)` token values are resolved to concrete light-theme color
   constants in the card module (a small local map), since the tokens aren't
   available to Satori.

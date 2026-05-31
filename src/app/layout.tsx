@@ -1,7 +1,8 @@
 /* Framework imports ----------------------------------- */
 import React from 'react';
 
-/* Module imports -------------------------------------- */
+/* Module imports (project) ---------------------------- */
+import { OG_SITE } from 'lib/shareCard/ogBase';
 
 /* Component imports ----------------------------------- */
 import { Analytics } from '@vercel/analytics/react';
@@ -11,9 +12,6 @@ import GoogleInterFont from 'app/fonts/fonts';
 
 /* Style imports --------------------------------------- */
 import './globals.css';
-
-/* Module imports (project) ---------------------------- */
-import { OG_SITE } from 'lib/shareCard/ogBase';
 
 /* Type imports ---------------------------------------- */
 import type { Metadata } from 'next';
