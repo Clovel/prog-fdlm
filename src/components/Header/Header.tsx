@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = (
   const count: number | null = state.eventsCount;
 
   return (
-    <header className="w-full font-mono flex flex-col lg:flex-row items-center justify-between gap-2 lg:p-16">
+    <header className="w-full font-mono flex flex-col items-center justify-between gap-2 lg:p-8">
       <div className="w-full">
         <p className="w-full justify-center border-b border-border bg-linear-to-b from-muted/50 to-transparent pb-6 pt-8 backdrop-blur-2xl lg:rounded-xl lg:border lg:bg-muted/50 lg:p-4 p-2">
           {

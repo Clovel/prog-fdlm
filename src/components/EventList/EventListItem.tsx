@@ -69,14 +69,15 @@ const EventListItem: React.FC<EventListItemProps> = (
         disabled={!collapsiblePresent}
       >
         <CollapsibleTrigger asChild disabled={!collapsiblePresent}>
-          <div className="flex items-center justify-between gap-2 px-4 cursor-pointer rounded-md hover:bg-accent">
+          <div className="flex items-start justify-between gap-2 px-4 cursor-pointer rounded-md hover:bg-accent">
             <div className="flex-1 min-w-0 -mx-2 px-2 py-1">
               <EventTitleBlock event={event} />
             </div>
-            <div className="flex items-center gap-2 shrink-0">
-              <div className="flex items-center gap-1">
+            <div className="flex flex-col items-end justify-start">
+              <div className="flex items-center justify-center">
                 {
-                  event.favoriteCount !== undefined && event.favoriteCount > 0 &&
+                  event.favoriteCount !== undefined &&
+                  event.favoriteCount > 0 &&
                     <span
                       className="text-xs tabular-nums text-muted-foreground"
                       aria-label={`${event.favoriteCount} personne(s) ont mis cet événement en favori`}
@@ -88,35 +89,47 @@ const EventListItem: React.FC<EventListItemProps> = (
                   variant="ghost"
                   size="icon"
                   onClick={handleToggleFavorite}
-                  aria-label={favorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+                  aria-label={
+                    favorite ?
+                      'Retirer des favoris' :
+                      'Ajouter aux favoris'
+                  }
                   aria-pressed={favorite}
                 >
                   <Star
-                    className={cn(
-                      'h-5 w-5',
-                      favorite
-                        ? 'fill-amber-400 text-amber-400 dark:fill-amber-300 dark:text-amber-300'
-                        : 'text-muted-foreground',
-                    )}
+                    className={
+                      cn(
+                        'h-5 w-5',
+                        favorite
+                          ? 'fill-amber-400 text-amber-400 dark:fill-amber-300 dark:text-amber-300'
+                          : 'text-muted-foreground',
+                      )
+                    }
                   />
                 </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label={
+                    open ?
+                      'Replier' :
+                      'Déplier'
+                  }
+                >
+                  {
+                    open ?
+                      <ChevronUp className="h-5 w-5" /> :
+                      <ChevronDown className="h-5 w-5" />
+                  }
+                </Button>
               </div>
-              <EventTime
-                startTime={event.startTime}
-                endTime={event.endTime}
-                feteDeLaMusiqueDay={feteDeLaMusiqueDay}
-              />
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-label={open ? 'Replier' : 'Déplier'}
-              >
-                {
-                  open ?
-                    <ChevronUp className="h-5 w-5" /> :
-                    <ChevronDown className="h-5 w-5" />
-                }
-              </Button>
+              <div className="flex gap-2 shrink-0">
+                <EventTime
+                  startTime={event.startTime}
+                  endTime={event.endTime}
+                  feteDeLaMusiqueDay={feteDeLaMusiqueDay}
+                />
+              </div>
             </div>
           </div>
         </CollapsibleTrigger>

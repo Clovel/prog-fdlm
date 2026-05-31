@@ -16,7 +16,7 @@ const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
   return (
     <QueryProvider>
       <Header />
-      <main className="flex-1 min-h-full flex flex-col items-center lg:p-24 lg:pt-8">
+      <main className="flex-1 min-h-full flex flex-col items-center">
         {children}
       </main>
       <footer className="flex flex-col justify-center h-14">
