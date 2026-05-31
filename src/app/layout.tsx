@@ -1,7 +1,8 @@
 /* Framework imports ----------------------------------- */
 import React from 'react';
 
-/* Module imports -------------------------------------- */
+/* Module imports (project) ---------------------------- */
+import { OG_SITE } from 'lib/shareCard/ogBase';
 
 /* Component imports ----------------------------------- */
 import { Analytics } from '@vercel/analytics/react';
@@ -13,16 +14,23 @@ import GoogleInterFont from 'app/fonts/fonts';
 import './globals.css';
 
 /* Type imports ---------------------------------------- */
+import type { Metadata } from 'next';
 
-/* External variables ---------------------------------- */
-interface Metadata {
-  title: string;
-  description?: string;
-}
+/* Metadata -------------------------------------------- */
+const baseUrl = process.env.BETTER_AUTH_URL ?? 'https://prog-fdlm.vercel.app';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: 'Fête de la musique à Bordeaux',
   description: 'Le programme de la fête de la musique à Bordeaux.',
+  openGraph: {
+    ...OG_SITE,
+    title: 'Fête de la musique à Bordeaux',
+    description: 'Le programme de la fête de la musique à Bordeaux.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 };
 
 /* RootLayout component prop types --------------------- */
@@ -34,26 +42,10 @@ interface RootLayoutProps {
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   return (
     <html
-      lang="en"
+      lang="fr"
       className={GoogleInterFont.variable}
       suppressHydrationWarning
     >
-      <head>
-        <title>
-          {metadata.title}
-        </title>
-        {
-          metadata.description !== undefined &&
-            <meta
-              name="description"
-              content={metadata.description}
-            />
-        }
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1"
-        />
-      </head>
       <body className="flex flex-col min-h-screen">
         <MainLayout>
           {children}

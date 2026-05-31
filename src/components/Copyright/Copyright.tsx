@@ -12,7 +12,7 @@ const Copyright: React.FC = () => {
         rel="noopener noreferrer"
         className="text-blue-600 dark:text-blue-400 underline-offset-4 hover:underline"
       >
-        Clovis Durand
+        Clovel
       </a>
       {', Copyright '}
       {new Date().getFullYear()}

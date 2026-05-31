@@ -1,6 +1,9 @@
 /* Framework imports ----------------------------------- */
 import React from 'react';
 
+/* Component imports ----------------------------------- */
+import VinylNoteGlyph from 'components/brand/VinylNote/VinylNoteGlyph';
+
 /* Music404 component prop types ----------------------- */
 interface Music404Props {}
 
@@ -35,16 +38,13 @@ const Music404: React.FC<Music404Props> = () => {
       >
         4
       </text>
-      {/* The vinyl record standing in for the 0 */}
-      <circle cx="180" cy="90" r="60" className="fill-primary" />
-      <circle cx="180" cy="90" r="42" className="fill-background" />
-      <circle cx="180" cy="90" r="30" className="fill-primary" />
-      <circle cx="180" cy="90" r="6" className="fill-background" />
-      {/* An eighth note resting on the label */}
-      <g className="fill-primary-foreground">
-        <ellipse cx="168" cy="104" rx="11" ry="8" transform="rotate(-20 168 104)" />
-        <rect x="177" y="62" width="4" height="44" rx="2" />
-        <path d="M181 62 q18 4 14 24 q-2 -12 -14 -14 z" />
+      {/* The vinyl record (with eighth note) standing in for the 0 */}
+      <g transform="translate(120,30)">
+        <VinylNoteGlyph
+          recordColor="var(--primary)"
+          holeColor="var(--background)"
+          noteColor="var(--primary-foreground)"
+        />
       </g>
     </svg>
   );
