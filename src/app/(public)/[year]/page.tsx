@@ -16,6 +16,7 @@ import EventsRecap from 'components/EventsRecap/EventsRecap';
 import EventCategoryView from 'components/EventCategoryView/EventCategoryView';
 import EventsMap from 'components/EventsMap/EventsMap';
 import GeneralAlertsBanner from 'components/GeneralAlertsBanner/GeneralAlertsBanner';
+import EmptyEditionView from 'components/EmptyEditionView/EmptyEditionView';
 import FavoritesProvider from 'components/Favorites/FavoritesProvider';
 import FavoritesSection from 'components/Favorites/FavoritesSection';
 
@@ -167,6 +168,14 @@ const EditionPage: React.FC<EditionPageProps> = () => {
   }
   if(edition === null) {
     return null;
+  }
+  if(viewEvents.length === 0) {
+    return (
+      <div className="flex flex-col place-items-center min-w-full py-4 lg:py-0">
+        <GeneralAlertsBanner alerts={generalAlerts} />
+        <EmptyEditionView />
+      </div>
+    );
   }
 
   return (
