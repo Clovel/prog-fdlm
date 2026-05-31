@@ -11,6 +11,7 @@ import {
   OutputFormat,
 } from 'react-geocode';
 import EventInfoWindow from './EventInfoWindow';
+import { useFavorites } from 'components/Favorites/FavoritesProvider';
 
 /* Component imports ----------------------------------- */
 import {
@@ -19,6 +20,8 @@ import {
   Marker,
   InfoWindow,
 } from '@react-google-maps/api';
+import { Switch } from 'components/ui/switch';
+import { Label } from 'components/ui/label';
 
 /* Style imports --------------------------------------- */
 
@@ -66,9 +69,11 @@ const EventsMap: React.FC<EventsMapProps> = (
     events = [],
   },
 ) => {
+  const { isFavorite, count } = useFavorites();
   const [ loadingGeocoding, setLoadingGeocoding ] = useState<boolean>(false);
   const [ eventMarkers, setEventMarkers ] = useState<MarkerInfo[]>([]);
   const [ selectedMarker, setSelectedMarker ] = useState<MarkerInfo | null>(null);
+  const [ onlyFavorites, setOnlyFavorites ] = useState<boolean>(false);
 
   const { isLoaded, loadError } = useJsApiLoader(
     {
@@ -156,6 +161,15 @@ const EventsMap: React.FC<EventsMapProps> = (
     );
   }
 
+  const favoriteMarkerIcon: google.maps.Symbol = {
+    path: google.maps.SymbolPath.CIRCLE,
+    scale: 9,
+    fillColor: '#f59e0b',
+    fillOpacity: 1,
+    strokeColor: '#ffffff',
+    strokeWeight: 2,
+  };
+
   return (
     <div>
       <span>
@@ -165,6 +179,20 @@ const EventsMap: React.FC<EventsMapProps> = (
             `Affichage de ${eventMarkers.length} marqueurs`
         }
       </span>
+      <div className="flex items-center gap-2 py-2">
+        <Switch
+          id="only-favorites"
+          checked={onlyFavorites}
+          onCheckedChange={setOnlyFavorites}
+          disabled={count === 0}
+        />
+        <Label
+          htmlFor="only-favorites"
+          className="text-sm"
+        >
+          Afficher seulement les favoris
+        </Label>
+      </div>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         center={center}
@@ -193,12 +221,14 @@ const EventsMap: React.FC<EventsMapProps> = (
       >
         {
           eventMarkers
+            .filter((marker) => !onlyFavorites || isFavorite(marker.id))
             .map(
               (marker) => (
                 <Marker
                   key={marker.id}
                   position={marker.position}
                   title={marker.event.name ?? 'Événement sans nom'}
+                  icon={isFavorite(marker.id) ? favoriteMarkerIcon : undefined}
                   onClick={(): void => setSelectedMarker(marker)}
                 />
               )
