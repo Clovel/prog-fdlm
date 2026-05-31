@@ -65,12 +65,17 @@ const apiCore = {
 const endAfterStart = (v: { startTime: string; endTime?: string | null }): boolean =>
   v.endTime === undefined || v.endTime === null || new Date(v.endTime) >= new Date(v.startTime);
 
-export const createEventSchema = z.object({
+/* Pre-refine objects (exported so .shape is available for MCP tools) */
+export const createEventObject = z.object({
   ...apiCore,
   editionId: z.string().uuid(),
-}).refine(endAfterStart, { message: 'endTime must be >= startTime', path: ['endTime'] });
+});
+export const updateEventObject = z.object(apiCore);
 
-export const updateEventSchema = z.object(apiCore)
+export const createEventSchema = createEventObject
+  .refine(endAfterStart, { message: 'endTime must be >= startTime', path: ['endTime'] });
+
+export const updateEventSchema = updateEventObject
   .refine(endAfterStart, { message: 'endTime must be >= startTime', path: ['endTime'] });
 
 export type CreateEventInput = z.infer<typeof createEventSchema>;
