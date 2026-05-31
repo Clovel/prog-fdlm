@@ -170,19 +170,26 @@ const EventsMap: React.FC<EventsMapProps> = (
     strokeWeight: 2,
   };
 
+  // Falls back to "show all" when there are no favorites, so the filter can't
+  // strand the user on an empty map while the Switch is disabled.
+  const favoritesOnly: boolean = onlyFavorites && count > 0;
+  const visibleMarkers: MarkerInfo[] = eventMarkers.filter(
+    (marker) => !favoritesOnly || isFavorite(marker.id),
+  );
+
   return (
     <div>
       <span>
         {
           loadingGeocoding ?
             'Chargement des marqueurs...' :
-            `Affichage de ${eventMarkers.length} marqueurs`
+            `Affichage de ${visibleMarkers.length} marqueurs`
         }
       </span>
       <div className="flex items-center gap-2 py-2">
         <Switch
           id="only-favorites"
-          checked={onlyFavorites}
+          checked={favoritesOnly}
           onCheckedChange={setOnlyFavorites}
           disabled={count === 0}
         />
@@ -220,8 +227,7 @@ const EventsMap: React.FC<EventsMapProps> = (
         onClick={(): void => setSelectedMarker(null)}
       >
         {
-          eventMarkers
-            .filter((marker) => !onlyFavorites || isFavorite(marker.id))
+          visibleMarkers
             .map(
               (marker) => (
                 <Marker
