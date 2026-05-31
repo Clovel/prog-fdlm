@@ -75,3 +75,11 @@ export const updateEventSchema = z.object(apiCore)
 
 export type CreateEventInput = z.infer<typeof createEventSchema>;
 export type UpdateEventInput = z.infer<typeof updateEventSchema>;
+
+/* Batch create (one edition, many events) ------------- */
+export const createEventsBatchSchema = z.object({
+  editionId: z.string().uuid(),
+  events: z.array(updateEventSchema).min(1, 'Au moins un évènement requis').max(100, 'Maximum 100 évènements par lot'),
+});
+
+export type CreateEventsBatchInput = z.infer<typeof createEventsBatchSchema>;
