@@ -10,3 +10,4 @@ export * from './generalAlerts';
 export * from './invitations';
 export * from './relations';
 export * from './auth';
+export * from './oauthProvider';
