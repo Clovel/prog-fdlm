@@ -13,6 +13,7 @@ import React, {
 
 /* Module imports -------------------------------------- */
 import { authClient } from 'auth/client';
+import { getOrCreateAnonId } from 'helpers/anonId';
 import {
   readStoredFavorites,
   writeStoredFavorites,
@@ -78,6 +79,7 @@ const FavoritesProvider: React.FC<FavoritesProviderProps> = (
       const localIds: string[] = readStoredFavorites(editionId);
 
       const reconcile = async (): Promise<void> => {
+        const anonId: string = getOrCreateAnonId();
         if(localIds.length > 0) {
           await fetch(
             '/api/favorites',
@@ -88,6 +90,14 @@ const FavoritesProvider: React.FC<FavoritesProviderProps> = (
             },
           );
         }
+        await fetch(
+          '/api/favorites/claim',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ anonId }),
+          },
+        );
         const res: Response = await fetch(`/api/favorites?editionId=${editionId}`);
         if(!res.ok) {
           return;
@@ -135,6 +145,23 @@ const FavoritesProvider: React.FC<FavoritesProviderProps> = (
         request.catch(
           (error: unknown): void => {
             console.error('[FavoritesProvider] sync failed:', error);
+          },
+        );
+      } else {
+        const anonId: string = getOrCreateAnonId();
+        const request: Promise<Response> = willFavorite
+          ? fetch(
+            '/api/favorites',
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ eventIds: [eventId], anonId }),
+            },
+          )
+          : fetch(`/api/favorites/${eventId}?anonId=${anonId}`, { method: 'DELETE' });
+        request.catch(
+          (error: unknown): void => {
+            console.error('[FavoritesProvider] anon sync failed:', error);
           },
         );
       }

@@ -50,6 +50,7 @@ export interface Event {
   linkCount?: number;
   embedCount?: number;
   alertCount?: number;
+  favoriteCount?: number;
 }
 
 export type EventsByCategoriesKey = Exclude<Event['category'], undefined> | 'Autres';

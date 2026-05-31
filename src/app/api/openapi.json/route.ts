@@ -53,12 +53,25 @@ const eventSummaryDto = z.object({
   linkCount: z.number().int(),
   embedCount: z.number().int(),
   alertCount: z.number().int(),
+  favoriteCount: z.number().int(),
 }).meta({ id: 'EventSummary' });
 
 const eventListDto = z.object({
   events: z.array(eventSummaryDto),
   nextCursor: z.string().nullable(),
 }).meta({ id: 'EventList' });
+
+const topFavoritedEventDto = z.object({
+  id: z.uuid(),
+  name: z.string().nullable(),
+  category: z.string().nullable(),
+  startTime: z.iso.datetime({ offset: true }),
+  favoriteCount: z.number().int(),
+}).meta({ id: 'TopFavoritedEvent' });
+
+const topFavoritesListDto = z.object({
+  events: z.array(topFavoritedEventDto),
+}).meta({ id: 'TopFavoritesList' });
 
 const eventDetailDto = z.object({
   id: z.uuid(),
@@ -71,6 +84,7 @@ const eventDetailDto = z.object({
     title: z.string().nullable(),
     content: z.string(),
   })),
+  favoriteCount: z.number().int(),
 }).meta({ id: 'EventDetail' });
 
 /* Request body schemas — the ACTUAL validators (truth) */
@@ -130,6 +144,19 @@ const document = createDocument({
         },
         responses: {
           '200': { description: 'OK', content: { 'application/json': { schema: eventListDto } } },
+          '404': { description: 'Not found' },
+        },
+      },
+    },
+    '/api/editions/{year}/top-favorites': {
+      get: {
+        summary: 'Top events of a published edition by favorite count',
+        requestParams: {
+          path: z.object({ year: z.coerce.number().int() }),
+          query: z.object({ limit: z.coerce.number().int().min(1).max(50).optional() }),
+        },
+        responses: {
+          '200': { description: 'OK', content: { 'application/json': { schema: topFavoritesListDto } } },
           '404': { description: 'Not found' },
         },
       },

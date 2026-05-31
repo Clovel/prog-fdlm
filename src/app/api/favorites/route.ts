@@ -4,8 +4,9 @@ import { z } from 'zod';
 
 /* Module imports (project) ---------------------------- */
 import { authorizeApi } from 'auth/apiGuard';
+import { getSession } from 'auth/helpers';
 import { listUserFavorites } from 'db/queries';
-import { addFavorites } from 'db/mutations/favorites';
+import { addFavorites, addAnonymousFavorites } from 'db/mutations/favorites';
 import { postFavoritesSchema } from 'validation/favorite';
 
 /* Type imports ---------------------------------------- */
@@ -36,15 +37,8 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
   }
 };
 
-/* POST — add favorites (single add or login merge) ---- */
+/* POST — add favorites (authed user, or anonymous device) --- */
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
-  const { session, response } = await authorizeApi();
-  if(response !== null) {
-    return response;
-  }
-  if(session === null) {
-    return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
-  }
   let body: unknown;
   try {
     body = await request.json();
@@ -57,7 +51,15 @@ export const POST = async (request: NextRequest): Promise<NextResponse> => {
     return NextResponse.json({ error: 'invalid_request', issues: parsed.error.issues }, { status: 400 });
   }
   try {
-    await addFavorites(session.user.id, parsed.data.eventIds);
+    const session = await getSession();
+    if(session !== null) {
+      await addFavorites(session.user.id, parsed.data.eventIds);
+      return NextResponse.json({ ok: true }, { status: 201 });
+    }
+    if(parsed.data.anonId === undefined) {
+      return NextResponse.json({ error: 'invalid_request', message: 'anonId requis' }, { status: 400 });
+    }
+    await addAnonymousFavorites(parsed.data.anonId, parsed.data.eventIds);
     return NextResponse.json({ ok: true }, { status: 201 });
   } catch(error) {
     console.error('[api/favorites POST] internal error:', error);

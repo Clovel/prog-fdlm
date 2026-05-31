@@ -36,6 +36,7 @@ export interface EventSummaryView {
   linkCount: number;
   embedCount: number;
   alertCount: number;
+  favoriteCount: number;
 }
 
 export interface EventDetailView {
@@ -64,6 +65,7 @@ export interface EventWithDetailView {
   links: Array<{ url: string; label: string }>;
   embedLinks: Array<{ platform: 'instagram' | 'facebook'; url: string }>;
   alerts: Array<{ variant: AlertVariant; title: string | null; content: string }>;
+  favoriteCount: number;
 }
 
 export interface EmbedLinkView {

@@ -3,7 +3,7 @@ import { asc, eq, inArray } from 'drizzle-orm';
 
 /* Module imports (project) ---------------------------- */
 import { db } from '../index';
-import { editions, events, eventLinks, eventEmbedLinks, eventAlerts } from '../schema';
+import { editions, events, eventLinks, eventEmbedLinks, eventAlerts, favorites } from '../schema';
 
 /* Type imports ---------------------------------------- */
 import type { EventWithDetailDto } from './types';
@@ -48,6 +48,7 @@ export const listEditionEventsWithDetail = async (year: number): Promise<EventWi
       longitude: events.longitude,
       geocodeStatus: events.geocodeStatus,
       description: events.description,
+      favoriteCount: db.$count(favorites, eq(favorites.eventId, events.id)),
     })
     .from(events)
     .where(eq(events.editionId, edition.id))
@@ -119,6 +120,7 @@ export const listEditionEventsWithDetail = async (year: number): Promise<EventWi
             : null,
       },
       description: row.description,
+      favoriteCount: row.favoriteCount,
       links: linksByEvent.get(row.id) ?? [],
       embedLinks: embedsByEvent.get(row.id) ?? [],
       alerts: alertsByEvent.get(row.id) ?? [],

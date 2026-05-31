@@ -5,3 +5,4 @@ export * from './listEditionEvents';
 export * from './listEditionEventsWithDetail';
 export * from './getEventDetail';
 export * from './listUserFavorites';
+export * from './topFavorites';

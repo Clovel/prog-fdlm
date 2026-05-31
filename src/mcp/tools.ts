@@ -6,6 +6,7 @@ import { listEditions } from 'db/queries/listEditions';
 import { getEdition } from 'db/queries/getEdition';
 import { listEditionEvents } from 'db/queries/listEditionEvents';
 import { getEventDetail } from 'db/queries/getEventDetail';
+import { getTopFavoritedEventsForYear, listTopFavoritedEventsPerEdition } from 'db/queries/topFavorites';
 import { createEventsBatch, createEventWithChildren, updateEventWithChildren, deleteEvent } from 'db/mutations/events';
 import { createEditionEmbed, updateEditionEmbed, deleteEditionEmbed } from 'db/mutations/editionEmbeds';
 import { createEventObject, updateEventObject, createEventSchema, updateEventSchema, createEventsBatchSchema } from 'validation/event';
@@ -91,6 +92,26 @@ export const registerReadTools = (server: McpServer): void => {
     async (args): Promise<ToolResult> => run(async () => {
       const result = await getEventDetail(args.eventId as string);
       return result === null ? fail(`No event ${String(args.eventId)}`) : ok(result);
+    }),
+  );
+
+  server.tool(
+    'list_top_favorites',
+    'Most-favorited events. With `year`, returns that published edition\'s top events by favorite count. Without `year`, returns the top events of every published edition, grouped: [{ year, events }]. Each event includes its favoriteCount.',
+    {
+      year: z.number().int().optional(),
+      limit: z.number().int().min(1).max(50).optional(),
+    },
+    async (args): Promise<ToolResult> => run(async () => {
+      const limit: number = (args.limit as number | undefined) ?? 10;
+      if(args.year === undefined) {
+        return ok(await listTopFavoritedEventsPerEdition(limit));
+      }
+      const year: number = args.year as number;
+      const result = await getTopFavoritedEventsForYear(year, limit);
+      return result === null
+        ? fail(`No published edition for year ${String(year)}`)
+        : ok(result);
     }),
   );
 };

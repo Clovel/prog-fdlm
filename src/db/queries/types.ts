@@ -42,6 +42,7 @@ export interface EventSummaryDto {
   linkCount: number;
   embedCount: number;
   alertCount: number;
+  favoriteCount: number;
 }
 
 export type EventStatus = 'canceled' | 'postponed' | 'rescheduled';
@@ -59,6 +60,7 @@ export interface EventDetailDto {
   links: Array<{ url: string; label: string }>;
   embedLinks: Array<{ platform: 'instagram' | 'facebook'; url: string }>;
   alerts: Array<{ variant: AlertVariant; title: string | null; content: string }>;
+  favoriteCount: number;
 }
 
 // A full event for the public per-edition page: summary fields + the detail
@@ -86,4 +88,5 @@ export interface EventWithDetailDto {
   links: Array<{ url: string; label: string }>;
   embedLinks: Array<{ platform: 'instagram' | 'facebook'; url: string }>;
   alerts: Array<{ variant: AlertVariant; title: string | null; content: string }>;
+  favoriteCount: number;
 }
