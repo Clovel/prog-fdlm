@@ -30,6 +30,7 @@ import {
 import { normalizeToParis } from './normalizeTime';
 import { events as events2023 } from 'fixtures/events-2023';
 import { events as events2024 } from 'fixtures/events-2024';
+import { events as events2026 } from 'fixtures/events-2026';
 
 /* Type imports ---------------------------------------- */
 import type { Event, EventLink, EventEmbedLink, EventAlert } from 'types/Event';
@@ -54,6 +55,12 @@ const EDITIONS: EditionSeed[] = [
     description: null,
     dayOfFestival: '2024-06-21',
     fixture: events2024,
+  },
+  {
+    year: 2026,
+    description: null,
+    dayOfFestival: '2026-06-21',
+    fixture: events2026,
   },
 ];
 
