@@ -45,3 +45,9 @@ export interface EventDetailView {
   embedLinks: Array<{ platform: 'instagram' | 'facebook'; url: string }>;
   alerts: Array<{ variant: AlertVariant; title: string | null; content: string }>;
 }
+
+export interface EmbedLinkView {
+  id: string;
+  platform: 'instagram' | 'facebook';
+  url: string;
+}
