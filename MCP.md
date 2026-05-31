@@ -102,6 +102,8 @@ BetterAuth itself is the **OAuth 2.1 authorization server** (via its `mcp()` plu
 
 No API keys / personal access tokens exist — auth is OAuth (for agents) or the session cookie (for the web UI).
 
+**Full details** — the step-by-step OAuth flow, the role/scope model, per-client connection, and troubleshooting — are in **[MCP-AUTH.md](MCP-AUTH.md)**.
+
 ---
 
 ## For non-MCP scrapers

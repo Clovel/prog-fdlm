@@ -99,4 +99,4 @@ AI agents (Claude Code, Cursor, ChatGPT, Claude.ai, Claude Cowork) can **read** 
 
 BetterAuth acts as the OAuth provider, so connecting from a hosted agent (e.g. ChatGPT/Claude.ai) just works. The OAuth tables require `pnpm db:migrate` (migration `0007`) **before deploying**.
 
-See **[MCP.md](MCP.md)** for the full guide: tools, connecting each client, the batch workflow, the auth flow, and local testing.
+See **[MCP.md](MCP.md)** for the full guide (tools, connecting each client, the batch workflow, local testing) and **[MCP-AUTH.md](MCP-AUTH.md)** for the authenticated-write OAuth flow in detail.
