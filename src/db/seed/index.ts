@@ -11,11 +11,12 @@
  */
 
 /* Framework imports ----------------------------------- */
-import { sql } from 'drizzle-orm';
+import { and, eq, sql } from 'drizzle-orm';
 import React from 'react';
 
 /* Module imports (project) ---------------------------- */
 import { db } from '../index';
+import { geocodeAddress } from 'lib/geocode';
 
 /* Type helpers ---------------------------------------- */
 /** Transaction client — same interface as `db` but scoped to a transaction. */
@@ -33,6 +34,25 @@ import { events as events2024 } from 'fixtures/events-2024';
 
 /* Type imports ---------------------------------------- */
 import type { Event, EventLink, EventEmbedLink, EventAlert } from 'types/Event';
+
+/* Local types ----------------------------------------- */
+type GeoColumns = Pick<
+  typeof events.$inferInsert,
+  | 'latitude'
+  | 'longitude'
+  | 'geocodedAddress'
+  | 'geocodeStatus'
+  | 'geocodeScore'
+  | 'geocodedAt'
+  | 'formattedAddress'
+>;
+
+type GeoClassification = 'geocoded-ok' | 'geocoded-failed' | 'skipped-cached' | 'skipped-no-address';
+
+interface GeoResolution {
+  geo: GeoColumns;
+  classification: GeoClassification;
+}
 
 /* External variables ---------------------------------- */
 interface EditionSeed {
@@ -58,6 +78,90 @@ const EDITIONS: EditionSeed[] = [
 ];
 
 /* Helpers --------------------------------------------- */
+
+/**
+ * Determine the 7 geocode columns for a seed event row.
+ *
+ * Resolution order:
+ * 1. No address → all 7 null (skipped-no-address, no BAN call).
+ * 2. Existing row already geocoded with the same address → reuse as-is (skipped-cached, no BAN call).
+ * 3. Otherwise → call BAN, map ok/failed per mutation convention (geocoded-ok / geocoded-failed).
+ */
+const resolveSeedGeocode = async(
+  normAddr: string | null,
+  existing: GeoColumns | undefined,
+  eventLegacyId: string,
+): Promise<GeoResolution> => {
+  const nullGeo: GeoColumns = {
+    latitude: null,
+    longitude: null,
+    geocodedAddress: null,
+    geocodeStatus: null,
+    geocodeScore: null,
+    geocodedAt: null,
+    formattedAddress: null,
+  };
+
+  /* Branch 1: no address. */
+  if(normAddr === null) {
+    return { geo: nullGeo, classification: 'skipped-no-address' };
+  }
+
+  /* Branch 2: already geocoded ok with the same address — reuse unchanged. */
+  if(
+    existing !== undefined &&
+    existing.geocodeStatus === 'ok' &&
+    existing.geocodedAddress === normAddr
+  ) {
+    return {
+      geo: {
+        latitude: existing.latitude,
+        longitude: existing.longitude,
+        geocodedAddress: existing.geocodedAddress,
+        geocodeStatus: existing.geocodeStatus,
+        geocodeScore: existing.geocodeScore,
+        geocodedAt: existing.geocodedAt,
+        formattedAddress: existing.formattedAddress,
+      },
+      classification: 'skipped-cached',
+    };
+  }
+
+  /* Branch 3: call BAN. */
+  const result = await geocodeAddress(normAddr);
+  if(result.status === 'ok') {
+    return {
+      geo: {
+        latitude: result.lat,
+        longitude: result.lng,
+        geocodedAddress: normAddr,
+        geocodeStatus: 'ok',
+        geocodeScore: result.score,
+        geocodedAt: new Date(),
+        formattedAddress: result.formattedAddress ?? null,
+      },
+      classification: 'geocoded-ok',
+    };
+  }
+
+  /* Failed — log a warning then store the failure. */
+  console.warn(
+    `[seed] geocode failed for "${normAddr}" (event ${eventLegacyId})`,
+  );
+  return {
+    geo: {
+      latitude: null,
+      longitude: null,
+      geocodedAddress: null,
+      geocodeStatus: 'failed',
+      geocodeScore: result.score ?? null,
+      geocodedAt: new Date(),
+      formattedAddress: null,
+    },
+    classification: 'geocoded-failed',
+  };
+};
+
 const assertString = (value: unknown, context: string): string => {
   if(typeof value !== 'string') {
     throw new Error(`Expected string for ${context}, got ${typeof value}: ${String(value)}`);
@@ -117,6 +221,7 @@ const upsertEvent = async (
   tx: Tx,
   fixtureEvent: Event,
   editionId: string,
+  geo: GeoColumns,
 ): Promise<string> => {
   const description: string | null =
     fixtureEvent.description === undefined ? null : assertString(fixtureEvent.description, `event ${fixtureEvent.id} description`);
@@ -125,10 +230,6 @@ const upsertEvent = async (
   const startTime: Date = normalizeToParis(fixtureEvent.startTime);
   const endTime: Date | null =
     fixtureEvent.endTime === undefined ? null : normalizeToParis(fixtureEvent.endTime);
-
-  if(fixtureEvent.location.coords !== undefined) {
-    console.warn(`[seed] Ignoring location.coords for legacy event ${fixtureEvent.id} — coord columns deferred to Spec 3.`);
-  }
 
   const rows = await tx
     .insert(events)
@@ -146,6 +247,7 @@ const upsertEvent = async (
       locationAddress: fixtureEvent.location.addressStr ?? null,
       startTime,
       endTime,
+      ...geo,
     })
     .onConflictDoUpdate({
       target: [events.editionId, events.legacyId],
@@ -163,6 +265,7 @@ const upsertEvent = async (
         startTime,
         endTime,
         updatedAt: sql`NOW()`,
+        ...geo,
       },
     })
     .returning({ id: events.id });
@@ -263,9 +366,50 @@ const main = async (): Promise<void> => {
     const editionId: string = await upsertEdition(edition);
     let upsertedEvents: number = 0;
     let childRows: number = 0;
+    let geocodedOk: number = 0;
+    let geocodedFailed: number = 0;
+    let skippedCached: number = 0;
+    let skippedNoAddress: number = 0;
+
     for(const fixtureEvent of edition.fixture) {
+      /* Resolve geocode columns BEFORE the transaction — BAN calls must not run inside db.transaction. */
+      const addr: string = (fixtureEvent.location.addressStr ?? '').trim();
+      const normAddr: string | null = addr.length > 0 ? addr : null;
+
+      /* Read the existing row's geo columns for idempotency. */
+      const existingRows = await db
+        .select({
+          latitude: events.latitude,
+          longitude: events.longitude,
+          geocodedAddress: events.geocodedAddress,
+          geocodeStatus: events.geocodeStatus,
+          geocodeScore: events.geocodeScore,
+          geocodedAt: events.geocodedAt,
+          formattedAddress: events.formattedAddress,
+        })
+        .from(events)
+        .where(and(eq(events.editionId, editionId), eq(events.legacyId, fixtureEvent.id)));
+      const existingRow: GeoColumns | undefined = existingRows[0];
+
+      const { geo, classification } = await resolveSeedGeocode(normAddr, existingRow, fixtureEvent.id);
+
+      switch(classification) {
+        case 'geocoded-ok':
+          geocodedOk += 1;
+          break;
+        case 'geocoded-failed':
+          geocodedFailed += 1;
+          break;
+        case 'skipped-cached':
+          skippedCached += 1;
+          break;
+        case 'skipped-no-address':
+          skippedNoAddress += 1;
+          break;
+      }
+
       await db.transaction(async (tx) => {
-        const eventId: string = await upsertEvent(tx, fixtureEvent, editionId);
+        const eventId: string = await upsertEvent(tx, fixtureEvent, editionId, geo);
         await syncLinks(tx, eventId, fixtureEvent.links);
         await syncEmbedLinks(tx, eventId, fixtureEvent.embedLinks);
         await syncAlerts(tx, eventId, fixtureEvent.alerts);
@@ -277,7 +421,7 @@ const main = async (): Promise<void> => {
         (fixtureEvent.alerts?.length ?? 0);
     }
     console.log(
-      `[seed] Edition ${edition.year}: ${upsertedEvents} events upserted, ${childRows} child rows upserted.`,
+      `[seed] Edition ${edition.year}: ${upsertedEvents} events upserted, ${childRows} child rows upserted, ${geocodedOk} geocoded, ${skippedCached} cached, ${geocodedFailed} failed, ${skippedNoAddress} without address.`,
     );
   }
   console.log('[seed] Done.');
