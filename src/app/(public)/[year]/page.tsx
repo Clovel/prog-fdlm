@@ -178,9 +178,42 @@ const EditionPage: React.FC<EditionPageProps> = () => {
     );
   }
 
+  const eventJsonLd: Array<Record<string, unknown>> = viewEvents
+    .filter((event: Event): boolean => event.name !== undefined && event.name.length > 0)
+    .map(
+      (event: Event): Record<string, unknown> => {
+        const place: Record<string, unknown> = {
+          '@type': 'Place',
+          name: event.location.name,
+        };
+        if(event.location.addressStr !== undefined && event.location.addressStr.length > 0) {
+          place.address = event.location.addressStr;
+        }
+        const node: Record<string, unknown> = {
+          '@context': 'https://schema.org',
+          '@type': 'Event',
+          name: event.name,
+          startDate: event.startTime.toISOString(),
+          eventStatus: 'https://schema.org/EventScheduled',
+          location: place,
+        };
+        if(event.endTime !== undefined) {
+          node.endDate = event.endTime.toISOString();
+        }
+        return node;
+      },
+    );
+
   return (
     <FavoritesProvider editionId={edition.id}>
       <div className="flex flex-col place-items-center min-w-full py-4 lg:py-0">
+        {
+          eventJsonLd.length > 0 &&
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
+            />
+        }
         <GeneralAlertsBanner alerts={generalAlerts} />
         <FavoritesSection events={viewEvents} feteDeLaMusiqueDay={feteDeLaMusiqueDay} />
         {
