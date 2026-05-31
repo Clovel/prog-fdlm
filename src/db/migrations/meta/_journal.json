@@ -71,6 +71,13 @@
       "when": 1780248720275,
       "tag": "0009_many_gwen_stacy",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1780253862442,
+      "tag": "0010_loud_serpent_society",
+      "breakpoints": true
     }
   ]
 }
