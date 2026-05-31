@@ -1,15 +1,10 @@
 /* Framework imports ----------------------------------- */
 import React, {
-  useEffect,
+  useMemo,
   useState,
 } from 'react';
 
 /* Module imports -------------------------------------- */
-import {
-  setDefaults,
-  fromAddress,
-  OutputFormat,
-} from 'react-geocode';
 import EventInfoWindow from './EventInfoWindow';
 import { useFavorites } from 'components/Favorites/FavoritesProvider';
 
@@ -26,10 +21,7 @@ import { Label } from 'components/ui/label';
 /* Style imports --------------------------------------- */
 
 /* Type imports ---------------------------------------- */
-import type {
-  GeocodeResponseData,
-  LatLngLiteral,
-} from '@googlemaps/google-maps-services-js';
+import type { LatLngLiteral } from '@googlemaps/google-maps-services-js';
 import type { Event } from 'types/Event';
 
 /* Type declarations ----------------------------------- */
@@ -50,14 +42,6 @@ const center: LatLngLiteral = {
   lng: -0.571377,
 };
 
-setDefaults({
-  // key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-  key: process.env.NEXT_PUBLIC_GEOCODING_API_KEY,
-  language: 'fr', // Default language for responses.
-  region: 'fr', // Default region for responses.
-  outputFormat: OutputFormat.JSON, // Default output format.
-});
-
 /* EventsMap component prop types ---------------------- */
 interface EventsMapProps {
   events: Event[];
@@ -70,8 +54,6 @@ const EventsMap: React.FC<EventsMapProps> = (
   },
 ) => {
   const { isFavorite, count } = useFavorites();
-  const [ loadingGeocoding, setLoadingGeocoding ] = useState<boolean>(false);
-  const [ eventMarkers, setEventMarkers ] = useState<MarkerInfo[]>([]);
   const [ selectedMarker, setSelectedMarker ] = useState<MarkerInfo | null>(null);
   const [ onlyFavorites, setOnlyFavorites ] = useState<boolean>(false);
 
@@ -82,61 +64,18 @@ const EventsMap: React.FC<EventsMapProps> = (
     }
   );
 
-  useEffect(
+  const eventMarkers = useMemo<MarkerInfo[]>(
     () => {
-      const fetchEventMarkers = async (): Promise<void> => {
-        const markers: MarkerInfo[] = [];
-
-        for(const event of events) {
-          if(
-            event.location.addressStr !== undefined &&
-            event.location.addressStr.length > 0
-          ) {
-            try {
-              const data: GeocodeResponseData = await fromAddress(event.location.addressStr) as GeocodeResponseData;
-
-              if(data.results.length > 0) {
-                const { lat, lng } = data.results[0].geometry.location;
-
-                const marker: MarkerInfo = {
-                  id: event.id,
-                  position: {
-                    lat: lat,
-                    lng: lng,
-                  },
-                  event: event,
-                };
-
-                markers.push(marker);
-              } else {
-                console.warn(`[WARN] <EventsMap> No geocoding result for address "${event.location.addressStr}"`, data);
-              }
-            } catch(error) {
-              console.error(`[ERROR] <EventsMap> Failed to geocode address "${event.location.addressStr}" :`, error);
-            }
-          }
+      const markers: MarkerInfo[] = [];
+      for(const event of events) {
+        const coords = event.location.coords;
+        if(coords !== undefined) {
+          markers.push({ id: event.id, position: { lat: coords.lat, lng: coords.lng }, event });
         }
-
-        setEventMarkers(markers);
-      };
-
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setLoadingGeocoding(true);
-      fetchEventMarkers()
-        .catch(
-          (error) => {
-            console.error(`[ERROR] <EventsMap> Failed to fetch event markers :`, error);
-          }
-        )
-        .finally(
-          () => {
-            setLoadingGeocoding(false);
-          }
-        );
+      }
+      return markers;
     },
-    [
-      events,
-    ]
+    [events],
   );
 
   if(loadError !== undefined) {
@@ -180,11 +119,7 @@ const EventsMap: React.FC<EventsMapProps> = (
   return (
     <div>
       <span>
-        {
-          loadingGeocoding ?
-            'Chargement des marqueurs...' :
-            `Affichage de ${visibleMarkers.length} marqueurs`
-        }
+        {`Affichage de ${visibleMarkers.length} marqueurs`}
       </span>
       <div className="flex items-center gap-2 py-2">
         <Switch
@@ -255,6 +190,9 @@ const EventsMap: React.FC<EventsMapProps> = (
             </InfoWindow>
         }
       </GoogleMap>
+      <p className="text-muted-foreground mt-2 text-xs">
+        Géocodage : Base Adresse Nationale (data.gouv.fr)
+      </p>
     </div>
   );
 };
