@@ -132,6 +132,7 @@ const EventsManager: React.FC<EventsManagerProps> = ({ canManage }) => {
                     <TableHead>Catégorie</TableHead>
                     <TableHead>Statut</TableHead>
                     <TableHead>L/E/A</TableHead>
+                    <TableHead>Favoris</TableHead>
                     {canManage && <TableHead className="text-right">Actions</TableHead>}
                   </TableRow>
                 </TableHeader>
@@ -144,6 +145,7 @@ const EventsManager: React.FC<EventsManagerProps> = ({ canManage }) => {
                         <TableCell>{ev.category ?? '—'}</TableCell>
                         <TableCell>{ev.status !== null ? <Badge variant="secondary">{ev.status}</Badge> : '—'}</TableCell>
                         <TableCell>{`${ev.linkCount}/${ev.embedCount}/${ev.alertCount}`}</TableCell>
+                        <TableCell className="tabular-nums">{ev.favoriteCount}</TableCell>
                         {
                           canManage &&
                             <TableCell className="text-right">
