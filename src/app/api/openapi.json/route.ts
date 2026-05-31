@@ -84,6 +84,7 @@ const eventDetailDto = z.object({
     title: z.string().nullable(),
     content: z.string(),
   })),
+  favoriteCount: z.number().int(),
 }).meta({ id: 'EventDetail' });
 
 /* Request body schemas — the ACTUAL validators (truth) */

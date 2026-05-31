@@ -3,7 +3,7 @@ import { and, asc, eq } from 'drizzle-orm';
 
 /* Module imports (project) ---------------------------- */
 import { db } from '../index';
-import { editions, events, eventLinks, eventEmbedLinks, eventAlerts } from '../schema';
+import { editions, events, eventLinks, eventEmbedLinks, eventAlerts, favorites } from '../schema';
 
 /* Type imports ---------------------------------------- */
 import type { EventDetailDto } from './types';
@@ -15,6 +15,7 @@ export const getEventDetail = async (eventId: string): Promise<EventDetailDto | 
       id: events.id,
       editionId: events.editionId,
       description: events.description,
+      favoriteCount: db.$count(favorites, eq(favorites.eventId, events.id)),
     })
     .from(events)
     .innerJoin(editions, eq(events.editionId, editions.id))
@@ -50,5 +51,6 @@ export const getEventDetail = async (eventId: string): Promise<EventDetailDto | 
     links: linkRows.map(({ url, label }) => ({ url, label })),
     embedLinks: embedRows.map(({ platform, url }) => ({ platform, url })),
     alerts: alertRows.map(({ variant, title, content }) => ({ variant, title, content })),
+    favoriteCount: event.favoriteCount,
   };
 };

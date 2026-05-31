@@ -60,6 +60,7 @@ export interface EventDetailDto {
   links: Array<{ url: string; label: string }>;
   embedLinks: Array<{ platform: 'instagram' | 'facebook'; url: string }>;
   alerts: Array<{ variant: AlertVariant; title: string | null; content: string }>;
+  favoriteCount: number;
 }
 
 // A full event for the public per-edition page: summary fields + the detail
