@@ -5,6 +5,7 @@ import { eq, sql } from 'drizzle-orm';
 import { db } from '../index';
 import { events, eventLinks, eventEmbedLinks, eventAlerts } from '../schema';
 import { geocodeAddress } from 'lib/geocode';
+import { geocodeResultToColumns } from 'db/geocodeColumns';
 
 /* Type imports ---------------------------------------- */
 import type { CreateEventInput, UpdateEventInput } from 'validation/event';
@@ -74,42 +75,13 @@ const geocodeColumns = async (
   previousGeocodedAddress: string | null | undefined,
 ): Promise<Partial<typeof events.$inferInsert>> => {
   if(addr === null) {
-    return {
-      latitude: null,
-      longitude: null,
-      geocodedAddress: null,
-      geocodeStatus: null,
-      geocodeScore: null,
-      geocodedAt: null,
-      formattedAddress: null,
-    };
+    return geocodeResultToColumns(null, null);
   }
   if(addr === previousGeocodedAddress) {
     return {};
   }
   const result = await geocodeAddress(addr);
-  if(result.status === 'ok') {
-    return {
-      latitude: result.lat,
-      longitude: result.lng,
-      geocodedAddress: addr,
-      geocodeStatus: 'ok',
-      geocodeScore: result.score,
-      geocodedAt: new Date(),
-      formattedAddress: result.formattedAddress ?? null,
-    };
-  }
-  /* status === 'failed': write proceeds with null coords; geocodedAddress stays
-     null so the next save will retry (addr !== null !== null). */
-  return {
-    latitude: null,
-    longitude: null,
-    geocodedAddress: null,
-    geocodeStatus: 'failed',
-    geocodeScore: result.score ?? null,
-    geocodedAt: new Date(),
-    formattedAddress: null,
-  };
+  return geocodeResultToColumns(addr, result);
 };
 
 /* Mutations ------------------------------------------- */

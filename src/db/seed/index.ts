@@ -17,6 +17,7 @@ import React from 'react';
 /* Module imports (project) ---------------------------- */
 import { db } from '../index';
 import { geocodeAddress } from 'lib/geocode';
+import { geocodeResultToColumns } from 'db/geocodeColumns';
 
 /* Type helpers ---------------------------------------- */
 /** Transaction client — same interface as `db` but scoped to a transaction. */
@@ -34,18 +35,7 @@ import { events as events2024 } from 'fixtures/events-2024';
 
 /* Type imports ---------------------------------------- */
 import type { Event, EventLink, EventEmbedLink, EventAlert } from 'types/Event';
-
-/* Local types ----------------------------------------- */
-type GeoColumns = Pick<
-  typeof events.$inferInsert,
-  | 'latitude'
-  | 'longitude'
-  | 'geocodedAddress'
-  | 'geocodeStatus'
-  | 'geocodeScore'
-  | 'geocodedAt'
-  | 'formattedAddress'
->;
+import type { GeoColumns } from 'db/geocodeColumns';
 
 type GeoClassification = 'geocoded-ok' | 'geocoded-failed' | 'skipped-cached' | 'skipped-no-address';
 
@@ -92,22 +82,13 @@ const resolveSeedGeocode = async(
   existing: GeoColumns | undefined,
   eventLegacyId: string,
 ): Promise<GeoResolution> => {
-  const nullGeo: GeoColumns = {
-    latitude: null,
-    longitude: null,
-    geocodedAddress: null,
-    geocodeStatus: null,
-    geocodeScore: null,
-    geocodedAt: null,
-    formattedAddress: null,
-  };
-
   /* Branch 1: no address. */
   if(normAddr === null) {
-    return { geo: nullGeo, classification: 'skipped-no-address' };
+    return { geo: geocodeResultToColumns(null, null), classification: 'skipped-no-address' };
   }
 
-  /* Branch 2: already geocoded ok with the same address — reuse unchanged. */
+  /* Branch 2: already geocoded ok with the same address — reuse unchanged.
+     Rebuilds from existing to preserve the original geocodedAt timestamp. */
   if(
     existing !== undefined &&
     existing.geocodeStatus === 'ok' &&
@@ -129,37 +110,14 @@ const resolveSeedGeocode = async(
 
   /* Branch 3: call BAN. */
   const result = await geocodeAddress(normAddr);
-  if(result.status === 'ok') {
-    return {
-      geo: {
-        latitude: result.lat,
-        longitude: result.lng,
-        geocodedAddress: normAddr,
-        geocodeStatus: 'ok',
-        geocodeScore: result.score,
-        geocodedAt: new Date(),
-        formattedAddress: result.formattedAddress ?? null,
-      },
-      classification: 'geocoded-ok',
-    };
+  if(result.status === 'failed') {
+    /* Failed — log a warning then store the failure. */
+    console.warn(
+      `[seed] geocode failed for "${normAddr}" (event ${eventLegacyId})`,
+    );
+    return { geo: geocodeResultToColumns(normAddr, result), classification: 'geocoded-failed' };
   }
-
-  /* Failed — log a warning then store the failure. */
-  console.warn(
-    `[seed] geocode failed for "${normAddr}" (event ${eventLegacyId})`,
-  );
-  return {
-    geo: {
-      latitude: null,
-      longitude: null,
-      geocodedAddress: null,
-      geocodeStatus: 'failed',
-      geocodeScore: result.score ?? null,
-      geocodedAt: new Date(),
-      formattedAddress: null,
-    },
-    classification: 'geocoded-failed',
-  };
+  return { geo: geocodeResultToColumns(normAddr, result), classification: 'geocoded-ok' };
 };
 
 const assertString = (value: unknown, context: string): string => {
@@ -421,7 +379,7 @@ const main = async (): Promise<void> => {
         (fixtureEvent.alerts?.length ?? 0);
     }
     console.log(
-      `[seed] Edition ${edition.year}: ${upsertedEvents} events upserted, ${childRows} child rows upserted, ${geocodedOk} geocoded, ${skippedCached} cached, ${geocodedFailed} failed, ${skippedNoAddress} without address.`,
+      `[seed] Edition ${edition.year}: ${upsertedEvents} events upserted, ${childRows} child rows upserted, ${geocodedOk} geocoded, ${skippedCached} cached, ${geocodedFailed} geocode-failed, ${skippedNoAddress} without address.`,
     );
   }
   console.log('[seed] Done.');
