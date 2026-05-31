@@ -2,7 +2,7 @@
 import React from 'react';
 
 /* Component imports ----------------------------------- */
-import QueryProvider from './QueryProvider';
+import QueryProvider from 'components/QueryProvider/QueryProvider';
 import AdminShell from './AdminShell/AdminShell';
 
 /* Module imports (project) ---------------------------- */

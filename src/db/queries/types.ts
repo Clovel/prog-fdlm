@@ -60,3 +60,30 @@ export interface EventDetailDto {
   embedLinks: Array<{ platform: 'instagram' | 'facebook'; url: string }>;
   alerts: Array<{ variant: AlertVariant; title: string | null; content: string }>;
 }
+
+// A full event for the public per-edition page: summary fields + the detail
+// (description, links, embeds, alerts) inlined, so the page renders everything
+// from one request with no per-event detail fetch. Used by the consolidated
+// `/api/editions/[year]/events/full` endpoint; the summary `EventSummaryDto`
+// + cursor route stay as the documented, paginated public API.
+export interface EventWithDetailDto {
+  id: string;
+  editionId: string;
+  name: string | null;
+  category: EventCategory | null;
+  status: EventStatus | null;
+  genres: string[] | null;
+  artists: string[] | null;
+  startTime: string;     // ISO
+  endTime: string | null;
+  priceText: string | null;
+  location: {
+    name: string;
+    address: string | null;
+    coords: { lat: number; lng: number } | null;
+  };
+  description: string | null;
+  links: Array<{ url: string; label: string }>;
+  embedLinks: Array<{ platform: 'instagram' | 'facebook'; url: string }>;
+  alerts: Array<{ variant: AlertVariant; title: string | null; content: string }>;
+}

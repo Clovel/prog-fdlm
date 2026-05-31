@@ -1,13 +1,16 @@
 'use client';
 
 /* Framework imports ----------------------------------- */
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { notFound, useParams } from 'next/navigation';
 
 /* Module imports -------------------------------------- */
 import { reduceEventsByCategory } from 'helpers/reduceEventsByCategory';
 import { sortEventsByCategoryEntries } from 'helpers/orderEventsByCategory';
 import { useHeader } from 'app/HeaderContext';
+import { useEdition } from 'hooks/public/useEdition';
+import { useEditionEvents } from 'hooks/public/useEditionEvents';
+import { EditionNotFoundError } from 'hooks/public/editionNotFound';
 
 /* Component imports ----------------------------------- */
 import { Separator } from 'components/ui/separator';
@@ -22,61 +25,38 @@ import FavoritesSection from 'components/Favorites/FavoritesSection';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
-import type { EditionView, EmbedLinkView, EventSummaryView, GeneralAlertView } from './types';
+import type { EventWithDetailView } from './types';
 
 /* Helpers --------------------------------------------- */
-// Thrown by the fetch helpers when an edition is missing. The effect translates it into
-// the `editionNotFound` flag so `notFound()` can be called during render (calling it from
-// inside an async promise callback would never reach Next's not-found boundary).
-class EditionNotFoundError extends Error {}
-
-const summaryToEvent = (summary: EventSummaryView): Event => ({
-  id: summary.id,
-  name: summary.name ?? undefined,
-  status: summary.status ?? undefined,
-  category: summary.category ?? undefined,
-  genres: summary.genres ?? undefined,
-  artists: summary.artists ?? undefined,
-  price: summary.priceText ?? undefined,
+// Maps a consolidated event DTO (full detail inlined) into the render `Event`
+// contract. Descriptions/links/embeds/alerts arrive with the list, so nothing
+// is fetched per-event on expand — no "Chargement des détails…" flash.
+const dtoToEvent = (dto: EventWithDetailView): Event => ({
+  id: dto.id,
+  name: dto.name ?? undefined,
+  status: dto.status ?? undefined,
+  category: dto.category ?? undefined,
+  genres: dto.genres ?? undefined,
+  artists: dto.artists ?? undefined,
+  price: dto.priceText ?? undefined,
   location: {
-    name: summary.location.name,
-    addressStr: summary.location.address ?? undefined,
-    coords: summary.location.coords ?? undefined,
+    name: dto.location.name,
+    addressStr: dto.location.address ?? undefined,
+    coords: dto.location.coords ?? undefined,
   },
-  startTime: new Date(summary.startTime),
-  endTime: summary.endTime !== null ? new Date(summary.endTime) : undefined,
-  hasDescription: summary.hasDescription,
-  linkCount: summary.linkCount,
-  embedCount: summary.embedCount,
-  alertCount: summary.alertCount,
+  startTime: new Date(dto.startTime),
+  endTime: dto.endTime !== null ? new Date(dto.endTime) : undefined,
+  description: dto.description ?? undefined,
+  links: dto.links,
+  embedLinks: dto.embedLinks.map(({ platform, url }) => ({ type: platform, url })),
+  alerts: dto.alerts.map(
+    ({ variant, title, content }) => ({
+      type: variant,
+      title: title ?? undefined,
+      content,
+    }),
+  ),
 });
-
-const fetchEdition = async (year: string): Promise<{ edition: EditionView; generalAlerts: GeneralAlertView[]; embedLinks: EmbedLinkView[] }> => {
-  const response: Response = await fetch(`/api/editions/${year}`);
-  // A 400 here means a malformed year param (the only client error these endpoints raise for valid callers); treat it as not-found.
-  if(response.status === 404 || response.status === 400) {
-    throw new EditionNotFoundError();
-  }
-  if(!response.ok) {
-    throw new Error(`Edition fetch failed: ${response.status}`);
-  }
-  return await response.json() as { edition: EditionView; generalAlerts: GeneralAlertView[]; embedLinks: EmbedLinkView[] };
-};
-
-const fetchEvents = async (year: string): Promise<EventSummaryView[]> => {
-  // The events endpoint caps at limit=200 (its API max). Current editions have ~50 events.
-  // If an edition grows beyond 200, switch to keyset pagination via `nextCursor`.
-  const response: Response = await fetch(`/api/editions/${year}/events?limit=200`);
-  // A 400 here means a malformed year param (the only client error these endpoints raise for valid callers); treat it as not-found.
-  if(response.status === 404 || response.status === 400) {
-    throw new EditionNotFoundError();
-  }
-  if(!response.ok) {
-    throw new Error(`Events fetch failed: ${response.status}`);
-  }
-  const body = await response.json() as { events: EventSummaryView[]; nextCursor: string | null };
-  return body.events;
-};
 
 /* EditionPage component prop types -------------------- */
 interface EditionPageProps {}
@@ -90,61 +70,18 @@ const EditionPage: React.FC<EditionPageProps> = () => {
     notFound();
   }
 
-  const [loading, setLoading] = useState<boolean>(true);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [editionNotFound, setEditionNotFound] = useState<boolean>(false);
-  const [edition, setEdition] = useState<EditionView | null>(null);
-  const [generalAlerts, setGeneralAlerts] = useState<GeneralAlertView[]>([]);
-  const [embedLinks, setEmbedLinks] = useState<EmbedLinkView[]>([]);
-  const [summaries, setSummaries] = useState<EventSummaryView[]>([]);
+  const editionQuery = useEdition(year);
+  const eventsQuery = useEditionEvents(year);
 
   const { setState: setHeaderState } = useHeader();
 
-  useEffect(
-    () => {
-      let cancelled: boolean = false;
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setLoading(true);
-      setErrorMessage(null);
-      setEditionNotFound(false);
-      Promise.all([fetchEdition(year), fetchEvents(year)])
-        .then(
-          ([editionPayload, eventList]): void => {
-            if(cancelled) return;
-            setEdition(editionPayload.edition);
-            setGeneralAlerts(editionPayload.generalAlerts);
-            setEmbedLinks(editionPayload.embedLinks);
-            setSummaries(eventList);
-            setHeaderState({ year: Number(year), eventsCount: eventList.length });
-          },
-        )
-        .catch(
-          (error: unknown): void => {
-            if(cancelled) return;
-            if(error instanceof EditionNotFoundError) {
-              setEditionNotFound(true);
-              return;
-            }
-            console.error('[EditionPage] load failed:', error);
-            setErrorMessage('Impossible de charger les événements.');
-          },
-        )
-        .finally(
-          (): void => {
-            if(!cancelled) setLoading(false);
-          },
-        );
-      return (): void => {
-        cancelled = true;
-        setHeaderState({ year: null, eventsCount: null });
-      };
-    },
-    [year, setHeaderState],
-  );
+  const edition = editionQuery.data?.edition ?? null;
+  const generalAlerts = editionQuery.data?.generalAlerts ?? [];
+  const embedLinks = editionQuery.data?.embedLinks ?? [];
 
   const viewEvents: Event[] = useMemo<Event[]>(
-    () => summaries.map(summaryToEvent),
-    [summaries],
+    () => (eventsQuery.data ?? []).map(dtoToEvent),
+    [eventsQuery.data],
   );
 
   const feteDeLaMusiqueDay: Date = useMemo<Date>(
@@ -152,20 +89,44 @@ const EditionPage: React.FC<EditionPageProps> = () => {
     [edition, year],
   );
 
+  // Mirror the loaded edition into the shared header; clear on unmount / year change.
+  useEffect(
+    () => {
+      if(eventsQuery.data !== undefined) {
+        setHeaderState({ year: Number(year), eventsCount: eventsQuery.data.length });
+      }
+      return (): void => {
+        setHeaderState({ year: null, eventsCount: null });
+      };
+    },
+    [year, eventsQuery.data, setHeaderState],
+  );
+
+  const editionNotFound: boolean =
+    editionQuery.error instanceof EditionNotFoundError ||
+    eventsQuery.error instanceof EditionNotFoundError;
+
+  const hasOtherError: boolean =
+    (editionQuery.isError && !(editionQuery.error instanceof EditionNotFoundError)) ||
+    (eventsQuery.isError && !(eventsQuery.error instanceof EditionNotFoundError));
+
+  const loading: boolean = editionQuery.isPending || eventsQuery.isPending;
+
   if(editionNotFound) {
     notFound();
+  }
+  if(hasOtherError) {
+    console.error('[EditionPage] load failed:', editionQuery.error ?? eventsQuery.error);
+    return (
+      <div className="flex justify-center w-full py-16">
+        <p className="text-destructive">Impossible de charger les événements.</p>
+      </div>
+    );
   }
   if(loading) {
     return (
       <div className="flex justify-center w-full py-16">
         <p className="text-muted-foreground">Chargement des événements...</p>
-      </div>
-    );
-  }
-  if(errorMessage !== null) {
-    return (
-      <div className="flex justify-center w-full py-16">
-        <p className="text-destructive">{errorMessage}</p>
       </div>
     );
   }

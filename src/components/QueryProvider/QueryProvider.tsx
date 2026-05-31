@@ -17,7 +17,7 @@ const QueryProvider: React.FC<QueryProviderProps> = ({ children }) => {
     () => new QueryClient({
       defaultOptions: {
         queries: {
-          staleTime: 30_000,
+          staleTime: 60_000,
           retry: false,
           refetchOnWindowFocus: false,
         },
