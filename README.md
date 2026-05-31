@@ -88,3 +88,15 @@ pnpm db:seed:admin
 Then sign in at `/login`. `/admin/*` is guarded (middleware + an authoritative server layout). Password reset (`/forgot-password` → email → `/reset-password`) sends via Resend.
 
 **Local dev gotcha:** BetterAuth validates the password-reset `redirectTo` against `BETTER_AUTH_URL`. Run the dev server on the port in `BETTER_AUTH_URL` (default `http://localhost:3000`), or update `BETTER_AUTH_URL` to match your dev port — otherwise reset requests fail with `INVALID_REDIRECT_URL`. In production, set `BETTER_AUTH_URL` to the deployed origin.
+
+## AI-agent access (MCP)
+
+AI agents (Claude Code, Cursor, ChatGPT, Claude.ai, Claude Cowork) can **read** the festival data with no setup and **write** it when authenticated as an admin, via the Model Context Protocol:
+
+- **Public read MCP** (no auth): `/api/mcp/mcp`
+- **Admin write MCP** (OAuth 2.1): `/api/mcp/admin/mcp` — includes atomic batch event creation
+- **OpenAPI 3.1 + Swagger UI**: `/api/openapi.json` and `/api/docs` (generated from the Zod validators)
+
+BetterAuth acts as the OAuth provider, so connecting from a hosted agent (e.g. ChatGPT/Claude.ai) just works. The OAuth tables require `pnpm db:migrate` (migration `0007`) **before deploying**.
+
+See **[MCP.md](MCP.md)** for the full guide: tools, connecting each client, the batch workflow, the auth flow, and local testing.
