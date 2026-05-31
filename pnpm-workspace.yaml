@@ -1,0 +1,8 @@
+overrides:
+  kysely: 0.28.17
+
+allowBuilds:
+  esbuild: true
+  msw: true
+  sharp: true
+  unrs-resolver: true
