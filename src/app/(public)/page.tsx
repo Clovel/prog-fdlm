@@ -7,6 +7,9 @@ import { desc, eq } from 'drizzle-orm';
 import { db } from 'db';
 import { editions } from 'db/schema';
 
+/* Component imports ----------------------------------- */
+import { Disc3 } from 'lucide-react';
+
 /* RootPage component ---------------------------------- */
 const RootPage = async (): Promise<React.ReactElement> => {
   const rows = await db
@@ -19,11 +22,15 @@ const RootPage = async (): Promise<React.ReactElement> => {
   const latest = rows[0];
   if(latest === undefined) {
     return (
-      <div className="flex flex-col items-center justify-center w-full p-8 text-center">
-        <h1 className="text-2xl font-semibold pb-4">
+      <div className="flex flex-col items-center justify-center w-full p-8 text-center gap-4">
+        <Disc3
+          className="size-20 text-muted-foreground"
+          aria-hidden="true"
+        />
+        <h1 className="text-2xl font-semibold">
           Aucune édition disponible
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground max-w-md">
           {'Aucune édition de la Fête de la musique n\'est encore enregistrée.'}
         </p>
       </div>
