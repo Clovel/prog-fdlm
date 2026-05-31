@@ -10,11 +10,11 @@ import { user } from 'db/schema';
 import { registerReadTools, registerWriteTools } from 'mcp/tools';
 
 /* MCP handler (read + write tools) -------------------- */
-const buildHandler = (req: Request): Promise<Response> =>
+const buildHandler = (req: Request, role: 'admin' | 'editor'): Promise<Response> =>
   createMcpHandler(
     (server) => {
       registerReadTools(server as never);
-      registerWriteTools(server as never);
+      registerWriteTools(server as never, role);
     },
     {},
     { basePath: '/api/mcp/admin' },
@@ -43,7 +43,7 @@ const handler = withMcpAuth(auth, async(req, session): Promise<Response> => {
   if(role !== 'admin' && role !== 'editor') {
     return forbidden();
   }
-  return buildHandler(req);
+  return buildHandler(req, role);
 });
 
 export { handler as GET, handler as POST, handler as DELETE };

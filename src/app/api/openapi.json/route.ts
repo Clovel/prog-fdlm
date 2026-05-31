@@ -5,6 +5,7 @@ import { createDocument } from 'zod-openapi';
 
 /* Module imports (project) ---------------------------- */
 import { createEventObject, updateEventObject } from 'validation/event';
+import { createEditionEmbedSchema, updateEditionEmbedSchema } from 'validation/editionEmbed';
 
 /* Response DTO schemas (mirror db/queries/types.ts) --- */
 const editionDto = z.object({
@@ -21,12 +22,19 @@ const generalAlertDto = z.object({
   position: z.number().int(),
 }).meta({ id: 'GeneralAlert' });
 
+const editionEmbedDto = z.object({
+  id: z.uuid(),
+  platform: z.enum(['instagram', 'facebook']),
+  url: z.url(),
+}).meta({ id: 'EditionEmbed' });
+
 const editionWithAlertsDto = z.object({
   id: z.uuid(),
   year: z.number().int(),
   description: z.string().nullable(),
   dayOfFestival: z.string(),
   generalAlerts: z.array(generalAlertDto),
+  embedLinks: z.array(editionEmbedDto),
 }).meta({ id: 'EditionWithAlerts' });
 
 const eventSummaryDto = z.object({
@@ -68,6 +76,8 @@ const eventDetailDto = z.object({
 /* Request body schemas — the ACTUAL validators (truth) */
 const createEventBody = createEventObject.meta({ id: 'CreateEvent' });
 const updateEventBody = updateEventObject.meta({ id: 'UpdateEvent' });
+const createEditionEmbedBody = createEditionEmbedSchema.meta({ id: 'CreateEditionEmbed' });
+const updateEditionEmbedBody = updateEditionEmbedSchema.meta({ id: 'UpdateEditionEmbed' });
 const createEventsBatchBody = z.object({
   editionId: z.uuid(),
   events: z.array(updateEventObject).min(1).max(100),
@@ -159,6 +169,40 @@ const document = createDocument({
       },
       delete: {
         summary: 'Delete one event (admin/editor)',
+        requestParams: { path: z.object({ id: z.uuid() }) },
+        responses: {
+          '200': { description: 'OK' },
+          '401': { description: 'Unauthorized' },
+          '403': { description: 'Forbidden' },
+          '404': { description: 'Not found' },
+        },
+      },
+    },
+    '/api/admin/embeds': {
+      post: {
+        summary: 'Add a social embed to an edition (admin)',
+        requestBody: { content: { 'application/json': { schema: createEditionEmbedBody } } },
+        responses: {
+          '201': { description: 'Created', content: { 'application/json': { schema: idResponse } } },
+          '401': { description: 'Unauthorized' },
+          '403': { description: 'Forbidden' },
+        },
+      },
+    },
+    '/api/admin/embeds/{id}': {
+      patch: {
+        summary: 'Update one edition embed (admin)',
+        requestParams: { path: z.object({ id: z.uuid() }) },
+        requestBody: { content: { 'application/json': { schema: updateEditionEmbedBody } } },
+        responses: {
+          '200': { description: 'OK', content: { 'application/json': { schema: idResponse } } },
+          '401': { description: 'Unauthorized' },
+          '403': { description: 'Forbidden' },
+          '404': { description: 'Not found' },
+        },
+      },
+      delete: {
+        summary: 'Delete one edition embed (admin)',
         requestParams: { path: z.object({ id: z.uuid() }) },
         responses: {
           '200': { description: 'OK' },
