@@ -31,7 +31,7 @@ export interface EventSummaryView {
   startTime: string;
   endTime: string | null;
   priceText: string | null;
-  location: { name: string; address: string | null };
+  location: { name: string; address: string | null; coords: { lat: number; lng: number } | null };
   hasDescription: boolean;
   linkCount: number;
   embedCount: number;

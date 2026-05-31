@@ -36,6 +36,7 @@ export interface EventSummaryDto {
   location: {
     name: string;
     address: string | null;
+    coords: { lat: number; lng: number } | null;
   };
   hasDescription: boolean;
   linkCount: number;

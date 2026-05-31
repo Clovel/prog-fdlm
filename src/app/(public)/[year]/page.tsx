@@ -41,6 +41,7 @@ const summaryToEvent = (summary: EventSummaryView): Event => ({
   location: {
     name: summary.location.name,
     addressStr: summary.location.address ?? undefined,
+    coords: summary.location.coords ?? undefined,
   },
   startTime: new Date(summary.startTime),
   endTime: summary.endTime !== null ? new Date(summary.endTime) : undefined,

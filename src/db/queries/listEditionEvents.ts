@@ -119,6 +119,9 @@ export const listEditionEvents = async (input: ListEditionEventsInput): Promise<
       priceText: events.priceText,
       locationName: events.locationName,
       locationAddress: events.locationAddress,
+      latitude: events.latitude,
+      longitude: events.longitude,
+      geocodeStatus: events.geocodeStatus,
       linkCount: linkCountSql,
       embedCount: embedCountSql,
       alertCount: alertCountSql,
@@ -152,6 +155,10 @@ export const listEditionEvents = async (input: ListEditionEventsInput): Promise<
       location: {
         name: row.locationName,
         address: row.locationAddress,
+        coords:
+          row.geocodeStatus === 'ok' && row.latitude !== null && row.longitude !== null
+            ? { lat: row.latitude, lng: row.longitude }
+            : null,
       },
       hasDescription: row.hasDescription,
       linkCount: row.linkCount,
