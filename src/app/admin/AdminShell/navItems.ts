@@ -4,6 +4,7 @@ import {
   Calendar,
   LayoutDashboard,
   Mic2,
+  Share2,
   Users,
 } from 'lucide-react';
 
@@ -25,5 +26,6 @@ export const adminNavItems: AdminNavItem[] = [
   { href: '/admin/editions', label: 'Éditions', icon: Calendar },
   { href: '/admin/events', label: 'Événements', icon: Mic2 },
   { href: '/admin/alerts', label: 'Alertes', icon: Bell },
+  { href: '/admin/embeds', label: 'Réseaux', icon: Share2, roles: ['admin'] },
   { href: '/admin/users', label: 'Utilisateurs', icon: Users, roles: ['admin'] },
 ];

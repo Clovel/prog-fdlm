@@ -4,6 +4,7 @@ export * from './editions';
 export * from './events';
 export * from './eventLinks';
 export * from './eventEmbedLinks';
+export * from './editionEmbedLinks';
 export * from './eventAlerts';
 export * from './favorites';
 export * from './generalAlerts';

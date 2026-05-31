@@ -7,7 +7,9 @@ import { getEdition } from 'db/queries/getEdition';
 import { listEditionEvents } from 'db/queries/listEditionEvents';
 import { getEventDetail } from 'db/queries/getEventDetail';
 import { createEventsBatch, createEventWithChildren, updateEventWithChildren, deleteEvent } from 'db/mutations/events';
+import { createEditionEmbed, updateEditionEmbed, deleteEditionEmbed } from 'db/mutations/editionEmbeds';
 import { createEventObject, updateEventObject, createEventSchema, updateEventSchema, createEventsBatchSchema } from 'validation/event';
+import { createEditionEmbedSchema, updateEditionEmbedSchema } from 'validation/editionEmbed';
 
 /* Type imports ---------------------------------------- */
 import type { EventCategory } from 'types/eventCategories';
@@ -48,7 +50,7 @@ export const registerReadTools = (server: McpServer): void => {
 
   server.tool(
     'get_edition',
-    'Get one published edition by year, including its published general alerts.',
+    'Get one published edition by year, including its published general alerts and social embeds.',
     { year: z.number().int() },
     async (args): Promise<ToolResult> => run(async () => {
       const result = await getEdition(args.year as number);
@@ -94,7 +96,7 @@ export const registerReadTools = (server: McpServer): void => {
 };
 
 /* Write tools (admin/editor only — gated by the route) */
-export const registerWriteTools = (server: McpServer): void => {
+export const registerWriteTools = (server: McpServer, role: 'admin' | 'editor' = 'editor'): void => {
   server.tool(
     'create_event',
     'Create one event. Provide editionId and event fields. Returns the new event id.',
@@ -147,4 +149,46 @@ export const registerWriteTools = (server: McpServer): void => {
       return deleted ? ok({ deleted: true }) : fail(`No event ${String(args.id)}`);
     }),
   );
+
+  /* Edition social embeds — admin only (mirrors the admin-only HTTP routes). */
+  if(role === 'admin') {
+    server.tool(
+      'create_edition_embed',
+      'Add a social embed (Instagram/Facebook post) to an edition. Returns the new embed id.',
+      createEditionEmbedSchema.shape,
+      async (args): Promise<ToolResult> => run(async () => {
+        const parsed = createEditionEmbedSchema.safeParse(args);
+        if(!parsed.success) {
+          return fail(`Validation failed: ${JSON.stringify(parsed.error.issues)}`);
+        }
+        const row = await createEditionEmbed(parsed.data);
+        return ok({ id: row.id });
+      }),
+    );
+
+    server.tool(
+      'update_edition_embed',
+      'Update one edition embed by id (platform, url, isPublished). Returns the embed id.',
+      { id: z.string().uuid(), ...updateEditionEmbedSchema.shape },
+      async (args): Promise<ToolResult> => run(async () => {
+        const { id, ...rest } = args;
+        const parsed = updateEditionEmbedSchema.safeParse(rest);
+        if(!parsed.success) {
+          return fail(`Validation failed: ${JSON.stringify(parsed.error.issues)}`);
+        }
+        const row = await updateEditionEmbed(id as string, parsed.data);
+        return row === null ? fail(`No embed ${String(id)}`) : ok({ id: row.id });
+      }),
+    );
+
+    server.tool(
+      'delete_edition_embed',
+      'Delete one edition embed by id. Returns { deleted: true }.',
+      { id: z.string().uuid() },
+      async (args): Promise<ToolResult> => run(async () => {
+        const deleted = await deleteEditionEmbed(args.id as string);
+        return deleted ? ok({ deleted: true }) : fail(`No embed ${String(args.id)}`);
+      }),
+    );
+  }
 };
