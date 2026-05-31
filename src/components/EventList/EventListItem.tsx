@@ -74,22 +74,33 @@ const EventListItem: React.FC<EventListItemProps> = (
               <EventTitleBlock event={event} />
             </div>
             <div className="flex items-center gap-2 shrink-0">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={handleToggleFavorite}
-                aria-label={favorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}
-                aria-pressed={favorite}
-              >
-                <Star
-                  className={cn(
-                    'h-5 w-5',
-                    favorite
-                      ? 'fill-amber-400 text-amber-400 dark:fill-amber-300 dark:text-amber-300'
-                      : 'text-muted-foreground',
-                  )}
-                />
-              </Button>
+              <div className="flex items-center gap-1">
+                {
+                  event.favoriteCount !== undefined && event.favoriteCount > 0 &&
+                    <span
+                      className="text-xs tabular-nums text-muted-foreground"
+                      aria-label={`${event.favoriteCount} personne(s) ont mis cet événement en favori`}
+                    >
+                      {event.favoriteCount}
+                    </span>
+                }
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={handleToggleFavorite}
+                  aria-label={favorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+                  aria-pressed={favorite}
+                >
+                  <Star
+                    className={cn(
+                      'h-5 w-5',
+                      favorite
+                        ? 'fill-amber-400 text-amber-400 dark:fill-amber-300 dark:text-amber-300'
+                        : 'text-muted-foreground',
+                    )}
+                  />
+                </Button>
+              </div>
               <EventTime
                 startTime={event.startTime}
                 endTime={event.endTime}
