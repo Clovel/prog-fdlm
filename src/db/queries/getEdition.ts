@@ -3,15 +3,16 @@ import { and, asc, eq } from 'drizzle-orm';
 
 /* Module imports (project) ---------------------------- */
 import { db } from '../index';
-import { editions, generalAlerts } from '../schema';
+import { editions, editionEmbedLinks, generalAlerts } from '../schema';
 
 /* Type imports ---------------------------------------- */
-import type { EditionWithMetaDto, GeneralAlertDto } from './types';
+import type { EditionWithMetaDto, EmbedLinkDto, GeneralAlertDto } from './types';
 
 /* Query ----------------------------------------------- */
 export interface GetEditionResult {
   edition: EditionWithMetaDto;
   generalAlerts: GeneralAlertDto[];
+  embedLinks: EmbedLinkDto[];
 }
 
 export const getEdition = async (year: number): Promise<GetEditionResult | null> => {
@@ -49,6 +50,21 @@ export const getEdition = async (year: number): Promise<GetEditionResult | null>
     )
     .orderBy(asc(generalAlerts.position));
 
+  const embedRows = await db
+    .select({
+      id: editionEmbedLinks.id,
+      platform: editionEmbedLinks.platform,
+      url: editionEmbedLinks.url,
+    })
+    .from(editionEmbedLinks)
+    .where(
+      and(
+        eq(editionEmbedLinks.editionId, edition.id),
+        eq(editionEmbedLinks.isPublished, true),
+      ),
+    )
+    .orderBy(asc(editionEmbedLinks.position));
+
   return {
     edition: {
       id: edition.id,
@@ -57,5 +73,6 @@ export const getEdition = async (year: number): Promise<GetEditionResult | null>
       dayOfFestival: edition.dayOfFestival,
     },
     generalAlerts: alertRows,
+    embedLinks: embedRows,
   };
 };
