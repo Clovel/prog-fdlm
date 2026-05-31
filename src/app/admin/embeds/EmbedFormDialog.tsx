@@ -112,7 +112,7 @@ const EmbedFormDialog: React.FC<EmbedFormDialogProps> = (
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{isEdit ? 'Modifier l\'embed' : 'Nouvel embed'}</DialogTitle>
-          <DialogDescription>Collez l\'URL d\'une publication Instagram ou Facebook.</DialogDescription>
+          <DialogDescription>{'Collez l\'URL d\'une publication Instagram ou Facebook.'}</DialogDescription>
         </DialogHeader>
         <form onSubmit={(e): void => { void form.handleSubmit(onSubmit)(e); }} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
