@@ -2,6 +2,7 @@
 import { ImageResponse } from 'next/og';
 
 /* Module imports -------------------------------------- */
+import { promises as fs } from 'fs';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
@@ -10,24 +11,38 @@ import { getEditionCardData } from 'db/queries/getEditionCardData';
 import { CARD_COLORS } from './colors';
 
 /* Component imports ----------------------------------- */
-import VinylNoteGlyph from 'components/brand/VinylNote/VinylNoteGlyph';
+import { vinylNoteSvg } from 'components/brand/VinylNote/VinylNoteGlyph';
 
 /* Image route metadata -------------------------------- */
-export const size = { width: 1200, height: 630 };
-export const contentType = 'image/png';
-export const alt = 'Fête de la Musique à Bordeaux';
+export const size = { width: 1200, height: 630 } as const;
+export const contentType = 'image/png' as const;
+export const alt = 'Fête de la Musique à Bordeaux' as const;
 
 /* Helpers --------------------------------------------- */
+// `fetch()` can't read a file:// URL (fails in Turbopack dev), but fs.readFile
+// can — and the `new URL(..., import.meta.url)` form is what the bundler traces
+// to copy the .ttf into the serverless function, so this works in dev and on
+// Vercel. Copy into a fresh ArrayBuffer so Satori gets an unshared buffer.
 const loadFonts = async(): Promise<
   Array<{ name: string; data: ArrayBuffer; weight: 400 | 700; style: 'normal' }>
 > => {
   const [regular, bold] = await Promise.all([
-    fetch(new URL('./fonts/Inter-Regular.ttf', import.meta.url)).then(async(r) => r.arrayBuffer()),
-    fetch(new URL('./fonts/Inter-Bold.ttf', import.meta.url)).then(async(r) => r.arrayBuffer()),
+    fs.readFile(new URL('./fonts/Inter-Regular.ttf', import.meta.url)),
+    fs.readFile(new URL('./fonts/Inter-Bold.ttf', import.meta.url)),
   ]);
   return [
-    { name: 'Inter', data: regular, weight: 400, style: 'normal' },
-    { name: 'Inter', data: bold, weight: 700, style: 'normal' },
+    {
+      name: 'Inter',
+      data: new Uint8Array(regular).buffer,
+      weight: 400,
+      style: 'normal',
+    },
+    {
+      name: 'Inter',
+      data: new Uint8Array(bold).buffer,
+      weight: 700,
+      style: 'normal',
+    },
   ];
 };
 
@@ -43,6 +58,21 @@ const formatFestivalDate = (isoDate: string): string => {
 export const renderShareCard = async(yearParam: string | null): Promise<ImageResponse> => {
   const fonts = await loadFonts();
   const c = CARD_COLORS;
+
+  // Satori mangles deeply-nested inline <svg> trees (resvg then throws an XML
+  // parse error). Build the shared glyph as a standalone SVG string and embed it
+  // as a base64 data-URI <img>, which resvg rasterizes directly.
+  const glyphSvg = vinylNoteSvg(
+    {
+      recordColor: c.primary,
+      holeColor: c.background,
+      noteColor: c.primaryForeground,
+      grooveColor: c.mutedForeground,
+      groove: true,
+    },
+    340,
+  );
+  const glyphDataUri = `data:image/svg+xml;base64,${Buffer.from(glyphSvg).toString('base64')}`;
 
   const yearNum = yearParam !== null && /^\d{4}$/.test(yearParam) ? Number(yearParam) : null;
 
@@ -78,15 +108,13 @@ export const renderShareCard = async(yearParam: string | null): Promise<ImageRes
         }}
       >
         <div style={{ display: 'flex', flexShrink: 0 }}>
-          <svg width="340" height="340" viewBox="0 0 120 120">
-            <VinylNoteGlyph
-              recordColor={c.primary}
-              holeColor={c.background}
-              noteColor={c.primaryForeground}
-              grooveColor={c.mutedForeground}
-              groove
-            />
-          </svg>
+          { /* eslint-disable-next-line @next/next/no-img-element -- Satori OG image, not the DOM */ }
+          <img
+            width={340}
+            height={340}
+            src={glyphDataUri}
+            alt=""
+          />
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
