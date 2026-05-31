@@ -4,6 +4,7 @@ import { eq, sql } from 'drizzle-orm';
 /* Module imports (project) ---------------------------- */
 import { db } from '../index';
 import { events, eventLinks, eventEmbedLinks, eventAlerts } from '../schema';
+import { geocodeAddress } from 'lib/geocode';
 
 /* Type imports ---------------------------------------- */
 import type { CreateEventInput, UpdateEventInput } from 'validation/event';
@@ -56,12 +57,69 @@ const coreValues = (input: CreateEventInput | UpdateEventInput): Partial<typeof 
   endTime: input.endTime === undefined || input.endTime === null ? null : new Date(input.endTime),
 });
 
+/* Geocode helper -------------------------------------- */
+/**
+ * Compute the geocode column values for an event address.
+ *
+ * Decision rules (implemented precisely per spec §7 R2):
+ * 1. addr === null   → clear all geocode columns to null; no network call.
+ * 2. addr === previousGeocodedAddress → address unchanged; return {} to leave
+ *    geocode columns untouched; no network call.
+ * 3. otherwise → call BAN; persist ok/failed result.
+ *
+ * Never throws. Failed geocode result is valid column data; the write proceeds.
+ */
+const geocodeColumns = async (
+  addr: string | null,
+  previousGeocodedAddress: string | null | undefined,
+): Promise<Partial<typeof events.$inferInsert>> => {
+  if(addr === null) {
+    return {
+      latitude: null,
+      longitude: null,
+      geocodedAddress: null,
+      geocodeStatus: null,
+      geocodeScore: null,
+      geocodedAt: null,
+      formattedAddress: null,
+    };
+  }
+  if(addr === previousGeocodedAddress) {
+    return {};
+  }
+  const result = await geocodeAddress(addr);
+  if(result.status === 'ok') {
+    return {
+      latitude: result.lat,
+      longitude: result.lng,
+      geocodedAddress: addr,
+      geocodeStatus: 'ok',
+      geocodeScore: result.score,
+      geocodedAt: new Date(),
+      formattedAddress: result.formattedAddress ?? null,
+    };
+  }
+  /* status === 'failed': write proceeds with null coords; geocodedAddress stays
+     null so the next save will retry (addr !== null !== null). */
+  return {
+    latitude: null,
+    longitude: null,
+    geocodedAddress: null,
+    geocodeStatus: 'failed',
+    geocodeScore: result.score ?? null,
+    geocodedAt: new Date(),
+    formattedAddress: null,
+  };
+};
+
 /* Mutations ------------------------------------------- */
 export const createEventWithChildren = async (input: CreateEventInput): Promise<string> => {
+  const addr = emptyToNull(input.locationAddress);
+  const geo = await geocodeColumns(addr, undefined);
   return db.transaction(async (tx) => {
     const rows = await tx
       .insert(events)
-      .values({ editionId: input.editionId, ...coreValues(input) } as typeof events.$inferInsert)
+      .values({ editionId: input.editionId, ...coreValues(input), ...geo } as typeof events.$inferInsert)
       .returning({ id: events.id });
     const row = rows[0];
     if(row === undefined) {
@@ -73,10 +131,29 @@ export const createEventWithChildren = async (input: CreateEventInput): Promise<
 };
 
 export const updateEventWithChildren = async (id: string, input: UpdateEventInput): Promise<string | null> => {
+  const existing = (
+    await db
+      .select({ geocodedAddress: events.geocodedAddress })
+      .from(events)
+      .where(eq(events.id, id))
+  )[0];
+  if(existing === undefined) {
+    /* Row not found — skip geocoding; transaction will match no row and return null. */
+    return db.transaction(async (tx) => {
+      const rows = await tx
+        .update(events)
+        .set({ ...coreValues(input), updatedAt: sql`NOW()` })
+        .where(eq(events.id, id))
+        .returning({ id: events.id });
+      return rows[0]?.id ?? null;
+    });
+  }
+  const addr = emptyToNull(input.locationAddress);
+  const geo = await geocodeColumns(addr, existing.geocodedAddress);
   return db.transaction(async (tx) => {
     const rows = await tx
       .update(events)
-      .set({ ...coreValues(input), updatedAt: sql`NOW()` })
+      .set({ ...coreValues(input), ...geo, updatedAt: sql`NOW()` })
       .where(eq(events.id, id))
       .returning({ id: events.id });
     const row = rows[0];
