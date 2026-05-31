@@ -106,7 +106,7 @@ export const resendInvitation = async (id: string): Promise<ResendResult> => {
   });
 };
 
-/** Revokes a pending invitation. Returns false if not found. */
+/** Revokes an invitation by id (any status). Returns false if not found. */
 export const revokeInvitation = async (id: string): Promise<boolean> => {
   const rows = await db
     .update(invitations)
