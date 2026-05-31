@@ -36,8 +36,6 @@ export const events = pgTable(
     locationAddress: text('location_address'),
     startTime: timestamp('start_time', { withTimezone: true }).notNull(),
     endTime: timestamp('end_time', { withTimezone: true }),
-    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
     latitude: doublePrecision('latitude'),
     longitude: doublePrecision('longitude'),
     geocodedAddress: text('geocoded_address'),
@@ -45,6 +43,8 @@ export const events = pgTable(
     geocodeScore: doublePrecision('geocode_score'),
     geocodedAt: timestamp('geocoded_at', { withTimezone: true }),
     formattedAddress: text('formatted_address'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => ({
     legacyIdUq: uniqueIndex('events_edition_legacy_id_uq')
@@ -57,6 +57,10 @@ export const events = pgTable(
     timeCheck: check(
       'events_time_check',
       sql`end_time IS NULL OR end_time >= start_time`,
+    ),
+    geocodeStatusCheck: check(
+      'events_geocode_status_check',
+      sql`geocode_status IS NULL OR geocode_status IN ('ok', 'failed')`,
     ),
   }),
 );

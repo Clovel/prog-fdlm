@@ -1,5 +1,5 @@
 {
-  "id": "4ecca0ba-a2dd-4ff1-83fa-44129c8085d8",
+  "id": "aef1707b-0d46-4bf8-b5a4-2589689f3f40",
   "prevId": "1dd150e6-0bb5-4ce3-933f-7bf9f61fa5ee",
   "version": "7",
   "dialect": "postgresql",
@@ -162,20 +162,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
         "latitude": {
           "name": "latitude",
           "type": "double precision",
@@ -217,6 +203,20 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {
@@ -313,6 +313,10 @@
         "events_time_check": {
           "name": "events_time_check",
           "value": "end_time IS NULL OR end_time >= start_time"
+        },
+        "events_geocode_status_check": {
+          "name": "events_geocode_status_check",
+          "value": "geocode_status IS NULL OR geocode_status IN ('ok', 'failed')"
         }
       },
       "isRLSEnabled": false
