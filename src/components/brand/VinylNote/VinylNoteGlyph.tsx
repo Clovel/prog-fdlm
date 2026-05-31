@@ -7,7 +7,7 @@ interface VinylNoteGlyphProps {
   holeColor: string;          // gaps / center hole
   noteColor: string;          // eighth note on the label
   groove?: boolean;           // restyle: add a thin groove ring
-  grooveColor?: string;
+  grooveColor?: string;       // stroke color for the groove ring; defaults to holeColor
 }
 
 /* VinylNoteGlyph component ---------------------------- */
