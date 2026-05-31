@@ -7,7 +7,9 @@ import { events } from './events';
 import { eventLinks } from './eventLinks';
 import { eventEmbedLinks } from './eventEmbedLinks';
 import { eventAlerts } from './eventAlerts';
+import { favorites } from './favorites';
 import { generalAlerts } from './generalAlerts';
+import { user } from './auth';
 
 /* Relations ------------------------------------------- */
 export const editionsRelations = relations(editions, ({ many }) => ({
@@ -50,5 +52,16 @@ export const generalAlertsRelations = relations(generalAlerts, ({ one }) => ({
   edition: one(editions, {
     fields: [generalAlerts.editionId],
     references: [editions.id],
+  }),
+}));
+
+export const favoritesRelations = relations(favorites, ({ one }) => ({
+  user: one(user, {
+    fields: [favorites.userId],
+    references: [user.id],
+  }),
+  event: one(events, {
+    fields: [favorites.eventId],
+    references: [events.id],
   }),
 }));

@@ -5,6 +5,7 @@ export * from './events';
 export * from './eventLinks';
 export * from './eventEmbedLinks';
 export * from './eventAlerts';
+export * from './favorites';
 export * from './generalAlerts';
 export * from './invitations';
 export * from './relations';

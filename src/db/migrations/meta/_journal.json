@@ -43,6 +43,13 @@
       "when": 1780185791878,
       "tag": "0005_zippy_oracle",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1780191299616,
+      "tag": "0006_wide_energizer",
+      "breakpoints": true
     }
   ]
 }
