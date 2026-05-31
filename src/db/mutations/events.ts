@@ -72,6 +72,28 @@ export const createEventWithChildren = async (input: CreateEventInput): Promise<
   });
 };
 
+export const createEventsBatch = async (
+  editionId: string,
+  items: UpdateEventInput[],
+): Promise<string[]> => {
+  return db.transaction(async (tx) => {
+    const ids: string[] = [];
+    for(const item of items) {
+      const rows = await tx
+        .insert(events)
+        .values({ editionId, ...coreValues(item) } as typeof events.$inferInsert)
+        .returning({ id: events.id });
+      const row = rows[0];
+      if(row === undefined) {
+        throw new Error('createEventsBatch: insert returned no row');
+      }
+      await insertChildren(tx, row.id, item);
+      ids.push(row.id);
+    }
+    return ids;
+  });
+};
+
 export const updateEventWithChildren = async (id: string, input: UpdateEventInput): Promise<string | null> => {
   return db.transaction(async (tx) => {
     const rows = await tx
