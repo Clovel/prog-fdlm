@@ -26,8 +26,8 @@ const Header: React.FC<HeaderProps> = (
 
   return (
     <header className="w-full font-mono flex flex-col lg:flex-row items-center justify-between gap-2 lg:p-16">
-      <div>
-        <p className="w-full justify-center border-b border-border bg-gradient-to-b from-muted/50 to-transparent pb-6 pt-8 backdrop-blur-2xl lg:rounded-xl lg:border lg:bg-muted/50 lg:p-4 p-2">
+      <div className="w-full">
+        <p className="w-full justify-center border-b border-border bg-linear-to-b from-muted/50 to-transparent pb-6 pt-8 backdrop-blur-2xl lg:rounded-xl lg:border lg:bg-muted/50 lg:p-4 p-2">
           {
             year !== null ?
               `Liste des événements de la fête de la musique ${year} à Bordeaux` :
@@ -57,7 +57,7 @@ const Header: React.FC<HeaderProps> = (
             rel="noopener noreferrer"
             className="text-blue-600 dark:text-blue-400 underline-offset-4 hover:underline"
           >
-            Clovis Durand
+            Clovel
           </a>
         </p>
         <ThemeToggle />
