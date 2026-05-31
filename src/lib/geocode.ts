@@ -6,15 +6,9 @@ const MIN_GEOCODE_SCORE = 0.5;
 const DEFAULT_BASE_URL = 'https://api-adresse.data.gouv.fr';
 
 /* Type exports ---------------------------------------- */
-export type GeocodeStatus = 'ok' | 'failed';
-
-export interface GeocodeResult {
-  status: GeocodeStatus;
-  lat?: number;
-  lng?: number;
-  score?: number;
-  formattedAddress?: string;
-}
+export type GeocodeResult =
+  | { status: 'ok'; lat: number; lng: number; score: number; formattedAddress?: string }
+  | { status: 'failed'; score?: number };
 
 /* Internal types -------------------------------------- */
 interface BanFeatureProperties {
@@ -85,7 +79,7 @@ export const geocodeAddress = async(address: string): Promise<GeocodeResult> => 
   const score: number = feature.properties.score;
 
   if(score < MIN_GEOCODE_SCORE) {
-    console.error(
+    console.warn(
       `[geocode] BAN score ${score.toString()} below threshold ${MIN_GEOCODE_SCORE.toString()} for address: ${address}`,
     );
     return { status: 'failed', score };
