@@ -4,6 +4,7 @@ import {
   pgTable,
   uuid,
   text,
+  doublePrecision,
   timestamp,
   uniqueIndex,
   index,
@@ -37,6 +38,13 @@ export const events = pgTable(
     endTime: timestamp('end_time', { withTimezone: true }),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+    latitude: doublePrecision('latitude'),
+    longitude: doublePrecision('longitude'),
+    geocodedAddress: text('geocoded_address'),
+    geocodeStatus: text('geocode_status'),
+    geocodeScore: doublePrecision('geocode_score'),
+    geocodedAt: timestamp('geocoded_at', { withTimezone: true }),
+    formattedAddress: text('formatted_address'),
   },
   (table) => ({
     legacyIdUq: uniqueIndex('events_edition_legacy_id_uq')
