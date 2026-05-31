@@ -3,9 +3,13 @@
 /* Framework imports ----------------------------------- */
 import React, { useMemo, useState } from 'react';
 
+/* Module imports -------------------------------------- */
+import { cn } from 'lib/utils';
+
 /* Component imports ----------------------------------- */
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, Star } from 'lucide-react';
 import { Button } from 'components/ui/button';
+import { useFavorites } from 'components/Favorites/FavoritesProvider';
 import {
   Collapsible,
   CollapsibleContent,
@@ -65,6 +69,14 @@ const EventListItem: React.FC<EventListItemProps> = (
   const [detailLoading, setDetailLoading] = useState<boolean>(false);
   const [detailError, setDetailError] = useState<string | null>(null);
   const [enrichedEvent, setEnrichedEvent] = useState<Event>(event);
+
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const favorite: boolean = isFavorite(event.id);
+
+  const handleToggleFavorite = (mouseEvent: React.MouseEvent): void => {
+    mouseEvent.stopPropagation();
+    toggleFavorite(event.id);
+  };
 
   const collapsiblePresent: boolean = useMemo<boolean>(
     () => summaryHasContent(event),
@@ -133,6 +145,22 @@ const EventListItem: React.FC<EventListItemProps> = (
               <EventTitleBlock event={event} />
             </div>
             <div className="flex items-center gap-2 shrink-0">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleToggleFavorite}
+                aria-label={favorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+                aria-pressed={favorite}
+              >
+                <Star
+                  className={cn(
+                    'h-5 w-5',
+                    favorite
+                      ? 'fill-amber-400 text-amber-400 dark:fill-amber-300 dark:text-amber-300'
+                      : 'text-muted-foreground',
+                  )}
+                />
+              </Button>
               <EventTime
                 startTime={event.startTime}
                 endTime={event.endTime}
