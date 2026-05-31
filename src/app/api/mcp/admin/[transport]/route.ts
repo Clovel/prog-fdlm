@@ -32,6 +32,12 @@ const handler = withMcpAuth(auth, async(req, session): Promise<Response> => {
   if(userId === undefined || userId === null) {
     return forbidden();
   }
+  /* getMcpSession resolves a token by value without checking expiry, so
+   * enforce it here at the write boundary. */
+  const expiresAt = new Date(session.accessTokenExpiresAt).getTime();
+  if(Number.isNaN(expiresAt) || expiresAt < Date.now()) {
+    return forbidden();
+  }
   const rows = await db.select({ role: user.role }).from(user).where(eq(user.id, userId)).limit(1);
   const role = rows[0]?.role;
   if(role !== 'admin' && role !== 'editor') {

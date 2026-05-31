@@ -189,12 +189,19 @@ const EditionPage: React.FC<EditionPageProps> = () => {
         if(event.location.addressStr !== undefined && event.location.addressStr.length > 0) {
           place.address = event.location.addressStr;
         }
+        const eventStatusMap: Record<string, string> = {
+          canceled: 'https://schema.org/EventCancelled',
+          postponed: 'https://schema.org/EventPostponed',
+          rescheduled: 'https://schema.org/EventRescheduled',
+        };
         const node: Record<string, unknown> = {
           '@context': 'https://schema.org',
           '@type': 'Event',
           name: event.name,
           startDate: event.startTime.toISOString(),
-          eventStatus: 'https://schema.org/EventScheduled',
+          eventStatus: event.status !== undefined
+            ? eventStatusMap[event.status] ?? 'https://schema.org/EventScheduled'
+            : 'https://schema.org/EventScheduled',
           location: place,
         };
         if(event.endTime !== undefined) {

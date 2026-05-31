@@ -9,7 +9,7 @@ export const GET = async (): Promise<NextResponse> => {
   const years = editions.map((e) => `- /${String(e.year)} : programme de l'édition ${String(e.year)}`).join('\n');
   const body = `# Fête de la Musique — Bordeaux
 
-Agenda des concerts et évènements de la Fête de la Musique à Bordeaux.
+Agenda des concerts, open airs et autres évènements de la Fête de la Musique à Bordeaux.
 
 ## Données pour agents IA
 - Interface MCP publique (lecture, sans authentification) : /api/mcp/mcp

@@ -28,20 +28,32 @@ interface McpServer {
 const ok = (data: unknown): ToolResult => ({ content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] });
 const fail = (message: string): ToolResult => ({ content: [{ type: 'text', text: message }], isError: true });
 
+/* Wraps a tool body so unexpected errors (DB/FK/connection) never leak raw
+ * Postgres messages to the client — they are logged and returned as a generic
+ * error, mirroring the API-route convention. */
+const run = async(fn: () => Promise<ToolResult>): Promise<ToolResult> => {
+  try {
+    return await fn();
+  } catch(error) {
+    console.error('[mcp tool] internal error:', error);
+    return fail('Internal error');
+  }
+};
+
 /* Read tools (public, published-only) ----------------- */
 export const registerReadTools = (server: McpServer): void => {
   server.tool('list_editions', 'List all published festival editions (years).', {}, async (): Promise<ToolResult> => {
-    return ok(await listEditions());
+    return run(async () => ok(await listEditions()));
   });
 
   server.tool(
     'get_edition',
     'Get one published edition by year, including its published general alerts.',
     { year: z.number().int() },
-    async (args): Promise<ToolResult> => {
+    async (args): Promise<ToolResult> => run(async () => {
       const result = await getEdition(args.year as number);
       return result === null ? fail(`No published edition for year ${String(args.year)}`) : ok(result);
-    },
+    }),
   );
 
   server.tool(
@@ -56,7 +68,7 @@ export const registerReadTools = (server: McpServer): void => {
       cursor: z.string().optional(),
       limit: z.number().int().min(1).max(100).optional(),
     },
-    async (args): Promise<ToolResult> => {
+    async (args): Promise<ToolResult> => run(async () => {
       const result = await listEditionEvents({
         year: args.year as number,
         category: args.category as EventCategory | undefined,
@@ -67,17 +79,17 @@ export const registerReadTools = (server: McpServer): void => {
         limit: (args.limit as number | undefined) ?? 50,
       });
       return result === null ? fail(`No published edition for year ${String(args.year)}`) : ok(result);
-    },
+    }),
   );
 
   server.tool(
     'get_event',
     'Get full detail for one event (description, links, embeds, alerts) by id.',
     { eventId: z.string().uuid() },
-    async (args): Promise<ToolResult> => {
+    async (args): Promise<ToolResult> => run(async () => {
       const result = await getEventDetail(args.eventId as string);
       return result === null ? fail(`No event ${String(args.eventId)}`) : ok(result);
-    },
+    }),
   );
 };
 
@@ -87,35 +99,35 @@ export const registerWriteTools = (server: McpServer): void => {
     'create_event',
     'Create one event. Provide editionId and event fields. Returns the new event id.',
     createEventObject.shape,
-    async (args): Promise<ToolResult> => {
+    async (args): Promise<ToolResult> => run(async () => {
       const parsed = createEventSchema.safeParse(args);
       if(!parsed.success) {
         return fail(`Validation failed: ${JSON.stringify(parsed.error.issues)}`);
       }
       const id = await createEventWithChildren(parsed.data);
       return ok({ id });
-    },
+    }),
   );
 
   server.tool(
     'create_events_batch',
     'Create many events in one edition atomically. Validates every event first; if any is invalid, nothing is written. Returns { count, ids }.',
     createEventsBatchSchema.shape,
-    async (args): Promise<ToolResult> => {
+    async (args): Promise<ToolResult> => run(async () => {
       const parsed = createEventsBatchSchema.safeParse(args);
       if(!parsed.success) {
         return fail(`Validation failed: ${JSON.stringify(parsed.error.issues)}`);
       }
       const ids = await createEventsBatch(parsed.data.editionId, parsed.data.events);
       return ok({ count: ids.length, ids });
-    },
+    }),
   );
 
   server.tool(
     'update_event',
     'Update one event by id (replaces all fields). Returns the event id.',
     { id: z.string().uuid(), ...updateEventObject.shape },
-    async (args): Promise<ToolResult> => {
+    async (args): Promise<ToolResult> => run(async () => {
       const { id, ...rest } = args;
       const parsed = updateEventSchema.safeParse(rest);
       if(!parsed.success) {
@@ -123,16 +135,16 @@ export const registerWriteTools = (server: McpServer): void => {
       }
       const updated = await updateEventWithChildren(id as string, parsed.data);
       return updated === null ? fail(`No event ${String(id)}`) : ok({ id: updated });
-    },
+    }),
   );
 
   server.tool(
     'delete_event',
     'Delete one event by id. Returns { deleted: true }.',
     { id: z.string().uuid() },
-    async (args): Promise<ToolResult> => {
+    async (args): Promise<ToolResult> => run(async () => {
       const deleted = await deleteEvent(args.id as string);
       return deleted ? ok({ deleted: true }) : fail(`No event ${String(args.id)}`);
-    },
+    }),
   );
 };
