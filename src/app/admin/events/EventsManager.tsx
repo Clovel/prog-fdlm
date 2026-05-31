@@ -121,6 +121,8 @@ const EventsManager: React.FC<EventsManagerProps> = ({ canManage }) => {
           ? <p className="text-muted-foreground">Chargement…</p>
           : eventsQuery.isError
             ? <p className="text-destructive">Impossible de charger les événements.</p>
+            : filtered.length < 1 ?
+            <p className="text-muted-foreground">Aucun événement trouvé.</p>
             : (
               <Table>
                 <TableHeader>
