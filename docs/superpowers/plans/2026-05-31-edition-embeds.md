@@ -567,6 +567,142 @@ Expected: GET unauth 401; create published 201; create draft 201; invalid url 40
 
 ---
 
+## Task 6B: MCP server + OpenAPI integration (adaptation)
+
+**Files:** Modify `src/mcp/tools.ts`, `src/app/api/mcp/admin/[transport]/route.ts`, `src/app/api/openapi.json/route.ts`
+
+The repo has an agent-facing layer: `src/mcp/tools.ts` registers read tools (public MCP) + write tools (admin MCP, OAuth-gated to `admin`/`editor`), and `openapi.json` is a hand-maintained zod-openapi doc. Edition embeds must be exposed there. **Embeds are admin-only**, but the admin MCP route allows editors — so embed write tools must be gated to `role === 'admin'`.
+
+- [ ] **Step 1: Add admin-gated embed write tools + role param in `src/mcp/tools.ts`**
+
+Add imports at the top (project module imports):
+```ts
+import { createEditionEmbed, updateEditionEmbed, deleteEditionEmbed } from 'db/mutations/editionEmbeds';
+import { createEditionEmbedSchema, updateEditionEmbedSchema } from 'validation/editionEmbed';
+```
+Update the `get_edition` read-tool description to mention embeds (replace its description string):
+```ts
+    'Get one published edition by year, including its published general alerts and social embeds.',
+```
+Change the `registerWriteTools` signature to accept the caller role and register the embed tools admin-only. Replace `export const registerWriteTools = (server: McpServer): void => {` with:
+```ts
+export const registerWriteTools = (server: McpServer, role: 'admin' | 'editor' = 'editor'): void => {
+```
+Then, **at the end of `registerWriteTools` (before its closing `};`)**, add the admin-only embed tools:
+```ts
+  /* Edition social embeds — admin only (mirrors the admin-only HTTP routes). */
+  if(role === 'admin') {
+    server.tool(
+      'create_edition_embed',
+      'Add a social embed (Instagram/Facebook post) to an edition. Returns the new embed id.',
+      createEditionEmbedSchema.shape,
+      async (args): Promise<ToolResult> => run(async () => {
+        const parsed = createEditionEmbedSchema.safeParse(args);
+        if(!parsed.success) {
+          return fail(`Validation failed: ${JSON.stringify(parsed.error.issues)}`);
+        }
+        const row = await createEditionEmbed(parsed.data);
+        return ok({ id: row.id });
+      }),
+    );
+
+    server.tool(
+      'update_edition_embed',
+      'Update one edition embed by id (platform, url, isPublished). Returns the embed id.',
+      { id: z.string().uuid(), ...updateEditionEmbedSchema.shape },
+      async (args): Promise<ToolResult> => run(async () => {
+        const { id, ...rest } = args;
+        const parsed = updateEditionEmbedSchema.safeParse(rest);
+        if(!parsed.success) {
+          return fail(`Validation failed: ${JSON.stringify(parsed.error.issues)}`);
+        }
+        const row = await updateEditionEmbed(id as string, parsed.data);
+        return row === null ? fail(`No embed ${String(id)}`) : ok({ id: row.id });
+      }),
+    );
+
+    server.tool(
+      'delete_edition_embed',
+      'Delete one edition embed by id. Returns { deleted: true }.',
+      { id: z.string().uuid() },
+      async (args): Promise<ToolResult> => run(async () => {
+        const deleted = await deleteEditionEmbed(args.id as string);
+        return deleted ? ok({ deleted: true }) : fail(`No embed ${String(args.id)}`);
+      }),
+    );
+  }
+```
+
+- [ ] **Step 2: Pass the role into `registerWriteTools` in the admin MCP route**
+
+In `src/app/api/mcp/admin/[transport]/route.ts`, the handler already resolves `role` before building. Thread it through:
+- Change `buildHandler` to accept the role: `const buildHandler = (req: Request, role: 'admin' | 'editor'): Promise<Response> =>` and inside its `createMcpHandler` callback call `registerWriteTools(server as never, role);`.
+- At the call site, after the existing role check (`if(role !== 'admin' && role !== 'editor') return forbidden();`), call `return buildHandler(req, role);`. (`role` is `string | undefined` from the select; narrow it: since the guard above rejects anything other than `'admin'`/`'editor'`, pass `role as 'admin' | 'editor'`.)
+
+The public MCP route (`src/app/api/mcp/[transport]/route.ts`) is unchanged — it only registers read tools, so embed writes are never exposed publicly; `get_edition` there returns published embeds via the Task 4 `getEdition` change.
+
+- [ ] **Step 3: Document embeds in `src/app/api/openapi.json/route.ts`**
+
+Add an embed DTO near the other DTOs:
+```ts
+const editionEmbedDto = z.object({
+  id: z.uuid(),
+  platform: z.enum(['instagram', 'facebook']),
+  url: z.url(),
+}).meta({ id: 'EditionEmbed' });
+```
+Add `embedLinks: z.array(editionEmbedDto)` to `editionWithAlertsDto` (alongside `generalAlerts`). Import the embed validators at the top:
+```ts
+import { createEditionEmbedObject, updateEditionEmbedObject } from 'validation/editionEmbed';
+```
+(If `validation/editionEmbed.ts` exports only `createEditionEmbedSchema`/`updateEditionEmbedSchema` as `z.object(...)`, those ARE the objects — use them directly: `createEditionEmbedSchema.meta({ id: 'CreateEditionEmbed' })` and `updateEditionEmbedSchema.meta({ id: 'UpdateEditionEmbed' })`. No separate `*Object` exports needed; adjust the import accordingly and report.) Then add these `paths` entries (mirror the `/api/admin/events` style):
+```ts
+    '/api/admin/embeds': {
+      post: {
+        summary: 'Add a social embed to an edition (admin)',
+        requestBody: { content: { 'application/json': { schema: createEditionEmbedSchema } } },
+        responses: {
+          '201': { description: 'Created', content: { 'application/json': { schema: idResponse } } },
+          '401': { description: 'Unauthorized' },
+          '403': { description: 'Forbidden' },
+        },
+      },
+    },
+    '/api/admin/embeds/{id}': {
+      patch: {
+        summary: 'Update one edition embed (admin)',
+        requestParams: { path: z.object({ id: z.uuid() }) },
+        requestBody: { content: { 'application/json': { schema: updateEditionEmbedSchema } } },
+        responses: {
+          '200': { description: 'OK', content: { 'application/json': { schema: idResponse } } },
+          '401': { description: 'Unauthorized' },
+          '403': { description: 'Forbidden' },
+          '404': { description: 'Not found' },
+        },
+      },
+      delete: {
+        summary: 'Delete one edition embed (admin)',
+        requestParams: { path: z.object({ id: z.uuid() }) },
+        responses: {
+          '200': { description: 'OK' },
+          '401': { description: 'Unauthorized' },
+          '403': { description: 'Forbidden' },
+          '404': { description: 'Not found' },
+        },
+      },
+    },
+```
+
+- [ ] **Step 4: Verify + commit**
+```bash
+pnpm tsc:ci && pnpm lint
+git add src/mcp/tools.ts "src/app/api/mcp/admin/[transport]/route.ts" "src/app/api/openapi.json/route.ts"
+git commit -m "Exposed edition embeds via MCP (admin-only tools) + OpenAPI"
+```
+No `--no-verify`. Both clean. (curl verification of the MCP tools is covered in Task 12.)
+
+---
+
 ## Task 7: Admin React Query hooks
 
 **Files:** Create `src/hooks/admin/useAdminEmbeds.ts` (mirror `useAdminAlerts.ts`)
@@ -1334,9 +1470,11 @@ sleep 26
 P=3000
 echo -n "public /api/editions/2024 embedLinks -> "; curl -s -m10 "http://localhost:$P/api/editions/2024" | python3 -c "import sys,json;d=json.load(sys.stdin).get('embedLinks',[]);print(len(d),[e['platform'] for e in d])"
 echo -n "/2024 page renders -> "; curl -s -o /dev/null -w "%{http_code}\n" -m 15 "http://localhost:$P/2024"
+echo -n "openapi.json has EditionEmbed + admin embed path -> "; curl -s -m10 "http://localhost:$P/api/openapi.json" | python3 -c "import sys,json;d=json.load(sys.stdin);print('EditionEmbed' in json.dumps(d), '/api/admin/embeds' in d.get('paths',{}))"
+echo -n "public MCP get_edition returns embedLinks -> "; curl -s -m10 -X POST "http://localhost:$P/api/mcp/mcp" -H "Content-Type: application/json" -H "Accept: application/json, text/event-stream" -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_edition","arguments":{"year":2024}}}' | grep -o "embedLinks" | head -1
 sleep 10
 ```
-Expected: `embedLinks` length 2, both `instagram`; `/2024` → 200.
+Expected: `embedLinks` length 2, both `instagram`; `/2024` → 200; openapi check `True True`; MCP `get_edition` response contains `embedLinks`. (The MCP call returns a JSON-RPC / SSE envelope; grepping for `embedLinks` confirms the field is present. If the public MCP requires a `mcp-session-id` handshake, this single-shot call may not return the body — in that case verify via the `/api/editions/2024` check above + the build, and note it.)
 
 - [ ] **Step 5: Browser walk-through (manual)**: `/admin/embeds` → pick 2024 → see 2 embeds → add a Facebook one / reorder / toggle publish / delete; open `/2024` → published embeds render in one "Sur les réseaux" section in order; toggle one to draft → it disappears from `/2024`; the "Cartes des événements" map section still renders (no inline embed).
 
@@ -1368,6 +1506,7 @@ git commit -m "Seeded 2024 edition embeds from the former hardcoded Instagram po
 - §4 validation — Task 2
 - §5 server (mutations, admin query, getEdition extension) — Tasks 3,4
 - §6 admin routes (admin-only) — Task 5
+- **MCP server + OpenAPI integration (adaptation): public read via `get_edition`/openapi `EditionWithAlerts`; admin-only embed write tools gated by role; openapi admin embed paths — Task 6B**
 - §7 admin UI (manager/table/dialog/nav/hooks) — Tasks 7–10
 - §8 public render (EditionEmbeds + page wiring + types) — Task 11
 - §9 seed fixture — Task 12
