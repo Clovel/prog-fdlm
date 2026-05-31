@@ -14,7 +14,8 @@ Agenda des concerts, open airs et autres évènements de la Fête de la Musique 
 ## Données pour agents IA
 - Interface MCP publique (lecture, sans authentification) : /api/mcp/mcp
 - Interface MCP admin (écriture, OAuth) : /api/mcp/admin/mcp
-- Schéma OpenAPI : /api/openapi.json
+- Schéma OpenAPI 3.1 (généré depuis les validateurs Zod) : /api/openapi.json
+- Documentation interactive (Swagger UI / Scalar) : /api/docs
 
 ## Éditions publiées
 ${years}

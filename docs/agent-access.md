@@ -10,7 +10,8 @@ This app exposes its festival data to AI agents (Claude Code, Cursor, ChatGPT, C
 | **Admin write MCP** | `https://<origin>/api/mcp/admin/mcp` | OAuth 2.1 (admin/editor) |
 | OAuth discovery | `https://<origin>/.well-known/oauth-authorization-server` | — |
 | Protected-resource metadata | `https://<origin>/.well-known/oauth-protected-resource` | — |
-| OpenAPI 3.1 | `https://<origin>/api/openapi.json` | none |
+| OpenAPI 3.1 (generated from Zod) | `https://<origin>/api/openapi.json` | none |
+| Interactive API docs (Scalar) | `https://<origin>/api/docs` | none |
 | Agent guide | `https://<origin>/llms.txt` | none |
 
 `<origin>` is `http://localhost:3000` in dev or your deployed origin (e.g. `https://prog-fdlm.vercel.app`).
@@ -59,7 +60,8 @@ Get the `editionId` from `list_editions` (the public read tool).
 ## For non-MCP scrapers
 
 - `llms.txt` summarises the site and points here.
-- `/api/openapi.json` documents the REST API the MCP tools wrap.
+- `/api/openapi.json` documents the REST API the MCP tools wrap. It is **generated at runtime from the Zod validators** (via `zod-openapi`), so request schemas always match what the API actually accepts.
+- `/api/docs` renders that spec as an interactive Scalar (Swagger-style) reference.
 - Public edition pages embed Schema.org `Event` JSON-LD (rendered client-side;
   JS-executing crawlers such as Googlebot pick it up).
 
