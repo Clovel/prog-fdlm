@@ -90,7 +90,19 @@ const EventsManager: React.FC<EventsManagerProps> = ({ canManage }) => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-semibold">Événements</h1>
+        <h1 className="text-2xl font-semibold">
+          {
+            eventsQuery.data !== undefined && (
+              <>
+                <span className="text-muted-foreground">
+                  ({eventsQuery.data.length})
+                </span>
+                {' '}
+              </>
+            )
+          }
+          Événements
+        </h1>
         {
           canManage && editionId !== null &&
             <Button asChild>
