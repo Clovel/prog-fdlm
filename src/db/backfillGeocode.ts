@@ -12,7 +12,7 @@
  */
 
 /* Module imports -------------------------------------- */
-import { and, eq, isNotNull, isNull, sql } from 'drizzle-orm';
+import { and, count, eq, isNotNull, isNull, sql } from 'drizzle-orm';
 
 /* Module imports (project) ---------------------------- */
 import { db } from './index';
@@ -22,7 +22,18 @@ import { geocodeAddress } from 'lib/geocode';
 
 /* Main ------------------------------------------------ */
 const main = async (): Promise<void> => {
-  const rows = await db
+  // Whole-table snapshot first, so a no-op run explains WHY it found nothing
+  // (everything addressable is already geocoded) rather than looking broken.
+  const summaryRows = await db
+    .select({
+      total: count(),
+      withCoords: sql<number>`count(*) FILTER (WHERE ${events.latitude} IS NOT NULL)::int`,
+      withoutAddress: sql<number>`count(*) FILTER (WHERE ${events.locationAddress} IS NULL OR btrim(${events.locationAddress}) = '')::int`,
+    })
+    .from(events);
+  const summary = summaryRows[0] ?? { total: 0, withCoords: 0, withoutAddress: 0 };
+
+  const candidates = await db
     .select({ id: events.id, locationAddress: events.locationAddress })
     .from(events)
     .where(
@@ -33,9 +44,18 @@ const main = async (): Promise<void> => {
       ),
     );
 
+  console.log(
+    `[backfill] ${summary.total} events: ${summary.withCoords} with coordinates, ${summary.withoutAddress} without an address, ${candidates.length} awaiting geocode.`,
+  );
+
+  if(candidates.length === 0) {
+    console.log('[backfill] nothing to do — every event that has an address is already geocoded.');
+    process.exit(0);
+  }
+
   let ok = 0;
   let failed = 0;
-  for(const row of rows) {
+  for(const row of candidates) {
     const addr: string | null = row.locationAddress;
     if(addr === null || addr.trim().length === 0) {
       continue;
@@ -53,7 +73,7 @@ const main = async (): Promise<void> => {
     }
   }
 
-  console.log(`[backfill] done: ${rows.length} candidates, ${ok} geocoded, ${failed} failed.`);
+  console.log(`[backfill] done: ${ok} newly geocoded, ${failed} failed.`);
   process.exit(0);
 };
 
