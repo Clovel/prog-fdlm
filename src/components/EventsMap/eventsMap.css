@@ -1,0 +1,31 @@
+/* Google Maps InfoWindow overrides ------------------------------------------
+ *
+ * Google hardcodes a white InfoWindow bubble. The InfoWindow content inherits
+ * the app's text color (`--foreground`), which is near-white in dark mode — so
+ * the text rendered white-on-white. Theme the bubble with the app's `popover`
+ * tokens so it matches the active light/dark theme and stays legible.
+ *
+ * These `.gm-style-iw-*` class names are Google's internal InfoWindow markup
+ * (stable for years); they are the standard hook for restyling the bubble.
+ */
+
+.gm-style .gm-style-iw-c {
+  background-color: var(--popover);
+  color: var(--popover-foreground);
+}
+
+.gm-style .gm-style-iw-d {
+  background-color: var(--popover);
+  color: var(--popover-foreground);
+}
+
+/* Pointer/tail beneath the bubble. */
+.gm-style .gm-style-iw-tc::after {
+  background: var(--popover);
+}
+
+/* Close (X) button: Google's default glyph is dark and disappears on a dark
+ * bubble — tint it with the foreground token in dark mode. */
+.dark .gm-style .gm-ui-hover-effect > span {
+  background-color: var(--popover-foreground);
+}
