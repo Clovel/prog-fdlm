@@ -133,7 +133,7 @@ const EventsMap: React.FC<EventsMapProps> = (
                       aria-label={marker.event.name ?? 'Événement sans nom'}
                       className={cn(
                         'size-8 drop-shadow-md',
-                        isFavorite(marker.id) ? 'text-amber-500' : 'text-red-600',
+                        isFavorite(marker.id) ? 'text-amber-400' : 'text-red-600',
                       )}
                       fill="currentColor"
                       stroke="#ffffff"
