@@ -12,6 +12,7 @@ export const eventCategories = [
   'Bordeaux nord',
   'Talence',
   'Pessac',
+  'Villenave-d\'Ornon',
   'Mérignac',
   'Blanquefort',
   'Saint-Médard-en-Jalles',

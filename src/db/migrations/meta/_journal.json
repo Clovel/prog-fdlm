@@ -78,6 +78,13 @@
       "when": 1780253862442,
       "tag": "0010_loud_serpent_society",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1781114050886,
+      "tag": "0011_tiny_adam_warlock",
+      "breakpoints": true
     }
   ]
 }
