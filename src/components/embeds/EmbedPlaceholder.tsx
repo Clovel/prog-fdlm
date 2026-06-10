@@ -3,11 +3,8 @@
 /* Framework imports ----------------------------------- */
 import React from 'react';
 
-/* Module imports -------------------------------------- */
-
 /* Component imports ----------------------------------- */
-
-/* Style imports --------------------------------------- */
+import { Skeleton } from 'components/ui/skeleton';
 
 /* Type imports ---------------------------------------- */
 import type { SocialEmbedPlatform } from 'types/Event';
@@ -31,14 +28,14 @@ const EmbedPlaceholder: React.FC<EmbedPlaceholderProps> = (
   },
 ) => {
   return (
-    <div
-      className="w-full flex items-center justify-center bg-muted/40 border border-border rounded-md"
+    <Skeleton
+      className="w-full flex items-center justify-center rounded-md"
       style={{ aspectRatio }}
     >
       <span className="text-sm text-muted-foreground">
         {LABELS[platform]}
       </span>
-    </div>
+    </Skeleton>
   );
 };
 

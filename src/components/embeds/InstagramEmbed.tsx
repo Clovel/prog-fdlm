@@ -6,6 +6,7 @@ import React, { useRef } from 'react';
 /* Module imports -------------------------------------- */
 import { useInViewport } from 'hooks/useInViewport';
 import { useSocialEmbedScript } from 'hooks/useSocialEmbedScript';
+import { useEmbedRendered } from 'hooks/useEmbedRendered';
 
 /* Component imports ----------------------------------- */
 import EmbedPlaceholder from './EmbedPlaceholder';
@@ -36,6 +37,7 @@ const InstagramEmbed: React.FC<InstagramEmbedProps> = (
 ) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const inViewport = useInViewport(containerRef);
+  const rendered = useEmbedRendered(containerRef, inViewport);
 
   useSocialEmbedScript('instagram', inViewport);
 
@@ -52,12 +54,31 @@ const InstagramEmbed: React.FC<InstagramEmbedProps> = (
     >
       {
         inViewport ?
-          <blockquote
-            className="instagram-media"
-            data-instgrm-permalink={url}
-            data-instgrm-version="14"
-            style={{ margin: 0 }}
-          /> :
+          <div style={{ position: 'relative' }}>
+            {
+              !rendered &&
+                <EmbedPlaceholder
+                  platform="instagram"
+                  aspectRatio={aspectRatio}
+                />
+            }
+            {/* Rendered transparently under the skeleton so the SDK can size it
+                to the real width; promoted to in-flow once the iframe exists. */}
+            <div
+              style={
+                rendered ?
+                  undefined :
+                  { position: 'absolute', inset: 0, opacity: 0, pointerEvents: 'none' }
+              }
+            >
+              <blockquote
+                className="instagram-media"
+                data-instgrm-permalink={url}
+                data-instgrm-version="14"
+                style={{ margin: 0 }}
+              />
+            </div>
+          </div> :
           <EmbedPlaceholder
             platform="instagram"
             aspectRatio={aspectRatio}

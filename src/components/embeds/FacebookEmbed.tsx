@@ -6,6 +6,7 @@ import React, { useRef } from 'react';
 /* Module imports -------------------------------------- */
 import { useInViewport } from 'hooks/useInViewport';
 import { useSocialEmbedScript } from 'hooks/useSocialEmbedScript';
+import { useEmbedRendered } from 'hooks/useEmbedRendered';
 
 /* Component imports ----------------------------------- */
 import EmbedPlaceholder from './EmbedPlaceholder';
@@ -43,6 +44,7 @@ const FacebookEmbed: React.FC<FacebookEmbedProps> = (
 ) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const inViewport = useInViewport(containerRef);
+  const rendered = useEmbedRendered(containerRef, inViewport);
 
   useSocialEmbedScript('facebook', inViewport);
 
@@ -62,12 +64,31 @@ const FacebookEmbed: React.FC<FacebookEmbedProps> = (
     >
       {
         inViewport ?
-          <div
-            className={blockClass}
-            data-href={url}
-            data-show-text={showText ? 'true' : 'false'}
-            data-width="auto"
-          /> :
+          <div style={{ position: 'relative' }}>
+            {
+              !rendered &&
+                <EmbedPlaceholder
+                  platform="facebook"
+                  aspectRatio={aspectRatio}
+                />
+            }
+            {/* Rendered transparently under the skeleton so the SDK can size it
+                to the real width; promoted to in-flow once the iframe exists. */}
+            <div
+              style={
+                rendered ?
+                  undefined :
+                  { position: 'absolute', inset: 0, opacity: 0, pointerEvents: 'none' }
+              }
+            >
+              <div
+                className={blockClass}
+                data-href={url}
+                data-show-text={showText ? 'true' : 'false'}
+                data-width="auto"
+              />
+            </div>
+          </div> :
           <EmbedPlaceholder
             platform="facebook"
             aspectRatio={aspectRatio}
