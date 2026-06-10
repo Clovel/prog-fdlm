@@ -21,6 +21,7 @@
 
 # local agent scratch (git worktrees, Playwright MCP captures)
 .claude/worktrees/
+.claude/*.lock
 .playwright-mcp/
 
 # debug
