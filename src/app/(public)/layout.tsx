@@ -15,7 +15,7 @@ interface PublicLayoutProps {
 const PublicLayout: React.FC<PublicLayoutProps> = ({ children }) => {
   return (
     <QueryProvider>
-      <Header />
+      <Header showEventsCount={true} />
       <main className="flex-1 min-h-full flex flex-col items-center">
         {children}
       </main>

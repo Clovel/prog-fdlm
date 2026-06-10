@@ -178,7 +178,7 @@ const EditionPage: React.FC<EditionPageProps> = () => {
 
   return (
     <FavoritesProvider editionId={edition.id}>
-      <div className="flex flex-col place-items-center min-w-full gap-4">
+      <div className="flex flex-col place-items-center min-w-full gap-0">
         {
           eventJsonLd.length > 0 &&
             <script
