@@ -51,9 +51,11 @@ const AdminShell: React.FC<AdminShellProps> = ({ user, children }) => {
       </aside>
       <div className="flex flex-1 flex-col min-w-0">
         <header className="flex items-center border-b border-border px-6 py-3">
-          <span className="text-sm font-semibold">Back-office</span>
+          <span className="text-sm font-semibold">
+            Back-office
+          </span>
         </header>
-        <main className="flex-1 p-6">
+        <main className="flex flex-1 flex-col p-6">
           {children}
         </main>
       </div>

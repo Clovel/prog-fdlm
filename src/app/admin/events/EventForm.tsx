@@ -108,7 +108,7 @@ const EventForm: React.FC<EventFormProps> = (
   const pending: boolean = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <form onSubmit={(e): void => { void form.handleSubmit(onSubmit)(e); }} className="flex flex-col gap-6 max-w-3xl">
+    <form onSubmit={(e): void => { void form.handleSubmit(onSubmit)(e); }} className="w-full flex flex-col gap-6 max-w-3xl mx-auto">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold">{isEdit ? 'Modifier l\'événement' : 'Nouvel événement'}</h1>
         <span className="text-sm text-muted-foreground">{`Édition ${editionYear}`}</span>
@@ -163,7 +163,7 @@ const EventForm: React.FC<EventFormProps> = (
                 value={field.value ?? '__none__'}
                 onValueChange={(v): void => field.onChange(v === '__none__' ? undefined : v)}
               >
-                <SelectTrigger><SelectValue placeholder="—" /></SelectTrigger>
+                <SelectTrigger className="w-full"><SelectValue placeholder="—" /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="__none__">—</SelectItem>
                   {eventCategories.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
@@ -182,7 +182,7 @@ const EventForm: React.FC<EventFormProps> = (
                 value={field.value ?? '__none__'}
                 onValueChange={(v): void => field.onChange(v === '__none__' ? undefined : v)}
               >
-                <SelectTrigger><SelectValue placeholder="—" /></SelectTrigger>
+                <SelectTrigger className="w-full"><SelectValue placeholder="—" /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="__none__">—</SelectItem>
                   <SelectItem value="canceled">Annulé</SelectItem>
