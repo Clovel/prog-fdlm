@@ -217,11 +217,7 @@ const EditionPage: React.FC<EditionPageProps> = () => {
           <h4 className="text-2xl font-semibold tracking-tight pb-4">
             Cartes des événements
           </h4>
-          {
-            process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY !== undefined &&
-            process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY.length > 0 &&
-              <EventsMap events={viewEvents} />
-          }
+          <EventsMap events={viewEvents} />
         </section>
       </div>
     </FavoritesProvider>
