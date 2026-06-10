@@ -3,6 +3,7 @@
 /* Framework imports ----------------------------------- */
 import React, {
   useMemo,
+  useRef,
   useState,
 } from 'react';
 
@@ -21,9 +22,11 @@ import {
 } from 'components/ui/map';
 import { Switch } from 'components/ui/switch';
 import { Label } from 'components/ui/label';
+import { MapPin } from 'lucide-react';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
+import type { MapRef } from 'components/ui/map';
 
 /* Type declarations ----------------------------------- */
 export interface MarkerInfo {
@@ -55,6 +58,13 @@ const EventsMap: React.FC<EventsMapProps> = (
 ) => {
   const { isFavorite, count } = useFavorites();
   const [ onlyFavorites, setOnlyFavorites ] = useState<boolean>(false);
+  const mapRef = useRef<MapRef>(null);
+
+  // Pan the tapped marker into the lower third of the viewport so its popup
+  // (which opens above the pin) stays fully visible — including on mobile.
+  const recenterOn = (lng: number, lat: number): void => {
+    mapRef.current?.flyTo({ center: [ lng, lat ], offset: [ 0, 175 ], duration: 400 });
+  };
 
   const eventMarkers = useMemo<MarkerInfo[]>(
     () => {
@@ -98,11 +108,14 @@ const EventsMap: React.FC<EventsMapProps> = (
       </div>
       <div className="h-[600px] w-full overflow-hidden rounded-md border border-border">
         <Map
+          ref={mapRef}
           styles={{ light: IGN_STYLE, dark: IGN_STYLE }}
           center={[ center.lng, center.lat ]}
           zoom={13}
           minZoom={10}
           maxZoom={18}
+          cooperativeGestures
+          attributionControl={{ compact: true, customAttribution: '© IGN — Géoplateforme' }}
         >
           <MapControls position="bottom-right" showZoom />
           {
@@ -112,17 +125,27 @@ const EventsMap: React.FC<EventsMapProps> = (
                   key={marker.id}
                   longitude={marker.position.lng}
                   latitude={marker.position.lat}
+                  anchor="bottom"
+                  onClick={(): void => recenterOn(marker.position.lng, marker.position.lat)}
                 >
                   <MarkerContent>
-                    <div
-                      title={marker.event.name ?? 'Événement sans nom'}
+                    <MapPin
+                      aria-label={marker.event.name ?? 'Événement sans nom'}
                       className={cn(
-                        'h-4 w-4 rounded-full border-2 border-white shadow-lg',
-                        isFavorite(marker.id) ? 'bg-amber-500' : 'bg-blue-500',
+                        'size-8 drop-shadow-md',
+                        isFavorite(marker.id) ? 'text-amber-500' : 'text-red-600',
                       )}
+                      fill="currentColor"
+                      stroke="#ffffff"
+                      strokeWidth={1.5}
                     />
                   </MarkerContent>
-                  <MarkerPopup closeButton className="max-w-80">
+                  <MarkerPopup
+                    closeButton
+                    anchor="bottom"
+                    offset={40}
+                    className="max-w-[85vw] overflow-y-auto sm:max-w-80 max-h-[320px] sm:max-h-[360px]"
+                  >
                     <EventInfoWindow markerInfo={marker} />
                   </MarkerPopup>
                 </MapMarker>
