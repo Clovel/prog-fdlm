@@ -83,8 +83,17 @@ const EventsManager: React.FC<EventsManagerProps> = ({ canManage }) => {
   };
 
   const events: AdminEventSummary[] = eventsQuery.data ?? [];
-  const filtered = filter.length > 0
-    ? events.filter((e) => (e.name ?? '').toLowerCase().includes(filter.toLowerCase()))
+  const needle: string = filter.trim().toLowerCase();
+  const filtered = needle.length > 0
+    ? events.filter((e): boolean => {
+      const haystack: string = [
+        e.name ?? '',
+        e.description ?? '',
+        ...(e.artists ?? []),
+        ...(e.genres ?? []),
+      ].join(' ').toLowerCase();
+      return haystack.includes(needle);
+    })
     : events;
 
   return (
@@ -123,8 +132,8 @@ const EventsManager: React.FC<EventsManagerProps> = ({ canManage }) => {
         <Input
           value={filter}
           onChange={(e): void => setFilter(e.target.value)}
-          placeholder="Filtrer par nom…"
-          className="w-64"
+          placeholder="Filtrer par nom, description, artiste, genre…"
+          className="w-80"
         />
       </div>
 
