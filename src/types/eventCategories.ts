@@ -10,6 +10,7 @@ export const eventCategories = [
   'Bordeaux ouest',
   'Bordeaux sud',
   'Bordeaux nord',
+  'Bègles',
   'Talence',
   'Pessac',
   'Villenave-d\'Ornon',
