@@ -2,6 +2,7 @@
 
 /* Framework imports ----------------------------------- */
 import React, {
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -19,6 +20,7 @@ import {
   MapMarker,
   MarkerContent,
   MarkerPopup,
+  useMap,
 } from 'components/ui/map';
 import { Switch } from 'components/ui/switch';
 import { Label } from 'components/ui/label';
@@ -43,6 +45,28 @@ const IGN_STYLE = 'https://data.geopf.fr/annexes/ressources/vectorTiles/styles/P
 const center: { lat: number; lng: number } = {
   lat: 44.840912,
   lng: -0.571377,
+};
+
+/* LockBearing component ------------------------------- */
+// Disables map rotation (mouse drag-rotate and two-finger touch rotate) so the
+// map can never be turned off true-north. Rendered inside <Map> to reach the
+// MapLibre instance via context.
+const LockBearing: React.FC = () => {
+  const { map } = useMap();
+
+  useEffect(
+    (): void => {
+      if(map === null) {
+        return;
+      }
+      map.dragRotate.disable();
+      map.touchZoomRotate.disableRotation();
+      map.setBearing(0);
+    },
+    [map],
+  );
+
+  return null;
 };
 
 /* EventsMap component prop types ---------------------- */
@@ -117,6 +141,7 @@ const EventsMap: React.FC<EventsMapProps> = (
           cooperativeGestures
           attributionControl={{ compact: true, customAttribution: '© IGN — Géoplateforme' }}
         >
+          <LockBearing />
           <MapControls position="bottom-right" showZoom />
           {
             visibleMarkers.map(
