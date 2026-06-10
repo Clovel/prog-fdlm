@@ -2,8 +2,13 @@
 /** BAN confidence gate — accept results with score >= this value. */
 const MIN_GEOCODE_SCORE = 0.5;
 
-/** Default base URL for the BAN geocoding API. */
-const DEFAULT_BASE_URL = 'https://api-adresse.data.gouv.fr';
+/**
+ * Default base URL for the BAN geocoding API, served by IGN's Géoplateforme.
+ * The legacy `api-adresse.data.gouv.fr` host was decommissioned end of Jan 2026
+ * (redirect to IGN being wound down); this endpoint returns identical GeoJSON.
+ * Override with GEOCODING_BASE_URL if needed.
+ */
+const DEFAULT_BASE_URL = 'https://data.geopf.fr/geocodage';
 
 /* Type exports ---------------------------------------- */
 export type GeocodeResult =
