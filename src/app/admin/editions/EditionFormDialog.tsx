@@ -2,7 +2,7 @@
 
 /* Framework imports ----------------------------------- */
 import React, { useEffect } from 'react';
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm, useWatch, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
@@ -18,8 +18,8 @@ import {
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { Label } from 'components/ui/label';
-import { Textarea } from 'components/ui/textarea';
 import { Switch } from 'components/ui/switch';
+import MarkdownInput from 'components/MarkdownInput/MarkdownInput';
 
 /* Module imports (project) ---------------------------- */
 import { createEditionSchema, updateEditionSchema } from 'validation/edition';
@@ -157,8 +157,20 @@ const EditionFormDialog: React.FC<EditionFormDialogProps> = (
             }
           </div>
           <div className="flex flex-col gap-2">
-            <Label htmlFor="description">Description (optionnelle)</Label>
-            <Textarea id="description" rows={3} {...form.register('description')} />
+            <Label htmlFor="description">Description (optionnelle, Markdown)</Label>
+            <Controller
+              control={form.control}
+              name="description"
+              render={({ field }): React.ReactElement => (
+                <MarkdownInput
+                  id="description"
+                  value={field.value}
+                  onChange={field.onChange}
+                  maxLength={2000}
+                  minHeight={140}
+                />
+              )}
+            />
           </div>
           <div className="flex items-center gap-3">
             <Switch

@@ -18,7 +18,6 @@ import {
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { Label } from 'components/ui/label';
-import { Textarea } from 'components/ui/textarea';
 import { Switch } from 'components/ui/switch';
 import {
   Select,
@@ -27,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'components/ui/select';
+import MarkdownInput from 'components/MarkdownInput/MarkdownInput';
 
 /* Module imports (project) ---------------------------- */
 import { updateGeneralAlertSchema } from 'validation/generalAlert';
@@ -149,7 +149,20 @@ const AlertFormDialog: React.FC<AlertFormDialogProps> = (
           </div>
           <div className="flex flex-col gap-1">
             <Label htmlFor="content">Contenu (Markdown)</Label>
-            <Textarea id="content" rows={4} {...form.register('content')} />
+            <Controller
+              control={form.control}
+              name="content"
+              render={({ field }): React.ReactElement => (
+                <MarkdownInput
+                  id="content"
+                  value={field.value}
+                  onChange={field.onChange}
+                  maxLength={2000}
+                  minHeight={160}
+                  invalid={form.formState.errors.content !== undefined}
+                />
+              )}
+            />
             {
               form.formState.errors.content !== undefined &&
                 <p className="text-sm text-destructive">Contenu requis.</p>

@@ -29,6 +29,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@googlemaps/google-maps-services-js": "^3.4.2",
     "@hookform/resolvers": "^5.4.0",
+    "@monaco-editor/react": "^4.7.0",
     "@react-google-maps/api": "^2.20.8",
     "@scalar/nextjs-api-reference": "^0.10.19",
     "@tailwindcss/postcss": "^4.3.0",

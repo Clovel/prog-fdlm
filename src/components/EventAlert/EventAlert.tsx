@@ -9,6 +9,7 @@ import {
   AlertDescription,
   AlertTitle,
 } from 'components/ui/alert';
+import DescriptionRender from 'components/DescriptionRender/DescriptionRender';
 
 /* Style imports --------------------------------------- */
 
@@ -33,8 +34,8 @@ const EventAlert: React.FC<EventAlertProps> = ({ alert }) => {
             {alert.title}
           </AlertTitle>
       }
-      <AlertDescription className="whitespace-pre-line">
-        {alert.content}
+      <AlertDescription className="event-description">
+        <DescriptionRender markdown={alert.content} />
       </AlertDescription>
     </Alert>
   );

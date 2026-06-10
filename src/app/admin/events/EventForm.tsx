@@ -11,7 +11,6 @@ import { toast } from 'sonner';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { Label } from 'components/ui/label';
-import { Textarea } from 'components/ui/textarea';
 import {
   Select,
   SelectContent,
@@ -20,6 +19,7 @@ import {
   SelectValue,
 } from 'components/ui/select';
 import TagsInput from './TagsInput';
+import MarkdownInput from 'components/MarkdownInput/MarkdownInput';
 import LinksSection from './sections/LinksSection';
 import EmbedsSection from './sections/EmbedsSection';
 import AlertsSection from './sections/AlertsSection';
@@ -224,7 +224,19 @@ const EventForm: React.FC<EventFormProps> = (
 
       <div className="flex flex-col gap-1">
         <Label htmlFor="description">Description (Markdown)</Label>
-        <Textarea id="description" rows={6} {...form.register('description')} />
+        <Controller
+          control={form.control}
+          name="description"
+          render={({ field }): React.ReactElement => (
+            <MarkdownInput
+              id="description"
+              value={field.value ?? ''}
+              onChange={field.onChange}
+              maxLength={10000}
+              minHeight={260}
+            />
+          )}
+        />
       </div>
 
       <LinksSection control={form.control} register={form.register} />

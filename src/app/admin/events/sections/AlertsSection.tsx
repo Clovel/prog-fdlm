@@ -8,7 +8,6 @@ import { useFieldArray, Controller } from 'react-hook-form';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { Label } from 'components/ui/label';
-import { Textarea } from 'components/ui/textarea';
 import {
   Select,
   SelectContent,
@@ -16,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from 'components/ui/select';
+import MarkdownInput from 'components/MarkdownInput/MarkdownInput';
 import SortableList from '../SortableList';
 
 /* Type imports ---------------------------------------- */
@@ -70,8 +70,20 @@ const AlertsSection: React.FC<AlertsSectionProps> = ({ control, register }) => {
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              <Label htmlFor={`alerts.${index}.content`}>Contenu</Label>
-              <Textarea id={`alerts.${index}.content`} rows={2} {...register(`alerts.${index}.content`)} />
+              <Label htmlFor={`alerts.${index}.content`}>Contenu (Markdown)</Label>
+              <Controller
+                control={control}
+                name={`alerts.${index}.content`}
+                render={({ field }): React.ReactElement => (
+                  <MarkdownInput
+                    id={`alerts.${index}.content`}
+                    value={field.value}
+                    onChange={field.onChange}
+                    maxLength={2000}
+                    minHeight={140}
+                  />
+                )}
+              />
             </div>
             <Button type="button" variant="ghost" size="sm" className="self-end" onClick={(): void => remove(index)}>
               Retirer
