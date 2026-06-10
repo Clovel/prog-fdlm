@@ -1,31 +1,21 @@
-/* Google Maps InfoWindow overrides ------------------------------------------
+/* MapLibre popup overrides ---------------------------------------------------
  *
- * Google hardcodes a white InfoWindow bubble. The InfoWindow content inherits
- * the app's text color (`--foreground`), which is near-white in dark mode — so
- * the text rendered white-on-white. Theme the bubble with the app's `popover`
- * tokens so it matches the active light/dark theme and stays legible.
- *
- * These `.gm-style-iw-*` class names are Google's internal InfoWindow markup
- * (stable for years); they are the standard hook for restyling the bubble.
+ * mapcn renders its own themed popup box (bg-popover, rounded border, p-3)
+ * inside MapLibre's `.maplibregl-popup-content` wrapper. That wrapper ships its
+ * own white background, padding, radius and box-shadow, so without this reset
+ * you get a double-padded, mis-themed bubble around the real content.
+ * Neutralize the wrapper so only the mapcn box is visible.
  */
 
-.gm-style .gm-style-iw-c {
-  background-color: var(--popover);
-  color: var(--popover-foreground);
+.maplibregl-popup-content {
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
-.gm-style .gm-style-iw-d {
-  background-color: var(--popover);
-  color: var(--popover-foreground);
-}
-
-/* Pointer/tail beneath the bubble. */
-.gm-style .gm-style-iw-tc::after {
-  background: var(--popover);
-}
-
-/* Close (X) button: Google's default glyph is dark and disappears on a dark
- * bubble — tint it with the foreground token in dark mode. */
-.dark .gm-style .gm-ui-hover-effect > span {
-  background-color: var(--popover-foreground);
+/* The popup is anchored above the pin with an offset; MapLibre's default tip is
+ * a white triangle that doesn't match the themed box — hide it. */
+.maplibregl-popup-tip {
+  display: none;
 }
