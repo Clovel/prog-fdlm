@@ -9,6 +9,9 @@ import { events, eventLinks, eventEmbedLinks, eventAlerts, favorites } from '../
 export interface AdminEventSummary {
   id: string;
   name: string | null;
+  description: string | null;
+  genres: string[] | null;
+  artists: string[] | null;
   category: string | null;
   status: string | null;
   startTime: string;
@@ -25,6 +28,9 @@ export const listEditionEventsAdmin = async (editionId: string): Promise<AdminEv
     .select({
       id: events.id,
       name: events.name,
+      description: events.description,
+      genres: events.genres,
+      artists: events.artists,
       category: events.category,
       status: events.status,
       startTime: events.startTime,
@@ -41,6 +47,9 @@ export const listEditionEventsAdmin = async (editionId: string): Promise<AdminEv
   return rows.map((r) => ({
     id: r.id,
     name: r.name,
+    description: r.description,
+    genres: r.genres,
+    artists: r.artists,
     category: r.category,
     status: r.status,
     startTime: r.startTime.toISOString(),
