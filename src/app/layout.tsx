@@ -3,6 +3,7 @@ import React from 'react';
 
 /* Module imports (project) ---------------------------- */
 import { OG_SITE } from 'lib/shareCard/ogBase';
+import { getCanonicalBaseUrl } from 'lib/baseUrl';
 
 /* Component imports ----------------------------------- */
 import { Analytics } from '@vercel/analytics/react';
@@ -17,10 +18,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 /* Metadata -------------------------------------------- */
-const baseUrl = process.env.BETTER_AUTH_URL ?? 'https://prog-fdlm.vercel.app';
-
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL(getCanonicalBaseUrl()),
   title: 'Fête de la musique à Bordeaux',
   description: 'Le programme de la fête de la musique à Bordeaux.',
   openGraph: {

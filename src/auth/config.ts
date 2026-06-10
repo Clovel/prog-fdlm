@@ -10,8 +10,18 @@ import * as schema from 'db/schema';
 import { sendResetPasswordEmail } from './email';
 import { DEFAULT_ROLE } from './roles';
 
+/* Trusted origins ------------------------------------- */
+// Comma-separated allowlist of origins whose requests pass the CSRF origin
+// check (custom domains, Vercel previews, localhost). BetterAuth already trusts
+// its own `baseURL` (BETTER_AUTH_URL) on top of these.
+const trustedOrigins: string[] = (process.env.TRUSTED_ORIGINS ?? '')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter((origin) => origin.length > 0);
+
 /* BetterAuth server instance -------------------------- */
 export const auth = betterAuth({
+  trustedOrigins,
   database: drizzleAdapter(db, {
     provider: 'pg',
     schema,

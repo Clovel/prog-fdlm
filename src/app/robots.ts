@@ -1,9 +1,12 @@
 /* Framework imports ----------------------------------- */
 import type { MetadataRoute } from 'next';
 
+/* Module imports (project) ---------------------------- */
+import { getRequestBaseUrl } from 'lib/baseUrl';
+
 /* robots.txt (absolute sitemap URL per the sitemaps protocol) */
-const robots = (): MetadataRoute.Robots => {
-  const base = process.env.BETTER_AUTH_URL ?? 'https://prog-fdlm.vercel.app';
+const robots = async (): Promise<MetadataRoute.Robots> => {
+  const base = await getRequestBaseUrl();
   return {
     rules: {
       userAgent: '*',
