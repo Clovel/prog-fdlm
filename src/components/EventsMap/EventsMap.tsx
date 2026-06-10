@@ -1,3 +1,5 @@
+'use client';
+
 /* Framework imports ----------------------------------- */
 import React, {
   useMemo,
@@ -7,37 +9,35 @@ import React, {
 /* Module imports -------------------------------------- */
 import EventInfoWindow from './EventInfoWindow';
 import { useFavorites } from 'components/Favorites/FavoritesProvider';
+import { cn } from 'lib/utils';
 
 /* Component imports ----------------------------------- */
 import {
-  useJsApiLoader,
-  GoogleMap,
-  Marker,
-  InfoWindow,
-} from '@react-google-maps/api';
+  Map,
+  MapControls,
+  MapMarker,
+  MarkerContent,
+  MarkerPopup,
+} from 'components/ui/map';
 import { Switch } from 'components/ui/switch';
 import { Label } from 'components/ui/label';
 
-/* Style imports --------------------------------------- */
-
 /* Type imports ---------------------------------------- */
-import type { LatLngLiteral } from '@googlemaps/google-maps-services-js';
 import type { Event } from 'types/Event';
 
 /* Type declarations ----------------------------------- */
 export interface MarkerInfo {
   id: string;
-  position: LatLngLiteral;
+  position: { lat: number; lng: number };
   event: Event;
 }
 
 /* Internal variables ---------------------------------- */
-const mapContainerStyle: React.CSSProperties = {
-  width: '100%',
-  height: '600px',
-};
+// IGN Géoplateforme PLAN.IGN vector style — keyless, served by IGN. Used for
+// both themes (the map stays light; the popup respects dark mode on its own).
+const IGN_STYLE = 'https://data.geopf.fr/annexes/ressources/vectorTiles/styles/PLAN.IGN/standard.json';
 
-const center: LatLngLiteral = {
+const center: { lat: number; lng: number } = {
   lat: 44.840912,
   lng: -0.571377,
 };
@@ -54,15 +54,7 @@ const EventsMap: React.FC<EventsMapProps> = (
   },
 ) => {
   const { isFavorite, count } = useFavorites();
-  const [ selectedMarker, setSelectedMarker ] = useState<MarkerInfo | null>(null);
   const [ onlyFavorites, setOnlyFavorites ] = useState<boolean>(false);
-
-  const { isLoaded, loadError } = useJsApiLoader(
-    {
-      id: 'google-map-script',
-      googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
-    }
-  );
 
   const eventMarkers = useMemo<MarkerInfo[]>(
     () => {
@@ -77,37 +69,6 @@ const EventsMap: React.FC<EventsMapProps> = (
     },
     [events],
   );
-
-  if(loadError !== undefined) {
-    return (
-      <div>
-        <p>
-          Erreur de chargement de la carte :
-          {' '}
-          {loadError.message}
-        </p>
-      </div>
-    );
-  }
-
-  if(!isLoaded) {
-    return (
-      <div>
-        <p>
-          Chargement de la carte...
-        </p>
-      </div>
-    );
-  }
-
-  const favoriteMarkerIcon: google.maps.Symbol = {
-    path: google.maps.SymbolPath.CIRCLE,
-    scale: 9,
-    fillColor: '#f59e0b',
-    fillOpacity: 1,
-    strokeColor: '#ffffff',
-    strokeWeight: 2,
-  };
 
   // Falls back to "show all" when there are no favorites, so the filter can't
   // strand the user on an empty map while the Switch is disabled.
@@ -135,63 +96,43 @@ const EventsMap: React.FC<EventsMapProps> = (
           Afficher seulement les favoris
         </Label>
       </div>
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        center={center}
-        zoom={13}
-        options={
+      <div className="h-[600px] w-full overflow-hidden rounded-md border border-border">
+        <Map
+          styles={{ light: IGN_STYLE, dark: IGN_STYLE }}
+          center={[ center.lng, center.lat ]}
+          zoom={13}
+          minZoom={10}
+          maxZoom={18}
+        >
+          <MapControls position="bottom-right" showZoom />
           {
-            mapTypeControl: true,
-            streetViewControl: false,
-            minZoom: 10,
-            maxZoom: 18,
-            disableDefaultUI: true,
-            styles: [
-              {
-                featureType: 'poi',
-                elementType: 'labels',
-                stylers: [
-                  {
-                    visibility: 'off',
-                  },
-                ],
-              },
-            ],
-          }
-        }
-        onClick={(): void => setSelectedMarker(null)}
-      >
-        {
-          visibleMarkers
-            .map(
+            visibleMarkers.map(
               (marker) => (
-                <Marker
+                <MapMarker
                   key={marker.id}
-                  position={marker.position}
-                  title={marker.event.name ?? 'Événement sans nom'}
-                  icon={isFavorite(marker.id) ? favoriteMarkerIcon : undefined}
-                  onClick={(): void => setSelectedMarker(marker)}
-                />
-              )
+                  longitude={marker.position.lng}
+                  latitude={marker.position.lat}
+                >
+                  <MarkerContent>
+                    <div
+                      title={marker.event.name ?? 'Événement sans nom'}
+                      className={cn(
+                        'h-4 w-4 rounded-full border-2 border-white shadow-lg',
+                        isFavorite(marker.id) ? 'bg-amber-500' : 'bg-blue-500',
+                      )}
+                    />
+                  </MarkerContent>
+                  <MarkerPopup closeButton className="max-w-80">
+                    <EventInfoWindow markerInfo={marker} />
+                  </MarkerPopup>
+                </MapMarker>
+              ),
             )
-        }
-        {
-          selectedMarker &&
-            <InfoWindow
-              position={selectedMarker.position}
-              onCloseClick={(): void => setSelectedMarker(null)}
-              options={
-                {
-                  minWidth: 300,
-                }
-              }
-            >
-              <EventInfoWindow markerInfo={selectedMarker} />
-            </InfoWindow>
-        }
-      </GoogleMap>
+          }
+        </Map>
+      </div>
       <p className="text-muted-foreground mt-2 text-xs">
-        Géocodage : Base Adresse Nationale (data.gouv.fr)
+        Géocodage : Base Adresse Nationale (IGN Géoplateforme) · Fond de carte : IGN
       </p>
     </div>
   );
