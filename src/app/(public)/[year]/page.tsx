@@ -22,6 +22,7 @@ import GeneralAlertsBanner from 'components/GeneralAlertsBanner/GeneralAlertsBan
 import EmptyEditionView from 'components/EmptyEditionView/EmptyEditionView';
 import FavoritesProvider from 'components/Favorites/FavoritesProvider';
 import FavoritesSection from 'components/Favorites/FavoritesSection';
+import EditionEventsFilterTool from 'components/EditionEventsFilterTool/EditionEventsFilterTool';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
@@ -100,7 +101,11 @@ const EditionPage: React.FC<EditionPageProps> = () => {
         setHeaderState({ year: null, eventsCount: null });
       };
     },
-    [year, eventsQuery.data, setHeaderState],
+    [
+      year,
+      eventsQuery.data,
+      setHeaderState,
+    ],
   );
 
   const editionNotFound: boolean =
@@ -188,6 +193,10 @@ const EditionPage: React.FC<EditionPageProps> = () => {
         }
         <GeneralAlertsBanner alerts={generalAlerts} />
         <FavoritesSection events={viewEvents} feteDeLaMusiqueDay={feteDeLaMusiqueDay} />
+        {
+          viewEvents.length > 0 &&
+            <EditionEventsFilterTool />
+        }
         {
           Object.entries(reduceEventsByCategory(viewEvents))
             .sort(sortEventsByCategoryEntries)
