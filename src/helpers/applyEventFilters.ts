@@ -15,13 +15,13 @@ export interface FilterState {
   sortDir: SortDir;
 }
 
-export const DEFAULT_FILTERS: FilterState = {
+export const DEFAULT_FILTERS = (feteDeLaMusiqueDay: Date): FilterState => ({
   search: '',
-  dayOnly: true,
+  dayOnly: (new Date().getTime() >= new Date(feteDeLaMusiqueDay).getTime()),
   hidePast: true,
   sortField: 'none',
-  sortDir: 'asc',
-};
+  sortDir: 'desc',
+});
 
 /* Text normalization ---------------------------------- */
 // Diacritic- and case-insensitive folding for accent-tolerant search.
@@ -156,9 +156,16 @@ export const countActiveFilters = (filters: FilterState): number =>
   (filters.search.trim().length > 0 ? 1 : 0);
 
 // Drives visibility of the bar-level reset control.
-export const isDefaultFilters = (filters: FilterState): boolean =>
-  filters.search === DEFAULT_FILTERS.search &&
-  filters.dayOnly === DEFAULT_FILTERS.dayOnly &&
-  filters.hidePast === DEFAULT_FILTERS.hidePast &&
-  filters.sortField === DEFAULT_FILTERS.sortField &&
-  filters.sortDir === DEFAULT_FILTERS.sortDir;
+export const isDefaultFilters = (
+  filters: FilterState,
+  feteDeLaMusiqueDay: Date
+): boolean => {
+  const defaultFilters = DEFAULT_FILTERS(feteDeLaMusiqueDay);
+  return (
+    filters.search === defaultFilters.search &&
+    filters.dayOnly === defaultFilters.dayOnly &&
+    filters.hidePast === defaultFilters.hidePast &&
+    filters.sortField === defaultFilters.sortField &&
+    filters.sortDir === defaultFilters.sortDir
+  );
+};

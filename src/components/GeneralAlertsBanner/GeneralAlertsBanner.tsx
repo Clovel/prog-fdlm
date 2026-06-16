@@ -40,7 +40,9 @@ const GeneralAlertsBanner: React.FC<GeneralAlertsBannerProps> = ({ alerts }) => 
             {iconFor(alert.variant)}
             {
               alert.title !== null &&
-                <AlertTitle>{alert.title}</AlertTitle>
+                <AlertTitle>
+                  {alert.title}
+                </AlertTitle>
             }
             <AlertDescription>
               <DescriptionRender markdown={alert.content} />

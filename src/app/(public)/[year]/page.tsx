@@ -205,6 +205,7 @@ const EditionPage: React.FC<EditionPageProps> = () => {
         <FavoritesSection events={viewEvents} feteDeLaMusiqueDay={feteDeLaMusiqueDay} />
         <EditionEventsFilterTool
           filters={filters}
+          feteDeLaMusiqueDay={feteDeLaMusiqueDay}
           onChange={setFilters}
           onReset={resetFilters}
           activeCount={activeCount}

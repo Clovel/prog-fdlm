@@ -41,6 +41,7 @@ const SORT_DIRS: Array<{ value: SortDir; label: string }> = [
 /* EditionEventsFilterTool component prop types -------- */
 interface EditionEventsFilterToolProps {
   filters: FilterState;
+  feteDeLaMusiqueDay: Date;
   onChange: (next: FilterState) => void;
   onReset: () => void;
   activeCount: number;
@@ -51,6 +52,7 @@ interface EditionEventsFilterToolProps {
 const EditionEventsFilterTool: React.FC<EditionEventsFilterToolProps> = (
   {
     filters,
+    feteDeLaMusiqueDay,
     onChange,
     onReset,
     activeCount,
@@ -59,7 +61,7 @@ const EditionEventsFilterTool: React.FC<EditionEventsFilterToolProps> = (
 ) => {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
-  const showReset: boolean = !isDefaultFilters(filters);
+  const showReset: boolean = !isDefaultFilters(filters, feteDeLaMusiqueDay);
   const hasSearch: boolean = filters.search.length > 0;
   const sortDisabled: boolean = filters.sortField === 'none';
 

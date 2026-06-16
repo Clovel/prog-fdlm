@@ -28,7 +28,7 @@ export const useEditionFilters = (
   events: Event[],
   feteDeLaMusiqueDay: Date,
 ): UseEditionFiltersResult => {
-  const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
+  const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS(feteDeLaMusiqueDay));
   // Capture "now" once at mount; hide-past does not tick live (reload refreshes).
   const nowRef = useRef<Date>(new Date());
 
@@ -44,9 +44,9 @@ export const useEditionFilters = (
 
   const reset = useCallback(
     (): void => {
-      setFilters(DEFAULT_FILTERS);
+      setFilters(DEFAULT_FILTERS(feteDeLaMusiqueDay));
     },
-    [],
+    [feteDeLaMusiqueDay],
   );
 
   return {
