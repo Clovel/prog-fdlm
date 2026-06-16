@@ -41,3 +41,7 @@ next-env.d.ts
 
 # Environment files
 .env.local
+.superpowers/
+
+# WSL alternate-data-stream artifacts
+*:Zone.Identifier
