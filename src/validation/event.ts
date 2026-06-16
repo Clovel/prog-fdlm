@@ -38,6 +38,8 @@ const coreShape = {
   priceText: z.string().trim().max(200).optional(),
   locationName: z.string().trim().min(1, 'Lieu requis').max(300),
   locationAddress: z.string().trim().max(500).optional(),
+  latitude: z.number().min(-90).max(90).optional(),
+  longitude: z.number().min(-180).max(180).optional(),
   links: z.array(eventLinkSchema).default([]),
   embedLinks: z.array(eventEmbedLinkSchema).default([]),
   alerts: z.array(eventAlertSchema).default([]),
