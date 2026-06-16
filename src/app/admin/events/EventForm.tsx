@@ -24,6 +24,7 @@ import LinksSection from './sections/LinksSection';
 import EmbedsSection from './sections/EmbedsSection';
 import AlertsSection from './sections/AlertsSection';
 import AddressAutocomplete from 'components/AddressAutocomplete/AddressAutocomplete';
+import DateTimePicker from 'components/DateTimePicker/DateTimePicker';
 
 /* Module imports (project) ---------------------------- */
 import { eventFormSchema } from 'validation/event';
@@ -158,7 +159,13 @@ const EventForm: React.FC<EventFormProps> = (
       <div className="flex flex-col gap-2 sm:flex-row">
         <div className="flex-1 flex flex-col gap-1">
           <Label htmlFor="startTime">Début</Label>
-          <Input id="startTime" type="datetime-local" {...form.register('startTime')} />
+          <Controller
+            control={form.control}
+            name="startTime"
+            render={({ field }): React.ReactElement => (
+              <DateTimePicker id="startTime" value={field.value ?? ''} onChange={field.onChange} />
+            )}
+          />
           {
             form.formState.errors.startTime !== undefined &&
               <p className="text-sm text-destructive">Début requis.</p>
@@ -166,7 +173,13 @@ const EventForm: React.FC<EventFormProps> = (
         </div>
         <div className="flex-1 flex flex-col gap-1">
           <Label htmlFor="endTime">Fin (optionnelle)</Label>
-          <Input id="endTime" type="datetime-local" {...form.register('endTime')} />
+          <Controller
+            control={form.control}
+            name="endTime"
+            render={({ field }): React.ReactElement => (
+              <DateTimePicker id="endTime" value={field.value ?? ''} onChange={field.onChange} />
+            )}
+          />
           {
             form.formState.errors.endTime !== undefined &&
               <p className="text-sm text-destructive">{form.formState.errors.endTime.message}</p>
