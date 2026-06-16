@@ -14,6 +14,7 @@ export interface EditionView {
 
 export interface GeneralAlertView {
   id: string;
+  isPublished: boolean;
   variant: AlertVariant;
   title: string | null;
   content: string;

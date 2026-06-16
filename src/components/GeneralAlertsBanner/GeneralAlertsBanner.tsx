@@ -32,7 +32,10 @@ const GeneralAlertsBanner: React.FC<GeneralAlertsBannerProps> = ({ alerts }) => 
   return (
     <div className="w-full max-w-5xl px-4 mx-auto flex flex-col gap-3 pb-4">
       {
-        alerts.map((alert) => (
+        alerts
+        .filter((alert) => alert.isPublished)
+        .map(
+          (alert) => (
           <Alert key={alert.id} variant={alert.variant}>
             {iconFor(alert.variant)}
             {
@@ -43,7 +46,8 @@ const GeneralAlertsBanner: React.FC<GeneralAlertsBannerProps> = ({ alerts }) => 
               <DescriptionRender markdown={alert.content} />
             </AlertDescription>
           </Alert>
-        ))
+        )
+      )
       }
     </div>
   );
