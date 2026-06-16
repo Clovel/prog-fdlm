@@ -19,6 +19,7 @@ import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { Label } from 'components/ui/label';
 import { Switch } from 'components/ui/switch';
+import DatePicker from 'components/DateTimePicker/DatePicker';
 import MarkdownInput from 'components/MarkdownInput/MarkdownInput';
 
 /* Module imports (project) ---------------------------- */
@@ -150,7 +151,13 @@ const EditionFormDialog: React.FC<EditionFormDialogProps> = (
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="dayOfFestival">Date du festival</Label>
-            <Input id="dayOfFestival" type="date" {...form.register('dayOfFestival')} />
+            <Controller
+              control={form.control}
+              name="dayOfFestival"
+              render={({ field }): React.ReactElement => (
+                <DatePicker id="dayOfFestival" value={field.value} onChange={field.onChange} />
+              )}
+            />
             {
               form.formState.errors.dayOfFestival !== undefined &&
                 <p className="text-sm text-destructive">Date requise.</p>
