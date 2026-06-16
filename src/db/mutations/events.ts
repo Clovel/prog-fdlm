@@ -64,18 +64,31 @@ const coreValues = (input: CreateEventInput | UpdateEventInput): Partial<typeof 
  *
  * Decision rules (implemented precisely per spec §7 R2):
  * 1. addr === null   → clear all geocode columns to null; no network call.
- * 2. addr === previousGeocodedAddress → address unchanged; return {} to leave
+ * 2. clientCoords provided (admin picked a BAN suggestion) → trust those coordinates;
+ *    skip the network call.
+ * 3. addr === previousGeocodedAddress → address unchanged; return {} to leave
  *    geocode columns untouched; no network call.
- * 3. otherwise → call BAN; persist ok/failed result.
+ * 4. otherwise → call BAN; persist ok/failed result.
  *
  * Never throws. Failed geocode result is valid column data; the write proceeds.
  */
 const geocodeColumns = async (
   addr: string | null,
   previousGeocodedAddress: string | null | undefined,
+  clientCoords: { lat?: number; lng?: number },
 ): Promise<Partial<typeof events.$inferInsert>> => {
   if(addr === null) {
     return geocodeResultToColumns(null, null);
+  }
+  /* Admin picked a BAN suggestion → trust those coordinates; skip the network call. */
+  if(clientCoords.lat !== undefined && clientCoords.lng !== undefined) {
+    return geocodeResultToColumns(addr, {
+      status: 'ok',
+      lat: clientCoords.lat,
+      lng: clientCoords.lng,
+      score: 1,
+      formattedAddress: addr,
+    });
   }
   if(addr === previousGeocodedAddress) {
     return {};
@@ -87,7 +100,7 @@ const geocodeColumns = async (
 /* Mutations ------------------------------------------- */
 export const createEventWithChildren = async (input: CreateEventInput): Promise<string> => {
   const addr = emptyToNull(input.locationAddress);
-  const geo = await geocodeColumns(addr, undefined);
+  const geo = await geocodeColumns(addr, undefined, { lat: input.latitude, lng: input.longitude });
   return db.transaction(async (tx) => {
     const rows = await tx
       .insert(events)
@@ -109,7 +122,7 @@ export const createEventsBatch = async (
   const prepared: Array<{ item: UpdateEventInput; geo: Partial<typeof events.$inferInsert> }> = [];
   for(const item of items) {
     const addr = emptyToNull(item.locationAddress);
-    const geo = await geocodeColumns(addr, undefined);
+    const geo = await geocodeColumns(addr, undefined, { lat: item.latitude, lng: item.longitude });
     prepared.push({ item, geo });
   }
   return db.transaction(async (tx) => {
@@ -149,7 +162,7 @@ export const updateEventWithChildren = async (id: string, input: UpdateEventInpu
     });
   }
   const addr = emptyToNull(input.locationAddress);
-  const geo = await geocodeColumns(addr, existing.geocodedAddress);
+  const geo = await geocodeColumns(addr, existing.geocodedAddress, { lat: input.latitude, lng: input.longitude });
   return db.transaction(async (tx) => {
     const rows = await tx
       .update(events)
