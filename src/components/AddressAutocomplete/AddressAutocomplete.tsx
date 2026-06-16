@@ -66,6 +66,9 @@ const AddressAutocomplete: React.FC<AddressAutocompleteProps> = ({ value, onChan
     } else if(e.key === 'Enter' && highlight >= 0) {
       e.preventDefault();
       const s = suggestions[highlight];
+      if(s === undefined) {
+        return;
+      }
       select({ address: s.label, lat: s.lat, lng: s.lng });
     } else if(e.key === 'Escape') {
       setOpen(false);
@@ -91,7 +94,7 @@ const AddressAutocomplete: React.FC<AddressAutocompleteProps> = ({ value, onChan
           <ul className="absolute z-50 mt-1 w-full overflow-hidden rounded-md border border-border bg-popover text-popover-foreground shadow-md">
             {
               suggestions.map((s, i) => (
-                <li key={`${s.label}-${i.toString()}`}>
+                <li key={`${s.label}-${s.lat.toString()}-${s.lng.toString()}`}>
                   <button
                     type="button"
                     className={`block w-full px-3 py-2 text-left text-sm hover:bg-accent hover:text-accent-foreground ${i === highlight ? 'bg-accent text-accent-foreground' : ''}`}
