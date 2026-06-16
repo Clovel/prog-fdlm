@@ -1,14 +1,9 @@
+/* Module imports (project) ---------------------------- */
+import { getBanBaseUrl } from 'lib/banBaseUrl';
+
 /* Constants ------------------------------------------- */
 /** BAN confidence gate — accept results with score >= this value. */
 const MIN_GEOCODE_SCORE = 0.5;
-
-/**
- * Default base URL for the BAN geocoding API, served by IGN's Géoplateforme.
- * The legacy `api-adresse.data.gouv.fr` host was decommissioned end of Jan 2026
- * (redirect to IGN being wound down); this endpoint returns identical GeoJSON.
- * Override with GEOCODING_BASE_URL if needed.
- */
-const DEFAULT_BASE_URL = 'https://data.geopf.fr/geocodage';
 
 /* Type exports ---------------------------------------- */
 export type GeocodeResult =
@@ -52,7 +47,7 @@ export const geocodeAddress = async(address: string): Promise<GeocodeResult> => 
     return { status: 'failed' };
   }
 
-  const baseUrl: string = process.env.GEOCODING_BASE_URL ?? DEFAULT_BASE_URL;
+  const baseUrl: string = getBanBaseUrl();
   const url = `${baseUrl}/search/?q=${encodeURIComponent(address)}&limit=1&autocomplete=0`;
 
   let response: Response;
