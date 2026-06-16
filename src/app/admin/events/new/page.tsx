@@ -25,6 +25,8 @@ const blankValues = (): EventFormValues => ({
   priceText: '',
   locationName: '',
   locationAddress: '',
+  latitude: undefined,
+  longitude: undefined,
   startTime: '',
   endTime: '',
   links: [],

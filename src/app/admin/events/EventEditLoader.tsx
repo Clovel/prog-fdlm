@@ -31,6 +31,8 @@ const toFormValues = (d: AdminEventDetail): EventFormValues => ({
   priceText: d.priceText ?? '',
   locationName: d.locationName,
   locationAddress: d.locationAddress ?? '',
+  latitude: d.latitude ?? undefined,
+  longitude: d.longitude ?? undefined,
   startTime: toParisInput(new Date(d.startTime)),
   endTime: d.endTime === null ? '' : toParisInput(new Date(d.endTime)),
   links: d.links,

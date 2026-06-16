@@ -23,6 +23,7 @@ import MarkdownInput from 'components/MarkdownInput/MarkdownInput';
 import LinksSection from './sections/LinksSection';
 import EmbedsSection from './sections/EmbedsSection';
 import AlertsSection from './sections/AlertsSection';
+import AddressAutocomplete from 'components/AddressAutocomplete/AddressAutocomplete';
 
 /* Module imports (project) ---------------------------- */
 import { eventFormSchema } from 'validation/event';
@@ -81,6 +82,8 @@ const EventForm: React.FC<EventFormProps> = (
       priceText: values.priceText,
       locationName: values.locationName,
       locationAddress: values.locationAddress,
+      latitude: values.latitude,
+      longitude: values.longitude,
       links: values.links,
       embedLinks: values.embedLinks,
       alerts: values.alerts,
@@ -130,7 +133,26 @@ const EventForm: React.FC<EventFormProps> = (
 
       <div className="flex flex-col gap-1">
         <Label htmlFor="locationAddress">Adresse (pour la carte)</Label>
-        <Input id="locationAddress" {...form.register('locationAddress')} />
+        <Controller
+          control={form.control}
+          name="locationAddress"
+          render={({ field }): React.ReactElement => (
+            <AddressAutocomplete
+              id="locationAddress"
+              placeholder="Rechercher une adresse…"
+              value={{
+                address: field.value ?? '',
+                lat: form.getValues('latitude') ?? null,
+                lng: form.getValues('longitude') ?? null,
+              }}
+              onChange={(next): void => {
+                field.onChange(next.address);
+                form.setValue('latitude', next.lat ?? undefined, { shouldDirty: true });
+                form.setValue('longitude', next.lng ?? undefined, { shouldDirty: true });
+              }}
+            />
+          )}
+        />
       </div>
 
       <div className="flex flex-col gap-2 sm:flex-row">
