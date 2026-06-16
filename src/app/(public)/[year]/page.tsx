@@ -10,9 +10,11 @@ import { sortEventsByCategoryEntries } from 'helpers/orderEventsByCategory';
 import { useHeader } from 'app/HeaderContext';
 import { useEdition } from 'hooks/public/useEdition';
 import { useEditionEvents } from 'hooks/public/useEditionEvents';
+import { useEditionFilters } from 'hooks/public/useEditionFilters';
 import { EditionNotFoundError } from 'hooks/public/editionNotFound';
 
 /* Component imports ----------------------------------- */
+import { Button } from 'components/ui/button';
 import { Separator } from 'components/ui/separator';
 import EditionEmbeds from 'components/EditionEmbeds/EditionEmbeds';
 import EventsRecap from 'components/EventsRecap/EventsRecap';
@@ -108,6 +110,14 @@ const EditionPage: React.FC<EditionPageProps> = () => {
     ],
   );
 
+  const {
+    filters,
+    setFilters,
+    reset: resetFilters,
+    activeCount,
+    filteredEvents,
+  } = useEditionFilters(viewEvents, feteDeLaMusiqueDay);
+
   const editionNotFound: boolean =
     editionQuery.error instanceof EditionNotFoundError ||
     eventsQuery.error instanceof EditionNotFoundError;
@@ -193,32 +203,46 @@ const EditionPage: React.FC<EditionPageProps> = () => {
         }
         <GeneralAlertsBanner alerts={generalAlerts} />
         <FavoritesSection events={viewEvents} feteDeLaMusiqueDay={feteDeLaMusiqueDay} />
+        <EditionEventsFilterTool
+          filters={filters}
+          onChange={setFilters}
+          onReset={resetFilters}
+          activeCount={activeCount}
+          resultCount={filteredEvents.length}
+        />
         {
-          viewEvents.length > 0 &&
-            <EditionEventsFilterTool />
-        }
-        {
-          Object.entries(reduceEventsByCategory(viewEvents))
-            .sort(sortEventsByCategoryEntries)
-            .map(
-              (categoryEntry, index, array) => {
-                const categoryTitle = categoryEntry[0];
-                const categoryEvents = categoryEntry[1];
-                return (
-                  <React.Fragment key={`${categoryTitle}-${index}`}>
-                    <EventCategoryView
-                      categoryTitle={categoryTitle}
-                      categoryEvents={categoryEvents}
-                      feteDeLaMusiqueDay={feteDeLaMusiqueDay}
-                    />
-                    {
-                      array.length - 1 !== index &&
-                        <Separator className="w-full" />
-                    }
-                  </React.Fragment>
-                );
-              },
+          filteredEvents.length === 0
+            ? (
+              <div className="flex flex-col items-center gap-3 w-full max-w-5xl px-4 py-12 mx-auto text-center">
+                <p className="text-muted-foreground">
+                  Aucun événement ne correspond à votre recherche.
+                </p>
+                <Button variant="outline" onClick={resetFilters}>
+                  Réinitialiser les filtres
+                </Button>
+              </div>
             )
+            : Object.entries(reduceEventsByCategory(filteredEvents))
+              .sort(sortEventsByCategoryEntries)
+              .map(
+                (categoryEntry, index, array) => {
+                  const categoryTitle = categoryEntry[0];
+                  const categoryEvents = categoryEntry[1];
+                  return (
+                    <React.Fragment key={`${categoryTitle}-${index}`}>
+                      <EventCategoryView
+                        categoryTitle={categoryTitle}
+                        categoryEvents={categoryEvents}
+                        feteDeLaMusiqueDay={feteDeLaMusiqueDay}
+                      />
+                      {
+                        array.length - 1 !== index &&
+                          <Separator className="w-full" />
+                      }
+                    </React.Fragment>
+                  );
+                },
+              )
         }
         <EventsRecap events={viewEvents} />
         <EditionEmbeds embeds={embedLinks} />
@@ -226,7 +250,7 @@ const EditionPage: React.FC<EditionPageProps> = () => {
           <h4 className="text-2xl font-semibold tracking-tight pb-4">
             Cartes des événements
           </h4>
-          <EventsMap events={viewEvents} />
+          <EventsMap events={filteredEvents} />
         </section>
       </div>
     </FavoritesProvider>
