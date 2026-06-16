@@ -27,7 +27,7 @@ const Header: React.FC<HeaderProps> = (
   return (
     <header className="w-full font-mono flex flex-col items-center justify-between gap-2 lg:p-8">
       <div className="w-full">
-        <p className="w-full text-center justify-center border-b border-border bg-linear-to-b from-muted/50 to-transparent pb-6 pt-8 backdrop-blur-2xl lg:rounded-xl lg:border lg:bg-muted/50 lg:p-4 p-2 flex flex-col items-center">
+        <p className="w-full text-center justify-center border-b border-border bg-linear-to-b from-muted/50 to-transparent pb-6 pt-[calc(env(safe-area-inset-top)+2rem)] backdrop-blur-2xl lg:rounded-xl lg:border lg:bg-muted/50 lg:p-4 p-2 flex flex-col items-center">
         <span>
           {
             year !== null ?
