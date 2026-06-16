@@ -35,7 +35,7 @@ const AdminShell: React.FC<AdminShellProps> = ({ user, children }) => {
     : gravatarUrl(user.email);
 
   return (
-    <div className="flex min-h-screen w-full">
+    <div className="flex h-screen w-full overflow-hidden">
       <aside className="flex w-60 shrink-0 flex-col border-r border-border bg-card">
         <div className="flex items-center gap-3 p-4">
           <UserAvatar src={avatarSrc} initials={initials} alt={user.name} />
@@ -45,17 +45,17 @@ const AdminShell: React.FC<AdminShellProps> = ({ user, children }) => {
           </div>
         </div>
         <Separator />
-        <div className="flex-1">
+        <div className="flex-1 overflow-y-auto">
           <AdminSidebar role={user.role} />
         </div>
       </aside>
       <div className="flex flex-1 flex-col min-w-0">
-        <header className="flex items-center border-b border-border px-6 py-3">
+        <header className="flex shrink-0 items-center border-b border-border px-6 py-3">
           <span className="text-sm font-semibold">
             Back-office
           </span>
         </header>
-        <main className="flex flex-1 flex-col p-6">
+        <main className="flex flex-1 flex-col overflow-y-auto p-6">
           {children}
         </main>
       </div>

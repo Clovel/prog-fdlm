@@ -33,6 +33,9 @@ export const normalizeText = (value: string): string =>
 
 /* Festival-night window ------------------------------- */
 // Keep events whose start falls in [dayOfFestival 06:00, next day 06:00).
+// Window is computed in browser-local time. `feteDeLaMusiqueDay` is built from
+// a date-only 'YYYY-MM-DD' DB column (UTC midnight), which resolves to the
+// correct local calendar day for UTC+ locales (France, the app's audience).
 const isInFestivalNight = (start: Date, feteDeLaMusiqueDay: Date): boolean => {
   const windowStart: Date = new Date(feteDeLaMusiqueDay);
   windowStart.setHours(6, 0, 0, 0);
@@ -97,6 +100,7 @@ export const compareEvents = (
   sortDir: SortDir,
 ): ((a: Event, b: Event) => number) => {
   if(sortField === 'none') {
+    // Zero comparator preserves insertion order: Array.prototype.sort is stable (ES2019+).
     return (): number => 0;
   }
   const direction: number = sortDir === 'asc' ? 1 : -1;
