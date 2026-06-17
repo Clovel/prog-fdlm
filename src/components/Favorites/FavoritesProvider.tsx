@@ -10,9 +10,9 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import dynamic from 'next/dynamic';
 
 /* Module imports -------------------------------------- */
-import { authClient } from 'auth/client';
 import { getOrCreateAnonId } from 'helpers/anonId';
 import {
   readStoredFavorites,
@@ -21,6 +21,14 @@ import {
 
 /* Type imports ---------------------------------------- */
 import type { ReactNode } from 'react';
+
+/* Lazy client-only session sync ----------------------- */
+// Isolates better-auth's useSession (a serverExternalPackage that breaks during
+// SSR) so this provider — and the event cards it wraps — can be server-rendered.
+const FavoritesAuthSync = dynamic(
+  () => import('./FavoritesAuthSync'),
+  { ssr: false },
+);
 
 /* Context value type ---------------------------------- */
 export interface FavoritesContextValue {
@@ -46,14 +54,10 @@ const FavoritesProvider: React.FC<FavoritesProviderProps> = (
     children,
   },
 ) => {
-  const { data: sessionData } = authClient.useSession();
-  const isAuthed: boolean = sessionData !== null && sessionData !== undefined;
-
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(new Set());
   const [ready, setReady] = useState<boolean>(false);
+  const [isAuthed, setIsAuthed] = useState<boolean>(false);
   const favoriteIdsRef = useRef<Set<string>>(favoriteIds);
-  // Guards the authed reconcile so it runs once per (editionId, auth) pair.
-  const reconciledRef = useRef<boolean>(false);
 
   /* Initial load from localStorage -------------------- */
   useEffect(
@@ -64,58 +68,19 @@ const FavoritesProvider: React.FC<FavoritesProviderProps> = (
       setFavoriteIds(stored);
       setReady(true);
       /* eslint-enable react-hooks/set-state-in-effect */
-      reconciledRef.current = false;
     },
     [editionId],
   );
 
-  /* Authed reconcile: merge local up, then DB wins ---- */
-  useEffect(
-    (): void => {
-      if(!isAuthed || reconciledRef.current) {
-        return;
-      }
-      reconciledRef.current = true;
-      const localIds: string[] = readStoredFavorites(editionId);
-
-      const reconcile = async (): Promise<void> => {
-        const anonId: string = getOrCreateAnonId();
-        if(localIds.length > 0) {
-          await fetch(
-            '/api/favorites',
-            {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ eventIds: localIds }),
-            },
-          );
-        }
-        await fetch(
-          '/api/favorites/claim',
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ anonId }),
-          },
-        );
-        const res: Response = await fetch(`/api/favorites?editionId=${editionId}`);
-        if(!res.ok) {
-          return;
-        }
-        const body = await res.json() as { eventIds: string[] };
-        const merged: Set<string> = new Set([...localIds, ...body.eventIds]);
-        favoriteIdsRef.current = merged;
-        setFavoriteIds(merged);
-        writeStoredFavorites(editionId, [...merged]);
-      };
-
-      reconcile().catch(
-        (error: unknown): void => {
-          console.error('[FavoritesProvider] reconcile failed:', error);
-        },
-      );
+  /* Apply server-reconciled favorites (from FavoritesAuthSync) -- */
+  const applyServerFavorites = useCallback(
+    (eventIds: string[]): void => {
+      const merged: Set<string> = new Set(eventIds);
+      favoriteIdsRef.current = merged;
+      setFavoriteIds(merged);
+      writeStoredFavorites(editionId, [...merged]);
     },
-    [isAuthed, editionId],
+    [editionId],
   );
 
   const toggleFavorite = useCallback(
@@ -187,6 +152,11 @@ const FavoritesProvider: React.FC<FavoritesProviderProps> = (
 
   return (
     <FavoritesContext.Provider value={value}>
+      <FavoritesAuthSync
+        editionId={editionId}
+        onAuthChange={setIsAuthed}
+        onServerFavorites={applyServerFavorites}
+      />
       {children}
     </FavoritesContext.Provider>
   );

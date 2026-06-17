@@ -1,4 +1,5 @@
 /* Module imports -------------------------------------- */
+import { fromZonedTime, formatInTimeZone } from 'date-fns-tz';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
@@ -15,9 +16,12 @@ export interface FilterState {
   sortDir: SortDir;
 }
 
-export const DEFAULT_FILTERS = (feteDeLaMusiqueDay: Date): FilterState => ({
+const FESTIVAL_TZ = 'Europe/Paris';
+const pad2 = (value: number): string => String(value).padStart(2, '0');
+
+export const DEFAULT_FILTERS = (feteDeLaMusiqueDay: Date, now: Date): FilterState => ({
   search: '',
-  dayOnly: (new Date().getTime() >= new Date(feteDeLaMusiqueDay).getTime()),
+  dayOnly: (now.getTime() >= new Date(feteDeLaMusiqueDay).getTime()),
   hidePast: true,
   sortField: 'none',
   sortDir: 'desc',
@@ -28,34 +32,39 @@ export const DEFAULT_FILTERS = (feteDeLaMusiqueDay: Date): FilterState => ({
 export const normalizeText = (value: string): string =>
   value
     .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[̀-ͯ]/g, '')
     .toLowerCase();
 
 /* Festival-night window ------------------------------- */
-// Keep events whose start falls in [dayOfFestival 06:00, next day 06:00).
-// Window is computed in browser-local time. `feteDeLaMusiqueDay` is built from
-// a date-only 'YYYY-MM-DD' DB column (UTC midnight), which resolves to the
-// correct local calendar day for UTC+ locales (France, the app's audience).
+// Keep events whose start falls in [dayOfFestival 06:00, next day 06:00) in
+// Europe/Paris. feteDeLaMusiqueDay is a date-only 'YYYY-MM-DD' DB column (UTC
+// midnight): read its calendar day via UTC getters, interpret 06:00 as a Paris
+// wall-clock instant. Building wall-clock STRINGS (not Date.UTC values) is what
+// makes fromZonedTime timezone-stable across server (UTC) and client (Paris).
 const isInFestivalNight = (start: Date, feteDeLaMusiqueDay: Date): boolean => {
-  const windowStart: Date = new Date(feteDeLaMusiqueDay);
-  windowStart.setHours(6, 0, 0, 0);
-  const windowEnd: Date = new Date(windowStart);
-  windowEnd.setDate(windowEnd.getDate() + 1);
+  const year: number = feteDeLaMusiqueDay.getUTCFullYear();
+  const month: number = feteDeLaMusiqueDay.getUTCMonth();
+  const day: number = feteDeLaMusiqueDay.getUTCDate();
+  const startStr = `${year}-${pad2(month + 1)}-${pad2(day)}T06:00:00`;
+  const next: Date = new Date(Date.UTC(year, month, day + 1));
+  const endStr = `${next.getUTCFullYear()}-${pad2(next.getUTCMonth() + 1)}-${pad2(next.getUTCDate())}T06:00:00`;
+  const windowStartMs: number = fromZonedTime(startStr, FESTIVAL_TZ).getTime();
+  const windowEndMs: number = fromZonedTime(endStr, FESTIVAL_TZ).getTime();
   const startMs: number = start.getTime();
-  return startMs >= windowStart.getTime() && startMs < windowEnd.getTime();
+  return startMs >= windowStartMs && startMs < windowEndMs;
 };
 
 /* Past detection -------------------------------------- */
+const parisDayStartMs = (instant: Date): number => {
+  const dayStr: string = formatInTimeZone(instant, FESTIVAL_TZ, 'yyyy-MM-dd');
+  return fromZonedTime(`${dayStr}T00:00:00`, FESTIVAL_TZ).getTime();
+};
+
 const isPast = (event: Event, now: Date): boolean => {
   if(event.endTime !== undefined) {
     return event.endTime.getTime() < now.getTime();
   }
-  // No end time: past only once the start date is strictly before today.
-  const startDay: Date = new Date(event.startTime);
-  startDay.setHours(0, 0, 0, 0);
-  const today: Date = new Date(now);
-  today.setHours(0, 0, 0, 0);
-  return startDay.getTime() < today.getTime();
+  return parisDayStartMs(event.startTime) < parisDayStartMs(now);
 };
 
 /* Search ---------------------------------------------- */
@@ -158,9 +167,10 @@ export const countActiveFilters = (filters: FilterState): number =>
 // Drives visibility of the bar-level reset control.
 export const isDefaultFilters = (
   filters: FilterState,
-  feteDeLaMusiqueDay: Date
+  feteDeLaMusiqueDay: Date,
+  now: Date,
 ): boolean => {
-  const defaultFilters = DEFAULT_FILTERS(feteDeLaMusiqueDay);
+  const defaultFilters = DEFAULT_FILTERS(feteDeLaMusiqueDay, now);
   return (
     filters.search === defaultFilters.search &&
     filters.dayOnly === defaultFilters.dayOnly &&

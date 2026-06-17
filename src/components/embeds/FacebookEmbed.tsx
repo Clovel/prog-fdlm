@@ -60,6 +60,7 @@ const FacebookEmbed: React.FC<FacebookEmbedProps> = (
         marginLeft: 'auto',
         marginRight: 'auto',
         width: '100%',
+        minHeight: type === 'video' ? '340px' : '560px',
       }}
     >
       {

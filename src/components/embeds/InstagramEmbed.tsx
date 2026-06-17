@@ -50,6 +50,7 @@ const InstagramEmbed: React.FC<InstagramEmbedProps> = (
         marginLeft: 'auto',
         marginRight: 'auto',
         width: '100%',
+        minHeight: '480px',
       }}
     >
       {
