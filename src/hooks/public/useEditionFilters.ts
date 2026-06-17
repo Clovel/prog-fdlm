@@ -56,7 +56,7 @@ export const useEditionFilters = (
     filters,
     setFilters,
     reset,
-    activeCount: countActiveFilters(filters),
+    activeCount: countActiveFilters(filters, feteDeLaMusiqueDay, now),
     filteredEvents,
   };
 };

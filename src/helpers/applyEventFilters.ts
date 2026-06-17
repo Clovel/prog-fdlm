@@ -162,13 +162,25 @@ export const applyEventFilters = (
 };
 
 /* Bar helpers ----------------------------------------- */
-// Active narrowing filters drive the "Filtres & tri" badge. Sort reorders, it
-// does not hide, so it does not count.
-export const countActiveFilters = (filters: FilterState): number =>
-  (filters.dayOnly ? 1 : 0) +
-  (filters.hidePast ? 1 : 0) +
-  (!filters.showForKids ? 1 : 0) +
-  (filters.search.trim().length > 0 ? 1 : 0);
+// Number of filters the user has changed from their defaults — drives the
+// "Filtres & tri" badge. Counting deviations (not absolute state) keeps the
+// badge intuitive across mixed-polarity toggles: "hide past" defaults on and
+// "show jeune public" defaults off, so counting either absolute state would
+// make the badge non-zero at rest and *drop* when a reveal toggle is enabled.
+// Sort reorders, it does not hide, so it does not count.
+export const countActiveFilters = (
+  filters: FilterState,
+  feteDeLaMusiqueDay: Date,
+  now: Date,
+): number => {
+  const defaults = DEFAULT_FILTERS(feteDeLaMusiqueDay, now);
+  return (
+    (filters.search.trim() !== defaults.search ? 1 : 0) +
+    (filters.dayOnly !== defaults.dayOnly ? 1 : 0) +
+    (filters.hidePast !== defaults.hidePast ? 1 : 0) +
+    (filters.showForKids !== defaults.showForKids ? 1 : 0)
+  );
+};
 
 // Drives visibility of the bar-level reset control.
 export const isDefaultFilters = (
