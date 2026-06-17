@@ -307,7 +307,7 @@ This is the current `page.tsx` body, refactored to: (a) receive data via props, 
 'use client';
 
 /* Framework imports ----------------------------------- */
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 /* Module imports -------------------------------------- */
 import { reduceEventsByCategory } from 'helpers/reduceEventsByCategory';
@@ -392,7 +392,12 @@ const EditionAgenda: React.FC<EditionAgendaProps> = (
 
   // Server-captured request instant — identical on server render and client
   // hydration, so all time-based filtering renders the same tree on both.
-  const now: Date = useMemo<Date>(() => new Date(serverNowIso), [serverNowIso]);
+  // useState (lazy init), NOT useMemo: it must be referentially STABLE across
+  // re-renders, otherwise the filteredEvents useMemo (keyed on `now`) recomputes
+  // every render. useMemo is not a stability guarantee under concurrent React;
+  // useState with a lazy initialiser is. serverNowIso never changes for this
+  // component's lifetime (a new year remounts the route), so init-once is correct.
+  const [now] = useState<Date>(() => new Date(serverNowIso));
 
   const viewEvents: Event[] = useMemo<Event[]>(
     () => events.map(dtoToEvent),
@@ -690,6 +695,23 @@ HTML. Interactivity moves to the EditionAgenda client island. Fixes the LCP/FCP
 and most of the CLS on /[year].
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
 ```
+
+---
+
+## Task 3b: Make the agenda subtree SSR-safe (REQUIRED — Task 3 500s without it)
+
+**Why:** After Task 3, `/[year]` returns HTTP 500 during SSR. The old client page bailed to a loading state on the server and never rendered this subtree; `EditionAgenda` now renders it fully server-side, exposing two browser-only islands:
+1. `FavoritesProvider` calls `authClient.useSession()` (better-auth/react). better-auth is in `serverExternalPackages` (`next.config.js`), so server-rendering this client component resolves a second React copy → *"Invalid hook call … Cannot read properties of null (reading 'useRef')"*. It wraps the whole agenda, so it throws first.
+2. `EventsMap` → `src/components/ui/map.tsx` calls `document.createElement(...)` during render (unguarded) → `document is not defined` on the server.
+
+**Fix (decided): isolate the session sync; `ssr:false` the map.** The event cards keep SSR (the LCP/CLS win); only the two browser-only concerns go client-only.
+
+**Files:**
+- Modify: `src/app/(public)/[year]/EditionAgenda.tsx` (dynamic-import EventsMap with `ssr:false`)
+- Create: `src/components/Favorites/FavoritesAuthSync.tsx` (the `useSession` + reconcile logic, client-only)
+- Modify: `src/components/Favorites/FavoritesProvider.tsx` (drop `useSession`; hold `isAuthed` as state set by the sync child; render the sync child via `next/dynamic` `ssr:false`)
+
+See the Task 3b implementer dispatch for the exact code. Verification: `pnpm tsc:ci`, `pnpm exec eslint`, `pnpm build`, then a CLEAN runtime SSR check (HTTP 200 + agenda content in served HTML + no errors in the dev/server log).
 
 ---
 
