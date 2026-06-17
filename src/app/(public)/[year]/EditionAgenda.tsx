@@ -2,6 +2,7 @@
 
 /* Framework imports ----------------------------------- */
 import React, { useEffect, useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
 
 /* Module imports -------------------------------------- */
 import { reduceEventsByCategory } from 'helpers/reduceEventsByCategory';
@@ -15,7 +16,6 @@ import { Separator } from 'components/ui/separator';
 import EditionEmbeds from 'components/EditionEmbeds/EditionEmbeds';
 import EventsRecap from 'components/EventsRecap/EventsRecap';
 import EventCategoryView from 'components/EventCategoryView/EventCategoryView';
-import EventsMap from 'components/EventsMap/EventsMap';
 import GeneralAlertsBanner from 'components/GeneralAlertsBanner/GeneralAlertsBanner';
 import EmptyEditionView from 'components/EmptyEditionView/EmptyEditionView';
 import FavoritesProvider from 'components/Favorites/FavoritesProvider';
@@ -30,6 +30,19 @@ import type {
   EventWithDetailView,
   GeneralAlertView,
 } from './types';
+
+/* Dynamic imports ------------------------------------- */
+// maplibre touches document during render → cannot SSR. Load client-only; the
+// placeholder reserves the map's height so its late mount does not shift layout.
+const EventsMap = dynamic(
+  () => import('components/EventsMap/EventsMap'),
+  {
+    ssr: false,
+    loading: (): React.ReactElement => (
+      <div className="h-[600px] w-full overflow-hidden rounded-md border border-border bg-muted/30" />
+    ),
+  },
+);
 
 /* Helpers --------------------------------------------- */
 // Maps a consolidated event DTO (full detail inlined) into the render `Event`
