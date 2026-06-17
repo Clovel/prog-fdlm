@@ -38,6 +38,7 @@ export interface EventSummaryView {
   embedCount: number;
   alertCount: number;
   favoriteCount: number;
+  forKids: boolean;
 }
 
 export interface EventDetailView {
@@ -67,6 +68,7 @@ export interface EventWithDetailView {
   embedLinks: Array<{ platform: 'instagram' | 'facebook'; url: string }>;
   alerts: Array<{ variant: AlertVariant; title: string | null; content: string }>;
   favoriteCount: number;
+  forKids: boolean;
 }
 
 export interface EmbedLinkView {

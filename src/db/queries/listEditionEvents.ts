@@ -128,6 +128,7 @@ export const listEditionEvents = async (input: ListEditionEventsInput): Promise<
       alertCount: alertCountSql,
       favoriteCount: favoriteCountSql,
       hasDescription: hasDescriptionSql,
+      forKids: events.forKids,
     })
     .from(events)
     .where(and(...filters))
@@ -167,6 +168,7 @@ export const listEditionEvents = async (input: ListEditionEventsInput): Promise<
       embedCount: row.embedCount,
       alertCount: row.alertCount,
       favoriteCount: row.favoriteCount,
+      forKids: row.forKids,
     }),
   );
 

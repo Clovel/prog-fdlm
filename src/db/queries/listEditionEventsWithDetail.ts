@@ -48,6 +48,7 @@ export const listEditionEventsWithDetail = async (year: number): Promise<EventWi
       longitude: events.longitude,
       geocodeStatus: events.geocodeStatus,
       description: events.description,
+      forKids: events.forKids,
       favoriteCount: db.$count(favorites, eq(favorites.eventId, events.id)),
     })
     .from(events)
@@ -121,6 +122,7 @@ export const listEditionEventsWithDetail = async (year: number): Promise<EventWi
       },
       description: row.description,
       favoriteCount: row.favoriteCount,
+      forKids: row.forKids,
       links: linksByEvent.get(row.id) ?? [],
       embedLinks: embedsByEvent.get(row.id) ?? [],
       alerts: alertsByEvent.get(row.id) ?? [],

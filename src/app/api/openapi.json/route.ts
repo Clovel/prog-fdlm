@@ -54,6 +54,7 @@ const eventSummaryDto = z.object({
   embedCount: z.number().int(),
   alertCount: z.number().int(),
   favoriteCount: z.number().int(),
+  forKids: z.boolean(),
 }).meta({ id: 'EventSummary' });
 
 const eventListDto = z.object({

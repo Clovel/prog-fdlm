@@ -51,6 +51,8 @@ export interface Event {
   embedCount?: number;
   alertCount?: number;
   favoriteCount?: number;
+  /** True when the event is meant for children; hidden by default on the public agenda. */
+  forKids?: boolean;
 }
 
 export type EventsByCategoriesKey = Exclude<Event['category'], undefined> | 'Autres';

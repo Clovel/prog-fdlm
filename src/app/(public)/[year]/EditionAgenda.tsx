@@ -66,6 +66,7 @@ const dtoToEvent = (dto: EventWithDetailView): Event => ({
   endTime: dto.endTime !== null ? new Date(dto.endTime) : undefined,
   description: dto.description ?? undefined,
   favoriteCount: dto.favoriteCount,
+  forKids: dto.forKids,
   links: dto.links,
   embedLinks: dto.embedLinks.map(({ platform, url }) => ({ type: platform, url })),
   alerts: dto.alerts.map(

@@ -43,6 +43,7 @@ export interface EventSummaryDto {
   embedCount: number;
   alertCount: number;
   favoriteCount: number;
+  forKids: boolean;
 }
 
 export type EventStatus = 'canceled' | 'postponed' | 'rescheduled';
@@ -89,4 +90,5 @@ export interface EventWithDetailDto {
   embedLinks: Array<{ platform: 'instagram' | 'facebook'; url: string }>;
   alerts: Array<{ variant: AlertVariant; title: string | null; content: string }>;
   favoriteCount: number;
+  forKids: boolean;
 }
