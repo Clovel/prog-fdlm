@@ -1,9 +1,18 @@
 /* Framework imports ----------------------------------- */
 import React, { useMemo } from 'react';
 
+/* Module imports -------------------------------------- */
+import { formatInTimeZone } from 'date-fns-tz';
+
 /* Constants ------------------------------------------- */
 const DEFAULT_FETE_DE_LA_MUSIQUE_DAY = new Date('2026-06-21');
 const FESTIVAL_NIGHT_MORNING_CUTOFF_HOUR = 12 as const;
+const FESTIVAL_TZ = 'Europe/Paris';
+
+// Calendar day / hour as seen in Europe/Paris — identical on the UTC server and
+// the (Paris) client, so the server-rendered markup hydrates without a mismatch.
+const parisDay = (date: Date): string => formatInTimeZone(date, FESTIVAL_TZ, 'yyyy-MM-dd');
+const parisHour = (date: Date): number => Number(formatInTimeZone(date, FESTIVAL_TZ, 'H'));
 
 /* Type declarations ----------------------------------- */
 type ReferenceDateInfo = {
@@ -29,23 +38,24 @@ const isSameCalendarDay = (
   date: Date,
   referenceDate: Date,
 ): boolean => {
-  return (
-    date.getFullYear() === referenceDate.getFullYear() &&
-    date.getMonth() === referenceDate.getMonth() &&
-    date.getDate() === referenceDate.getDate()
-  );
+  return parisDay(date) === parisDay(referenceDate);
 };
 
 const isMorningAfterFeteDeLaMusique = (
   date: Date,
   feteDeLaMusiqueDay: Date,
 ): boolean => {
-  const morningAfterFeteDeLaMusique = new Date(feteDeLaMusiqueDay);
-  morningAfterFeteDeLaMusique.setDate(feteDeLaMusiqueDay.getDate() + 1);
+  // Festival day + 1, as a Paris calendar date. feteDeLaMusiqueDay is a date-only
+  // (UTC-midnight) value, so its UTC fields are the intended calendar day.
+  const nextDay = new Date(Date.UTC(
+    feteDeLaMusiqueDay.getUTCFullYear(),
+    feteDeLaMusiqueDay.getUTCMonth(),
+    feteDeLaMusiqueDay.getUTCDate() + 1,
+  ));
 
   return (
-    isSameCalendarDay(date, morningAfterFeteDeLaMusique) &&
-    date.getHours() < FESTIVAL_NIGHT_MORNING_CUTOFF_HOUR
+    parisDay(date) === parisDay(nextDay) &&
+    parisHour(date) < FESTIVAL_NIGHT_MORNING_CUTOFF_HOUR
   );
 };
 
@@ -94,6 +104,7 @@ const EventTime: React.FC<EventTimeProps> = (
             {
               day: '2-digit',
               month: 'long',
+              timeZone: FESTIVAL_TZ,
             },
           ),
         } :
@@ -120,6 +131,7 @@ const EventTime: React.FC<EventTimeProps> = (
           {
             hour: 'numeric',
             minute: '2-digit',
+            timeZone: FESTIVAL_TZ,
           },
         )}`;
       }
@@ -129,6 +141,7 @@ const EventTime: React.FC<EventTimeProps> = (
         {
           hour: '2-digit',
           minute: '2-digit',
+          timeZone: FESTIVAL_TZ,
         },
       );
 
@@ -141,6 +154,7 @@ const EventTime: React.FC<EventTimeProps> = (
         {
           hour: 'numeric',
           minute: '2-digit',
+          timeZone: FESTIVAL_TZ,
         },
       )}`;
     },
