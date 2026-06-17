@@ -2,25 +2,24 @@
 import React, { useState } from 'react';
 
 /* Module imports -------------------------------------- */
+import { cn } from 'lib/utils';
 import { eventCategorySettingsByCategory } from 'types/eventCategories';
 
 /* Component imports ----------------------------------- */
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from 'components/ui/collapsible';
 import EventList from '../EventList/EventList';
-import { Button } from 'components/ui/button';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
-import type { EventCategory } from 'types/eventCategories';
 
 /* EventCategoryView component prop types -------------- */
 interface EventCategoryViewProps {
-  categoryTitleString: EventCategory;
+  categoryTitleString: string;
   categoryTitle?: React.ReactNode;
   categoryEvents: Event[];
   feteDeLaMusiqueDay: Date;
@@ -37,13 +36,11 @@ const EventCategoryView: React.FC<EventCategoryViewProps> = (
 ) => {
   const [ open, setOpen ] = useState<boolean>(
     () => {
-      try {
-        return eventCategorySettingsByCategory[categoryTitleString].openByDefault;
-      } catch(error) {
-        console.error(`[EventCategoryView] Error getting open state for category ${categoryTitleString} : ${error}`);
-        return true;
+      if(categoryTitleString in eventCategorySettingsByCategory) {
+        return eventCategorySettingsByCategory[categoryTitleString as keyof typeof eventCategorySettingsByCategory].openByDefault;
       }
-    }
+      return true;
+    },
   );
 
   return (
@@ -64,9 +61,14 @@ const EventCategoryView: React.FC<EventCategoryViewProps> = (
                 event
                 {categoryEvents.length !== 1 ? 's' : ''}
               </span>
-              <Button variant="ghost" size="icon">
-                {open ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
-              </Button>
+              <ChevronDown
+                className={
+                  cn(
+                    'h-5 w-5 transition-transform',
+                    open ? 'rotate-180' : 'rotate-0',
+                  )
+                }
+              />
             </div>
           </div>
         </CollapsibleTrigger>

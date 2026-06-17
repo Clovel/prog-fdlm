@@ -7,7 +7,7 @@ import React, { useMemo, useState } from 'react';
 import { cn } from 'lib/utils';
 
 /* Component imports ----------------------------------- */
-import { ChevronDown, ChevronUp, Star } from 'lucide-react';
+import { ChevronDown, Star } from 'lucide-react';
 import { Button } from 'components/ui/button';
 import { useFavorites } from 'components/Favorites/FavoritesProvider';
 import {
@@ -136,11 +136,14 @@ const EventListItem: React.FC<EventListItemProps> = (
                     'Déplier'
                 }
               >
-                {
-                  open ?
-                    <ChevronUp className="h-5 w-5" /> :
-                    <ChevronDown className="h-5 w-5" />
-                }
+                <ChevronDown
+                  className={
+                    cn(
+                      'h-5 w-5 transition-transform',
+                      open ? 'rotate-180' : 'rotate-0',
+                    )
+                  }
+                />
               </Button>
             </div>
             <div className="flex gap-2 shrink-0">

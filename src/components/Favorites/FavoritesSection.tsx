@@ -36,7 +36,7 @@ const FavoritesSection: React.FC<FavoritesSectionProps> = (
   return (
     <>
       <EventCategoryView
-        categoryTitle="Favoris"
+        categoryTitleString="Favoris"
         categoryEvents={favoriteEvents}
         feteDeLaMusiqueDay={feteDeLaMusiqueDay}
       />
