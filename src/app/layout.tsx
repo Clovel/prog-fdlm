@@ -6,7 +6,7 @@ import { OG_SITE } from 'lib/shareCard/ogBase';
 import { getCanonicalBaseUrl } from 'lib/baseUrl';
 
 /* Component imports ----------------------------------- */
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import MainLayout from './MainLayout';
 import GoogleInterFont from 'app/fonts/fonts';
