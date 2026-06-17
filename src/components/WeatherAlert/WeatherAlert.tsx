@@ -42,7 +42,7 @@ const WeatherAlert: React.FC<WeatherAlertProps> = () => {
               href="https://dice.fm/event/yaedr-hh-fte-de-la-musique-et-du-skate-21st-jun-darwin-bordeaux-tickets"
               target="_blank"
               rel="noreferrer noopener"
-              className="text-blue-600 dark:text-blue-400 underline-offset-4 hover:underline"
+              className="text-blue-600 dark:text-blue-400 underline underline-offset-4"
             >
               Billetterie DICE
             </a>

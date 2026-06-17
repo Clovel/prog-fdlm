@@ -123,7 +123,11 @@ const EditionEventsFilterTool: React.FC<EditionEventsFilterToolProps> = (
         <Button
           type="button"
           variant="outline"
-          aria-label="Filtres & tri"
+          aria-label={
+            activeCount > 0 ?
+              `Filtres & tri, ${activeCount} actif${activeCount > 1 ? 's' : ''}` :
+              'Filtres & tri'
+          }
           onClick={
             (): void => {
               setDialogOpen(true);
@@ -135,7 +139,7 @@ const EditionEventsFilterTool: React.FC<EditionEventsFilterToolProps> = (
           <span className="hidden sm:inline">Filtres &amp; tri</span>
           {
             activeCount > 0 &&
-              <Badge variant="secondary" className="ml-1 px-1.5">
+              <Badge variant="secondary" aria-hidden className="ml-1 px-1.5">
                 {activeCount}
               </Badge>
           }

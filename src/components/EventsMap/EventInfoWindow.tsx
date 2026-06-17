@@ -20,7 +20,7 @@ const EventInfoWindow: React.FC<EventInfoWindowProps> = (
 ) => {
   return (
     <div>
-      <h5 className="text-xl font-semibold">
+      <h5 className="text-xl font-semibold pr-12">
         {markerInfo.event.name}
       </h5>
       <h6 className="text-base font-semibold mt-2">
@@ -48,7 +48,7 @@ const EventInfoWindow: React.FC<EventInfoWindowProps> = (
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block text-blue-600 dark:text-blue-400 underline-offset-4 hover:underline"
+                        className="inline-block text-blue-600 dark:text-blue-400 underline underline-offset-4"
                       >
                         {link.label}
                       </a>
