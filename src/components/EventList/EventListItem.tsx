@@ -68,71 +68,90 @@ const EventListItem: React.FC<EventListItemProps> = (
         onOpenChange={setOpen}
         disabled={!collapsiblePresent}
       >
-        <CollapsibleTrigger asChild disabled={!collapsiblePresent}>
-          <div className="flex items-start justify-between gap-2 px-4 cursor-pointer rounded-md hover:bg-accent">
-            <div className="flex-1 min-w-0 -mx-2 px-2 py-1">
+        <div className="flex items-start justify-between gap-2 px-4 rounded-md hover:bg-accent">
+          {/* Only the title block is the disclosure trigger — the favorite and
+              expand controls are real sibling <button>s (a button cannot legally
+              nest other buttons, which previously forced this trigger to be a
+              <div>, tripping the aria-allowed-attr / keyboard-access audits). */}
+          <CollapsibleTrigger asChild disabled={!collapsiblePresent}>
+            <button
+              type="button"
+              className={
+                cn(
+                  'flex-1 min-w-0 -mx-2 px-2 py-1 text-left rounded-md text-foreground',
+                  collapsiblePresent ? 'cursor-pointer' : 'cursor-default',
+                )
+              }
+            >
               <EventTitleBlock event={event} />
-            </div>
-            <div className="flex flex-col items-end justify-start">
-              <div className="flex items-center justify-center">
-                {
-                  event.favoriteCount !== undefined &&
-                  event.favoriteCount > 0 &&
-                    <span
-                      className="text-xs tabular-nums text-muted-foreground"
-                      aria-label={`${event.favoriteCount} personne(s) ont mis cet événement en favori`}
-                    >
-                      {event.favoriteCount}
-                    </span>
+            </button>
+          </CollapsibleTrigger>
+          <div className="flex flex-col items-end justify-start">
+            <div className="flex items-center justify-center">
+              {
+                event.favoriteCount !== undefined &&
+                event.favoriteCount > 0 &&
+                  <span
+                    className="text-xs tabular-nums text-muted-foreground"
+                    aria-label={`${event.favoriteCount} personne(s) ont mis cet événement en favori`}
+                  >
+                    {event.favoriteCount}
+                  </span>
+              }
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleToggleFavorite}
+                aria-label={
+                  favorite ?
+                    'Retirer des favoris' :
+                    'Ajouter aux favoris'
                 }
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={handleToggleFavorite}
-                  aria-label={
-                    favorite ?
-                      'Retirer des favoris' :
-                      'Ajouter aux favoris'
+                aria-pressed={favorite}
+              >
+                <Star
+                  className={
+                    cn(
+                      'h-5 w-5',
+                      favorite
+                        ? 'fill-amber-400 text-amber-400 dark:fill-amber-300 dark:text-amber-300'
+                        : 'text-muted-foreground',
+                    )
                   }
-                  aria-pressed={favorite}
-                >
-                  <Star
-                    className={
-                      cn(
-                        'h-5 w-5',
-                        favorite
-                          ? 'fill-amber-400 text-amber-400 dark:fill-amber-300 dark:text-amber-300'
-                          : 'text-muted-foreground',
-                      )
-                    }
-                  />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  aria-label={
-                    open ?
-                      'Replier' :
-                      'Déplier'
-                  }
-                >
-                  {
-                    open ?
-                      <ChevronUp className="h-5 w-5" /> :
-                      <ChevronDown className="h-5 w-5" />
-                  }
-                </Button>
-              </div>
-              <div className="flex gap-2 shrink-0">
-                <EventTime
-                  startTime={event.startTime}
-                  endTime={event.endTime}
-                  feteDeLaMusiqueDay={feteDeLaMusiqueDay}
                 />
-              </div>
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={
+                  (): void => {
+                    if(collapsiblePresent) {
+                      setOpen((previous) => !previous);
+                    }
+                  }
+                }
+                aria-label={
+                  open ?
+                    'Replier' :
+                    'Déplier'
+                }
+              >
+                {
+                  open ?
+                    <ChevronUp className="h-5 w-5" /> :
+                    <ChevronDown className="h-5 w-5" />
+                }
+              </Button>
+            </div>
+            <div className="flex gap-2 shrink-0">
+              <EventTime
+                startTime={event.startTime}
+                endTime={event.endTime}
+                feteDeLaMusiqueDay={feteDeLaMusiqueDay}
+              />
             </div>
           </div>
-        </CollapsibleTrigger>
+        </div>
         {
           collapsiblePresent &&
             <CollapsibleContent>

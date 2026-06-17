@@ -123,7 +123,7 @@ const EditionEventsFilterTool: React.FC<EditionEventsFilterToolProps> = (
         <Button
           type="button"
           variant="outline"
-          aria-label="Filtres et tri"
+          aria-label="Filtres & tri"
           onClick={
             (): void => {
               setDialogOpen(true);
