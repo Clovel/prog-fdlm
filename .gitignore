@@ -45,3 +45,6 @@ next-env.d.ts
 
 # WSL alternate-data-stream artifacts
 *:Zone.Identifier
+
+# Lighthouse reports (generated, local only)
+*-lighthouse-report-*.html
