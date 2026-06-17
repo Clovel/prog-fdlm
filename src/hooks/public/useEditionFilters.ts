@@ -1,7 +1,7 @@
 'use client';
 
 /* Framework imports ----------------------------------- */
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 /* Module imports -------------------------------------- */
 import {
@@ -24,29 +24,32 @@ export interface UseEditionFiltersResult {
 }
 
 /* useEditionFilters hook ------------------------------ */
+// `now` is supplied by the caller (server-captured request time) so the initial
+// default filter state and filtered list are identical on server and client.
 export const useEditionFilters = (
   events: Event[],
   feteDeLaMusiqueDay: Date,
+  now: Date,
 ): UseEditionFiltersResult => {
-  const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS(feteDeLaMusiqueDay));
-  // Capture "now" once at mount; hide-past does not tick live (reload refreshes).
-  const nowRef = useRef<Date>(new Date());
+  const [filters, setFilters] = useState<FilterState>(
+    () => DEFAULT_FILTERS(feteDeLaMusiqueDay, now),
+  );
 
   const filteredEvents = useMemo<Event[]>(
-    // eslint-disable-next-line react-hooks/refs -- intentional: capture "now" once at mount
-    () => applyEventFilters(events, filters, feteDeLaMusiqueDay, nowRef.current),
+    () => applyEventFilters(events, filters, feteDeLaMusiqueDay, now),
     [
       events,
       filters,
       feteDeLaMusiqueDay,
+      now,
     ],
   );
 
   const reset = useCallback(
     (): void => {
-      setFilters(DEFAULT_FILTERS(feteDeLaMusiqueDay));
+      setFilters(DEFAULT_FILTERS(feteDeLaMusiqueDay, now));
     },
-    [feteDeLaMusiqueDay],
+    [feteDeLaMusiqueDay, now],
   );
 
   return {
