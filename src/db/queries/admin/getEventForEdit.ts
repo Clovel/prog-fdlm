@@ -20,6 +20,7 @@ export interface AdminEventDetail {
   locationAddress: string | null;
   latitude: number | null;
   longitude: number | null;
+  forKids: boolean;
   startTime: string;
   endTime: string | null;
   links: Array<{ url: string; label: string }>;
@@ -55,6 +56,7 @@ export const getEventForEdit = async (id: string): Promise<AdminEventDetail | nu
     locationAddress: ev.locationAddress,
     latitude: ev.latitude,
     longitude: ev.longitude,
+    forKids: ev.forKids,
     startTime: ev.startTime.toISOString(),
     endTime: ev.endTime === null ? null : ev.endTime.toISOString(),
     links: linkRows,

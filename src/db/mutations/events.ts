@@ -56,6 +56,7 @@ const coreValues = (input: CreateEventInput | UpdateEventInput): Partial<typeof 
   locationAddress: emptyToNull(input.locationAddress),
   startTime: new Date(input.startTime),
   endTime: input.endTime === undefined || input.endTime === null ? null : new Date(input.endTime),
+  forKids: input.forKids,
 });
 
 /* Geocode helper -------------------------------------- */

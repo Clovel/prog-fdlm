@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { Label } from 'components/ui/label';
+import { Switch } from 'components/ui/switch';
 import {
   Select,
   SelectContent,
@@ -88,6 +89,7 @@ const EventForm: React.FC<EventFormProps> = (
       links: values.links,
       embedLinks: values.embedLinks,
       alerts: values.alerts,
+      forKids: values.forKids,
       ...times,
     };
     if(isEdit && eventId !== undefined) {
@@ -233,6 +235,21 @@ const EventForm: React.FC<EventFormProps> = (
       <div className="flex flex-col gap-1">
         <Label htmlFor="priceText">Tarif</Label>
         <Input id="priceText" {...form.register('priceText')} placeholder="Gratuit, 9€…" />
+      </div>
+
+      <div className="flex items-center gap-3">
+        <Controller
+          control={form.control}
+          name="forKids"
+          render={({ field }): React.ReactElement => (
+            <Switch
+              id="forKids"
+              checked={field.value ?? false}
+              onCheckedChange={field.onChange}
+            />
+          )}
+        />
+        <Label htmlFor="forKids">Événement jeune public</Label>
       </div>
 
       <div className="flex flex-col gap-1">

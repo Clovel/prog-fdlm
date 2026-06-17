@@ -43,6 +43,7 @@ const coreShape = {
   links: z.array(eventLinkSchema).default([]),
   embedLinks: z.array(eventEmbedLinkSchema).default([]),
   alerts: z.array(eventAlertSchema).default([]),
+  forKids: z.boolean().default(false),
 };
 
 /* Form schema (datetime-local strings) ---------------- */
