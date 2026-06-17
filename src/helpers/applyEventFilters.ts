@@ -12,6 +12,7 @@ export interface FilterState {
   search: string;
   dayOnly: boolean;
   hidePast: boolean;
+  showForKids: boolean;
   sortField: SortField;
   sortDir: SortDir;
 }
@@ -23,6 +24,7 @@ export const DEFAULT_FILTERS = (feteDeLaMusiqueDay: Date, now: Date): FilterStat
   search: '',
   dayOnly: (now.getTime() >= new Date(feteDeLaMusiqueDay).getTime()),
   hidePast: true,
+  showForKids: false,
   sortField: 'none',
   sortDir: 'desc',
 });
@@ -100,6 +102,9 @@ export const eventMatchesFilters = (
   if(!eventMatchesSearch(event, filters.search)) {
     return false;
   }
+  if(!filters.showForKids && event.forKids === true) {
+    return false;
+  }
   return true;
 };
 
@@ -162,6 +167,7 @@ export const applyEventFilters = (
 export const countActiveFilters = (filters: FilterState): number =>
   (filters.dayOnly ? 1 : 0) +
   (filters.hidePast ? 1 : 0) +
+  (!filters.showForKids ? 1 : 0) +
   (filters.search.trim().length > 0 ? 1 : 0);
 
 // Drives visibility of the bar-level reset control.
@@ -175,6 +181,7 @@ export const isDefaultFilters = (
     filters.search === defaultFilters.search &&
     filters.dayOnly === defaultFilters.dayOnly &&
     filters.hidePast === defaultFilters.hidePast &&
+    filters.showForKids === defaultFilters.showForKids &&
     filters.sortField === defaultFilters.sortField &&
     filters.sortDir === defaultFilters.sortDir
   );

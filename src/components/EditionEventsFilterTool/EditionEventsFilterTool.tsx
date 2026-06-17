@@ -198,6 +198,23 @@ const EditionEventsFilterTool: React.FC<EditionEventsFilterToolProps> = (
                   }
                 />
               </div>
+              <div className="flex items-center justify-between gap-3">
+                <Label htmlFor="filter-show-for-kids" className="flex flex-col items-start gap-0.5">
+                  <span>Afficher les événements jeune public</span>
+                  <span className="text-xs font-normal text-muted-foreground">
+                    Masqués par défaut
+                  </span>
+                </Label>
+                <Switch
+                  id="filter-show-for-kids"
+                  checked={filters.showForKids}
+                  onCheckedChange={
+                    (checked: boolean): void => {
+                      onChange({ ...filters, showForKids: checked });
+                    }
+                  }
+                />
+              </div>
             </div>
 
             {/* Trier par */}
