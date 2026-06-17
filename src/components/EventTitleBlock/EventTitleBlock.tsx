@@ -5,6 +5,7 @@ import React from 'react';
 import { formatPrice } from 'helpers/formatPrice';
 
 /* Component imports ----------------------------------- */
+import { Badge } from 'components/ui/badge';
 
 /* Style imports --------------------------------------- */
 
@@ -45,6 +46,12 @@ const EventTitleBlock: React.FC<EventTitleBlockProps> = ({ event }) => {
             <span className="text-purple-600 dark:text-purple-400">
               Reporté
             </span>
+        }
+        {
+          event.forKids === true &&
+            <Badge variant="secondary" className="ml-2 align-middle">
+              Jeune public
+            </Badge>
         }
       </div>
       <div className="text-sm">
