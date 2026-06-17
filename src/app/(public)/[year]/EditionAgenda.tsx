@@ -24,6 +24,7 @@ import EditionEventsFilterTool from 'components/EditionEventsFilterTool/EditionE
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
+import type { EventCategory } from 'types/eventCategories';
 import type {
   EditionView,
   EmbedLinkView,
@@ -176,12 +177,13 @@ const EditionAgenda: React.FC<EditionAgendaProps> = (
               .sort(sortEventsByCategoryEntries)
               .map(
                 (categoryEntry, index, array) => {
-                  const categoryTitle = categoryEntry[0];
+                  const categoryTitleString = categoryEntry[0] as EventCategory;
                   const categoryEvents = categoryEntry[1];
+
                   return (
-                    <React.Fragment key={`${categoryTitle}-${index}`}>
+                    <React.Fragment key={`${categoryTitleString}-${index}`}>
                       <EventCategoryView
-                        categoryTitle={categoryTitle}
+                        categoryTitleString={categoryTitleString}
                         categoryEvents={categoryEvents}
                         feteDeLaMusiqueDay={feteDeLaMusiqueDay}
                       />
