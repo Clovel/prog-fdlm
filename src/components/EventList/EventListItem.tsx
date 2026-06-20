@@ -1,11 +1,17 @@
 'use client';
 
 /* Framework imports ----------------------------------- */
-import React, { useMemo, useState } from 'react';
+import React, {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 /* Module imports -------------------------------------- */
 import slugify from 'slugify';
 import { cn } from 'lib/utils';
+import { FOCUS_EVENT_NAME, isFocusEventEvent } from 'helpers/eventFocus';
 
 /* Component imports ----------------------------------- */
 import { ChevronDown, Star } from 'lucide-react';
@@ -78,10 +84,63 @@ const EventListItem: React.FC<EventListItemProps> = (
     ],
   );
 
+  const liRef = useRef<HTMLLIElement>(null);
+  const [highlighted, setHighlighted] = useState<boolean>(false);
+
+  // "Voir plus" on the map popup broadcasts the event id. Only the canonical
+  // (non-favorites) row reacts, revealing the event: expand, scroll into view,
+  // and pulse a highlight that fades on its own.
+  useEffect(
+    () => {
+      if(isFavoritesSection) {
+        return;
+      }
+
+      const handleFocusEvent = (focusEvent: globalThis.Event): void => {
+        if(!isFocusEventEvent(focusEvent)) {
+          return;
+        }
+        if(focusEvent.detail.id !== event.id) {
+          return;
+        }
+        setOpen(true);
+        setHighlighted(true);
+        liRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      };
+
+      window.addEventListener(FOCUS_EVENT_NAME, handleFocusEvent);
+      return (): void => {
+        window.removeEventListener(FOCUS_EVENT_NAME, handleFocusEvent);
+      };
+    },
+    [
+      isFavoritesSection,
+      event.id,
+    ],
+  );
+
+  // Clear the highlight after its pulse; restart the timer on each re-focus.
+  useEffect(
+    () => {
+      if(!highlighted) {
+        return;
+      }
+      const timeout = setTimeout((): void => setHighlighted(false), 1600);
+      return (): void => clearTimeout(timeout);
+    },
+    [highlighted],
+  );
+
   return (
     <li
+      ref={liRef}
       id={itemId}
-      className="py-2"
+      className={
+        cn(
+          'py-2 rounded-md transition-colors duration-700',
+          highlighted && 'bg-accent',
+        )
+      }
     >
       <Collapsible
         open={open}

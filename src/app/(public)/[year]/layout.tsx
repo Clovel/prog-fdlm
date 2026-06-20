@@ -10,7 +10,11 @@ import type { Metadata } from 'next';
 
 /* Metadata -------------------------------------------- */
 export const generateMetadata = async(
-  { params }: { params: Promise<{ year: string }> },
+  {
+    params,
+  }: {
+    params: Promise<{ year: string }>;
+  },
 ): Promise<Metadata> => {
   const { year } = await params;
   const yearNum = /^\d{4}$/.test(year) ? Number(year) : null;

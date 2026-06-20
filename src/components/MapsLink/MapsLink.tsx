@@ -8,8 +8,8 @@ import { cn } from 'lib/utils';
 import {
   buildMapsQuery,
   buildMapsUrl,
-  getMapsPlatform,
 } from 'helpers/mapsUrl';
+import { useMapsPlatform } from 'helpers/useMapsPlatform';
 
 /* Component imports ----------------------------------- */
 import { MapPin } from 'lucide-react';
@@ -32,8 +32,11 @@ const MapsLink: React.FC<MapsLinkProps> = (
   },
 ) => {
   const query: string = buildMapsQuery(location);
+  const platform = useMapsPlatform();
 
-  if(query.length === 0) return null;
+  if(query.length === 0) {
+    return null;
+  }
 
   // href is ALWAYS the universal Google Maps URL: identical on server and
   // client (no hydration mismatch) and a working no-JS fallback. The native
@@ -41,8 +44,6 @@ const MapsLink: React.FC<MapsLinkProps> = (
   const href: string = buildMapsUrl(query, 'other');
 
   const handleClick = (mouseEvent: React.MouseEvent<HTMLAnchorElement>): void => {
-    const platform = getMapsPlatform();
-
     if(platform === 'other') return; // let the https link open in a new tab
 
     mouseEvent.preventDefault();
@@ -64,7 +65,15 @@ const MapsLink: React.FC<MapsLinkProps> = (
             onClick={handleClick}
           >
             <MapPin className="h-4 w-4" />
-            Voir l&apos;itinéraire
+            Voir dans
+            {' '}
+            {
+              platform === 'ios' ?
+                'Plans' :
+                platform === 'android' ?
+                  'Google Maps' :
+                  'le navigateur'
+            }
           </a>
         </Button>
       </div>

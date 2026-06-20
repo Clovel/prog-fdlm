@@ -2,7 +2,7 @@
 import React from 'react';
 
 /* Module imports -------------------------------------- */
-import slugify from 'slugify';
+import { dispatchFocusEvent } from 'helpers/eventFocus';
 import { useFavorites } from 'components/Favorites/FavoritesProvider';
 import { cn } from 'lib/utils';
 
@@ -27,16 +27,11 @@ const EventInfoWindow: React.FC<EventInfoWindowProps> = (
 ) => {
   const { toggleFavorite } = useFavorites();
 
+  // Ask the agenda list to reveal this event (scroll + expand + highlight).
+  // The canonical EventListItem listens; keyed on the UUID, so it lands on the
+  // category entry rather than the favorites copy.
   const onSeeMoreClick: React.MouseEventHandler<HTMLButtonElement> = () => {
-    /* TODO : Scroll down to the corresponding EventListItem component */
-    const eventListItem = document.getElementById(
-      markerInfo.event.name !== undefined ?
-        `event-${slugify(markerInfo.event.name)}` :
-        `event-${markerInfo.event.id}`
-    );
-    if(eventListItem) {
-      eventListItem.scrollIntoView({ behavior: 'smooth' });
-    }
+    dispatchFocusEvent(markerInfo.event.id);
   };
 
   const handleToggleFavorite: React.MouseEventHandler<HTMLButtonElement> = () => {
