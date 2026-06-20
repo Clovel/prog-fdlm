@@ -538,17 +538,26 @@ type MarkerPopupProps = {
   className?: string;
   /** Show a close button in the popup (default: false) */
   closeButton?: boolean;
+  /** Controlled open state. Omit for uncontrolled (maplibre tap-toggle only). */
+  open?: boolean;
+  /** Called when the popup opens or closes (native tap, focus, or close button). */
+  onOpenChange?: (open: boolean) => void;
 } & Omit<PopupOptions, "className" | "closeButton">;
 
 function MarkerPopup({
   children,
   className,
   closeButton = false,
+  open,
+  onOpenChange,
   ...popupOptions
 }: MarkerPopupProps) {
   const { marker, map } = useMarkerContext();
   const container = useMemo(() => document.createElement("div"), []);
   const prevPopupOptions = useRef(popupOptions);
+  const onOpenChangeRef = useRef(onOpenChange);
+  // eslint-disable-next-line react-hooks/refs
+  onOpenChangeRef.current = onOpenChange;
 
   const popup = useMemo(() => {
     const popupInstance = new MapLibreGL.Popup({
@@ -574,6 +583,30 @@ function MarkerPopup({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
+
+  // Mirror maplibre open/close (native tap, focus, or close button) back to React.
+  useEffect(() => {
+    const handleOpen = () => onOpenChangeRef.current?.(true);
+    const handleClose = () => onOpenChangeRef.current?.(false);
+    popup.on("open", handleOpen);
+    popup.on("close", handleClose);
+    return () => {
+      popup.off("open", handleOpen);
+      popup.off("close", handleClose);
+    };
+  }, [popup]);
+
+  // Reconcile the controlled `open` prop with the actual popup state. Guards
+  // keep the open<->close event loop from re-triggering. Uncontrolled (open
+  // === undefined) is a no-op.
+  useEffect(() => {
+    if (open === undefined || !map) return;
+    if (open && !popup.isOpen()) {
+      marker.togglePopup();
+    } else if (!open && popup.isOpen()) {
+      popup.remove();
+    }
+  }, [open, map, marker, popup]);
 
   if (popup.isOpen()) {
     const prev = prevPopupOptions.current;
