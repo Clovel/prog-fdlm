@@ -18,8 +18,8 @@ import {
   Map,
   MapControls,
   MapMarker,
-  MapPopup,
   MarkerContent,
+  MarkerPopup,
   useMap,
 } from 'components/ui/map';
 import { Switch } from 'components/ui/switch';
@@ -95,7 +95,7 @@ const EventsMap: React.FC<EventsMapProps> = (
 ) => {
   const { isFavorite, count } = useFavorites();
   const [ onlyFavorites, setOnlyFavorites ] = useState<boolean>(false);
-  const [ selectedEvent, setSelectedEvent ] = useState<MarkerInfo | null>(null);
+  const [ selectedId, setSelectedId ] = useState<string | null>(null);
   const mapRef = useRef<MapRef>(null);
 
   // Pan the marker into the lower third of the viewport so its popup (which
@@ -118,9 +118,31 @@ const EventsMap: React.FC<EventsMapProps> = (
     [expanded],
   );
 
-  // A focus request (from a list event's "Voir sur la carte") opens that
-  // event's popup. Clear the favorites filter first so the target marker is
-  // visible, then select + recenter. No-op if the id has no marker.
+  // Recenter whenever the open marker changes. Driven by selection state (set by
+  // a native tap's open event or by a focus request) rather than the marker's
+  // DOM click, which is unreliable on touch under cooperativeGestures.
+  useEffect(
+    (): void => {
+      if(selectedId === null) {
+        return;
+      }
+      const target = eventMarkers.find((marker) => marker.id === selectedId);
+      if(target === undefined) {
+        return;
+      }
+      recenterOn(target.position.lng, target.position.lat);
+    },
+    [
+      selectedId,
+      eventMarkers,
+      recenterOn,
+    ],
+  );
+
+  // A focus request (from a list event's "Voir sur la carte") opens that event's
+  // popup. Clear the favorites filter first so the target marker is visible, then
+  // select it (the controlled MarkerPopup opens; the effect above recenters).
+  // No-op if the id has no marker.
   useEffect(
     (): void => {
       if(focusTarget === null) {
@@ -131,13 +153,11 @@ const EventsMap: React.FC<EventsMapProps> = (
         return;
       }
       setOnlyFavorites(false); // eslint-disable-line react-hooks/set-state-in-effect
-      setSelectedEvent(target);
-      recenterOn(target.position.lng, target.position.lat);
+      setSelectedId(focusTarget.id);
     },
     [
       focusTarget,
       eventMarkers,
-      recenterOn,
     ],
   );
 
@@ -186,15 +206,6 @@ const EventsMap: React.FC<EventsMapProps> = (
                     longitude={marker.position.lng}
                     latitude={marker.position.lat}
                     anchor="bottom"
-                    onClick={
-                      (): void => {
-                        const willOpen: boolean = selectedEvent?.id !== marker.id;
-                        setSelectedEvent(willOpen ? marker : null);
-                        if(willOpen) {
-                          recenterOn(marker.position.lng, marker.position.lat);
-                        }
-                      }
-                    }
                   >
                     <MarkerContent>
                       <MapPin
@@ -208,24 +219,26 @@ const EventsMap: React.FC<EventsMapProps> = (
                         strokeWidth={1.5}
                       />
                     </MarkerContent>
+                    <MarkerPopup
+                      open={selectedId === marker.id}
+                      onOpenChange={
+                        (isOpen: boolean): void => {
+                          setSelectedId(
+                            (previous) => isOpen ? marker.id : previous === marker.id ? null : previous,
+                          );
+                        }
+                      }
+                      closeButton
+                      anchor="bottom"
+                      offset={40}
+                      className="max-w-[85vw] overflow-y-auto sm:max-w-80 max-h-[320px] sm:max-h-[360px]"
+                    >
+                      <EventInfoWindow markerInfo={marker} />
+                    </MarkerPopup>
                   </MapMarker>
                 );
               }
             )
-          }
-          {
-            selectedEvent !== null &&
-              <MapPopup
-                longitude={selectedEvent.position.lng}
-                latitude={selectedEvent.position.lat}
-                closeButton
-                anchor="bottom"
-                offset={40}
-                className="max-w-[85vw] overflow-y-auto sm:max-w-80 max-h-[320px] sm:max-h-[360px]"
-                onClose={(): void => setSelectedEvent(null)}
-              >
-                <EventInfoWindow markerInfo={selectedEvent} />
-              </MapPopup>
           }
         </Map>
       </div>
