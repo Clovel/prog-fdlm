@@ -1,5 +1,6 @@
 /* Module imports -------------------------------------- */
 import { fromZonedTime, formatInTimeZone } from 'date-fns-tz';
+import { FESTIVAL_TZ, isInFestivalNight } from 'helpers/festivalNight';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
@@ -17,9 +18,6 @@ export interface FilterState {
   sortDir: SortDir;
 }
 
-const FESTIVAL_TZ = 'Europe/Paris';
-const pad2 = (value: number): string => String(value).padStart(2, '0');
-
 export const DEFAULT_FILTERS = (feteDeLaMusiqueDay: Date, now: Date): FilterState => ({
   search: '',
   dayOnly: (now.getTime() >= new Date(feteDeLaMusiqueDay).getTime()),
@@ -36,25 +34,6 @@ export const normalizeText = (value: string): string =>
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '')
     .toLowerCase();
-
-/* Festival-night window ------------------------------- */
-// Keep events whose start falls in [dayOfFestival 06:00, next day 06:00) in
-// Europe/Paris. feteDeLaMusiqueDay is a date-only 'YYYY-MM-DD' DB column (UTC
-// midnight): read its calendar day via UTC getters, interpret 06:00 as a Paris
-// wall-clock instant. Building wall-clock STRINGS (not Date.UTC values) is what
-// makes fromZonedTime timezone-stable across server (UTC) and client (Paris).
-const isInFestivalNight = (start: Date, feteDeLaMusiqueDay: Date): boolean => {
-  const year: number = feteDeLaMusiqueDay.getUTCFullYear();
-  const month: number = feteDeLaMusiqueDay.getUTCMonth();
-  const day: number = feteDeLaMusiqueDay.getUTCDate();
-  const startStr = `${year}-${pad2(month + 1)}-${pad2(day)}T06:00:00`;
-  const next: Date = new Date(Date.UTC(year, month, day + 1));
-  const endStr = `${next.getUTCFullYear()}-${pad2(next.getUTCMonth() + 1)}-${pad2(next.getUTCDate())}T06:00:00`;
-  const windowStartMs: number = fromZonedTime(startStr, FESTIVAL_TZ).getTime();
-  const windowEndMs: number = fromZonedTime(endStr, FESTIVAL_TZ).getTime();
-  const startMs: number = start.getTime();
-  return startMs >= windowStartMs && startMs < windowEndMs;
-};
 
 /* Past detection -------------------------------------- */
 const parisDayStartMs = (instant: Date): number => {
