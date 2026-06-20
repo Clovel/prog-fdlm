@@ -2,6 +2,7 @@
 
 /* Framework imports ----------------------------------- */
 import React, {
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -17,8 +18,8 @@ import {
   Map,
   MapControls,
   MapMarker,
+  MapPopup,
   MarkerContent,
-  MarkerPopup,
   useMap,
 } from 'components/ui/map';
 import { Switch } from 'components/ui/switch';
@@ -38,6 +39,11 @@ export interface MarkerInfo {
   };
   event: Event;
   isFavorite: boolean;
+}
+
+export interface MapFocusTarget {
+  id: string;
+  nonce: number;
 }
 
 /* Internal variables ---------------------------------- */
@@ -75,23 +81,65 @@ const LockBearing: React.FC = () => {
 /* EventsMap component prop types ---------------------- */
 interface EventsMapProps {
   eventMarkers: MarkerInfo[];
+  expanded: boolean;
+  focusTarget: MapFocusTarget | null;
 }
 
 /* EventsMap component --------------------------------- */
 const EventsMap: React.FC<EventsMapProps> = (
   {
     eventMarkers = [],
+    expanded,
+    focusTarget,
   },
 ) => {
   const { isFavorite, count } = useFavorites();
   const [ onlyFavorites, setOnlyFavorites ] = useState<boolean>(false);
+  const [ selectedEvent, setSelectedEvent ] = useState<MarkerInfo | null>(null);
   const mapRef = useRef<MapRef>(null);
 
-  // Pan the tapped marker into the lower third of the viewport so its popup
-  // (which opens above the pin) stays fully visible — including on mobile.
-  const recenterOn = (lng: number, lat: number): void => {
-    mapRef.current?.flyTo({ center: [ lng, lat ], offset: [ 0, 175 ], duration: 400 });
-  };
+  // Pan the marker into the lower third of the viewport so its popup (which
+  // opens above the pin) stays fully visible — including on mobile.
+  const recenterOn = useCallback(
+    (lng: number, lat: number): void => {
+      mapRef.current?.flyTo({ center: [ lng, lat ], offset: [ 0, 175 ], duration: 400 });
+    },
+    [],
+  );
+
+  // The map is kept mounted while the section is collapsed (display:none), which
+  // zeroes its size; resize once it becomes visible again so it fills its box.
+  useEffect(
+    (): void => {
+      if(expanded) {
+        mapRef.current?.resize();
+      }
+    },
+    [expanded],
+  );
+
+  // A focus request (from a list event's "Voir sur la carte") opens that
+  // event's popup. Clear the favorites filter first so the target marker is
+  // visible, then select + recenter. No-op if the id has no marker.
+  useEffect(
+    (): void => {
+      if(focusTarget === null) {
+        return;
+      }
+      const target = eventMarkers.find((marker) => marker.id === focusTarget.id);
+      if(target === undefined) {
+        return;
+      }
+      setOnlyFavorites(false); // eslint-disable-line react-hooks/set-state-in-effect
+      setSelectedEvent(target);
+      recenterOn(target.position.lng, target.position.lat);
+    },
+    [
+      focusTarget,
+      eventMarkers,
+      recenterOn,
+    ],
+  );
 
   // Falls back to "show all" when there are no favorites, so the filter can't
   // strand the user on an empty map while the Switch is disabled.
@@ -138,7 +186,15 @@ const EventsMap: React.FC<EventsMapProps> = (
                     longitude={marker.position.lng}
                     latitude={marker.position.lat}
                     anchor="bottom"
-                    onClick={(): void => recenterOn(marker.position.lng, marker.position.lat)}
+                    onClick={
+                      (): void => {
+                        const willOpen: boolean = selectedEvent?.id !== marker.id;
+                        setSelectedEvent(willOpen ? marker : null);
+                        if(willOpen) {
+                          recenterOn(marker.position.lng, marker.position.lat);
+                        }
+                      }
+                    }
                   >
                     <MarkerContent>
                       <MapPin
@@ -152,18 +208,24 @@ const EventsMap: React.FC<EventsMapProps> = (
                         strokeWidth={1.5}
                       />
                     </MarkerContent>
-                    <MarkerPopup
-                      closeButton
-                      anchor="bottom"
-                      offset={40}
-                      className="max-w-[85vw] overflow-y-auto sm:max-w-80 max-h-[320px] sm:max-h-[360px]"
-                    >
-                      <EventInfoWindow markerInfo={marker} />
-                    </MarkerPopup>
                   </MapMarker>
                 );
               }
             )
+          }
+          {
+            selectedEvent !== null &&
+              <MapPopup
+                longitude={selectedEvent.position.lng}
+                latitude={selectedEvent.position.lat}
+                closeButton
+                anchor="bottom"
+                offset={40}
+                className="max-w-[85vw] overflow-y-auto sm:max-w-80 max-h-[320px] sm:max-h-[360px]"
+                onClose={(): void => setSelectedEvent(null)}
+              >
+                <EventInfoWindow markerInfo={selectedEvent} />
+              </MapPopup>
           }
         </Map>
       </div>

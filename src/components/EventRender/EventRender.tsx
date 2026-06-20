@@ -2,8 +2,11 @@
 import React from 'react';
 
 /* Module imports -------------------------------------- */
+import { dispatchFocusMap } from 'helpers/mapFocus';
 
 /* Component imports ----------------------------------- */
+import { MapPinned } from 'lucide-react';
+import { Button } from 'components/ui/button';
 import CustomEmbed from 'components/CustomEmbed/CustomEmbed';
 import DescriptionRender from 'components/DescriptionRender/DescriptionRender';
 import EventAlert from 'components/EventAlert/EventAlert';
@@ -103,6 +106,19 @@ const EventRender: React.FC<EventRenderProps> = (
         event.location.addressStr !== undefined &&
         event.location.addressStr.length > 0 &&
           <MapsLink location={event.location} variant="button" />
+      }
+      {
+        event.location.coords !== undefined &&
+          <div className="mt-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={(): void => dispatchFocusMap(event.id)}
+            >
+              <MapPinned className="h-4 w-4" />
+              Voir sur la carte
+            </Button>
+          </div>
       }
     </div>
   );

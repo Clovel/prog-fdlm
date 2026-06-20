@@ -1,10 +1,16 @@
 /* Framework imports ----------------------------------- */
-import React, { useMemo, useState } from 'react';
+import React, {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import dynamic from 'next/dynamic';
 
 /* Module imports -------------------------------------- */
 import { cn } from 'lib/utils';
 import { useFavorites } from 'components/Favorites/FavoritesProvider';
+import { FOCUS_MAP_EVENT_NAME, isFocusMapEvent } from 'helpers/mapFocus';
 
 /* Component imports ----------------------------------- */
 import { ChevronDown } from 'lucide-react';
@@ -18,7 +24,7 @@ import {
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
-import type { MarkerInfo } from 'components/EventsMap/EventsMap';
+import type { MapFocusTarget, MarkerInfo } from 'components/EventsMap/EventsMap';
 
 /* Dynamic imports ------------------------------------- */
 // maplibre touches document during render → cannot SSR. Load client-only; the
@@ -46,6 +52,32 @@ const EventsMapSection: React.FC<EventsMapSectionProps> = (
 ) => {
   const { isFavorite } = useFavorites();
   const [ open, setOpen ] = useState<boolean>(true);
+  const [ focusTarget, setFocusTarget ] = useState<MapFocusTarget | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const nonceRef = useRef<number>(0);
+
+  // A list event's "Voir sur la carte" broadcasts its id. Expand the section,
+  // scroll it into view, and hand the id (with a bumped nonce so re-clicks
+  // re-trigger) to EventsMap, which opens the marker popup.
+  useEffect(
+    () => {
+      const handleFocusMap = (event: globalThis.Event): void => {
+        if(!isFocusMapEvent(event)) {
+          return;
+        }
+        setOpen(true);
+        nonceRef.current += 1;
+        setFocusTarget({ id: event.detail.id, nonce: nonceRef.current });
+        sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+
+      window.addEventListener(FOCUS_MAP_EVENT_NAME, handleFocusMap);
+      return (): void => {
+        window.removeEventListener(FOCUS_MAP_EVENT_NAME, handleFocusMap);
+      };
+    },
+    [],
+  );
 
   const eventMarkers = useMemo<MarkerInfo[]>(
     () => {
@@ -73,7 +105,7 @@ const EventsMapSection: React.FC<EventsMapSectionProps> = (
   );
 
   return (
-    <section className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0">
+    <section ref={sectionRef} className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0">
       <Collapsible
         open={open}
         onOpenChange={setOpen}
@@ -101,8 +133,12 @@ const EventsMapSection: React.FC<EventsMapSectionProps> = (
             </div>
           </div>
         </CollapsibleTrigger>
-        <CollapsibleContent>
-          <EventsMap eventMarkers={eventMarkers} />
+        <CollapsibleContent forceMount className="data-[state=closed]:hidden">
+          <EventsMap
+            eventMarkers={eventMarkers}
+            expanded={open}
+            focusTarget={focusTarget}
+          />
         </CollapsibleContent>
       </Collapsible>
     </section>
