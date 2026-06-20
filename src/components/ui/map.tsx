@@ -556,7 +556,6 @@ function MarkerPopup({
   const container = useMemo(() => document.createElement("div"), []);
   const prevPopupOptions = useRef(popupOptions);
   const onOpenChangeRef = useRef(onOpenChange);
-  // eslint-disable-next-line react-hooks/refs
   onOpenChangeRef.current = onOpenChange;
 
   const popup = useMemo(() => {
