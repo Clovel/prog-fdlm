@@ -7,6 +7,7 @@ import React from 'react';
 import CustomEmbed from 'components/CustomEmbed/CustomEmbed';
 import DescriptionRender from 'components/DescriptionRender/DescriptionRender';
 import EventAlert from 'components/EventAlert/EventAlert';
+import MapsLink from 'components/MapsLink/MapsLink';
 
 /* Style imports --------------------------------------- */
 
@@ -97,6 +98,11 @@ const EventRender: React.FC<EventRenderProps> = (
               }
             </ul>
           </article>
+      }
+      {
+        event.location.addressStr !== undefined &&
+        event.location.addressStr.length > 0 &&
+          <MapsLink location={event.location} variant="button" />
       }
     </div>
   );
