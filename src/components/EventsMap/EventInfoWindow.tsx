@@ -1,7 +1,14 @@
 /* Framework imports ----------------------------------- */
 import React from 'react';
 
+/* Module imports -------------------------------------- */
+import slugify from 'slugify';
+import { useFavorites } from 'components/Favorites/FavoritesProvider';
+import { cn } from 'lib/utils';
+
 /* Component imports ----------------------------------- */
+import { CirclePlus, Star } from 'lucide-react';
+import { Button } from 'components/ui/button';
 import DescriptionRender from 'components/DescriptionRender/DescriptionRender';
 
 /* Type imports ---------------------------------------- */
@@ -18,6 +25,24 @@ const EventInfoWindow: React.FC<EventInfoWindowProps> = (
     markerInfo,
   },
 ) => {
+  const { toggleFavorite } = useFavorites();
+
+  const onSeeMoreClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+    /* TODO : Scroll down to the corresponding EventListItem component */
+    const eventListItem = document.getElementById(
+      markerInfo.event.name !== undefined ?
+        `event-${slugify(markerInfo.event.name)}` :
+        `event-${markerInfo.event.id}`
+    );
+    if(eventListItem) {
+      eventListItem.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleToggleFavorite: React.MouseEventHandler<HTMLButtonElement> = () => {
+    toggleFavorite(markerInfo.event.id);
+  };
+
   return (
     <div>
       <h5 className="text-xl font-semibold pr-12">
@@ -32,12 +57,45 @@ const EventInfoWindow: React.FC<EventInfoWindowProps> = (
       <p>
         {markerInfo.event.location.addressStr}
       </p>
+      <div className="w-full py-2 flex items-center gap-2">
+        <Button
+          variant="outline"
+          className="grow"
+          size="sm"
+          onClick={onSeeMoreClick}
+        >
+          Voir plus
+          <CirclePlus className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="outline"
+          className="grow"
+          size="sm"
+          onClick={handleToggleFavorite}
+        >
+          {
+            markerInfo.isFavorite === true ?
+              'Retirer des favoris' :
+              'Ajouter aux favoris'
+          }
+          <Star
+            className={
+              cn(
+                'h-4 w-4',
+                markerInfo.isFavorite === true ?
+                  'fill-amber-400 text-amber-400 dark:fill-amber-300 dark:text-amber-300' :
+                  'text-muted-foreground',
+              )
+            }
+          />
+        </Button>
+      </div>
       {/* TODO : Add time of event here */}
       {
         markerInfo.event.links !== undefined &&
         markerInfo.event.links.length > 0 &&
           <>
-            <h6 className="text-base font-semibold mt-2">
+            <h6 className="text-base font-semibold">
               Liens :
             </h6>
             <ul>

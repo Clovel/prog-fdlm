@@ -11,6 +11,7 @@ import type { Event } from 'types/Event';
 
 /* EventList component prop types ---------------------- */
 interface EventListProps {
+  isFavoritesSection: boolean;
   events: Event[];
   feteDeLaMusiqueDay: Date;
 }
@@ -18,6 +19,7 @@ interface EventListProps {
 /* EventList component --------------------------------- */
 const EventList: React.FC<EventListProps> = (
   {
+    isFavoritesSection,
     events = [],
     feteDeLaMusiqueDay,
   },
@@ -29,6 +31,7 @@ const EventList: React.FC<EventListProps> = (
           (event, index) => (
             <EventListItem
               key={`${event.name ?? event.location.name}-${index}`}
+              isFavoritesSection={isFavoritesSection}
               event={event}
               feteDeLaMusiqueDay={feteDeLaMusiqueDay}
             />

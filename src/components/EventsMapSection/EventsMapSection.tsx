@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 
 /* Module imports -------------------------------------- */
 import { cn } from 'lib/utils';
+import { useFavorites } from 'components/Favorites/FavoritesProvider';
 
 /* Component imports ----------------------------------- */
 import { ChevronDown } from 'lucide-react';
@@ -43,6 +44,7 @@ const EventsMapSection: React.FC<EventsMapSectionProps> = (
     events = [],
   }
 ) => {
+  const { isFavorite } = useFavorites();
   const [ open, setOpen ] = useState<boolean>(true);
 
   const eventMarkers = useMemo<MarkerInfo[]>(
@@ -51,12 +53,23 @@ const EventsMapSection: React.FC<EventsMapSectionProps> = (
       for(const event of events) {
         const coords = event.location.coords;
         if(coords !== undefined) {
-          markers.push({ id: event.id, position: { lat: coords.lat, lng: coords.lng }, event });
+          markers.push({
+            id: event.id,
+            position: {
+              lat: coords.lat,
+              lng: coords.lng,
+            },
+            event,
+            isFavorite: isFavorite(event.id),
+          });
         }
       }
       return markers;
     },
-    [events],
+    [
+      events,
+      isFavorite,
+    ],
   );
 
   return (

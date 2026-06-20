@@ -4,6 +4,7 @@
 import React, { useMemo, useState } from 'react';
 
 /* Module imports -------------------------------------- */
+import slugify from 'slugify';
 import { cn } from 'lib/utils';
 
 /* Component imports ----------------------------------- */
@@ -25,6 +26,7 @@ import type { Event } from 'types/Event';
 
 /* EventListItem component prop types ------------------ */
 interface EventListItemProps {
+  isFavoritesSection: boolean;
   event: Event;
   feteDeLaMusiqueDay: Date;
 }
@@ -43,6 +45,7 @@ const hasExpandableContent = (event: Event): boolean => {
 /* EventListItem component ----------------------------- */
 const EventListItem: React.FC<EventListItemProps> = (
   {
+    isFavoritesSection,
     event,
     feteDeLaMusiqueDay,
   },
@@ -62,8 +65,24 @@ const EventListItem: React.FC<EventListItemProps> = (
     [event],
   );
 
+  const itemId: `${'event' | 'favorite'}-${string}` = useMemo<`${'event' | 'favorite'}-${string}`>(
+    () => {
+      if(isFavoritesSection) {
+        return `favorite-${event.id}`;
+      }
+      return `event-${event.name !== undefined ? slugify(event.name) : event.id}`;
+    },
+    [
+      isFavoritesSection,
+      event,
+    ],
+  );
+
   return (
-    <li className="py-2">
+    <li
+      id={itemId}
+      className="py-2"
+    >
       <Collapsible
         open={open}
         onOpenChange={setOpen}

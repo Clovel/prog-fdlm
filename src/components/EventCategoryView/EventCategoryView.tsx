@@ -73,7 +73,11 @@ const EventCategoryView: React.FC<EventCategoryViewProps> = (
           </div>
         </CollapsibleTrigger>
         <CollapsibleContent>
-          <EventList events={categoryEvents} feteDeLaMusiqueDay={feteDeLaMusiqueDay} />
+          <EventList
+            isFavoritesSection={categoryTitleString === 'Favoris'}
+            events={categoryEvents}
+            feteDeLaMusiqueDay={feteDeLaMusiqueDay}
+          />
         </CollapsibleContent>
       </Collapsible>
     </section>

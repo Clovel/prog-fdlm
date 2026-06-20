@@ -8,11 +8,11 @@ import React, {
 } from 'react';
 
 /* Module imports -------------------------------------- */
-import EventInfoWindow from './EventInfoWindow';
 import { useFavorites } from 'components/Favorites/FavoritesProvider';
 import { cn } from 'lib/utils';
 
 /* Component imports ----------------------------------- */
+import { MapPin } from 'lucide-react';
 import {
   Map,
   MapControls,
@@ -23,7 +23,7 @@ import {
 } from 'components/ui/map';
 import { Switch } from 'components/ui/switch';
 import { Label } from 'components/ui/label';
-import { MapPin } from 'lucide-react';
+import EventInfoWindow from './EventInfoWindow';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
@@ -37,6 +37,7 @@ export interface MarkerInfo {
     lng: number;
   };
   event: Event;
+  isFavorite: boolean;
 }
 
 /* Internal variables ---------------------------------- */
@@ -130,36 +131,38 @@ const EventsMap: React.FC<EventsMapProps> = (
           <MapControls position="bottom-right" showZoom />
           {
             visibleMarkers.map(
-              (marker) => (
-                <MapMarker
-                  key={marker.id}
-                  longitude={marker.position.lng}
-                  latitude={marker.position.lat}
-                  anchor="bottom"
-                  onClick={(): void => recenterOn(marker.position.lng, marker.position.lat)}
-                >
-                  <MarkerContent>
-                    <MapPin
-                      aria-label={marker.event.name ?? 'Événement sans nom'}
-                      className={cn(
-                        'size-8 drop-shadow-md',
-                        isFavorite(marker.id) ? 'text-amber-400' : 'text-red-600',
-                      )}
-                      fill="currentColor"
-                      stroke="#ffffff"
-                      strokeWidth={1.5}
-                    />
-                  </MarkerContent>
-                  <MarkerPopup
-                    closeButton
+              (marker) => {
+                return (
+                  <MapMarker
+                    key={marker.id}
+                    longitude={marker.position.lng}
+                    latitude={marker.position.lat}
                     anchor="bottom"
-                    offset={40}
-                    className="max-w-[85vw] overflow-y-auto sm:max-w-80 max-h-[320px] sm:max-h-[360px]"
+                    onClick={(): void => recenterOn(marker.position.lng, marker.position.lat)}
                   >
-                    <EventInfoWindow markerInfo={marker} />
-                  </MarkerPopup>
-                </MapMarker>
-              ),
+                    <MarkerContent>
+                      <MapPin
+                        aria-label={marker.event.name ?? 'Événement sans nom'}
+                        className={cn(
+                          'size-8 drop-shadow-md',
+                          isFavorite(marker.id) ? 'text-amber-400' : 'text-red-600',
+                        )}
+                        fill="currentColor"
+                        stroke="#ffffff"
+                        strokeWidth={1.5}
+                      />
+                    </MarkerContent>
+                    <MarkerPopup
+                      closeButton
+                      anchor="bottom"
+                      offset={40}
+                      className="max-w-[85vw] overflow-y-auto sm:max-w-80 max-h-[320px] sm:max-h-[360px]"
+                    >
+                      <EventInfoWindow markerInfo={marker} />
+                    </MarkerPopup>
+                  </MapMarker>
+                );
+              }
             )
           }
         </Map>
