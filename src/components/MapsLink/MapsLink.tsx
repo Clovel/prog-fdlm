@@ -52,31 +52,30 @@ const MapsLink: React.FC<MapsLinkProps> = (
 
   if(variant === 'button') {
     return (
-      <div className="mt-4">
-        <Button
-          asChild
-          variant="outline"
-          size="sm"
+      <Button
+        asChild
+        variant="outline"
+        size="sm"
+        className="grow shrink-0"
+      >
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={handleClick}
         >
-          <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={handleClick}
-          >
-            <MapPin className="h-4 w-4" />
-            Voir dans
-            {' '}
-            {
-              platform === 'ios' ?
-                'Plans' :
-                platform === 'android' ?
-                  'Google Maps' :
-                  'le navigateur'
-            }
-          </a>
-        </Button>
-      </div>
+          <MapPin className="h-4 w-4" />
+          Voir dans
+          {' '}
+          {
+            platform === 'ios' ?
+              'Plans' :
+              platform === 'android' ?
+                'Google Maps' :
+                'le navigateur'
+          }
+        </a>
+      </Button>
     );
   }
 

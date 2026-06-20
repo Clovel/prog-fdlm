@@ -103,21 +103,28 @@ const EventRender: React.FC<EventRenderProps> = (
           </article>
       }
       {
-        event.location.addressStr !== undefined &&
-        event.location.addressStr.length > 0 &&
-          <MapsLink location={event.location} variant="button" />
-      }
-      {
-        event.location.coords !== undefined &&
-          <div className="mt-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={(): void => dispatchFocusMap(event.id)}
-            >
-              <MapPinned className="h-4 w-4" />
-              Voir sur la carte
-            </Button>
+        (
+          (event.location.addressStr !== undefined && event.location.addressStr.length > 0) ||
+          event.location.coords !== undefined
+        ) &&
+          <div className="w-full mt-4 flex items-center gap-2">
+            {
+              event.location.addressStr !== undefined &&
+              event.location.addressStr.length > 0 &&
+                <MapsLink location={event.location} variant="button" />
+            }
+            {
+              event.location.coords !== undefined &&
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="grow shrink-0"
+                  onClick={(): void => dispatchFocusMap(event.id)}
+                >
+                  <MapPinned className="h-4 w-4" />
+                  Voir sur la carte
+                </Button>
+            }
           </div>
       }
     </div>

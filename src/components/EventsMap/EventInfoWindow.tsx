@@ -52,10 +52,10 @@ const EventInfoWindow: React.FC<EventInfoWindowProps> = (
       <p>
         {markerInfo.event.location.addressStr}
       </p>
-      <div className="w-full py-2 flex items-center gap-2">
+      <div className="w-full py-2 flex flex-wrap items-center gap-2">
         <Button
           variant="outline"
-          className="grow"
+          className="grow shrink-0"
           size="sm"
           onClick={onSeeMoreClick}
         >
@@ -64,7 +64,7 @@ const EventInfoWindow: React.FC<EventInfoWindowProps> = (
         </Button>
         <Button
           variant="outline"
-          className="grow"
+          className="grow shrink-0"
           size="sm"
           onClick={handleToggleFavorite}
         >
