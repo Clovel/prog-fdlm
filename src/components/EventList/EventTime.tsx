@@ -2,17 +2,14 @@
 import React, { useMemo } from 'react';
 
 /* Module imports -------------------------------------- */
-import { formatInTimeZone } from 'date-fns-tz';
+import {
+  FESTIVAL_TZ,
+  festivalDayString,
+  festivalNightDay,
+} from 'helpers/festivalNight';
 
 /* Constants ------------------------------------------- */
 const DEFAULT_FETE_DE_LA_MUSIQUE_DAY = new Date('2026-06-21');
-const FESTIVAL_NIGHT_MORNING_CUTOFF_HOUR = 12 as const;
-const FESTIVAL_TZ = 'Europe/Paris';
-
-// Calendar day / hour as seen in Europe/Paris — identical on the UTC server and
-// the (Paris) client, so the server-rendered markup hydrates without a mismatch.
-const parisDay = (date: Date): string => formatInTimeZone(date, FESTIVAL_TZ, 'yyyy-MM-dd');
-const parisHour = (date: Date): number => Number(formatInTimeZone(date, FESTIVAL_TZ, 'H'));
 
 /* Type declarations ----------------------------------- */
 type ReferenceDateInfo = {
@@ -34,28 +31,20 @@ type EventTimeProps = ({
 };
 
 /* Helper functions ------------------------------------ */
-const isSameCalendarDay = (
-  date: Date,
-  referenceDate: Date,
-): boolean => {
-  return parisDay(date) === parisDay(referenceDate);
-};
+// Render a festival-night day ('YYYY-MM-DD') as a French calendar date. The
+// string is a pure calendar day, so format it at UTC noon with timeZone 'UTC'
+// to avoid any zone shifting back into a neighbouring day.
+const formatNightDayLabel = (nightDay: string): string => {
+  const [year, month, day] = nightDay.split('-').map(Number);
+  const labelDate = new Date(Date.UTC(year, month - 1, day, 12));
 
-const isMorningAfterFeteDeLaMusique = (
-  date: Date,
-  feteDeLaMusiqueDay: Date,
-): boolean => {
-  // Festival day + 1, as a Paris calendar date. feteDeLaMusiqueDay is a date-only
-  // (UTC-midnight) value, so its UTC fields are the intended calendar day.
-  const nextDay = new Date(Date.UTC(
-    feteDeLaMusiqueDay.getUTCFullYear(),
-    feteDeLaMusiqueDay.getUTCMonth(),
-    feteDeLaMusiqueDay.getUTCDate() + 1,
-  ));
-
-  return (
-    parisDay(date) === parisDay(nextDay) &&
-    parisHour(date) < FESTIVAL_NIGHT_MORNING_CUTOFF_HOUR
+  return labelDate.toLocaleDateString(
+    'fr-FR',
+    {
+      day: '2-digit',
+      month: 'long',
+      timeZone: 'UTC',
+    },
   );
 };
 
@@ -77,36 +66,17 @@ const EventTime: React.FC<EventTimeProps> = (
         };
       }
 
-      const providedTimes = [
-        startTime,
-        endTime,
-      ].filter((date): date is Date => date !== undefined);
-
-      const shouldTreatAsFeteDeLaMusiqueDay = providedTimes.every(
-        (date) => {
-          return isMorningAfterFeteDeLaMusique(
-            date,
-            feteDeLaMusiqueDay,
-          );
-        },
-      );
-
-      const shouldDisplayDay = (
-        !shouldTreatAsFeteDeLaMusiqueDay &&
-        !isSameCalendarDay(referenceDate, feteDeLaMusiqueDay)
-      );
+      // Attribute the event to its festival-night day (small hours roll back
+      // across the 06:00 boundary — same model as the day-only filter). Only
+      // label nights other than the festival night itself.
+      const nightDay: string = festivalNightDay(referenceDate);
+      const shouldDisplayDay: boolean =
+        nightDay !== festivalDayString(feteDeLaMusiqueDay);
 
       return shouldDisplayDay ?
         {
           shouldDisplayDay: true,
-          dayStr: referenceDate.toLocaleDateString(
-            'fr-FR',
-            {
-              day: '2-digit',
-              month: 'long',
-              timeZone: FESTIVAL_TZ,
-            },
-          ),
+          dayStr: formatNightDayLabel(nightDay),
         } :
         {
           shouldDisplayDay: false,
