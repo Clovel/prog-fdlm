@@ -32,6 +32,7 @@ const EventInfoWindow: React.FC<EventInfoWindowProps> = (
       <p>
         {markerInfo.event.location.addressStr}
       </p>
+      {/* TODO : Add time of event here */}
       {
         markerInfo.event.links !== undefined &&
         markerInfo.event.links.length > 0 &&
@@ -70,6 +71,7 @@ const EventInfoWindow: React.FC<EventInfoWindowProps> = (
             </div>
           </>
       }
+      {/* TODO : Add "click to scroll to event" button here */}
     </div>
   );
 };

@@ -18,6 +18,7 @@ import {
 import EventTime from './EventTime';
 import EventTitleBlock from 'components/EventTitleBlock/EventTitleBlock';
 import EventRender from 'components/EventRender/EventRender';
+import MapsLink from 'components/MapsLink/MapsLink';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
@@ -73,19 +74,32 @@ const EventListItem: React.FC<EventListItemProps> = (
               expand controls are real sibling <button>s (a button cannot legally
               nest other buttons, which previously forced this trigger to be a
               <div>, tripping the aria-allowed-attr / keyboard-access audits). */}
-          <CollapsibleTrigger asChild disabled={!collapsiblePresent}>
-            <button
-              type="button"
-              className={
-                cn(
-                  'flex-1 min-w-0 -mx-2 px-2 py-1 text-left rounded-md text-foreground',
-                  collapsiblePresent ? 'cursor-pointer' : 'cursor-default',
-                )
-              }
-            >
-              <EventTitleBlock event={event} />
-            </button>
-          </CollapsibleTrigger>
+          <div className="flex flex-1 min-w-0 flex-col gap-1">
+            <CollapsibleTrigger asChild disabled={!collapsiblePresent}>
+              <button
+                type="button"
+                className={
+                  cn(
+                    'min-w-0 -mx-2 px-2 py-1 text-left rounded-md text-foreground',
+                    collapsiblePresent ? 'cursor-pointer' : 'cursor-default',
+                  )
+                }
+              >
+                <EventTitleBlock event={event} />
+              </button>
+            </CollapsibleTrigger>
+            {
+              /* Gate on the address specifically: MapsLink self-renders from
+                 name + address, so without this it would also show for a
+                 venue-name-only location — we only want a maps link when
+                 there's a real street address. */
+              event.location.addressStr !== undefined &&
+              event.location.addressStr.length > 0 &&
+                <div className="-mx-2 px-2">
+                  <MapsLink location={event.location} variant="inline" />
+                </div>
+            }
+          </div>
           <div className="flex flex-col items-end justify-start">
             <div className="flex items-center justify-center">
               {

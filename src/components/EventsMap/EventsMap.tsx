@@ -3,7 +3,6 @@
 /* Framework imports ----------------------------------- */
 import React, {
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -33,19 +32,22 @@ import type { MapRef } from 'components/ui/map';
 /* Type declarations ----------------------------------- */
 export interface MarkerInfo {
   id: string;
-  position: { lat: number; lng: number };
+  position: {
+    lat: number;
+    lng: number;
+  };
   event: Event;
 }
 
 /* Internal variables ---------------------------------- */
 // IGN Géoplateforme PLAN.IGN vector style — keyless, served by IGN. Used for
 // both themes (the map stays light; the popup respects dark mode on its own).
-const IGN_STYLE = 'https://data.geopf.fr/annexes/ressources/vectorTiles/styles/PLAN.IGN/standard.json';
+const IGN_STYLE = 'https://data.geopf.fr/annexes/ressources/vectorTiles/styles/PLAN.IGN/standard.json' as const;
 
-const center: { lat: number; lng: number } = {
+const center = {
   lat: 44.840912,
   lng: -0.571377,
-};
+} as const satisfies { lat: number; lng: number };
 
 /* LockBearing component ------------------------------- */
 // Disables map rotation (mouse drag-rotate and two-finger touch rotate) so the
@@ -71,13 +73,13 @@ const LockBearing: React.FC = () => {
 
 /* EventsMap component prop types ---------------------- */
 interface EventsMapProps {
-  events: Event[];
+  eventMarkers: MarkerInfo[];
 }
 
 /* EventsMap component --------------------------------- */
 const EventsMap: React.FC<EventsMapProps> = (
   {
-    events = [],
+    eventMarkers = [],
   },
 ) => {
   const { isFavorite, count } = useFavorites();
@@ -90,20 +92,6 @@ const EventsMap: React.FC<EventsMapProps> = (
     mapRef.current?.flyTo({ center: [ lng, lat ], offset: [ 0, 175 ], duration: 400 });
   };
 
-  const eventMarkers = useMemo<MarkerInfo[]>(
-    () => {
-      const markers: MarkerInfo[] = [];
-      for(const event of events) {
-        const coords = event.location.coords;
-        if(coords !== undefined) {
-          markers.push({ id: event.id, position: { lat: coords.lat, lng: coords.lng }, event });
-        }
-      }
-      return markers;
-    },
-    [events],
-  );
-
   // Falls back to "show all" when there are no favorites, so the filter can't
   // strand the user on an empty map while the Switch is disabled.
   const favoritesOnly: boolean = onlyFavorites && count > 0;
@@ -113,9 +101,6 @@ const EventsMap: React.FC<EventsMapProps> = (
 
   return (
     <div>
-      <span>
-        {`Affichage de ${visibleMarkers.length} marqueurs`}
-      </span>
       <div className="flex items-center gap-2 py-2">
         <Switch
           id="only-favorites"

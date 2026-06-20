@@ -61,17 +61,6 @@ const EventTitleBlock: React.FC<EventTitleBlockProps> = ({ event }) => {
                 event.location.name
           }
         </span>
-        <span>
-          {
-            event.name !== undefined &&
-              event.location.addressStr !== undefined &&
-                ', '
-          }
-          {
-            event.location.addressStr !== undefined &&
-              event.location.addressStr
-          }
-        </span>
         {
           event.genres !== undefined &&
           event.genres.length > 0 &&

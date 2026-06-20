@@ -2,7 +2,6 @@
 
 /* Framework imports ----------------------------------- */
 import React, { useEffect, useMemo, useState } from 'react';
-import dynamic from 'next/dynamic';
 
 /* Module imports -------------------------------------- */
 import { reduceEventsByCategory } from 'helpers/reduceEventsByCategory';
@@ -21,6 +20,7 @@ import EmptyEditionView from 'components/EmptyEditionView/EmptyEditionView';
 import FavoritesProvider from 'components/Favorites/FavoritesProvider';
 import FavoritesSection from 'components/Favorites/FavoritesSection';
 import EditionEventsFilterTool from 'components/EditionEventsFilterTool/EditionEventsFilterTool';
+import EventsMapSection from 'components/EventsMapSection/EventsMapSection';
 
 /* Type imports ---------------------------------------- */
 import type { Event } from 'types/Event';
@@ -31,19 +31,6 @@ import type {
   EventWithDetailView,
   GeneralAlertView,
 } from './types';
-
-/* Dynamic imports ------------------------------------- */
-// maplibre touches document during render → cannot SSR. Load client-only; the
-// placeholder reserves the map's height so its late mount does not shift layout.
-const EventsMap = dynamic(
-  () => import('components/EventsMap/EventsMap'),
-  {
-    ssr: false,
-    loading: (): React.ReactElement => (
-      <div className="h-[600px] w-full overflow-hidden rounded-md border border-border bg-muted/30" />
-    ),
-  },
-);
 
 /* Helpers --------------------------------------------- */
 // Maps a consolidated event DTO (full detail inlined) into the render `Event`
@@ -152,6 +139,7 @@ const EditionAgenda: React.FC<EditionAgendaProps> = (
     <FavoritesProvider editionId={edition.id}>
       <div className="flex flex-col place-items-center min-w-full gap-0">
         <GeneralAlertsBanner alerts={generalAlerts} />
+        <EventsMapSection events={filteredEvents} />
         <FavoritesSection events={viewEvents} feteDeLaMusiqueDay={feteDeLaMusiqueDay} />
         <EditionEventsFilterTool
           filters={filters}
@@ -199,12 +187,6 @@ const EditionAgenda: React.FC<EditionAgendaProps> = (
         }
         <EventsRecap events={viewEvents} />
         <EditionEmbeds embeds={embedLinks} />
-        <section className="w-full max-w-5xl px-4 g:py-8 mx-auto lg:px-0">
-          <h4 className="text-2xl font-semibold tracking-tight pb-4">
-            Cartes des événements
-          </h4>
-          <EventsMap events={filteredEvents} />
-        </section>
       </div>
     </FavoritesProvider>
   );
