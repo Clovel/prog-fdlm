@@ -89,6 +89,10 @@ const EventListItem: React.FC<EventListItemProps> = (
               </button>
             </CollapsibleTrigger>
             {
+              /* Gate on the address specifically: MapsLink self-renders from
+                 name + address, so without this it would also show for a
+                 venue-name-only location — we only want a maps link when
+                 there's a real street address. */
               event.location.addressStr !== undefined &&
               event.location.addressStr.length > 0 &&
                 <div className="-mx-2 px-2">

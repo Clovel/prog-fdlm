@@ -40,12 +40,12 @@ const MapsLink: React.FC<MapsLinkProps> = (
   // redirect happens on click, when `navigator` is available.
   const href: string = buildMapsUrl(query, 'other');
 
-  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>): void => {
+  const handleClick = (mouseEvent: React.MouseEvent<HTMLAnchorElement>): void => {
     const platform = getMapsPlatform();
 
     if(platform === 'other') return; // let the https link open in a new tab
 
-    event.preventDefault();
+    mouseEvent.preventDefault();
     window.location.href = buildMapsUrl(query, platform);
   };
 
