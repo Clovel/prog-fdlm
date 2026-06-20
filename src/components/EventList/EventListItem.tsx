@@ -9,7 +9,6 @@ import React, {
 } from 'react';
 
 /* Module imports -------------------------------------- */
-import slugify from 'slugify';
 import { cn } from 'lib/utils';
 import { FOCUS_EVENT_NAME, isFocusEventEvent } from 'helpers/eventFocus';
 
@@ -71,18 +70,11 @@ const EventListItem: React.FC<EventListItemProps> = (
     [event],
   );
 
-  const itemId: `${'event' | 'favorite'}-${string}` = useMemo<`${'event' | 'favorite'}-${string}`>(
-    () => {
-      if(isFavoritesSection) {
-        return `favorite-${event.id}`;
-      }
-      return `event-${event.name !== undefined ? slugify(event.name) : event.id}`;
-    },
-    [
-      isFavoritesSection,
-      event,
-    ],
-  );
+  // Stable, unique per-event DOM anchor. The favorites copy uses a distinct
+  // prefix so a favorited event's two rows never collide on the same id.
+  const itemId: `${'event' | 'favorite'}-${string}` = isFavoritesSection
+    ? `favorite-${event.id}`
+    : `event-${event.id}`;
 
   const liRef = useRef<HTMLLIElement>(null);
   const [highlighted, setHighlighted] = useState<boolean>(false);
