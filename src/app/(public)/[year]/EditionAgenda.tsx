@@ -1,13 +1,15 @@
 'use client';
 
 /* Framework imports ----------------------------------- */
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 /* Module imports -------------------------------------- */
 import { reduceEventsByCategory } from 'helpers/reduceEventsByCategory';
 import { sortEventsByCategoryEntries } from 'helpers/orderEventsByCategory';
 import { useHeader } from 'app/HeaderContext';
 import { useEditionFilters } from 'hooks/public/useEditionFilters';
+import { eventMatchesFilters, relaxFiltersToShow } from 'helpers/applyEventFilters';
+import { dispatchFocusEvent } from 'helpers/eventFocus';
 
 /* Component imports ----------------------------------- */
 import { Button } from 'components/ui/button';
@@ -72,6 +74,7 @@ interface EditionAgendaProps {
   embedLinks: EmbedLinkView[];
   events: EventWithDetailView[];
   serverNowIso: string;
+  focusEventId?: string;
 }
 
 /* EditionAgenda component ----------------------------- */
@@ -82,6 +85,7 @@ const EditionAgenda: React.FC<EditionAgendaProps> = (
     embedLinks,
     events,
     serverNowIso,
+    focusEventId,
   },
 ) => {
   const { setState: setHeaderState } = useHeader();
@@ -125,6 +129,37 @@ const EditionAgenda: React.FC<EditionAgendaProps> = (
     activeCount,
     filteredEvents,
   } = useEditionFilters(viewEvents, feteDeLaMusiqueDay, now);
+
+  // Deep-link focus: a shared ?event= link lands here. After hydration, reveal
+  // the event (relaxing only the filters that hide it) and dispatch the existing
+  // focus (scroll + expand + highlight). Fires once. Runs only client-side, so
+  // SSR HTML / first render are unaffected (default filters).
+  const focusedRef = useRef<boolean>(false);
+  useEffect(
+    (): void => {
+      if(focusEventId === undefined || focusedRef.current) {
+        return;
+      }
+      const target = viewEvents.find((event) => event.id === focusEventId);
+      if(target === undefined) {
+        return;
+      }
+      if(!eventMatchesFilters(target, filters, feteDeLaMusiqueDay, now)) {
+        setFilters(relaxFiltersToShow(target, filters, feteDeLaMusiqueDay, now));
+        return;
+      }
+      focusedRef.current = true;
+      dispatchFocusEvent(focusEventId);
+    },
+    [
+      focusEventId,
+      viewEvents,
+      filters,
+      setFilters,
+      feteDeLaMusiqueDay,
+      now,
+    ],
+  );
 
   if(viewEvents.length === 0) {
     return (

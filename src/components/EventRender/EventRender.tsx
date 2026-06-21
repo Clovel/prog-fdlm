@@ -11,6 +11,7 @@ import CustomEmbed from 'components/CustomEmbed/CustomEmbed';
 import DescriptionRender from 'components/DescriptionRender/DescriptionRender';
 import EventAlert from 'components/EventAlert/EventAlert';
 import MapsLink from 'components/MapsLink/MapsLink';
+import ShareEventButton from 'components/ShareEventButton/ShareEventButton';
 
 /* Style imports --------------------------------------- */
 
@@ -102,31 +103,26 @@ const EventRender: React.FC<EventRenderProps> = (
             </ul>
           </article>
       }
-      {
-        (
-          (event.location.addressStr !== undefined && event.location.addressStr.length > 0) ||
-          event.location.coords !== undefined
-        ) &&
-          <div className="w-full mt-4 flex items-center gap-2">
-            {
-              event.location.addressStr !== undefined &&
-              event.location.addressStr.length > 0 &&
-                <MapsLink location={event.location} variant="button" />
-            }
-            {
-              event.location.coords !== undefined &&
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="grow shrink-0"
-                  onClick={(): void => dispatchFocusMap(event.id)}
-                >
-                  <MapPinned className="h-4 w-4" />
-                  Voir sur la carte
-                </Button>
-            }
-          </div>
-      }
+      <div className="w-full mt-4 flex flex-wrap items-center gap-2">
+        {
+          event.location.addressStr !== undefined &&
+          event.location.addressStr.length > 0 &&
+            <MapsLink location={event.location} variant="button" />
+        }
+        {
+          event.location.coords !== undefined &&
+            <Button
+              variant="outline"
+              size="sm"
+              className="grow shrink-0"
+              onClick={(): void => dispatchFocusMap(event.id)}
+            >
+              <MapPinned className="h-4 w-4" />
+              Voir sur la carte
+            </Button>
+        }
+        <ShareEventButton event={event} />
+      </div>
     </div>
   );
 };

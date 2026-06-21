@@ -12,10 +12,18 @@ import { authClient } from 'auth/client';
 /* LogoutButton component prop types ------------------- */
 interface LogoutButtonProps {
   className?: string;
+  collapsed?: boolean;
+  onLogout?: () => void;
 }
 
 /* LogoutButton component ------------------------------ */
-const LogoutButton: React.FC<LogoutButtonProps> = ({ className }) => {
+const LogoutButton: React.FC<LogoutButtonProps> = (
+  {
+    className,
+    collapsed = false,
+    onLogout,
+  },
+) => {
   const router = useRouter();
 
   const handleLogout = async (): Promise<void> => {
@@ -26,17 +34,21 @@ const LogoutButton: React.FC<LogoutButtonProps> = ({ className }) => {
   return (
     <button
       type="button"
+      title={collapsed ? 'Se déconnecter' : undefined}
+      aria-label="Se déconnecter"
       className={cn(
-        'flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm font-medium transition-colors',
+        'flex w-full items-center rounded-md py-2 text-sm font-medium transition-colors',
+        collapsed ? 'justify-center px-2' : 'gap-2 px-3 text-left',
         'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
         className,
       )}
       onClick={(): void => {
+        onLogout?.();
         void handleLogout();
       }}
     >
       <LogOut className="size-4 shrink-0" aria-hidden="true" />
-      Se déconnecter
+      <span className={collapsed ? 'sr-only' : undefined}>Se déconnecter</span>
     </button>
   );
 };
