@@ -87,6 +87,32 @@ export const eventMatchesFilters = (
   return true;
 };
 
+/* Deep-link visibility -------------------------------- */
+// Returns `filters` with only the toggles that would hide `event` flipped, so
+// that eventMatchesFilters(event, result, ...) is true. Used by the share
+// deep-link so an event a visitor's default filters would hide (past, off the
+// festival night, or kids-only) still appears when they open its link.
+export const relaxFiltersToShow = (
+  event: Event,
+  filters: FilterState,
+  feteDeLaMusiqueDay: Date,
+  now: Date,
+): FilterState => {
+  const relaxed: FilterState = { ...filters };
+
+  if(relaxed.hidePast && isPast(event, now)) {
+    relaxed.hidePast = false;
+  }
+  if(relaxed.dayOnly && !isInFestivalNight(event.startTime, feteDeLaMusiqueDay)) {
+    relaxed.dayOnly = false;
+  }
+  if(!relaxed.showForKids && event.forKids === true) {
+    relaxed.showForKids = true;
+  }
+
+  return relaxed;
+};
+
 /* Comparator ------------------------------------------ */
 export const compareEvents = (
   sortField: SortField,
