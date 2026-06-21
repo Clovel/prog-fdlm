@@ -14,12 +14,19 @@ import type { GeneralAlertView } from './types';
 
 /* EditionPage component ------------------------------- */
 const EditionPage = async(
-  { params }: { params: Promise<{ year: string }> },
+  {
+    params,
+    searchParams,
+  }: {
+    params: Promise<{ year: string }>;
+    searchParams: Promise<{ event?: string }>;
+  },
 ): Promise<React.ReactElement> => {
   const { year } = await params;
   if(!/^\d{4}$/.test(year)) {
     notFound();
   }
+  const { event: focusEventId } = await searchParams;
 
   const yearNum: number = Number(year);
   const [editionPayload, events] = await Promise.all([
@@ -58,6 +65,7 @@ const EditionPage = async(
         embedLinks={editionPayload.embedLinks}
         events={events}
         serverNowIso={serverNowIso}
+        focusEventId={typeof focusEventId === 'string' ? focusEventId : undefined}
       />
     </>
   );
