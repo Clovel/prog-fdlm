@@ -20,6 +20,8 @@ import type { Role } from 'auth/roles';
 /* AdminSidebar component prop types ------------------- */
 interface AdminSidebarProps {
   role: Role;
+  collapsed?: boolean;
+  onNavigate?: () => void;
 }
 
 /* Helpers --------------------------------------------- */
@@ -31,7 +33,13 @@ const isActive = (pathname: string, href: string): boolean => {
 };
 
 /* AdminSidebar component ------------------------------ */
-const AdminSidebar: React.FC<AdminSidebarProps> = ({ role }) => {
+const AdminSidebar: React.FC<AdminSidebarProps> = (
+  {
+    role,
+    collapsed = false,
+    onNavigate,
+  },
+) => {
   const pathname = usePathname();
   const items = adminNavItems.filter(
     (item) => item.roles === undefined || item.roles.includes(role),
@@ -39,7 +47,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ role }) => {
 
   return (
     <div className="flex h-full flex-col">
-      <nav className="flex flex-col gap-1 p-3">
+      <nav className={cn('flex flex-col gap-1', collapsed ? 'p-2' : 'p-3')}>
         {
           items.map((item) => {
             const Icon = item.icon;
@@ -48,15 +56,19 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ role }) => {
               <Link
                 key={item.href}
                 href={item.href}
+                title={collapsed ? item.label : undefined}
+                aria-label={item.label}
+                onClick={onNavigate}
                 className={cn(
-                  'flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                  'flex items-center rounded-md py-2 text-sm font-medium transition-colors',
+                  collapsed ? 'justify-center px-2' : 'gap-2 px-3',
                   isActive(pathname, item.href)
                     ? 'bg-accent text-accent-foreground'
                     : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
                 )}
               >
                 <Icon className="size-4 shrink-0" aria-hidden="true" />
-                {item.label}
+                <span className={collapsed ? 'sr-only' : undefined}>{item.label}</span>
               </Link>
             );
           })
@@ -64,18 +76,22 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ role }) => {
       </nav>
       <div className="mt-auto">
         <Separator />
-        <nav className="flex flex-col gap-1 p-3">
+        <nav className={cn('flex flex-col gap-1', collapsed ? 'p-2' : 'p-3')}>
           <Link
             href="/"
+            title={collapsed ? 'Retour au site public' : undefined}
+            aria-label="Retour au site public"
+            onClick={onNavigate}
             className={cn(
-              'flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+              'flex items-center rounded-md py-2 text-sm font-medium transition-colors',
+              collapsed ? 'justify-center px-2' : 'gap-2 px-3',
               'text-muted-foreground hover:bg-accent hover:text-accent-foreground',
             )}
           >
             <ArrowLeft className="size-4 shrink-0" aria-hidden="true" />
-            Retour au site public
+            <span className={collapsed ? 'sr-only' : undefined}>Retour au site public</span>
           </Link>
-          <LogoutButton />
+          <LogoutButton collapsed={collapsed} onLogout={onNavigate} />
         </nav>
       </div>
     </div>
