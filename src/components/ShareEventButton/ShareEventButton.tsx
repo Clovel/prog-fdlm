@@ -35,7 +35,7 @@ const ShareEventButton: React.FC<ShareEventButtonProps> = (
       void navigator
         .share({
           title,
-          text: `${title} — Fête de la Musique`,
+          // text: `${title} — Fête de la Musique`,
           url,
         })
         .catch((): void => undefined);

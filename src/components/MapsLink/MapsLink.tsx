@@ -44,10 +44,16 @@ const MapsLink: React.FC<MapsLinkProps> = (
   const href: string = buildMapsUrl(query, 'other');
 
   const handleClick = (mouseEvent: React.MouseEvent<HTMLAnchorElement>): void => {
-    if(platform === 'other') return; // let the https link open in a new tab
-
+    // Always own the navigation: kill the native href open so it can never race
+    // the JS path (the href + handler combo is what double-opened on Firefox).
     mouseEvent.preventDefault();
-    window.location.href = buildMapsUrl(query, platform);
+
+    if(platform === 'other') {
+      window.open(href, '_blank', 'noopener'); // desktop: exactly one new tab
+      return;
+    }
+
+    window.location.href = buildMapsUrl(query, platform); // iOS/Android: open the maps app
   };
 
   if(variant === 'button') {
