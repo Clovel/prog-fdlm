@@ -15,7 +15,7 @@ The build-up is documented spec-by-spec under `docs/superpowers/specs/` and `doc
 
 ## Commands
 
-Package manager is **pnpm, pinned to `pnpm@9.15.9`** via `packageManager` (see the Toolchain section — do NOT bump to pnpm 10/11). Node must be **>=24 <25** (`.nvmrc` pins `24.12.0`). `npm`/`yarn` are blocked via `engines`; use `corepack enable pnpm` if pnpm isn't on `$PATH`.
+Package manager is **pnpm, pinned to `pnpm@9.15.9`** via `packageManager` (see the Toolchain section — do NOT bump to pnpm 10/11). Node must be **>=24.22.1 <25** (`.nvmrc` pins `24.22.1`). `npm`/`yarn` are blocked via `engines`; use `corepack enable pnpm` if pnpm isn't on `$PATH`.
 
 ```bash
 pnpm dev            # Next.js dev server (http://localhost:3000)
